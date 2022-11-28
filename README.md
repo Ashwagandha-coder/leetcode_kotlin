@@ -4,7 +4,7 @@
 
 ## Table task (draw.io)
 
-<img src="/.idea/Диаграмма без названия.drawio.svg" alt="drawing" style="width:800px;"/>
+<img src="/.idea/TableTask.drawio.svg" alt="drawing" style="width:800px;"/>
 
 This repository is under active development Leetcode task solving
 
