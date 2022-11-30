@@ -16,3 +16,4 @@ rootProject.name = "leetcode_kotlin"
 include ':app'
 include ':app-v9hour'
 include ':app-v1day'
+include ':app-v3day'
