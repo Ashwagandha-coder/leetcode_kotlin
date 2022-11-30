@@ -14,6 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "leetcode_kotlin"
 include ':app'
-include ':app-v9hour'
-include ':app-v1day'
-include ':app-v3day'
+include ':repeat-9hour'
+include ':repeat-1day'
+include ':repeat-3day'
