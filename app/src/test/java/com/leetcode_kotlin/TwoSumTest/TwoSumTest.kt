@@ -1,10 +1,10 @@
-package com.leetcode_kotlin
+package com.leetcode_kotlin.TwoSumTest
 
 import com.leetcode_kotlin.TwoSum.twoSumMain
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
-class Solution {
+class TwoSumTest {
 
 
     @Test
