@@ -21,6 +21,10 @@ class PalindromeTest {
     @Test
     fun case_2() {
 
+        val expected = false
+        val actual = palindromeNumber(-121)
+
+        assertEquals(expected,actual)
 
 
     }
@@ -28,7 +32,8 @@ class PalindromeTest {
     @Test
     fun case_3() {
 
-
+        val expected = false
+        val actual = palindromeNumber(10)
 
 
     }
