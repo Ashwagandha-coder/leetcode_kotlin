@@ -1,6 +1,5 @@
 package com.leetcode_kotlin.LongestCommonPrefix;
 
-import java.util.ArrayList;
 
 public class DoSomething {
 
@@ -10,7 +9,7 @@ public class DoSomething {
         int i = 1;
         while(i < strs.length){
             while(strs[i].indexOf(pre) != 0)
-                pre = pre.substring(0,pre.length()-1);
+                pre = pre.substring(0,pre.length() - 1);
             i++;
         }
         return pre;
