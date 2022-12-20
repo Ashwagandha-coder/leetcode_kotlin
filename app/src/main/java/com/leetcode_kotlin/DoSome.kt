@@ -1,6 +1,6 @@
 package com.leetcode_kotlin
 
-import com.leetcode_kotlin.LongestCommonPrefix.stub
+import com.leetcode_kotlin.LongestCommonPrefix.longestCommonPrefix
 
 
 fun main() {
@@ -10,17 +10,28 @@ fun main() {
     //println(peredacha(arrayOf("flower","flow","flight")))
 
 
-    stub(arrayOf("flower")).forEach { println(it) }
+//    stub(arrayOf("flower")).forEach { println(it) }
+//
+//    println("flower".substring(0,"flower".length))
+//
+//    println("flower".length)
+//
+//    val param = arrayOf("flower")
+//
+//    val param2 = param[0].length
+//
+//    println(param[0][param2 - 1])
 
-    println("flower".substring(0,"flower".length))
 
-    println("flower".length)
+    //longestCommonPrefix2(arrayOf("ass","phone","house")).forEach { println(it) }
+    //longestCommonPrefix2(arrayOf("flower","flow","flight")).forEach { print(it) }
 
-    val param = arrayOf("flower")
+    //fortest(arrayOf("flower","flow","flight"))
 
-    val param2 = param[0].length
+    longestCommonPrefix(arrayOf("flower","flow","flight")).forEach { print(it) }
 
-    println(param[0][param2 - 1])
+    longestCommonPrefix(arrayOf("car","house","phone"))
+
 
 
 
