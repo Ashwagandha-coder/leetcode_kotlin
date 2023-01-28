@@ -12,10 +12,6 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/repeat-1day" />
-            <option value="$PROJECT_DIR$/repeat-3day" />
-            <option value="$PROJECT_DIR$/repeat-9day" />
-            <option value="$PROJECT_DIR$/repeat-9hour" />
           </set>
         </option>
       </GradleProjectSettings>
