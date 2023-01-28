@@ -1,8 +1,14 @@
-package com.leetcode_kotlin.TwoSum
+package com.leetcode_kotlin.task
+
+fun main() {
 
 
+    twoSumRepeat(intArrayOf(3,2,3),6).forEach { print("$it ") }
 
-fun twoSumMain(nums: IntArray, target: Int): IntArray {
+}
+
+
+fun twoSumRepeat(nums: IntArray, target: Int): IntArray {
 
     var result = intArrayOf(0)
 
@@ -23,3 +29,4 @@ fun twoSumMain(nums: IntArray, target: Int): IntArray {
 
 
 }
+
