@@ -10,7 +10,7 @@ fun removeElements(nums: IntArray, value: Int): Int {
 
     for (i in range) {
         if (nums[i] != value) {
-            temp = nums[i]
+            temp = nums[count]
             nums[count] = nums[i]
             nums[i] = temp
             count++

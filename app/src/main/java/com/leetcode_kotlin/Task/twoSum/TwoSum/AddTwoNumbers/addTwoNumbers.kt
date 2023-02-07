@@ -40,7 +40,3 @@ class ListNode(private val value: Int) {
     var next: ListNode? = null
 
 }
-
-
-
-
