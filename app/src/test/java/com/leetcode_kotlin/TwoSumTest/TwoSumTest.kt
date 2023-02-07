@@ -1,6 +1,6 @@
 package com.leetcode_kotlin.TwoSumTest
 
-import com.leetcode_kotlin.TwoSum.twoSumMain
+import com.leetcode_kotlin.Task.twoSum.TwoSum.TwoSum.twoSumMain
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
