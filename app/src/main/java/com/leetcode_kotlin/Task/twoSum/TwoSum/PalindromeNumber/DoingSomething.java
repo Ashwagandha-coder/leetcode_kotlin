@@ -1,4 +1,4 @@
-package com.leetcode_kotlin.PalindromeNumber;
+package com.leetcode_kotlin.Task.twoSum.TwoSum.PalindromeNumber;
 
 public class DoingSomething {
 

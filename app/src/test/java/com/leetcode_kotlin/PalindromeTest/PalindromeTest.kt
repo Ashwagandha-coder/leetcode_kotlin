@@ -1,7 +1,7 @@
 package com.leetcode_kotlin.PalindromeTest
 
-import com.leetcode_kotlin.PalindromeNumber.palindromeNumber
-import junit.framework.Assert.assertEquals
+import com.leetcode_kotlin.Task.twoSum.TwoSum.PalindromeNumber.palindromeNumber
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
 class PalindromeTest {
@@ -24,7 +24,7 @@ class PalindromeTest {
         val expected = false
         val actual = palindromeNumber(-121)
 
-        assertEquals(expected,actual)
+        assertEquals(expected, actual)
 
 
     }
@@ -34,6 +34,8 @@ class PalindromeTest {
 
         val expected = false
         val actual = palindromeNumber(10)
+
+        assertEquals(expected, actual)
 
 
     }

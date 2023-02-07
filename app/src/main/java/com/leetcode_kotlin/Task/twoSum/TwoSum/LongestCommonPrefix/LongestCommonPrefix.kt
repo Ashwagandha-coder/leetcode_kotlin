@@ -1,4 +1,4 @@
-package com.leetcode_kotlin.LongestCommonPrefix
+package com.leetcode_kotlin.Task.twoSum.TwoSum.LongestCommonPrefix
 
 
 fun longestCommonPrefix(strs: Array<String>): String {
