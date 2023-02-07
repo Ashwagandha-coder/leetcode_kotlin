@@ -20,15 +20,3 @@ fun removeElements(nums: IntArray, value: Int): Int {
     return count
 
 }
-
-fun main() {
-
-    val massive = intArrayOf(3,2,2,3)
-    val elem = 2
-
-    val result = removeElements(massive,elem)
-
-    println(result)
-
-
-}
