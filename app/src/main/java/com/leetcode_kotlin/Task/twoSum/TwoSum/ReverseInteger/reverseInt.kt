@@ -20,6 +20,8 @@ fun reverseInt(value: Int): Int {
 
 }
 
+// Недоделал
+
 fun main() {
 
     println(reverseInt(324))
