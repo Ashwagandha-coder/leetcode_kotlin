@@ -25,15 +25,7 @@ fun findDisappearedNumbers(nums: IntArray): List<Int> {
     return result
 
 
+// Unfinished
 
-
-
-}
-
-fun main() {
-
-    val value = intArrayOf(4,3,2,7,8,2,3,1)
-
-    println(findDisappearedNumbers(value))
 
 }
