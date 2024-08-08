@@ -5,8 +5,7 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    val arr = intArrayOf(1,2,50,4)
-    minimumOperations(arr)
+   numIdenticalPairs(intArrayOf(1,1,1,1))
 }
 
 
@@ -37,6 +36,20 @@ fun finalValueAfterOperations(opr: Array<String>): Int {
         else res += 1
     }
     return res
+}
+
+/**
+ * 1512. Number of Good Pairs
+ */
+
+fun numIdenticalPairs(nums: IntArray): Int {
+    val counts = mutableMapOf<Int, Int>()
+    var ans = 0
+    for (num in nums) {
+        if (counts.contains(num)) ans += counts[num]!!
+        counts[num] = (counts[num] ?: 0) + 1
+    }
+    return ans
 }
 
 
