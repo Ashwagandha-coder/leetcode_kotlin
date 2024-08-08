@@ -1,3 +1,5 @@
 package com.leetcode_kotlin
 
-fun main() {}
+fun main() {
+
+}
