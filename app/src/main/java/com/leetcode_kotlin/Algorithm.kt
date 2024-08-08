@@ -24,3 +24,20 @@ fun minimumOperations(nums: IntArray): Int {
     return res
 }
 
+
+/**
+ * 2011. Final Value of Variable After Performing Operations
+ */
+
+
+fun finalValueAfterOperations(opr: Array<String>): Int {
+    var res = 0
+    for (i in opr) {
+        if (i.contains("-")) res -= 1
+        else res += 1
+    }
+    return res
+}
+
+
+
