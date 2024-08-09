@@ -83,6 +83,23 @@ fun missingNumber(nums: IntArray): Int {
     return length * (length + 1) / 2 - sum
 }
 
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ */
+
+fun findDisappearedNumbers(nums: IntArray): List<Int> {
+    val arr = mutableListOf<Int>()
+    val set = mutableSetOf<Int>()
+    for (i in nums) set.add(i)
+    for (i in 1..nums.size) {
+        if (!set.contains(i)) {
+            arr.add(i)
+        }
+    }
+    return arr
+}
+}
+
 
 
 
