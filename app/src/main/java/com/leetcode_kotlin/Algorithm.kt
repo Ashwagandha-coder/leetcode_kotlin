@@ -69,7 +69,19 @@ fun containsDuplicate(nums: IntArray): Boolean {
     return false
 }
 
+/**
+ * 268. Missing Number
+ */
 
+
+fun missingNumber(nums: IntArray): Int {
+    val length = nums.size
+    var sum = 0
+    for (i in nums) {
+        sum += i
+    }
+    return length * (length + 1) / 2 - sum
+}
 
 
 
