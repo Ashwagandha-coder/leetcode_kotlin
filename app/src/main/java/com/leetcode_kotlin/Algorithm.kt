@@ -98,6 +98,15 @@ fun findDisappearedNumbers(nums: IntArray): List<Int> {
     }
     return arr
 }
+
+/**
+ * 136. Single Number
+ */
+
+fun singleNumber(nums: IntArray): Int {
+    var res = 0
+    for (i in nums) res = res xor i
+    return res
 }
 
 
