@@ -5,7 +5,7 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-   numIdenticalPairs(intArrayOf(1,1,1,1))
+    println(containsDuplicate(intArrayOf(1,2,3,7)))
 }
 
 
@@ -51,6 +51,27 @@ fun numIdenticalPairs(nums: IntArray): Int {
     }
     return ans
 }
+
+
+/**
+ * 217. Contains Duplicate
+ */
+
+fun containsDuplicate(nums: IntArray): Boolean {
+    var count = 1
+    val map = mutableMapOf<Int, Int>()
+    for (i in nums.indices) {
+        if (map.contains(nums[i])) return true
+        else {
+            map.put(nums[i], 1)
+        }
+    }
+    return false
+}
+
+
+
+
 
 
 
