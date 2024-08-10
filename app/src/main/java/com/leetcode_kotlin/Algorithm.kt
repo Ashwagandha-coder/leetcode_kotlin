@@ -109,6 +109,22 @@ fun singleNumber(nums: IntArray): Int {
     return res
 }
 
+/**
+ * 121. Best Time to Buy and Sell Stock
+ */
+
+
+fun maxProfit(prices: IntArray): Int {
+    var profit = Int.MIN_VALUE
+    var min = Int.MAX_VALUE
+    for (i in prices.indices) {
+        if (prices[i] < min) min = prices[i]
+        if (prices[i] - min > profit) profit = prices[i] - min
+    }
+    return profit
+}
+
+
 
 
 
