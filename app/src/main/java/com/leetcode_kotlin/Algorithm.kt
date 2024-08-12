@@ -5,10 +5,8 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    insertionSort(intArrayOf(1, 5, 3, 2, 0)).let {
-        it.forEach { e ->
-            println(e)
-        }
+    tabulation(6).let {
+        println(it)
     }
 }
 
@@ -169,6 +167,24 @@ fun insertionSort(array: IntArray): IntArray {
     }
     return array
 }
+
+
+/**
+ * Fibonaci
+ */
+
+
+fun tabulation(param: Int): Int? {
+    val cache: Array<Int?> = arrayOfNulls(param + 1)
+    cache[0] = 0
+    cache[1] = 1
+    for (i in 2..param) {
+        cache[i] = cache[i - 2]!! + cache[i - 1]!!
+    }
+    return cache[param]
+}
+
+
 
 
 
