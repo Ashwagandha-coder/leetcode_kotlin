@@ -5,7 +5,11 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    println(containsDuplicate(intArrayOf(1,2,3,7)))
+    insertionSort(intArrayOf(1,5,3,2)).let {
+        it.forEach { e ->
+            println(e)
+        }
+    }
 }
 
 
@@ -122,6 +126,31 @@ fun maxProfit(prices: IntArray): Int {
         if (prices[i] - min > profit) profit = prices[i] - min
     }
     return profit
+}
+
+/**
+ * Insertion Sort
+ */
+
+fun insertionSort(array: IntArray): IntArray {
+    var min = Int.MAX_VALUE
+    var ind = 0
+    var temp = 0
+    var j = 0
+    while (j <= array.size - 1) {
+        for (i in j until array.size) {
+            if (array[i] < min) {
+                min = array[i]
+                ind = i
+            }
+        }
+        temp = array[j]
+        array[j] = min
+        array[ind] = temp
+        j++
+        min = Int.MAX_VALUE
+    }
+    return array
 }
 
 
