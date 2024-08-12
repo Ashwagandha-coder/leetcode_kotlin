@@ -5,7 +5,7 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    insertionSort(intArrayOf(1,5,3,2)).let {
+    insertionSort(intArrayOf(1, 5, 3, 2, 0)).let {
         it.forEach { e ->
             println(e)
         }
@@ -129,10 +129,10 @@ fun maxProfit(prices: IntArray): Int {
 }
 
 /**
- * Insertion Sort
+ * Selection Sort
  */
 
-fun insertionSort(array: IntArray): IntArray {
+fun selectionSort(array: IntArray): IntArray {
     var min = Int.MAX_VALUE
     var ind = 0
     var temp = 0
@@ -152,6 +152,25 @@ fun insertionSort(array: IntArray): IntArray {
     }
     return array
 }
+
+/**
+ *  Insertion Sort
+ */
+
+fun insertionSort(array: IntArray): IntArray {
+    for (i in 1 until array.size) {
+        var sorted = i - 1
+        while (sorted > -1 && array[sorted] > array[sorted + 1]) {
+            var temp = array[sorted]
+            array[sorted] = array[sorted + 1]
+            array[sorted + 1] = temp
+            sorted--
+        }
+    }
+    return array
+}
+
+
 
 
 
