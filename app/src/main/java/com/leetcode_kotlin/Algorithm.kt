@@ -5,7 +5,7 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    tabulation(6).let {
+    memoization(6).let {
         println(it)
     }
 }
@@ -182,6 +182,23 @@ fun tabulation(param: Int): Int? {
         cache[i] = cache[i - 2]!! + cache[i - 1]!!
     }
     return cache[param]
+}
+
+
+fun memoization(param: Int): Int {
+    val cache = IntArray(param + 1)
+    return fib(param, cache)
+}
+
+fun fib(param: Int, array: IntArray): Int {
+    if (param == 0) return 0
+    if (param == 1) return 1
+    if (array[param] == 0) {
+        var a = fib(param - 2, array)
+        var b = fib(param - 1, array)
+        array[param] = a + b
+    }
+    return array[param]
 }
 
 
