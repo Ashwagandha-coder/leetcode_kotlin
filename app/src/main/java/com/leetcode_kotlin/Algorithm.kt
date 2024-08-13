@@ -202,6 +202,27 @@ fun fib(param: Int, array: IntArray): Int {
 }
 
 
+/**
+ * 303. Range Sum Query - Immutable
+ */
+
+
+class NumArray(val nums: IntArray) {
+
+    fun sumRange(left: Int, right: Int): Int {
+        var sum = 0
+        var l = left
+        var r = right
+        while(l <= r) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
+}
+
+
 
 
 
