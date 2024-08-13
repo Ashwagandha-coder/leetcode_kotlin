@@ -223,6 +223,32 @@ class NumArray(val nums: IntArray) {
 }
 
 
+/**
+ * 338. Counting Bits
+ */
+
+fun countBits(n: Int): IntArray {
+    val nums = IntArray(n + 1)
+    if (n == 0) return nums
+    if (n == 1) {
+        nums[1] = 1
+        return nums
+    }
+    nums[1] = 1
+    var res = 0
+    for (i in 2..nums.size - 1) {
+        var ind = i
+        while (ind > 0) {
+            res += ind and 1
+            ind /= 2
+        }
+        nums[i] = res
+        res = 0
+    }
+    return nums
+}
+
+
 
 
 
