@@ -5,9 +5,7 @@ package com.leetcode_kotlin
  */
 
 fun main() {
-    memoization(6).let {
-        println(it)
-    }
+
 }
 
 
@@ -269,6 +267,22 @@ fun hasCycle(head: ListNode?): Boolean {
     }
     return false
 }
+
+/**
+ *  876. Middle of the Linked List
+ */
+
+fun middleNode(head: ListNode?): ListNode? {
+    var slow = head
+    var fast = head?.next
+    while(fast != null) {
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    return slow
+}
+
+
 
 
 
