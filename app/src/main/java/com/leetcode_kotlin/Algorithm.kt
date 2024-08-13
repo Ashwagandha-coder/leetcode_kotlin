@@ -213,7 +213,7 @@ class NumArray(val nums: IntArray) {
         var sum = 0
         var l = left
         var r = right
-        while(l <= r) {
+        while (l <= r) {
             sum += nums[l]
             l++
         }
@@ -246,6 +246,28 @@ fun countBits(n: Int): IntArray {
         res = 0
     }
     return nums
+}
+
+/**
+ * 141. Linked List Cycle
+ */
+
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
+
+
+fun hasCycle(head: ListNode?): Boolean {
+    var slow = head
+    var fast = head?.next
+    while (slow != null && fast != null) {
+        slow = slow?.next
+        fast = fast?.next?.next
+        if (slow === fast) {
+            return true
+        }
+    }
+    return false
 }
 
 
