@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.Stack
+
 /**
  * Executing
  */
@@ -281,6 +283,28 @@ fun middleNode(head: ListNode?): ListNode? {
     }
     return slow
 }
+
+/**
+ * 206. Reverse Linked List
+ */
+
+fun reverseList(head: ListNode?): ListNode? {
+    var curr: ListNode? = head
+    var next: ListNode? = null
+    var prev: ListNode? = null
+
+    while (curr != null) {
+        next = curr?.next
+
+        curr?.next = prev
+
+        prev = curr
+        curr = next
+    }
+    return prev
+}
+
+
 
 
 
