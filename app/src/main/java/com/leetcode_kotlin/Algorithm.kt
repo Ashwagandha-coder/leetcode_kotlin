@@ -1,13 +1,15 @@
 package com.leetcode_kotlin
 
-import java.util.Stack
-
 /**
  * Executing
  */
 
 fun main() {
-
+    val linked = ListNode(1)
+    linked.next = ListNode(1)
+    linked.next?.next = ListNode(2)
+    linked.next?.next?.next = ListNode(1)
+    isPalindrome(linked)
 }
 
 
@@ -277,7 +279,7 @@ fun hasCycle(head: ListNode?): Boolean {
 fun middleNode(head: ListNode?): ListNode? {
     var slow = head
     var fast = head?.next
-    while(fast != null) {
+    while (fast != null) {
         slow = slow?.next
         fast = fast?.next?.next
     }
@@ -305,7 +307,19 @@ fun reverseList(head: ListNode?): ListNode? {
 }
 
 
-
+fun isPalindrome(head: ListNode?): Boolean {
+    var node = head
+    var reverse = reverseList(node)
+    while (node != null) {
+        if (node?.`val` != node?.`val`) {
+            return false
+        } else {
+            node = node?.next
+            reverse = reverse?.next
+        }
+    }
+    return true
+}
 
 
 
