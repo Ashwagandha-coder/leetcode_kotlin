@@ -317,7 +317,7 @@ fun isPalindrome(head: ListNode?): Boolean {
     var slow = head
     var fast = head?.next
     var count = 0
-    while(fast?.next != null) {
+    while (fast?.next != null) {
         slow = slow?.next
         fast = fast?.next?.next
         count++
@@ -325,7 +325,7 @@ fun isPalindrome(head: ListNode?): Boolean {
     var temp: ListNode? = null
     temp = reverse(slow?.next)
     var res = head
-    while(temp != null) {
+    while (temp != null) {
         if (res?.`val` != temp?.`val`) {
             return false
         }
@@ -363,8 +363,7 @@ fun deleteDuplicates(head: ListNode?): ListNode? {
     while (curr?.next != null) {
         if (curr?.`val` == curr?.next?.`val`) {
             curr?.next = curr?.next?.next
-        }
-        else curr = curr?.next
+        } else curr = curr?.next
     }
     return temp?.next
 }
@@ -407,6 +406,29 @@ fun nextGreatestLetter(letters: CharArray, target: Char): Char {
         if (tar < (letters[i] - '0')) return letters[i]
     }
     return letters[0]
+}
+
+
+/**
+ * O(log n)
+ */
+
+
+fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
+    val len = letters.size
+    var middle = 0
+    var left = 0
+    var right = len - 1
+    while (left != right) {
+        middle = (left + right) / 2
+        if (letters[middle] <= target) {
+            left = middle + 1
+        } else {
+            right = middle
+        }
+    }
+    if (letters[left] <= target) return letters[0]
+    return letters[left]
 }
 
 
