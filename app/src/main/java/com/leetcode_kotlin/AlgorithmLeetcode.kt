@@ -307,18 +307,66 @@ fun reverseList(head: ListNode?): ListNode? {
 }
 
 
+/**
+ * 234. Palindrome Linked List
+ */
+
 fun isPalindrome(head: ListNode?): Boolean {
-    var node = head
-    var reverse = reverseList(node)
-    while (node != null) {
-        if (node?.`val` != node?.`val`) {
+    if (head == null) return true
+
+    var slow = head
+    var fast = head?.next
+    var count = 0
+    while(fast?.next != null) {
+        slow = slow?.next
+        fast = fast?.next?.next
+        count++
+    }
+    var temp: ListNode? = null
+    temp = reverse(slow?.next)
+    var res = head
+    while(temp != null) {
+        if (res?.`val` != temp?.`val`) {
             return false
-        } else {
-            node = node?.next
-            reverse = reverse?.next
         }
+        temp = temp?.next
+        res = res?.next
     }
     return true
+}
+
+fun reverse(head: ListNode?): ListNode? {
+    var curr: ListNode? = head
+    var next: ListNode? = null
+    var prev: ListNode? = null
+    while (curr != null) {
+        next = curr?.next
+        curr?.next = prev
+
+        prev = curr
+        curr = next
+    }
+    return prev
+}
+
+
+/**
+ * 83. Remove Duplicates from Sorted List
+ */
+
+
+fun deleteDuplicates(head: ListNode?): ListNode? {
+    // 1 1 1 2 2 2 3 4 -> 1 2 3 4
+    var temp: ListNode? = ListNode(101)
+    var curr = temp
+    temp?.next = head
+    while (curr?.next != null) {
+        if (curr?.`val` == curr?.next?.`val`) {
+            curr?.next = curr?.next?.next
+        }
+        else curr = curr?.next
+    }
+    return temp?.next
 }
 
 
