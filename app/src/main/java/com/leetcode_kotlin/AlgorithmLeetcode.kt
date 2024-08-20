@@ -1,15 +1,24 @@
 package com.leetcode_kotlin
 
+import kotlin.math.max
+
 /**
  * Executing
  */
 
 fun main() {
-    val linked = ListNode(1)
-    linked.next = ListNode(1)
-    linked.next?.next = ListNode(2)
-    linked.next?.next?.next = ListNode(1)
-    isPalindrome(linked)
+    val nodes = TreeNode(1)
+    nodes.left = TreeNode(4)
+    nodes.right = TreeNode(7)
+    nodes.left?.left = TreeNode(2)
+    nodes.left?.right = TreeNode(3)
+    nodes.left?.right?.left = TreeNode(2)
+
+    nodes.right?.left = TreeNode(5)
+    nodes.right?.right = TreeNode(4)
+
+    val res = bfs(nodes)
+    println(res)
 }
 
 
@@ -431,6 +440,24 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
     return letters[left]
 }
 
+/**
+ * BFS - Breath First Search
+ * Time - O(n)  Space - O(n)
+ */
+
+
+class TreeNode(val value: Int) {
+    var left: TreeNode? = null
+    var right: TreeNode? = null
+}
+
+fun bfs(root: TreeNode?): Int {
+    if (root == null) return 0
+    var maxLeftTree = bfs(root?.left)
+    var maxRightTree = bfs(root?.right)
+
+    return max(maxLeftTree, maxRightTree) + root.value
+}
 
 
 
