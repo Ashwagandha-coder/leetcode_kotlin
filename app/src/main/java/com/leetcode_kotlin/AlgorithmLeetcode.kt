@@ -396,6 +396,19 @@ fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
     return result.next
 }
 
+/**
+ * 744. Find Smallest Letter Greater Than Target
+ */
+
+
+fun nextGreatestLetter(letters: CharArray, target: Char): Char {
+    var tar = target - '0'
+    for (i in 0..letters.size - 1) {
+        if (tar < (letters[i] - '0')) return letters[i]
+    }
+    return letters[0]
+}
+
 
 
 
