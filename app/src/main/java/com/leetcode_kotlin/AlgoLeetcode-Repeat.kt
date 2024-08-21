@@ -15,3 +15,12 @@ fun Repeat.missingNumber(nums: IntArray): Int {
 }
 
 
+fun Repeat.singleNumber(nums: IntArray): Int {
+    var res = 0
+    for (i in 0..nums.size - 1) {
+        res = res xor nums[i]
+    }
+    return res
+}
+
+
