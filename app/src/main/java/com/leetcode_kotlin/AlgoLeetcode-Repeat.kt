@@ -1,7 +1,20 @@
 package com.leetcode_kotlin
 
+import kotlin.math.max
+
 fun main() {
-    println("Hello World")
+    val nodes = RepeatTreeNode(1)
+    nodes.left = RepeatTreeNode(4)
+    nodes.right = RepeatTreeNode(7)
+    nodes.left?.left = RepeatTreeNode(2)
+    nodes.left?.right = RepeatTreeNode(3)
+    nodes.left?.right?.left = RepeatTreeNode(2)
+
+    nodes.right?.left = RepeatTreeNode(5)
+    nodes.right?.right = RepeatTreeNode(4)
+
+    val res = bfs(nodes)
+    println(res)
 }
 
 class Repeat
@@ -33,4 +46,19 @@ fun Repeat.findDisappearedNumbers(nums: IntArray): List<Int> {
         if (!set.contains(i)) list.add(i)
     }
     return list
+}
+
+class RepeatTreeNode(val value: Int) {
+    var left: RepeatTreeNode? = null
+    var right: RepeatTreeNode? = null
+}
+
+
+fun bfs(root: RepeatTreeNode?): Int {
+    if (root == null) return 0
+
+    var minDepthSum = bfs(root.left)
+    var maxDepthSum = bfs(root.right)
+
+    return max(maxDepthSum, minDepthSum) + root.value
 }
