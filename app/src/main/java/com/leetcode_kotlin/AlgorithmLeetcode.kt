@@ -7,18 +7,8 @@ import kotlin.math.max
  */
 
 fun main() {
-    val nodes = TreeNode(1)
-    nodes.left = TreeNode(4)
-    nodes.right = TreeNode(7)
-    nodes.left?.left = TreeNode(2)
-    nodes.left?.right = TreeNode(3)
-    nodes.left?.right?.left = TreeNode(2)
 
-    nodes.right?.left = TreeNode(5)
-    nodes.right?.right = TreeNode(4)
 
-    val res = bfs(nodes)
-    println(res)
 }
 
 
@@ -458,6 +448,22 @@ fun bfs(root: TreeNode?): Int {
 
     return max(maxLeftTree, maxRightTree) + root.value
 }
+
+
+
+var ans = 0
+
+fun dfs(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var minPathSum = max(dfs(root.left), 0)
+    var maxPathSum = max(dfs(root.right), 0)
+
+    ans = max(ans, maxPathSum + minPathSum + root.value)
+
+    return max(minPathSum, maxPathSum) + root.value
+}
+
 
 
 
