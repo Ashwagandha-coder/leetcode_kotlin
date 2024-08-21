@@ -24,3 +24,13 @@ fun Repeat.singleNumber(nums: IntArray): Int {
 }
 
 
+fun Repeat.findDisappearedNumbers(nums: IntArray): List<Int> {
+    val len = nums.size
+    val set = mutableSetOf<Int>()
+    val list = mutableListOf<Int>()
+    for (i in 0..len - 1) set.add(nums[i])
+    for (i in 1..len) {
+        if (!set.contains(i)) list.add(i)
+    }
+    return list
+}
