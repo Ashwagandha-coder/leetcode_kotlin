@@ -9,6 +9,7 @@ import kotlin.math.max
 fun main() {
 
     val arr = intArrayOf(4, 7, 1, 3, 8, 6, 9, 2, 3, 7, 4)
+    val arr2 = intArrayOf(4, 7, 2, 5, 9, 4, 3)
 
     /*
     4 7 1 3 8 6 9 2 3 7 4
@@ -18,10 +19,12 @@ fun main() {
 
      */
 
-    quickSort(arr, 0, arr.size - 1)
-    arr.forEach {
+    quickSort(arr2, 0, arr2.size - 1)
+    arr2.forEach {
         print("$it ")
     }
+
+    val test = listOf<Int>()
 
 }
 
@@ -486,10 +489,13 @@ fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
 
 fun quickSort(arr: IntArray, start: Int, end: Int) {
     if (start >= end) return
-    var starting = partOfSortHoara(arr, 0, arr.size - 1)
-    quickSort(arr, starting + 1, arr.size - 1)
-    quickSort(arr, 0, starting)
+    var starting = partOfSortHoara(arr, start, end)
+    quickSort(arr, start, starting - 1)
+    quickSort(arr, start + 1, end)
 }
+
+
+
 
 
 
