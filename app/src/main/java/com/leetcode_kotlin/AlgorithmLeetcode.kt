@@ -8,6 +8,20 @@ import kotlin.math.max
 
 fun main() {
 
+    val arr = intArrayOf(4, 7, 1, 3, 8, 6, 9, 2, 3, 7, 4)
+
+    /*
+    4 7 1 3 8 6 9 2 3 7 4
+              6
+    4 4 1 3 8 6 9 2 3 7 7
+    4 4 1 3 3 6 9 2 8 7 7
+
+     */
+
+    quickSort(arr, 0, arr.size - 1)
+    arr.forEach {
+        print("$it ")
+    }
 
 }
 
@@ -450,18 +464,31 @@ fun bfs(root: TreeNode?): Int {
 }
 
 
+fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
+    val pivot = arr[(start + end) / 2]
+    var left = start
+    var right = end
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
 
-var ans = 0
+        if (left <= right) {
 
-fun dfs(root: TreeNode?): Int {
-    if (root == null) return 0
+            var temp = arr[left]
+            arr[left] = arr[right]
+            arr[right] = temp
+            left++
+            right--
+        }
+    }
+    return left
+}
 
-    var minPathSum = max(dfs(root.left), 0)
-    var maxPathSum = max(dfs(root.right), 0)
-
-    ans = max(ans, maxPathSum + minPathSum + root.value)
-
-    return max(minPathSum, maxPathSum) + root.value
+fun quickSort(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    var starting = partOfSortHoara(arr, 0, arr.size - 1)
+    quickSort(arr, starting + 1, arr.size - 1)
+    quickSort(arr, 0, starting)
 }
 
 
