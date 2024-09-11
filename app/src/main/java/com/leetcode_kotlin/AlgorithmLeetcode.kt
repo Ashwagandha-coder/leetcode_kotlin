@@ -1,6 +1,7 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
+import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -10,10 +11,10 @@ import kotlin.math.max
 
 fun main() {
 
-    val arr = intArrayOf(1, 2, 3, 4)
+    val arr = intArrayOf(1, 3, 4, 2, 2)
 
-    productExceptSelfPrefixOptimization(arr).forEach {
-        print("$it ")
+    findDuplicate(arr).apply {
+        print(this)
     }
 
 }
@@ -547,6 +548,21 @@ fun productExceptSelfPrefixOptimization(nums: IntArray): IntArray {
         curr *= nums[i]
     }
     return ans
+}
+
+/**
+ * 287. Find the Duplicate Number
+ */
+
+
+fun findDuplicate(nums: IntArray): Int {
+    var len = nums.size
+    for (i in 0..len - 1) {
+        var ind = abs(nums[i])
+        if (nums[ind] < 0) return ind
+        nums[ind] = -1 * nums[ind]
+    }
+    return 0
 }
 
 
