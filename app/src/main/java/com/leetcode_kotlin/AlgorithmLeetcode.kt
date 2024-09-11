@@ -8,23 +8,11 @@ import kotlin.math.max
 
 fun main() {
 
-    val arr = intArrayOf(4, 7, 1, 3, 8, 6, 9, 2, 3, 7, 4)
-    val arr2 = intArrayOf(4, 7, 2, 5, 9, 4, 3)
+    val arr = intArrayOf(1, 2, 3, 4)
 
-    /*
-    4 7 1 3 8 6 9 2 3 7 4
-              6
-    4 4 1 3 8 6 9 2 3 7 7
-    4 4 1 3 3 6 9 2 8 7 7
-
-     */
-
-    quickSort(arr2, 0, arr2.size - 1)
-    arr2.forEach {
+    productExceptSelf(arr).forEach {
         print("$it ")
     }
-
-    val test = listOf<Int>()
 
 }
 
@@ -492,6 +480,26 @@ fun quickSort(arr: IntArray, start: Int, end: Int) {
     var starting = partOfSortHoara(arr, start, end)
     quickSort(arr, start, starting - 1)
     quickSort(arr, start + 1, end)
+}
+
+/**
+ * 238. Product of Array Except Self - Brute Force
+ */
+
+
+fun productExceptSelf(arr: IntArray): IntArray {
+    var n = arr.size
+    val ans = IntArray(n)
+    var prod = 1
+    for (i in arr.indices) {
+        prod = 1
+        for (j in arr.indices) {
+            if (i == j) continue
+            prod *= arr[j]
+        }
+        ans[i] = prod
+    }
+    return ans
 }
 
 
