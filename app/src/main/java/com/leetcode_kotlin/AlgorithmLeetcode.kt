@@ -1,24 +1,22 @@
 package com.leetcode_kotlin
 
+import java.util.Arrays
+import kotlin.math.abs
 import kotlin.math.max
+
 
 /**
  * Executing
  */
 
 fun main() {
-    val nodes = TreeNode(1)
-    nodes.left = TreeNode(4)
-    nodes.right = TreeNode(7)
-    nodes.left?.left = TreeNode(2)
-    nodes.left?.right = TreeNode(3)
-    nodes.left?.right?.left = TreeNode(2)
 
-    nodes.right?.left = TreeNode(5)
-    nodes.right?.right = TreeNode(4)
+    val arr = intArrayOf(1, 3, 4, 2, 2)
 
-    val res = bfs(nodes)
-    println(res)
+    findDuplicate(arr).apply {
+        print(this)
+    }
+
 }
 
 
@@ -458,6 +456,130 @@ fun bfs(root: TreeNode?): Int {
 
     return max(maxLeftTree, maxRightTree) + root.value
 }
+
+
+fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
+    val pivot = arr[(start + end) / 2]
+    var left = start
+    var right = end
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+
+        if (left <= right) {
+
+            var temp = arr[left]
+            arr[left] = arr[right]
+            arr[right] = temp
+            left++
+            right--
+        }
+    }
+    return left
+}
+
+fun quickSort(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    var starting = partOfSortHoara(arr, start, end)
+    quickSort(arr, start, starting - 1)
+    quickSort(arr, start + 1, end)
+}
+
+/**
+ * 238. Product of Array Except Self - Brute Force
+ */
+
+
+fun productExceptSelfBruteForce(arr: IntArray): IntArray {
+    var n = arr.size
+    val ans = IntArray(n)
+    var prod = 1
+    for (i in arr.indices) {
+        prod = 1
+        for (j in arr.indices) {
+            if (i == j) continue
+            prod *= arr[j]
+        }
+        ans[i] = prod
+    }
+    return ans
+}
+
+
+/**
+ * 238. Product of Array Except Self - Prefix
+ * Time - O(n) Space - O(n)
+ */
+
+
+fun productExceptSelfPrefix(nums: IntArray): IntArray {
+    val n = nums.size
+    val pre = IntArray(n)
+    val suff = IntArray(n)
+    pre[0] = 1
+    suff[n - 1] = 1
+
+    for (i in 1 until n) {
+        pre[i] = pre[i - 1] * nums[i - 1]
+    }
+    for (i in n - 2..0) {
+        suff[i] = suff[i + 1] * nums[i + 1]
+    }
+
+    val ans = IntArray(n)
+    for (i in 0 until n) {
+        ans[i] = pre[i] * suff[i]
+    }
+    return ans
+}
+
+fun productExceptSelfPrefixOptimization(nums: IntArray): IntArray {
+    val n = nums.size
+    val ans = IntArray(n)
+    Arrays.fill(ans, 1)
+    var curr = 1
+    for (i in 0 until n) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    curr = 1
+    for (i in n - 1 downTo 0) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    return ans
+}
+
+/**
+ * 287. Find the Duplicate Number
+ */
+
+
+fun findDuplicate(nums: IntArray): Int {
+    var len = nums.size
+    for (i in 0..len - 1) {
+        var ind = abs(nums[i])
+        if (nums[ind] < 0) return ind
+        nums[ind] = -1 * nums[ind]
+    }
+    return 0
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
