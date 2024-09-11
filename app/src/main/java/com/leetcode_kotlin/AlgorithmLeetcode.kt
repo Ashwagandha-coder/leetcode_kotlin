@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import java.util.Arrays
 import kotlin.math.max
+
 
 /**
  * Executing
@@ -10,7 +12,7 @@ fun main() {
 
     val arr = intArrayOf(1, 2, 3, 4)
 
-    productExceptSelfPrefix(arr).forEach {
+    productExceptSelfPrefixOptimization(arr).forEach {
         print("$it ")
     }
 
@@ -529,6 +531,27 @@ fun productExceptSelfPrefix(nums: IntArray): IntArray {
     }
     return ans
 }
+
+fun productExceptSelfPrefixOptimization(nums: IntArray): IntArray {
+    val n = nums.size
+    val ans = IntArray(n)
+    Arrays.fill(ans, 1)
+    var curr = 1
+    for (i in 0 until n) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    curr = 1
+    for (i in n - 1 downTo 0) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    return ans
+}
+
+
+
+
 
 
 
