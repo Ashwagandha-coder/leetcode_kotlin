@@ -10,7 +10,7 @@ fun main() {
 
     val arr = intArrayOf(1, 2, 3, 4)
 
-    productExceptSelf(arr).forEach {
+    productExceptSelfPrefix(arr).forEach {
         print("$it ")
     }
 
@@ -487,7 +487,7 @@ fun quickSort(arr: IntArray, start: Int, end: Int) {
  */
 
 
-fun productExceptSelf(arr: IntArray): IntArray {
+fun productExceptSelfBruteForce(arr: IntArray): IntArray {
     var n = arr.size
     val ans = IntArray(n)
     var prod = 1
@@ -502,6 +502,33 @@ fun productExceptSelf(arr: IntArray): IntArray {
     return ans
 }
 
+
+/**
+ * 238. Product of Array Except Self - Prefix
+ * Time - O(n) Space - O(n)
+ */
+
+
+fun productExceptSelfPrefix(nums: IntArray): IntArray {
+    val n = nums.size
+    val pre = IntArray(n)
+    val suff = IntArray(n)
+    pre[0] = 1
+    suff[n - 1] = 1
+
+    for (i in 1 until n) {
+        pre[i] = pre[i - 1] * nums[i - 1]
+    }
+    for (i in n - 2..0) {
+        suff[i] = suff[i + 1] * nums[i + 1]
+    }
+
+    val ans = IntArray(n)
+    for (i in 0 until n) {
+        ans[i] = pre[i] * suff[i]
+    }
+    return ans
+}
 
 
 
