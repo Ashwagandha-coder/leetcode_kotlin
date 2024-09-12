@@ -11,17 +11,13 @@ import kotlin.math.max
 
 fun main() {
 
-    val arr = intArrayOf(1, 3, 4, 2, 2)
+    val one = intArrayOf(0, 1, 2, 0)
+    val two = intArrayOf(3, 4, 5, 2)
+    val three = intArrayOf(1, 3, 1, 5)
 
-    val arr2 = intArrayOf(1, 2, 3, 4)
+    val matrix: Array<IntArray> = arrayOf(one, two, three)
 
-//    findDuplicate(arr).apply {
-//        print(this)
-//    }
-
-    productExceptSelfBruteForce(arr2).forEach {
-        print("$it ")
-    }
+    println(setZeroes(matrix))
 }
 
 
@@ -583,12 +579,44 @@ fun findDuplicates(nums: IntArray): List<Int> {
     var ind = 0
     for (i in nums.indices) {
         ind = abs(nums[i])
-        if (nums[ind - 1] > 0){
+        if (nums[ind - 1] > 0) {
             nums[ind - 1] *= -1
         } else ans.add(ind)
     }
     return ans
 }
+
+/**
+ * 73. Set Matrix Zeroes
+ */
+
+
+fun setZeroes(matrix: Array<IntArray>) {
+    val m = matrix.size
+    val n = matrix[0].size
+
+    val forRows = BooleanArray(m)
+    val forCols = BooleanArray(n)
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (matrix[i][j] == 0) {
+                forRows[i] = true
+                forCols[j] = true
+            }
+        }
+    } //we marked the rows and cols with true
+
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (forRows[i] || forCols[j]) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+}
+
 
 
 
