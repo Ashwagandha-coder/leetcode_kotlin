@@ -13,10 +13,15 @@ fun main() {
 
     val arr = intArrayOf(1, 3, 4, 2, 2)
 
-    findDuplicate(arr).apply {
-        print(this)
-    }
+    val arr2 = intArrayOf(1, 2, 3, 4)
 
+//    findDuplicate(arr).apply {
+//        print(this)
+//    }
+
+    productExceptSelfBruteForce(arr2).forEach {
+        print("$it ")
+    }
 }
 
 
@@ -497,8 +502,9 @@ fun productExceptSelfBruteForce(arr: IntArray): IntArray {
     for (i in arr.indices) {
         prod = 1
         for (j in arr.indices) {
-            if (i == j) continue
-            prod *= arr[j]
+            if (i != j) {
+                prod *= arr[j]
+            }
         }
         ans[i] = prod
     }
@@ -563,6 +569,25 @@ fun findDuplicate(nums: IntArray): Int {
         nums[ind] = -1 * nums[ind]
     }
     return 0
+}
+
+/**
+ * 442. Find All Duplicates in an Array
+ */
+
+
+fun findDuplicates(nums: IntArray): List<Int> {
+    if (nums.size == 1) return listOf()
+    var len = nums.size
+    val ans = mutableListOf<Int>()
+    var ind = 0
+    for (i in nums.indices) {
+        ind = abs(nums[i])
+        if (nums[ind - 1] > 0){
+            nums[ind - 1] *= -1
+        } else ans.add(ind)
+    }
+    return ans
 }
 
 

@@ -2,20 +2,7 @@ package com.leetcode_kotlin
 
 import kotlin.math.max
 
-fun main() {
-    val nodes = RepeatTreeNode(1)
-    nodes.left = RepeatTreeNode(4)
-    nodes.right = RepeatTreeNode(7)
-    nodes.left?.left = RepeatTreeNode(2)
-    nodes.left?.right = RepeatTreeNode(3)
-    nodes.left?.right?.left = RepeatTreeNode(2)
 
-    nodes.right?.left = RepeatTreeNode(5)
-    nodes.right?.right = RepeatTreeNode(4)
-
-    val res = bfs(nodes)
-    println(res)
-}
 
 class Repeat
 
@@ -54,7 +41,7 @@ class RepeatTreeNode(val value: Int) {
 }
 
 
-fun bfs(root: RepeatTreeNode?): Int {
+fun Repeat.bfs(root: RepeatTreeNode?): Int {
     if (root == null) return 0
 
     var minDepthSum = bfs(root.left)
