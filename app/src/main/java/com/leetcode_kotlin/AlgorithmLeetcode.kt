@@ -17,7 +17,12 @@ fun main() {
 
     val matrix: Array<IntArray> = arrayOf(one, two, three)
 
-    println(setZeroes(matrix))
+    rotate(matrix)
+    matrix.forEach { row ->
+        row.forEach { elem ->
+            print("$elem ")
+        }
+    }
 }
 
 
@@ -613,6 +618,32 @@ fun setZeroes(matrix: Array<IntArray>) {
             if (forRows[i] || forCols[j]) {
                 matrix[i][j] = 0
             }
+        }
+    }
+}
+
+
+fun rotate(matrix: Array<IntArray>) {
+    val edgeLength = matrix.size
+
+    var top = 0
+    var bottom = edgeLength - 1
+
+    while (top < bottom) {
+        for (col in 0 until edgeLength) {
+            val temp = matrix[top][col]
+            matrix[top][col] = matrix[bottom][col]
+            matrix[bottom][col] = temp
+        }
+        top++
+        bottom--
+    }
+
+    for (row in 0 until edgeLength) {
+        for (col in row + 1 until edgeLength) {
+            val temp = matrix[row][col]
+            matrix[row][col] = matrix[col][row]
+            matrix[col][row] = temp
         }
     }
 }
