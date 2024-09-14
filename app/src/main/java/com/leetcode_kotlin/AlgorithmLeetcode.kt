@@ -11,16 +11,14 @@ import kotlin.math.max
 
 fun main() {
 
-    val word = "ABCCED"
-    val one = charArrayOf('A', 'B', 'C', 'E')
-    val two = charArrayOf('S', 'F', 'C', 'S')
-    val three = charArrayOf('A', 'D', 'E', 'E')
+    val node = MyTreeNode(1)
+    node.left = MyTreeNode(2)
+    node.right = MyTreeNode(3)
+    node?.left?.right = MyTreeNode(5)
 
-    val board = Array<CharArray>(3) { one }
-    board[1] = two
-    board[2] = three
+    println(binaryTreePaths(node))
 
-    println(exist(board, word))
+
 }
 
 
@@ -449,16 +447,16 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
 
 
 class TreeNode(val value: Int) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
+    var left: MyTreeNode? = null
+    var right: MyTreeNode? = null
 }
 
-fun bfs(root: TreeNode?): Int {
+fun bfs(root: MyTreeNode?): Int {
     if (root == null) return 0
     var maxLeftTree = bfs(root?.left)
     var maxRightTree = bfs(root?.right)
 
-    return max(maxLeftTree, maxRightTree) + root.value
+    return max(maxLeftTree, maxRightTree) + root.`val`
 }
 
 
@@ -660,13 +658,44 @@ fun longestConsecutive(nums: IntArray): Int {
         if (!set.contains(nums[i] - 1)) {
             length = 1
 
-            while(set.contains(nums[i] + length)) length++
+            while (set.contains(nums[i] + length)) length++
 
-            longest = max(longest,length)
+            longest = max(longest, length)
         }
 
     }
     return longest
+}
+
+/**
+ * 257. Binary Tree Paths
+ */
+
+
+
+class MyTreeNode(var `val`: Int) {
+    var left: MyTreeNode? = null
+    var right: MyTreeNode? = null
+}
+
+
+private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
+    var sb = sb
+    if (root == null) return
+    sb = sb + (root.`val`)
+    if (root.left == null && root.right == null) arr.add(sb)
+
+    dfs(root.left, arr, "$sb->")
+    dfs(root.right, arr, "$sb->")
+    return
+}
+
+
+
+fun binaryTreePaths(root: MyTreeNode?): List<String> {
+    val arr: MutableList<String> = mutableListOf()
+    dfs(root, arr, "")
+    return arr
 }
 
 
