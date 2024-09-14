@@ -50,5 +50,22 @@ fun Repeat.bfs(root: RepeatTreeNode?): Int {
     return max(maxDepthSum, minDepthSum) + root.value
 }
 
+fun Repeat.productExceptSelf(nums: IntArray): IntArray {
+    val len = nums.size
+    val ans = IntArray(len)
+    for (i in 0..len - 1) ans[i] = 1
+    var curr = 1
+    for (i in 0..len - 1) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    curr = 1
+    for (i in len - 1 downTo 0) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    return ans
+}
+
 
 
