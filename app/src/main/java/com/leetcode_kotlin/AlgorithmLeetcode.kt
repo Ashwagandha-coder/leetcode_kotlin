@@ -11,18 +11,16 @@ import kotlin.math.max
 
 fun main() {
 
-    val one = intArrayOf(0, 1, 2, 0)
-    val two = intArrayOf(3, 4, 5, 2)
-    val three = intArrayOf(1, 3, 1, 5)
+    val word = "ABCCED"
+    val one = charArrayOf('A', 'B', 'C', 'E')
+    val two = charArrayOf('S', 'F', 'C', 'S')
+    val three = charArrayOf('A', 'D', 'E', 'E')
 
-    val matrix: Array<IntArray> = arrayOf(one, two, three)
+    val board = Array<CharArray>(3) { one }
+    board[1] = two
+    board[2] = three
 
-    rotate(matrix)
-    matrix.forEach { row ->
-        row.forEach { elem ->
-            print("$elem ")
-        }
-    }
+    println(exist(board, word))
 }
 
 
@@ -646,6 +644,29 @@ fun rotate(matrix: Array<IntArray>) {
             matrix[col][row] = temp
         }
     }
+}
+
+/**
+ * 128. Longest Consecutive Sequence
+ */
+
+fun longestConsecutive(nums: IntArray): Int {
+    val set = mutableSetOf<Int>()
+    val len = nums.size
+    var longest = 0
+    var length = 0
+    for (i in 0..len - 1) set.add(nums[i])
+    for (i in 0..len - 1) {
+        if (!set.contains(nums[i] - 1)) {
+            length = 1
+
+            while(set.contains(nums[i] + length)) length++
+
+            longest = max(longest,length)
+        }
+
+    }
+    return longest
 }
 
 
