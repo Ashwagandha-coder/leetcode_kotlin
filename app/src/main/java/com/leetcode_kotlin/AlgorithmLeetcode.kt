@@ -16,7 +16,10 @@ fun main() {
     node.right = MyTreeNode(3)
     node?.left?.right = MyTreeNode(5)
 
-    println(binaryTreePaths(node))
+
+    val s = "a1b2"
+
+    println(letterCasePermutation(s))
 
 
 }
@@ -672,7 +675,6 @@ fun longestConsecutive(nums: IntArray): Int {
  */
 
 
-
 class MyTreeNode(var `val`: Int) {
     var left: MyTreeNode? = null
     var right: MyTreeNode? = null
@@ -691,12 +693,70 @@ private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
 }
 
 
-
 fun binaryTreePaths(root: MyTreeNode?): List<String> {
     val arr: MutableList<String> = mutableListOf()
     dfs(root, arr, "")
     return arr
 }
+
+
+fun readBinaryWatch(num: Int): List<String> {
+    val times: MutableList<String> = ArrayList()
+
+    for (h in 0..11) {
+        for (m in 0..59) {
+            val hOnes = Integer.bitCount(h)
+            val mOnes = Integer.bitCount(m)
+
+            if (hOnes + mOnes == num) {
+                times.add(h.toString() + ":" + (if (m < 10) "0" else "") + m)
+            }
+        }
+    }
+
+    return times
+}
+
+
+/**
+ *
+ */
+
+fun generatePermutations(
+    index: Int,
+    s: String,
+    ds: StringBuilder,
+    list: MutableList<String?>?
+): MutableList<String?>? {
+    // Base case
+
+    var res = list
+    if (index == s.length) {
+        res!!.add(String(ds))
+        return res
+    }
+
+    val ch = s[index]
+    if (Character.isLetter(ch)) {
+        ds.append(ch.lowercaseChar())
+        res = generatePermutations(index + 1, s, ds, res)
+        ds.deleteCharAt(ds.length - 1)
+        ds.append(ch.uppercaseChar())
+        res = generatePermutations(index + 1, s, ds, res)
+        ds.deleteCharAt(ds.length - 1)
+    } else {
+        ds.append(ch)
+        res = generatePermutations(index + 1, s, ds, res)
+        ds.deleteCharAt(ds.length - 1)
+    }
+    return res
+}
+
+fun letterCasePermutation(s: String): List<String?>? {
+    return generatePermutations(0, s, StringBuilder(), ArrayList())
+}
+
+
 
 
 
