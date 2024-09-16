@@ -19,7 +19,12 @@ fun main() {
 
     val s = "a1b2"
 
-    println(letterCasePermutation(s))
+    val nums = intArrayOf(1, 2, 3, 1)
+    val nums2 = intArrayOf(2, 7, 9, 3, 1)
+    val nums3 = intArrayOf(2, 1, 1, 2)
+    val nums4 = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
+
+    println(maxSubArray(nums4))
 
 
 }
@@ -754,6 +759,60 @@ fun generatePermutations(
 
 fun letterCasePermutation(s: String): List<String?>? {
     return generatePermutations(0, s, StringBuilder(), ArrayList())
+}
+
+
+fun rob(nums: IntArray): Int {
+    var profit1 = 0
+    var profit2 = 0
+    var j = 1
+    var i = 0
+    val len = nums.size
+    var part = 0
+    part = if (len % 2 == 0) {
+        len / 2
+    } else (len / 2) + 1
+    while (i <= len - 1) {
+        profit1 += nums[i]
+        i += 2
+        if (j <= len - 1) {
+            profit2 += nums[j]
+            j += 2
+        }
+    }
+    return max(profit1, profit2)
+}
+
+fun rob2(num: IntArray): Int {
+    val n = num.size
+    if (n == 0) return 0
+    val dp = IntArray(n)
+
+    dp[0] = num[0]
+    for (i in 1 until n) {
+        var pick = num[i]
+        if (i > 1) pick += dp[i - 2]
+        val nop = 0 + dp[i - 1]
+        dp[i] = max(pick.toDouble(), nop.toDouble()).toInt()
+    }
+    return dp[n - 1]
+}
+
+
+fun maxSubArray(nums: IntArray): Int {
+    var res = nums[0]
+    var total = 0
+
+    for (n in nums) {
+        if (total < 0) {
+            total = 0
+        }
+
+        total += n
+        res = max(res.toDouble(), total.toDouble()).toInt()
+    }
+
+    return res
 }
 
 
