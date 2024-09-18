@@ -95,8 +95,31 @@ fun Repeat.swap(arr: IntArray, start: Int, end: Int) {
     arr[end] = tmp
 }
 
-fun test() {
 
+fun Repeat.selectionSort(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min_index = i
+        for (j in i + 1 until len) {
+            if (arr[min_index] > arr[j]) min_index = j
+        }
+        if (min_index != i) {
+            swap(arr, min_index, i)
+        }
+    }
+    return arr
+}
+
+fun Repeat.insertionSort(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 1 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            swap(arr, sorted, sorted + 1)
+            sorted--
+        }
+    }
+    return arr
 }
 
 

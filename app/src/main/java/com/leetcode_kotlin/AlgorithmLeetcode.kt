@@ -12,7 +12,7 @@ import kotlin.math.max
 
 fun main() {
 
-    val res = Repeat.value.bubbleSort(MyArrays.sortingData())
+    val res = Repeat.value.selectionSort(MyArrays.sortingData())
 
     res.forEach {
         print("$it ")
