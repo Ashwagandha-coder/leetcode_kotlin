@@ -11,13 +11,7 @@ import kotlin.math.max
 
 fun main() {
 
-
-    val s = "a1b2"
-
-    val nums = intArrayOf(1, 2, 3, 1)
-    val nums2 = intArrayOf(2, 7, 9, 3, 1)
-    val nums3 = intArrayOf(2, 1, 1, 2)
-    val nums4 = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
+    println(binaryTreePaths(Node.node()))
 
 
 }
@@ -668,7 +662,6 @@ fun longestConsecutive(nums: IntArray): Int {
  */
 
 
-
 private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
     var sb = sb
     if (root == null) return
@@ -686,7 +679,6 @@ fun binaryTreePaths(root: MyTreeNode?): List<String> {
     dfs(root, arr, "")
     return arr
 }
-
 
 
 /**
