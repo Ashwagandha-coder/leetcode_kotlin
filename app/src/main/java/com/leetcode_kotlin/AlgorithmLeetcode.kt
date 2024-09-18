@@ -450,6 +450,10 @@ fun bfs(root: MyTreeNode?): Int {
     return max(maxLeftTree, maxRightTree) + root.`val`
 }
 
+/**
+ * Quick Sort
+ */
+
 
 fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
     val pivot = arr[(start + end) / 2]
@@ -609,6 +613,10 @@ fun setZeroes(matrix: Array<IntArray>) {
     }
 }
 
+/**
+ *
+ */
+
 
 fun rotate(matrix: Array<IntArray>) {
     val edgeLength = matrix.size
@@ -729,6 +737,10 @@ fun rob(nums: IntArray): Int {
     return dp[len - 1]
 }
 
+/**
+ *
+ */
+
 
 fun subsets(nums: IntArray): List<List<Int>> {
     val res: MutableList<List<Int>> = ArrayList()
@@ -755,6 +767,10 @@ private fun createSubset(
     subset.removeAt(subset.size - 1)
     createSubset(nums, index + 1, res, subset)
 }
+
+/**
+ *
+ */
 
 
 fun permute(nums: IntArray): List<List<Int>> {
