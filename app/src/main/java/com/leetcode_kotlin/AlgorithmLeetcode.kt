@@ -11,11 +11,6 @@ import kotlin.math.max
 
 fun main() {
 
-    val node = MyTreeNode(1)
-    node.left = MyTreeNode(2)
-    node.right = MyTreeNode(3)
-    node?.left?.right = MyTreeNode(5)
-
 
     val s = "a1b2"
 
@@ -452,11 +447,6 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
  */
 
 
-class TreeNode(val value: Int) {
-    var left: MyTreeNode? = null
-    var right: MyTreeNode? = null
-}
-
 fun bfs(root: MyTreeNode?): Int {
     if (root == null) return 0
     var maxLeftTree = bfs(root?.left)
@@ -678,11 +668,6 @@ fun longestConsecutive(nums: IntArray): Int {
  */
 
 
-class MyTreeNode(var `val`: Int) {
-    var left: MyTreeNode? = null
-    var right: MyTreeNode? = null
-}
-
 
 private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
     var sb = sb
@@ -703,22 +688,6 @@ fun binaryTreePaths(root: MyTreeNode?): List<String> {
 }
 
 
-fun readBinaryWatch(num: Int): List<String> {
-    val times: MutableList<String> = ArrayList()
-
-    for (h in 0..11) {
-        for (m in 0..59) {
-            val hOnes = Integer.bitCount(h)
-            val mOnes = Integer.bitCount(m)
-
-            if (hOnes + mOnes == num) {
-                times.add(h.toString() + ":" + (if (m < 10) "0" else "") + m)
-            }
-        }
-    }
-
-    return times
-}
 
 /**
  * 784. Letter Case Permutation
