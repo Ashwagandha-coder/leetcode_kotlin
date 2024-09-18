@@ -3,21 +3,24 @@ package com.leetcode_kotlin
 import kotlin.math.max
 
 
-
-class Repeat
+class Repeat {
+    companion object {
+        val value = Repeat()
+    }
+}
 
 
 fun Repeat.missingNumber(nums: IntArray): Int {
     var sum = 0
     var len = nums.size
-    for (i in 0..len - 1) sum += nums[i]
+    for (i in 0 until len) sum += nums[i]
     return len * (len + 1) / 2 - sum
 }
 
 
 fun Repeat.singleNumber(nums: IntArray): Int {
     var res = 0
-    for (i in 0..nums.size - 1) {
+    for (i in 0 until nums.size) {
         res = res xor nums[i]
     }
     return res
@@ -67,8 +70,32 @@ fun Repeat.productExceptSelf(nums: IntArray): IntArray {
     return ans
 }
 
+/**
+ * Repeat Sorting
+ */
 
-fun Repeat.dfsTree() {
+fun Repeat.bubbleSort(arr: IntArray): IntArray {
+    var len = arr.size
+    while (len != 0) {
+        var pointer = 0
+        for (i in 1 until len) {
+            if (arr[i - 1] > arr[i]) {
+                swap(arr, i - 1, i)
+                pointer = i
+            }
+        }
+        len = pointer
+    }
+    return arr
+}
+
+fun Repeat.swap(arr: IntArray, start: Int, end: Int) {
+    var tmp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = tmp
+}
+
+fun test() {
 
 }
 

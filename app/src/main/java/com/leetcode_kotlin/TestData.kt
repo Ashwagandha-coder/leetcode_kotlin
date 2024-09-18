@@ -30,6 +30,8 @@ object MyArrays {
     fun maxProfitData() = intArrayOf(7, 1, 5, 3, 6, 4)
 
     fun subset() = intArrayOf(1, 2, 3)
+
+    fun sortingData() = intArrayOf(3, 5, 4, 1, 8)
 }
 
 

@@ -12,7 +12,11 @@ import kotlin.math.max
 
 fun main() {
 
-    println(permute(MyArrays.subset()))
+    val res = Repeat.value.bubbleSort(MyArrays.sortingData())
+
+    res.forEach {
+        print("$it ")
+    }
 
 
 }
