@@ -14,10 +14,9 @@ object Node {
 object Strings {
     fun letterCasePermutationsData() = "a1b2"
 
-
 }
 
-object Arrays {
+object MyArrays {
     fun numIdenticalPairsData() = intArrayOf(1, 2, 3, 1, 1, 3)
 
     fun containsDuplicateData() = intArrayOf(1, 2, 3, 1)
@@ -29,6 +28,8 @@ object Arrays {
     fun singleNumberData() = intArrayOf(4, 1, 2, 1, 2)
 
     fun maxProfitData() = intArrayOf(7, 1, 5, 3, 6, 4)
+
+    fun subset() = intArrayOf(1, 2, 3)
 }
 
 

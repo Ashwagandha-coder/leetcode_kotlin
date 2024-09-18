@@ -1,6 +1,7 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
+import java.util.Collections.swap
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -11,7 +12,7 @@ import kotlin.math.max
 
 fun main() {
 
-    println(binaryTreePaths(Node.node()))
+    println(permute(MyArrays.subset()))
 
 
 }
@@ -727,6 +728,59 @@ fun rob(nums: IntArray): Int {
     }
     return dp[len - 1]
 }
+
+
+fun subsets(nums: IntArray): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    val subset: MutableList<Int> = ArrayList()
+
+    createSubset(nums, 0, res, subset)
+    return res
+}
+
+private fun createSubset(
+    nums: IntArray,
+    index: Int,
+    res: MutableList<List<Int>>,
+    subset: MutableList<Int>
+) {
+    if (index == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+
+    subset.add(nums[index])
+    createSubset(nums, index + 1, res, subset)
+
+    subset.removeAt(subset.size - 1)
+    createSubset(nums, index + 1, res, subset)
+}
+
+
+fun permute(nums: IntArray): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    backtrack(nums, 0, res)
+    return res
+}
+
+private fun backtrack(nums: IntArray, start: Int, res: MutableList<List<Int>>) {
+    if (start == nums.size) {
+        res.add(nums.toList())
+        return
+    }
+
+    for (i in start until nums.size) {
+        swap(nums.toList(), start, i)
+        backtrack(nums, start + 1, res)
+        swap(nums.toList(), start, i)
+    }
+}
+
+
+
+
+
+
 
 
 
