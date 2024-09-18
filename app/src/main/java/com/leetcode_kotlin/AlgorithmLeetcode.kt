@@ -750,6 +750,24 @@ fun rec(s: String, index: Int) {
 }
 
 
+/**
+ * 198. House Robber
+ */
+
+fun rob(nums: IntArray): Int {
+    if (nums.isEmpty()) return 0
+    if (nums.size == 1) return nums[0]
+    val len = nums.size
+    val dp = IntArray(len)
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
+    for (i in 2..len - 1) {
+        dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
+    }
+    return dp[len - 1]
+}
+
+
 
 
 
