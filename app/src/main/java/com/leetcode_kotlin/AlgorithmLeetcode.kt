@@ -12,7 +12,7 @@ import kotlin.math.max
 
 fun main() {
 
-    val res = Repeat.value.selectionSort(MyArrays.sortingData())
+    val res = Repeat.value.quickSort(MyArrays.quickSortData())
 
     res.forEach {
         print("$it ")

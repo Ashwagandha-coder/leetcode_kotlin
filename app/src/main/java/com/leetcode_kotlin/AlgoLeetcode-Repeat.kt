@@ -95,6 +95,12 @@ fun Repeat.swap(arr: IntArray, start: Int, end: Int) {
     arr[end] = tmp
 }
 
+fun swap(arr: IntArray, start: Int, end: Int) {
+    var tmp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = tmp
+}
+
 
 fun Repeat.selectionSort(arr: IntArray): IntArray {
     val len = arr.size
@@ -122,6 +128,35 @@ fun Repeat.insertionSort(arr: IntArray): IntArray {
     return arr
 }
 
+fun Repeat.quickSort(arr: IntArray): IntArray {
+    quickSortHoara(arr, 0, arr.size - 1)
+    return arr
+}
+
+private fun quickSortHoara(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    var wall = partSortHoara(arr, start, end)
+    quickSortHoara(arr, start, wall - 1)
+    quickSortHoara(arr, wall, end)
+}
+
+private fun partSortHoara(arr: IntArray, left: Int, right: Int): Int {
+    var left = left
+    var right = right
+    var pivot = arr[(left + right) / 2]
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+        if (left <= right) {
+            swap(arr, left, right)
+            left++
+            right--
+        }
+    }
+
+    return left
+
+}
 
 
 

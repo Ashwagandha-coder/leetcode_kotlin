@@ -32,6 +32,8 @@ object MyArrays {
     fun subset() = intArrayOf(1, 2, 3)
 
     fun sortingData() = intArrayOf(3, 5, 4, 1, 8)
+
+    fun quickSortData() = intArrayOf(3, 2, 4, 9, 4, 5, 7)
 }
 
 
