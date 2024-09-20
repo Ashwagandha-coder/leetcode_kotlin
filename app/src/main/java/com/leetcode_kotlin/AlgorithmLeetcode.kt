@@ -1,15 +1,22 @@
 package com.leetcode_kotlin
 
+import java.util.Arrays
+import java.util.Collections.swap
+import kotlin.math.abs
+import kotlin.math.max
+
+
 /**
  * Executing
  */
 
 fun main() {
-    val linked = ListNode(1)
-    linked.next = ListNode(1)
-    linked.next?.next = ListNode(2)
-    linked.next?.next?.next = ListNode(1)
-    isPalindrome(linked)
+
+    Numbers.combineData().apply {
+        println(combine(first, second))
+    }
+
+
 }
 
 
@@ -317,7 +324,7 @@ fun isPalindrome(head: ListNode?): Boolean {
     var slow = head
     var fast = head?.next
     var count = 0
-    while(fast?.next != null) {
+    while (fast?.next != null) {
         slow = slow?.next
         fast = fast?.next?.next
         count++
@@ -325,7 +332,7 @@ fun isPalindrome(head: ListNode?): Boolean {
     var temp: ListNode? = null
     temp = reverse(slow?.next)
     var res = head
-    while(temp != null) {
+    while (temp != null) {
         if (res?.`val` != temp?.`val`) {
             return false
         }
@@ -363,11 +370,492 @@ fun deleteDuplicates(head: ListNode?): ListNode? {
     while (curr?.next != null) {
         if (curr?.`val` == curr?.next?.`val`) {
             curr?.next = curr?.next?.next
-        }
-        else curr = curr?.next
+        } else curr = curr?.next
     }
     return temp?.next
 }
+
+/**
+ * 21. Merge Two Sorted Lists
+ */
+
+fun mergeTwoLists(list1: ListNode?, list2: ListNode?): ListNode? {
+    val result = ListNode(0)
+    var l1 = list1
+    var l2 = list2
+    var current = result
+
+    while (l1 != null && l2 != null) {
+        if (l1.`val` < l2.`val`) {
+            current.next = l1
+            l1 = l1.next
+        } else {
+            current.next = l2
+            l2 = l2.next
+        }
+        current = current.next!!
+    }
+
+    if (l1 != null) current.next = l1
+    if (l2 != null) current.next = l2
+
+    return result.next
+}
+
+/**
+ * 744. Find Smallest Letter Greater Than Target
+ */
+
+
+fun nextGreatestLetter(letters: CharArray, target: Char): Char {
+    var tar = target - '0'
+    for (i in 0..letters.size - 1) {
+        if (tar < (letters[i] - '0')) return letters[i]
+    }
+    return letters[0]
+}
+
+
+/**
+ * O(log n)
+ */
+
+
+fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
+    val len = letters.size
+    var middle = 0
+    var left = 0
+    var right = len - 1
+    while (left != right) {
+        middle = (left + right) / 2
+        if (letters[middle] <= target) {
+            left = middle + 1
+        } else {
+            right = middle
+        }
+    }
+    if (letters[left] <= target) return letters[0]
+    return letters[left]
+}
+
+/**
+ * BFS - Breath First Search
+ * Time - O(n)  Space - O(n)
+ */
+
+
+fun bfs(root: MyTreeNode?): Int {
+    if (root == null) return 0
+    var maxLeftTree = bfs(root?.left)
+    var maxRightTree = bfs(root?.right)
+
+    return max(maxLeftTree, maxRightTree) + root.`val`
+}
+
+/**
+ * Quick Sort
+ */
+
+
+fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
+    val pivot = arr[(start + end) / 2]
+    var left = start
+    var right = end
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+
+        if (left <= right) {
+
+            var temp = arr[left]
+            arr[left] = arr[right]
+            arr[right] = temp
+            left++
+            right--
+        }
+    }
+    return left
+}
+
+fun quickSort(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    var starting = partOfSortHoara(arr, start, end)
+    quickSort(arr, start, starting - 1)
+    quickSort(arr, start + 1, end)
+}
+
+/**
+ * 238. Product of Array Except Self - Brute Force
+ */
+
+
+fun productExceptSelfBruteForce(arr: IntArray): IntArray {
+    var n = arr.size
+    val ans = IntArray(n)
+    var prod = 1
+    for (i in arr.indices) {
+        prod = 1
+        for (j in arr.indices) {
+            if (i != j) {
+                prod *= arr[j]
+            }
+        }
+        ans[i] = prod
+    }
+    return ans
+}
+
+
+/**
+ * 238. Product of Array Except Self - Prefix
+ * Time - O(n) Space - O(n)
+ */
+
+
+fun productExceptSelfPrefix(nums: IntArray): IntArray {
+    val n = nums.size
+    val pre = IntArray(n)
+    val suff = IntArray(n)
+    pre[0] = 1
+    suff[n - 1] = 1
+
+    for (i in 1 until n) {
+        pre[i] = pre[i - 1] * nums[i - 1]
+    }
+    for (i in n - 2..0) {
+        suff[i] = suff[i + 1] * nums[i + 1]
+    }
+
+    val ans = IntArray(n)
+    for (i in 0 until n) {
+        ans[i] = pre[i] * suff[i]
+    }
+    return ans
+}
+
+fun productExceptSelfPrefixOptimization(nums: IntArray): IntArray {
+    val n = nums.size
+    val ans = IntArray(n)
+    Arrays.fill(ans, 1)
+    var curr = 1
+    for (i in 0 until n) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    curr = 1
+    for (i in n - 1 downTo 0) {
+        ans[i] *= curr
+        curr *= nums[i]
+    }
+    return ans
+}
+
+/**
+ * 287. Find the Duplicate Number
+ */
+
+
+fun findDuplicate(nums: IntArray): Int {
+    var len = nums.size
+    for (i in 0..len - 1) {
+        var ind = abs(nums[i])
+        if (nums[ind] < 0) return ind
+        nums[ind] = -1 * nums[ind]
+    }
+    return 0
+}
+
+/**
+ * 442. Find All Duplicates in an Array
+ */
+
+
+fun findDuplicates(nums: IntArray): List<Int> {
+    if (nums.size == 1) return listOf()
+    var len = nums.size
+    val ans = mutableListOf<Int>()
+    var ind = 0
+    for (i in nums.indices) {
+        ind = abs(nums[i])
+        if (nums[ind - 1] > 0) {
+            nums[ind - 1] *= -1
+        } else ans.add(ind)
+    }
+    return ans
+}
+
+/**
+ * 73. Set Matrix Zeroes
+ */
+
+
+fun setZeroes(matrix: Array<IntArray>) {
+    val m = matrix.size
+    val n = matrix[0].size
+
+    val forRows = BooleanArray(m)
+    val forCols = BooleanArray(n)
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (matrix[i][j] == 0) {
+                forRows[i] = true
+                forCols[j] = true
+            }
+        }
+    } //we marked the rows and cols with true
+
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (forRows[i] || forCols[j]) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+}
+
+/**
+ *
+ */
+
+
+fun rotate(matrix: Array<IntArray>) {
+    val edgeLength = matrix.size
+
+    var top = 0
+    var bottom = edgeLength - 1
+
+    while (top < bottom) {
+        for (col in 0 until edgeLength) {
+            val temp = matrix[top][col]
+            matrix[top][col] = matrix[bottom][col]
+            matrix[bottom][col] = temp
+        }
+        top++
+        bottom--
+    }
+
+    for (row in 0 until edgeLength) {
+        for (col in row + 1 until edgeLength) {
+            val temp = matrix[row][col]
+            matrix[row][col] = matrix[col][row]
+            matrix[col][row] = temp
+        }
+    }
+}
+
+/**
+ * 128. Longest Consecutive Sequence
+ */
+
+fun longestConsecutive(nums: IntArray): Int {
+    val set = mutableSetOf<Int>()
+    val len = nums.size
+    var longest = 0
+    var length = 0
+    for (i in 0..len - 1) set.add(nums[i])
+    for (i in 0..len - 1) {
+        if (!set.contains(nums[i] - 1)) {
+            length = 1
+
+            while (set.contains(nums[i] + length)) length++
+
+            longest = max(longest, length)
+        }
+
+    }
+    return longest
+}
+
+/**
+ * 257. Binary Tree Paths
+ */
+
+
+private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
+    var sb = sb
+    if (root == null) return
+    sb = sb + (root.`val`)
+    if (root.left == null && root.right == null) arr.add(sb)
+
+    dfs(root.left, arr, "$sb->")
+    dfs(root.right, arr, "$sb->")
+    return
+}
+
+
+fun binaryTreePaths(root: MyTreeNode?): List<String> {
+    val arr: MutableList<String> = mutableListOf()
+    dfs(root, arr, "")
+    return arr
+}
+
+
+/**
+ * 784. Letter Case Permutation
+ */
+
+
+val list = mutableListOf<String>()
+var n = 0
+fun letterCasePermutation(s: String): List<String> {
+    n = s.length
+    rec(s, 0)
+    return list
+}
+
+fun rec(s: String, index: Int) {
+    var sI = StringBuilder(s)
+    if (index == n) {
+        list.add(sI.toString())
+        return
+    }
+    if (sI[index].isDigit()) {
+        rec(sI.toString(), index + 1)
+        return
+    }
+    sI[index] = sI[index].toUpperCase()
+    rec(sI.toString(), index + 1)
+    sI[index] = sI[index].toLowerCase()
+    rec(sI.toString(), index + 1)
+}
+
+
+/**
+ * 198. House Robber
+ */
+
+fun rob(nums: IntArray): Int {
+    if (nums.isEmpty()) return 0
+    if (nums.size == 1) return nums[0]
+    val len = nums.size
+    val dp = IntArray(len)
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
+    for (i in 2..len - 1) {
+        dp[i] = max(nums[i] + dp[i - 2], dp[i - 1])
+    }
+    return dp[len - 1]
+}
+
+/**
+ *
+ */
+
+
+fun subsets(nums: IntArray): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    val subset: MutableList<Int> = ArrayList()
+
+    createSubset(nums, 0, res, subset)
+    return res
+}
+
+private fun createSubset(
+    nums: IntArray,
+    index: Int,
+    res: MutableList<List<Int>>,
+    subset: MutableList<Int>
+) {
+    if (index == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+
+    subset.add(nums[index])
+    createSubset(nums, index + 1, res, subset)
+
+    subset.removeAt(subset.size - 1)
+    createSubset(nums, index + 1, res, subset)
+}
+
+/**
+ *
+ */
+
+
+fun permute(nums: IntArray): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    backtrack(nums, 0, res)
+    return res
+}
+
+private fun backtrack(nums: IntArray, start: Int, res: MutableList<List<Int>>) {
+    if (start == nums.size) {
+        res.add(nums.toList())
+        return
+    }
+
+    for (i in start until nums.size) {
+        swap(nums.toList(), start, i)
+        backtrack(nums, start + 1, res)
+        swap(nums.toList(), start, i)
+    }
+}
+
+/**
+ * 77. Combinations
+ */
+
+
+fun combine(n: Int, k: Int): List<List<Int>> {
+    val result: MutableList<List<Int>> = ArrayList()
+    backtrack(result, ArrayList(), 1, n, k)
+    return result
+}
+
+private fun backtrack(
+    result: MutableList<List<Int>>,
+    tempList: MutableList<Int>,
+    start: Int,
+    n: Int,
+    k: Int
+) {
+    // If the combination is done (i.e., we've picked k numbers)
+    if (tempList.size == k) {
+        result.add(ArrayList(tempList)) // Add a copy of the current combination to the result list
+        return
+    }
+
+
+    // Try all numbers from 'start' to 'n'
+    for (i in start..n) {
+        tempList.add(i) // Pick the number
+        backtrack(result, tempList, i + 1, n, k) // Recursively pick the next number
+        tempList.removeAt(tempList.size - 1) // Remove the last picked number to try another possibility
+    }
+    return
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
