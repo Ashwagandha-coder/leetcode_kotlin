@@ -12,11 +12,8 @@ import kotlin.math.max
 
 fun main() {
 
-    val res = Repeat.value.quickSort(MyArrays.quickSortData())
 
-    res.forEach {
-        print("$it ")
-    }
+    println(combine(4, 2))
 
 
 }
@@ -794,6 +791,40 @@ private fun backtrack(nums: IntArray, start: Int, res: MutableList<List<Int>>) {
         backtrack(nums, start + 1, res)
         swap(nums.toList(), start, i)
     }
+}
+
+/**
+ * 77. Combinations
+ */
+
+
+fun combine(n: Int, k: Int): List<List<Int>> {
+    val result: MutableList<List<Int>> = ArrayList()
+    backtrack(result, ArrayList(), 1, n, k)
+    return result
+}
+
+private fun backtrack(
+    result: MutableList<List<Int>>,
+    tempList: MutableList<Int>,
+    start: Int,
+    n: Int,
+    k: Int
+) {
+    // If the combination is done (i.e., we've picked k numbers)
+    if (tempList.size == k) {
+        result.add(ArrayList(tempList)) // Add a copy of the current combination to the result list
+        return
+    }
+
+
+    // Try all numbers from 'start' to 'n'
+    for (i in start..n) {
+        tempList.add(i) // Pick the number
+        backtrack(result, tempList, i + 1, n, k) // Recursively pick the next number
+        tempList.removeAt(tempList.size - 1) // Remove the last picked number to try another possibility
+    }
+    return
 }
 
 
