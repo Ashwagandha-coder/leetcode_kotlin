@@ -12,8 +12,9 @@ import kotlin.math.max
 
 fun main() {
 
-
-    println(combine(4, 2))
+    Numbers.combineData().apply {
+        println(combine(first, second))
+    }
 
 
 }

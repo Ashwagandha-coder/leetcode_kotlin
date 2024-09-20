@@ -11,6 +11,10 @@ object Node {
     }
 }
 
+object Numbers {
+    fun combineData() = Pair(4, 2)
+}
+
 object Strings {
     fun letterCasePermutationsData() = "a1b2"
 
