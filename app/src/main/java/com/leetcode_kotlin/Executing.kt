@@ -6,7 +6,5 @@ package com.leetcode_kotlin
 
 
 fun main() {
-    MyArrays.combineSumData().apply {
-        println(combinationSum(first, second))
-    }
+    filter()
 }

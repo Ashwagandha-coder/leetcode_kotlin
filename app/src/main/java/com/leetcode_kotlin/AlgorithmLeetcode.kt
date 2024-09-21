@@ -684,8 +684,8 @@ fun binaryTreePaths(root: MyTreeNode?): List<String> {
  */
 
 
-val list = mutableListOf<String>()
-var n = 0
+private val list = mutableListOf<String>()
+private var n = 0
 fun letterCasePermutation(s: String): List<String> {
     n = s.length
     rec(s, 0)
