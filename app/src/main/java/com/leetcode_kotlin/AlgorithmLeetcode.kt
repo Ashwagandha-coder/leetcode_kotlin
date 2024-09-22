@@ -6,19 +6,6 @@ import kotlin.math.abs
 import kotlin.math.max
 
 
-/**
- * Executing
- */
-
-fun main() {
-
-    Numbers.combineData().apply {
-        println(combine(first, second))
-    }
-
-
-}
-
 
 /**
  * 3190. Find Minimum Operations to Make All Elements Divisible by Three
@@ -697,8 +684,8 @@ fun binaryTreePaths(root: MyTreeNode?): List<String> {
  */
 
 
-val list = mutableListOf<String>()
-var n = 0
+private val list = mutableListOf<String>()
+private var n = 0
 fun letterCasePermutation(s: String): List<String> {
     n = s.length
     rec(s, 0)
@@ -740,7 +727,7 @@ fun rob(nums: IntArray): Int {
 }
 
 /**
- *
+ * 78. Subsets
  */
 
 
@@ -771,7 +758,7 @@ private fun createSubset(
 }
 
 /**
- *
+ * 46. Permutations
  */
 
 
@@ -826,6 +813,41 @@ private fun backtrack(
         tempList.removeAt(tempList.size - 1) // Remove the last picked number to try another possibility
     }
     return
+}
+
+/**
+ * 39. Combination Sum
+ */
+
+
+fun combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+
+    makeCombination(candidates, target, 0, ArrayList(), 0, res)
+    return res
+}
+
+private fun makeCombination(
+    candidates: IntArray,
+    target: Int,
+    idx: Int,
+    comb: MutableList<Int>,
+    total: Int,
+    res: MutableList<List<Int>>
+) {
+    if (total == target) {
+        res.add(ArrayList(comb))
+        return
+    }
+
+    if (total > target || idx >= candidates.size) {
+        return
+    }
+
+    comb.add(candidates[idx])
+    makeCombination(candidates, target, idx, comb, total + candidates[idx], res)
+    comb.removeAt(comb.size - 1)
+    makeCombination(candidates, target, idx + 1, comb, total, res)
 }
 
 
