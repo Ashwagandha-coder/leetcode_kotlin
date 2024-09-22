@@ -6,7 +6,6 @@ import kotlin.math.abs
 import kotlin.math.max
 
 
-
 /**
  * 3190. Find Minimum Operations to Make All Elements Divisible by Three
  */
@@ -466,9 +465,14 @@ fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
 
 fun quickSort(arr: IntArray, start: Int, end: Int) {
     if (start >= end) return
-    var starting = partOfSortHoara(arr, start, end)
-    quickSort(arr, start, starting - 1)
+    var wall = partOfSortHoara(arr, start, end)
+    quickSort(arr, start, wall - 1)
     quickSort(arr, start + 1, end)
+}
+
+fun wrap(arr: IntArray, start: Int, end: Int): IntArray {
+    quickSort(arr, start, end)
+    return arr
 }
 
 /**
