@@ -194,6 +194,26 @@ fun Repeat.swapMatrix(matrix: Array<IntArray>, row: Int, col: Int) {
 }
 
 
+fun Repeat.selectSort(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min_index = i
+        for (j in i + 1 until len) {
+            if (arr[min_index] > arr[j]) min_index = j
+        }
+        if (min_index != i) {
+            var temp = arr[min_index]
+            arr[min_index] = arr[i]
+            arr[i] = arr[min_index]
+        }
+    }
+    return arr
+}
+
+
+
+
+
 
 
 
