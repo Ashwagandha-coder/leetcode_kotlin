@@ -6,5 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    Repeat.value.lexicalOrder(13).forEach {
+        print("$it ")
+    }
 
 }
