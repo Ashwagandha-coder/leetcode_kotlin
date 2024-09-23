@@ -210,6 +210,30 @@ fun Repeat.selectSort(arr: IntArray): IntArray {
     return arr
 }
 
+/**
+ * Sample Solution
+ */
+
+
+fun Repeat.lexicalOrder(n: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    val res = mutableListOf<Int>()
+    var curr = 1
+    for (i in 1..n) {
+        res.add(curr)
+        if (curr * 10 <= n) curr *= 10
+        else {
+            while (curr % 10 == 9 || curr >= n) {
+                curr /= 10
+            }
+            curr += 1
+        }
+    }
+    return res
+}
+
+
+
 
 
 
