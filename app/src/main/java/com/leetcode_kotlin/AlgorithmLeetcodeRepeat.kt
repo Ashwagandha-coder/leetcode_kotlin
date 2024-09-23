@@ -159,6 +159,41 @@ private fun partSortHoara(arr: IntArray, left: Int, right: Int): Int {
 }
 
 
+fun Repeat.rotate(matrix: Array<IntArray>): Unit {
+    val len = matrix.size
+    // flip
+    var top = 0
+    var bottom = len - 1
+    while (top < bottom) {
+        for (col in 0 until len) {
+            swapMatrix(matrix, top, bottom, col)
+        }
+        top++
+        bottom--
+    }
+    // transpose
+    for (i in 0 until len) {
+        for (j in i + 1 until len) {
+            swapMatrix(matrix, i, j)
+        }
+    }
+
+}
+
+
+fun Repeat.swapMatrix(matrix: Array<IntArray>, top: Int, bottom: Int, col: Int) {
+    var temp = matrix[top][col]
+    matrix[top][col] = matrix[bottom][col]
+    matrix[bottom][col] = temp
+}
+
+fun Repeat.swapMatrix(matrix: Array<IntArray>, row: Int, col: Int) {
+    var temp = matrix[row][col]
+    matrix[row][col] = matrix[col][row]
+    matrix[col][row] = temp
+}
+
+
 
 
 
