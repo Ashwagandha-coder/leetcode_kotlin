@@ -233,7 +233,68 @@ fun Repeat.lexicalOrder(n: Int): List<Int> {
 }
 
 
+/**
+ * Selection Sort Repeat
+ */
 
+
+fun Repeat.selectionSort2(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[min] > arr[j]) min = j
+        }
+        if (min != i) swapSelectionSort(arr, min, i)
+    }
+    return arr
+}
+
+fun Repeat.swapSelectionSort(nums: IntArray, start: Int, end: Int) {
+    var temp = nums[start]
+    nums[start] = nums[end]
+    nums[end] = temp
+}
+
+
+/**
+ * Repeat Quick Sort
+ */
+
+
+fun Repeat.wrapQuickSort2(arr: IntArray): IntArray {
+    quickSort2(arr, 0, arr.size - 1)
+    return arr
+}
+
+fun Repeat.quickSort2(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    val wall = partSortHoara2(arr, start, end)
+    quickSort2(arr, start, wall - 1)
+    quickSort2(arr, wall, end)
+}
+
+internal fun partSortHoara2(arr: IntArray, start: Int, end: Int): Int {
+    var left = start
+    var right = end
+    val pivot = arr[(left + right) / 2]
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+        if (left <= right) {
+            customSwap(arr, left, right)
+            left++
+            right--
+        }
+    }
+    return left
+}
+
+internal fun customSwap(nums: IntArray, start: Int, end: Int) {
+    var temp = nums[start]
+    nums[start] = nums[end]
+    nums[end] = temp
+}
 
 
 

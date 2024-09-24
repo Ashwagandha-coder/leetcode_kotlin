@@ -6,7 +6,13 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Repeat.value.lexicalOrder(13).forEach {
+//    permute(MyArrays.permutationsData()).let {
+//        it.forEach { num ->
+//            print("${num.toString()} ")
+//        }
+//    }
+
+    subsets(MyArrays.subsetData()).forEach {
         print("$it ")
     }
 

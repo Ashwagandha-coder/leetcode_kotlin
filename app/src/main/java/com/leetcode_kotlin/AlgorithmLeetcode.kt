@@ -1,7 +1,6 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
-import java.util.Collections.swap
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -759,6 +758,7 @@ private fun createSubset(
 
     subset.removeAt(subset.size - 1)
     createSubset(nums, index + 1, res, subset)
+    return
 }
 
 /**
@@ -766,22 +766,25 @@ private fun createSubset(
  */
 
 
-fun permute(nums: IntArray): List<List<Int>> {
+fun permute(nums: IntArray): MutableList<List<Int>> {
     val res: MutableList<List<Int>> = ArrayList()
-    backtrack(nums, 0, res)
+    backtrack(res, ArrayList(), nums)
     return res
 }
 
-private fun backtrack(nums: IntArray, start: Int, res: MutableList<List<Int>>) {
-    if (start == nums.size) {
-        res.add(nums.toList())
+private fun backtrack(res: MutableList<List<Int>>, tempList: MutableList<Int>, nums: IntArray) {
+    if (tempList.size == nums.size) {
+        res.add(ArrayList(tempList))
         return
-    }
+    } else {
+        for (i in nums.indices) {
+            if (tempList.contains(nums[i])) continue  // element already exists, skip
 
-    for (i in start until nums.size) {
-        swap(nums.toList(), start, i)
-        backtrack(nums, start + 1, res)
-        swap(nums.toList(), start, i)
+            tempList.add(nums[i])
+            backtrack(res, tempList, nums)
+            tempList.removeAt(tempList.size - 1)
+        }
+        return
     }
 }
 
