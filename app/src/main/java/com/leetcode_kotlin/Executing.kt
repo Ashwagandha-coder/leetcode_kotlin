@@ -6,13 +6,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-//    permute(MyArrays.permutationsData()).let {
-//        it.forEach { num ->
-//            print("${num.toString()} ")
-//        }
-//    }
+    val can = intArrayOf(10, 1, 2, 7, 6, 1, 5)
+    val tar = 8
 
-    subsets(MyArrays.subsetData()).forEach {
+    combinationSum2(can, tar).forEach {
         print("$it ")
     }
 

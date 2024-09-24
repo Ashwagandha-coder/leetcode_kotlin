@@ -858,6 +858,35 @@ private fun makeCombination(
 }
 
 
+fun combinationSum2(candidates: IntArray, target: Int): List<List<Int>> {
+    val res: MutableSet<MutableList<Int>> = mutableSetOf()
+    makeCombination(candidates, 0, 0, target, ArrayList(), res)
+    return res.toList()
+}
+
+fun makeCombination(
+    candidates: IntArray,
+    index: Int,
+    total: Int,
+    target: Int,
+    subset: MutableList<Int>,
+    res: MutableSet<MutableList<Int>>
+) {
+    if (total == target) {
+        res.add(ArrayList(subset))
+        return
+    }
+
+    if (total > target || index >= candidates.size) return
+
+    subset.add(candidates[index])
+    makeCombination(candidates, index + 1, total + candidates[index], target, subset, res)
+
+    subset.removeAt(subset.size - 1)
+    makeCombination(candidates, index + 1, total, target, subset, res)
+    return
+}
+
 
 
 
