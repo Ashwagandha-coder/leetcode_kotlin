@@ -33,7 +33,6 @@ object MyArrays {
 
     fun maxProfitData() = intArrayOf(7, 1, 5, 3, 6, 4)
 
-    fun subset() = intArrayOf(1, 2, 3)
 
     fun sortingData() = intArrayOf(3, 5, 4, 1, 8)
 
@@ -42,6 +41,9 @@ object MyArrays {
     fun combineSumData() = Pair(intArrayOf(2, 3, 6, 7), 7)
 
     fun permutationsData() = intArrayOf(1, 2, 3)
+
+
+    fun subsetData() = intArrayOf(1, 2, 3)
 }
 
 

@@ -12,7 +12,7 @@ fun main() {
 //        }
 //    }
 
-    Repeat.value.wrapQuickSort2(MyArrays.quickSortData()).forEach {
+    subsets(MyArrays.subsetData()).forEach {
         print("$it ")
     }
 

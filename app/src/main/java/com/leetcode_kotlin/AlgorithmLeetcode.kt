@@ -758,6 +758,7 @@ private fun createSubset(
 
     subset.removeAt(subset.size - 1)
     createSubset(nums, index + 1, res, subset)
+    return
 }
 
 /**
