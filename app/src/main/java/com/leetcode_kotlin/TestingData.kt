@@ -40,6 +40,8 @@ object MyArrays {
     fun quickSortData() = intArrayOf(3, 2, 4, 9, 4, 5, 7)
 
     fun combineSumData() = Pair(intArrayOf(2, 3, 6, 7), 7)
+
+    fun permutationsData() = intArrayOf(1, 2, 3)
 }
 
 
