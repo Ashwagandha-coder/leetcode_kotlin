@@ -233,6 +233,28 @@ fun Repeat.lexicalOrder(n: Int): List<Int> {
 }
 
 
+/**
+ * Selection Sort Repeat
+ */
+
+
+fun Repeat.selectionSort2(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[min] > arr[j]) min = j
+        }
+        if (min != i) swapSelectionSort(arr, min, i)
+    }
+    return arr
+}
+
+fun Repeat.swapSelectionSort(nums: IntArray, start: Int, end: Int) {
+    var temp = nums[start]
+    nums[start] = nums[end]
+    nums[end] = temp
+}
 
 
 
