@@ -297,6 +297,36 @@ internal fun customSwap(nums: IntArray, start: Int, end: Int) {
 }
 
 
+/**
+ * Repeat Subset
+ */
+
+fun Repeat.subset(nums: IntArray): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    return res
+}
+
+fun Repeat.backTrackSubset(
+    nums: IntArray,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
+    if (index == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+
+    subset.add(nums[index])
+    backTrackSubset(nums, index + 1, subset, res)
+
+    subset.removeAt(subset.size - 1)
+    backTrackSubset(nums, index + 1, subset, res)
+    return
+}
+
+
 
 
 
