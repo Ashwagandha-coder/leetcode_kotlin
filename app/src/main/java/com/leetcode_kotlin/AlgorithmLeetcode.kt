@@ -1,23 +1,8 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
-import java.util.Collections.swap
 import kotlin.math.abs
 import kotlin.math.max
-
-
-/**
- * Executing
- */
-
-fun main() {
-
-    Numbers.combineData().apply {
-        println(combine(first, second))
-    }
-
-
-}
 
 
 /**
@@ -479,9 +464,14 @@ fun partOfSortHoara(arr: IntArray, start: Int, end: Int): Int {
 
 fun quickSort(arr: IntArray, start: Int, end: Int) {
     if (start >= end) return
-    var starting = partOfSortHoara(arr, start, end)
-    quickSort(arr, start, starting - 1)
+    var wall = partOfSortHoara(arr, start, end)
+    quickSort(arr, start, wall - 1)
     quickSort(arr, start + 1, end)
+}
+
+fun wrap(arr: IntArray, start: Int, end: Int): IntArray {
+    quickSort(arr, start, end)
+    return arr
 }
 
 /**
@@ -697,8 +687,8 @@ fun binaryTreePaths(root: MyTreeNode?): List<String> {
  */
 
 
-val list = mutableListOf<String>()
-var n = 0
+private val list = mutableListOf<String>()
+private var n = 0
 fun letterCasePermutation(s: String): List<String> {
     n = s.length
     rec(s, 0)
@@ -768,6 +758,7 @@ private fun createSubset(
 
     subset.removeAt(subset.size - 1)
     createSubset(nums, index + 1, res, subset)
+    return
 }
 
 /**
@@ -775,22 +766,25 @@ private fun createSubset(
  */
 
 
-fun permute(nums: IntArray): List<List<Int>> {
+fun permute(nums: IntArray): MutableList<List<Int>> {
     val res: MutableList<List<Int>> = ArrayList()
-    backtrack(nums, 0, res)
+    backtrack(res, ArrayList(), nums)
     return res
 }
 
-private fun backtrack(nums: IntArray, start: Int, res: MutableList<List<Int>>) {
-    if (start == nums.size) {
-        res.add(nums.toList())
+private fun backtrack(res: MutableList<List<Int>>, tempList: MutableList<Int>, nums: IntArray) {
+    if (tempList.size == nums.size) {
+        res.add(ArrayList(tempList))
         return
-    }
+    } else {
+        for (i in nums.indices) {
+            if (tempList.contains(nums[i])) continue  // element already exists, skip
 
-    for (i in start until nums.size) {
-        swap(nums.toList(), start, i)
-        backtrack(nums, start + 1, res)
-        swap(nums.toList(), start, i)
+            tempList.add(nums[i])
+            backtrack(res, tempList, nums)
+            tempList.removeAt(tempList.size - 1)
+        }
+        return
     }
 }
 
@@ -828,7 +822,139 @@ private fun backtrack(
     return
 }
 
+/**
+ * 39. Combination Sum
+ */
 
+
+fun combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+
+    makeCombination(candidates, target, 0, ArrayList(), 0, res)
+    return res
+}
+
+private fun makeCombination(
+    candidates: IntArray,
+    target: Int,
+    idx: Int,
+    comb: MutableList<Int>,
+    total: Int,
+    res: MutableList<List<Int>>
+) {
+    if (total == target) {
+        res.add(ArrayList(comb))
+        return
+    }
+
+    if (total > target || idx >= candidates.size) {
+        return
+    }
+
+    comb.add(candidates[idx])
+    makeCombination(candidates, target, idx, comb, total + candidates[idx], res)
+    comb.removeAt(comb.size - 1)
+    makeCombination(candidates, target, idx + 1, comb, total, res)
+}
+
+/**
+ * Combinations Sum II
+ */
+
+
+fun combinationSum2(candidates: IntArray, target: Int): List<List<Int>> {
+    val res: MutableSet<MutableList<Int>> = mutableSetOf()
+    makeCombination(candidates, 0, 0, target, ArrayList(), res)
+    return res.toList()
+}
+
+fun makeCombination(
+    candidates: IntArray,
+    index: Int,
+    total: Int,
+    target: Int,
+    subset: MutableList<Int>,
+    res: MutableSet<MutableList<Int>>
+) {
+    if (total == target) {
+        res.add(ArrayList(subset))
+        return
+    }
+
+    if (total > target || index >= candidates.size) return
+
+    subset.add(candidates[index])
+    makeCombination(candidates, index + 1, total + candidates[index], target, subset, res)
+
+    subset.removeAt(subset.size - 1)
+    makeCombination(candidates, index + 1, total, target, subset, res)
+    return
+}
+
+/**
+ * 90. Subsets II
+ */
+
+fun subsetsWithDup(nums: IntArray): List<List<Int>> {
+    val n = nums.size
+    val ans: MutableList<List<Int>> = ArrayList()
+    val set: MutableList<Int> = ArrayList()
+    Arrays.sort(nums)
+
+    backtrack(nums, n, ans, set, 0)
+    return ans
+}
+
+private fun backtrack(
+    nums: IntArray,
+    n: Int,
+    ans: MutableList<List<Int>>,
+    set: MutableList<Int>,
+    idx: Int
+) {
+    var index = idx
+    if (index >= nums.size) {
+        ans.add(ArrayList(set))
+        return
+    }
+
+    set.add(nums[index])
+    backtrack(nums, n, ans, set, index + 1)
+    set.removeAt(set.size - 1)
+
+    while (index + 1 < nums.size && nums[index] == nums[index + 1]) {
+        index++
+    }
+    backtrack(nums, n, ans, set, index + 1)
+    return
+}
+
+
+/**
+ *  22. Generate Parentheses
+ */
+
+fun generateParenthesis(n: Int): MutableList<String> {
+    val res: MutableList<String> = ArrayList()
+    dfs(0, 0, "", n, res)
+    return res
+}
+
+private fun dfs(openP: Int, closeP: Int, s: String, n: Int, res: MutableList<String>) {
+    if (openP == closeP && openP + closeP == n * 2) {
+        res.add(s)
+        return
+    }
+
+    if (openP < n) {
+        dfs(openP + 1, closeP, "$s(", n, res)
+    }
+
+    if (closeP < openP) {
+        dfs(openP, closeP + 1, "$s)", n, res)
+    }
+    return
+}
 
 
 
