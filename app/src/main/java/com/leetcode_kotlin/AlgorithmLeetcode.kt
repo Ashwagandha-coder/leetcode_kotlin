@@ -891,6 +891,70 @@ fun makeCombination(
     return
 }
 
+/**
+ * 90. Subsets II
+ */
+
+fun subsetsWithDup(nums: IntArray): List<List<Int>> {
+    val n = nums.size
+    val ans: MutableList<List<Int>> = ArrayList()
+    val set: MutableList<Int> = ArrayList()
+    Arrays.sort(nums)
+
+    backtrack(nums, n, ans, set, 0)
+    return ans
+}
+
+private fun backtrack(
+    nums: IntArray,
+    n: Int,
+    ans: MutableList<List<Int>>,
+    set: MutableList<Int>,
+    idx: Int
+) {
+    var index = idx
+    if (index >= nums.size) {
+        ans.add(ArrayList(set))
+        return
+    }
+
+    set.add(nums[index])
+    backtrack(nums, n, ans, set, index + 1)
+    set.removeAt(set.size - 1)
+
+    while (index + 1 < nums.size && nums[index] == nums[index + 1]) {
+        index++
+    }
+    backtrack(nums, n, ans, set, index + 1)
+    return
+}
+
+
+/**
+ *  22. Generate Parentheses
+ */
+
+fun generateParenthesis(n: Int): MutableList<String> {
+    val res: MutableList<String> = ArrayList()
+    dfs(0, 0, "", n, res)
+    return res
+}
+
+private fun dfs(openP: Int, closeP: Int, s: String, n: Int, res: MutableList<String>) {
+    if (openP == closeP && openP + closeP == n * 2) {
+        res.add(s)
+        return
+    }
+
+    if (openP < n) {
+        dfs(openP + 1, closeP, "$s(", n, res)
+    }
+
+    if (closeP < openP) {
+        dfs(openP, closeP + 1, "$s)", n, res)
+    }
+    return
+}
 
 
 

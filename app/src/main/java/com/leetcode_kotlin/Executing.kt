@@ -6,8 +6,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    permute(MyArrays.permutationsData()).forEach {
-        print("$it ")
+    generateParenthesis(3).let {
+        println("$it ")
     }
+
+
 
 }

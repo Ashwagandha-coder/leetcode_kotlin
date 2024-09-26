@@ -42,6 +42,35 @@ object MyArrays {
 
     fun permutationsData() = intArrayOf(1, 2, 3)
 
+    fun test() = intArrayOf(
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        0,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        3,
+        2,
+        1,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6, 10, 23
+    )
 
     fun subsetData() = intArrayOf(1, 2, 3)
 }
