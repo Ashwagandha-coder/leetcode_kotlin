@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    subsets(MyArrays.subsetData()).forEach {
+    Repeat.value.selectionSort3(MyArrays.sortingData()).forEach {
         print("$it ")
     }
 

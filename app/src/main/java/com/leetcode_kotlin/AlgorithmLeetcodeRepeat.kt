@@ -327,6 +327,27 @@ fun Repeat.backTrackSubset(
 }
 
 
+fun Repeat.selectionSort3(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[min] > arr[j]) min = j
+        }
+        if (min != i) {
+            swapSelectionSortElement(arr, min, i)
+        }
+    }
+    return arr
+}
+
+fun Repeat.swapSelectionSortElement(arr: IntArray, start: Int, end: Int) {
+    var temp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = temp
+}
+
+
 
 
 
