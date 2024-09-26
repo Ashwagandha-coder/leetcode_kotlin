@@ -6,8 +6,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    permute(MyArrays.permutationsData()).forEach {
+    var arr = IntArray(50000)
+
+    subsetsWithDup(arr).forEach {
         print("$it ")
     }
+
 
 }

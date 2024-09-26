@@ -891,6 +891,44 @@ fun makeCombination(
     return
 }
 
+/**
+ * 90. Subsets II
+ */
+
+fun subsetsWithDup(nums: IntArray): List<List<Int>> {
+    val n = nums.size
+    val ans: MutableList<List<Int>> = ArrayList()
+    val set: MutableList<Int> = ArrayList()
+    Arrays.sort(nums)
+
+    backtrack(nums, n, ans, set, 0)
+    return ans
+}
+
+private fun backtrack(
+    nums: IntArray,
+    n: Int,
+    ans: MutableList<List<Int>>,
+    set: MutableList<Int>,
+    idx: Int
+) {
+    var index = idx
+    if (index >= nums.size) {
+        ans.add(ArrayList(set))
+        return
+    }
+
+    set.add(nums[index])
+    backtrack(nums, n, ans, set, index + 1)
+    set.removeAt(set.size - 1)
+
+    while (index + 1 < nums.size && nums[index] == nums[index + 1]) {
+        index++
+    }
+    backtrack(nums, n, ans, set, index + 1)
+    return
+}
+
 
 
 
