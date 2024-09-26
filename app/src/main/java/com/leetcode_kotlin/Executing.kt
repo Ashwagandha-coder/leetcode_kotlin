@@ -6,11 +6,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    var arr = IntArray(50000)
-
-    subsetsWithDup(arr).forEach {
-        print("$it ")
+    generateParenthesis(3).let {
+        println("$it ")
     }
+
 
 
 }

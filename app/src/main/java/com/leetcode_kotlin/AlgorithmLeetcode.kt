@@ -930,6 +930,32 @@ private fun backtrack(
 }
 
 
+/**
+ *  22. Generate Parentheses
+ */
+
+fun generateParenthesis(n: Int): MutableList<String> {
+    val res: MutableList<String> = ArrayList()
+    dfs(0, 0, "", n, res)
+    return res
+}
+
+private fun dfs(openP: Int, closeP: Int, s: String, n: Int, res: MutableList<String>) {
+    if (openP == closeP && openP + closeP == n * 2) {
+        res.add(s)
+        return
+    }
+
+    if (openP < n) {
+        dfs(openP + 1, closeP, "$s(", n, res)
+    }
+
+    if (closeP < openP) {
+        dfs(openP, closeP + 1, "$s)", n, res)
+    }
+    return
+}
+
 
 
 
