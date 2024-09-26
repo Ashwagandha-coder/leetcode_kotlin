@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Repeat.value.selectionSort3(MyArrays.sortingData()).forEach {
+    permute(MyArrays.permutationsData()).forEach {
         print("$it ")
     }
 
