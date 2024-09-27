@@ -956,6 +956,27 @@ private fun dfs(openP: Int, closeP: Int, s: String, n: Int, res: MutableList<Str
     return
 }
 
+/**
+ * 213. House Robber II
+ */
+
+fun robII(nums: IntArray): Int {
+    if (nums.size == 1) return nums[0]
+    val len = nums.size
+    return max(maxRob(nums, 0, nums.size - 2), maxRob(nums, 1, nums.size - 1))
+}
+
+fun maxRob(nums: IntArray, start: Int, end: Int): Int {
+    var prevRob = 0
+    var maxRob = 0
+    for (i in start..end) {
+        var temp = max(maxRob, prevRob + nums[i])
+        prevRob = maxRob
+        maxRob = temp
+    }
+    return maxRob
+}
+
 
 
 
