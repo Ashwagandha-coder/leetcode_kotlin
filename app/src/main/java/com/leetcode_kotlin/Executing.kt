@@ -6,10 +6,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    generateParenthesis(3).let {
+    longestCommonPrefix(arrayOf("racecar", "dog", "car")).let {
         println("$it ")
     }
-
 
 
 }

@@ -977,6 +977,30 @@ fun maxRob(nums: IntArray, start: Int, end: Int): Int {
     return maxRob
 }
 
+/**
+ * 14. Longest Common Prefix
+ */
+
+fun longestCommonPrefix(strs: Array<String>?): String {
+    if (strs == null || strs.size == 0) return ""
+
+    var pref = strs[0]
+    var prefLen = pref.length
+
+    for (i in 1 until strs.size) {
+        val s = strs[i]
+        while (prefLen > s.length || pref != s.substring(0, prefLen)) {
+            prefLen--
+            if (prefLen == 0) {
+                return ""
+            }
+            pref = pref.substring(0, prefLen)
+        }
+    }
+
+    return pref
+}
+
 
 
 
