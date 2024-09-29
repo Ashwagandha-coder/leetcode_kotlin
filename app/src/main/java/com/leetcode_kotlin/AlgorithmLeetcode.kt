@@ -982,7 +982,7 @@ fun maxRob(nums: IntArray, start: Int, end: Int): Int {
  */
 
 fun longestCommonPrefix(strs: Array<String>?): String {
-    if (strs == null || strs.size == 0) return ""
+    if (strs.isNullOrEmpty()) return ""
 
     var pref = strs[0]
     var prefLen = pref.length
@@ -999,6 +999,22 @@ fun longestCommonPrefix(strs: Array<String>?): String {
     }
 
     return pref
+}
+
+/**
+ * 53. Maximum Subarray
+ */
+
+fun maxSubArray(nums: IntArray): Int {
+    var res = nums[0]
+    var total = 0
+    val len = nums.size
+    for (i in 0..len - 1) {
+        if (total < 0) total = 0
+        total += nums[i]
+        res = max(res, total)
+    }
+    return res
 }
 
 
