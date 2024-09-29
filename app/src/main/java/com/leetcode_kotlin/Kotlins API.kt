@@ -1,5 +1,8 @@
 package com.leetcode_kotlin
 
+import android.app.Activity
+import android.content.Context
+import android.widget.Button
 
 
 fun filter() {
@@ -21,7 +24,14 @@ fun filter() {
         println()
     }
 
+    doSome.filter { it.key == "a" }.map {
+        
+    }
+
+
 }
+
+
 
 private fun <K, V> Map<K, V>.myFun(lambda: (V) -> Unit) {
     TODO("Not yet implemented")
@@ -31,6 +41,7 @@ private fun <K, V> Map<K, V>.myFun(lambda: (V) -> Unit) {
 inline fun <K, V> Map.Entry<K, V>.myFun(lambda: (action: String) -> Unit) {
     lambda.invoke("Base")
 }
+
 inline fun print(lambda: (out: String) -> Unit) {
 
 }
