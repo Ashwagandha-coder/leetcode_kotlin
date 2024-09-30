@@ -7,8 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    val arr = MyArrays.quickSortData()
-    Repeat.value.myWrap(arr).forEach {
+    combinationSum2Other(MyArrays.candidatesCombinationSum(), 8).forEach {
         print("$it ")
     }
 
