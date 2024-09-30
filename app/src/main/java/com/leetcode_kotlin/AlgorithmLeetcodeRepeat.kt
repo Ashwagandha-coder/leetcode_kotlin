@@ -347,7 +347,44 @@ fun Repeat.swapSelectionSortElement(arr: IntArray, start: Int, end: Int) {
     arr[end] = temp
 }
 
+/**
+ * Repeat Quick Sort
+ */
 
+
+fun Repeat.myWrap(arr: IntArray): IntArray {
+    wrapQuickSort(arr, 0, arr.size - 1)
+    return arr
+}
+
+fun Repeat.wrapQuickSort(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    val wall = partOfSortHoaraRepeat(arr, start, end)
+    wrapQuickSort(arr, start, wall - 1)
+    wrapQuickSort(arr, wall, end)
+}
+
+fun Repeat.partOfSortHoaraRepeat(arr: IntArray, start: Int, end: Int): Int {
+    var left = start
+    var right = end
+    val pivot = arr[(left + right) / 2]
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+        if (left <= right) {
+            swapElementQuickSort(arr, left, right)
+            left++
+            right--
+        }
+    }
+    return left
+}
+
+fun Repeat.swapElementQuickSort(arr: IntArray, start: Int, end: Int) {
+    var temp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = temp
+}
 
 
 

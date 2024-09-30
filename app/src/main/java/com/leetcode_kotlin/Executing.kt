@@ -6,8 +6,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    longestCommonPrefix(arrayOf("racecar", "dog", "car")).let {
-        println("$it ")
+
+    val arr = MyArrays.quickSortData()
+    Repeat.value.myWrap(arr).forEach {
+        print("$it ")
     }
 
 

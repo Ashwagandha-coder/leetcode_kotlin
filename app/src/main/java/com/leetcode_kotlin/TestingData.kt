@@ -33,7 +33,6 @@ object MyArrays {
 
     fun maxProfitData() = intArrayOf(7, 1, 5, 3, 6, 4)
 
-
     fun sortingData() = intArrayOf(3, 5, 4, 1, 8)
 
     fun quickSortData() = intArrayOf(3, 2, 4, 9, 4, 5, 7)
@@ -42,37 +41,11 @@ object MyArrays {
 
     fun permutationsData() = intArrayOf(1, 2, 3)
 
-    fun test() = intArrayOf(
-        1,
-        2,
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        0,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        3,
-        2,
-        1,
-        4,
-        5,
-        5,
-        5,
-        5,
-        5,
-        5,
-        6, 10, 23
-    )
-
     fun subsetData() = intArrayOf(1, 2, 3)
+
+    fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
+
+    fun maxSubArrayDP() = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
 }
 
 
