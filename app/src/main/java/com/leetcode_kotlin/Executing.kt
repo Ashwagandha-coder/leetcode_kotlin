@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    longestCommonPrefix(arrayOf("racecar", "dog", "car")).let {
+    maxSubArrayDP(MyArrays.maxSubArrayDP()).let {
         println("$it ")
     }
 
