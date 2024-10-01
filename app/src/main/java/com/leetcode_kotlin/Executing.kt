@@ -7,9 +7,8 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    combinationSum2Other(MyArrays.candidatesCombinationSum(), 8).forEach {
+    Repeat.value.generateParentheses(3).forEach {
         print("$it ")
     }
-
 
 }

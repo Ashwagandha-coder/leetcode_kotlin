@@ -386,6 +386,32 @@ fun Repeat.swapElementQuickSort(arr: IntArray, start: Int, end: Int) {
     arr[end] = temp
 }
 
+/**
+ *  generate Parentheses
+ */
+
+
+fun Repeat.generateParentheses(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    dfs(n, 0, 0, "", res)
+    return res
+}
+
+private fun dfs(n: Int, open: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (open == close && open + close == n * 2) {
+        res.add(subset)
+        return
+    }
+    if (open < n) {
+        dfs(n, open + 1, close, "$subset(", res)
+    }
+
+    if (close < open) {
+        dfs(n, open, close + 1, "$subset)", res)
+    }
+    return
+}
+
 
 
 
