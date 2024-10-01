@@ -1,8 +1,12 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
+import java.util.PriorityQueue
+import kotlin.math.abs
 import kotlin.math.max
 
+
+class NewSolution
 
 /**
  * 53. Maximum Subarray
@@ -83,4 +87,38 @@ private fun dfs(
         comb.removeAt(comb.size - 1)
     }
     return
+}
+
+
+/**
+ * 128. Longest Consecutive Sequence
+ * Priority Queue
+ * O(n * logn) - Time
+ * O(n) - Space
+ */
+
+fun NewSolution.longestConsecutive(nums: IntArray): Int {
+    if (nums.isEmpty() || nums.size == 1) {
+        return nums.size
+    }
+    val pq = PriorityQueue<Int>()
+    for (i in nums.indices) {
+        pq.add(nums[i])
+    }
+    var ans = 1
+    var count = 1
+    var prev = pq.remove()
+    while (!pq.isEmpty()) {
+        val present = pq.remove()
+        if (present == prev) {
+        } else if (abs((present - prev).toDouble()) == 1.0) {
+            count++
+            ans = max(ans.toDouble(), count.toDouble()).toInt()
+            prev = present
+        } else {
+            count = 1
+            prev = present
+        }
+    }
+    return ans
 }
