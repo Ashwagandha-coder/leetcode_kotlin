@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.PriorityQueue
+import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -386,8 +388,86 @@ fun Repeat.swapElementQuickSort(arr: IntArray, start: Int, end: Int) {
     arr[end] = temp
 }
 
+/**
+ *  generate Parentheses
+ */
 
 
+fun Repeat.generateParentheses(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    dfs(n, 0, 0, "", res)
+    return res
+}
+
+private fun dfs(n: Int, open: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (open == close && open + close == n * 2) {
+        res.add(subset)
+        return
+    }
+    if (open < n) {
+        dfs(n, open + 1, close, "$subset(", res)
+    }
+
+    if (close < open) {
+        dfs(n, open, close + 1, "$subset)", res)
+    }
+    return
+}
+
+/**
+ * Longest Consecutive SubSequence
+ */
+
+
+/**
+ * Longest Common Prefix
+ */
+
+
+fun longestCommonPrefix(strs: Array<String>): String {
+    val map = mutableMapOf<Char, Int>()
+    val size = strs.size
+    var prefix = ""
+    for (str in strs) {
+        var len = str.length - 1
+        for (j in 0 until len) {
+            if (!map.contains(str[j])) map[str[j]] = 1
+            else {
+                var value = map[str[j]]
+                value = value!! + 1
+                map[str[j]] = value
+            }
+            if (map[str[j]] == size) prefix += str[j]
+        }
+    }
+    return prefix
+}
+
+
+/**
+ * genearte paranthesis
+ */
+
+fun Repeat.generate(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    dfs(n, 0, 0, "", res)
+    return res
+}
+
+private fun Repeat.dfs(n: Int, openC: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (openC == close && openC + close == n * 2) {
+        res.add(subset)
+        return
+    }
+
+    if (openC < n) {
+        dfs(n, openC + 1, close, subset, res)
+    }
+    if (close < openC) {
+        dfs(n, openC, close + 1, subset, res)
+    }
+    return
+}
 
 
 

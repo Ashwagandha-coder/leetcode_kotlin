@@ -7,10 +7,8 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    val arr = MyArrays.quickSortData()
-    Repeat.value.myWrap(arr).forEach {
+    Repeat.value.generateParentheses(2).forEach {
         print("$it ")
     }
-
 
 }

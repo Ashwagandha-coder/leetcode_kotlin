@@ -46,6 +46,8 @@ object MyArrays {
     fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
 
     fun maxSubArrayDP() = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
+
+    fun candidatesCombinationSum() = intArrayOf(10, 1, 2, 7, 6, 1, 5)
 }
 
 
