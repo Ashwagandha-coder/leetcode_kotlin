@@ -6,7 +6,7 @@ import kotlin.math.abs
 import kotlin.math.max
 
 
-class NewSolution
+class Solution
 
 /**
  * 53. Maximum Subarray
@@ -97,7 +97,7 @@ private fun dfs(
  * O(n) - Space
  */
 
-fun NewSolution.longestConsecutive(nums: IntArray): Int {
+fun Solution.longestConsecutive(nums: IntArray): Int {
     if (nums.isEmpty() || nums.size == 1) {
         return nums.size
     }
@@ -122,3 +122,28 @@ fun NewSolution.longestConsecutive(nums: IntArray): Int {
     }
     return ans
 }
+
+/**
+ * 78. Subsets
+ * Bit Manipulation
+ * Time - O(2^n)
+ * Space - O(n)
+ */
+
+fun Solution.subsets(nums: IntArray): List<List<Int>> {
+    val result: MutableList<List<Int>> = ArrayList()
+    val n = nums.size
+    for (i in 0 until (1 shl n)) {
+        val subset: MutableList<Int> = ArrayList()
+        for (j in 0 until n) {
+            if ((i and (1 shl j)) > 0) {
+                subset.add(nums[j])
+            }
+        }
+        result.add(subset)
+    }
+    return result
+}
+
+
+
