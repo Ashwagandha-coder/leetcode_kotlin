@@ -7,8 +7,8 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Repeat.value.generateParentheses(2).forEach {
-        print("$it ")
+    findDuplicate(MyArrays.findDuplicates()).let {
+        println("$it")
     }
 
 }
