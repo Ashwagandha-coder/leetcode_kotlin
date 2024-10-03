@@ -29,6 +29,8 @@ object MyArrays {
 
     fun findDisappearedNumbersData() = intArrayOf(4, 3, 2, 7, 8, 2, 3, 1)
 
+    fun findDuplicates() = intArrayOf(1, 3, 4, 2, 2)
+
     fun singleNumberData() = intArrayOf(4, 1, 2, 1, 2)
 
     fun maxProfitData() = intArrayOf(7, 1, 5, 3, 6, 4)

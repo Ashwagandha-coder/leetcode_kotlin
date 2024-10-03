@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Repeat.value.generateParentheses(2).forEach {
+    Repeat.value.selectionSortRepeat(MyArrays.sortingData()).forEach {
         print("$it ")
     }
 

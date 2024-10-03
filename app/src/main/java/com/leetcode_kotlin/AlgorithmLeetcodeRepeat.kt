@@ -469,6 +469,30 @@ private fun Repeat.dfs(n: Int, openC: Int, close: Int, subset: String, res: Muta
     return
 }
 
+/**
+ * Repeat Selection Sort
+ * 3.10.24
+ */
+
+
+fun Repeat.selectionSortRepeat(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[min] > arr[j]) min = j
+        }
+        if (min != i) swapSelectionSortRepeat(arr, min, i)
+    }
+    return arr
+}
+
+fun Repeat.swapSelectionSortRepeat(arr: IntArray, start: Int, end: Int) {
+    var temp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = temp
+}
+
 
 
 

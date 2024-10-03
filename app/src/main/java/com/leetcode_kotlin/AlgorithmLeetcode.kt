@@ -547,7 +547,7 @@ fun productExceptSelfPrefixOptimization(nums: IntArray): IntArray {
 
 fun findDuplicate(nums: IntArray): Int {
     var len = nums.size
-    for (i in 0..len - 1) {
+    for (i in 0 until len) {
         var ind = abs(nums[i])
         if (nums[ind] < 0) return ind
         nums[ind] = -1 * nums[ind]
