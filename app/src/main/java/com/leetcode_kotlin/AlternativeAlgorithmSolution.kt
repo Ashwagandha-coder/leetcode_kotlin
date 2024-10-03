@@ -145,9 +145,6 @@ fun Solution.subsets(nums: IntArray): List<List<Int>> {
     return result
 }
 
-fun test() {
-
-}
 
 
 

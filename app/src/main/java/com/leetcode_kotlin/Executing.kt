@@ -7,8 +7,8 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    findDuplicate(MyArrays.findDuplicates()).let {
-        println("$it")
+    Repeat.value.selectionSortRepeat(MyArrays.sortingData()).forEach {
+        print("$it ")
     }
 
 }
