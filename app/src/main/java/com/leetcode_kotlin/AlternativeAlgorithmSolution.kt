@@ -6,7 +6,11 @@ import kotlin.math.abs
 import kotlin.math.max
 
 
-class Solution
+class Solution {
+    companion object {
+        val value = Solution()
+    }
+}
 
 /**
  * 53. Maximum Subarray
@@ -146,5 +150,20 @@ fun Solution.subsets(nums: IntArray): List<List<Int>> {
 }
 
 
+/**
+ * Max Rob I
+ */
 
+
+fun Solution.maxRob(nums: IntArray): Int {
+    val len = nums.size
+    var alt = 0
+    var max = 0
+    for (i in 0 until len) {
+        var temp = max(max, alt + nums[i])
+        alt = max
+        max = temp
+    }
+    return max
+}
 

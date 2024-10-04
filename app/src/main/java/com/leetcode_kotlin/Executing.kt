@@ -7,8 +7,8 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Repeat.value.selectionSortRepeat(MyArrays.sortingData()).forEach {
-        print("$it ")
+    Solution.value.maxRob(MyArrays.maxRobData()).let {
+        println("$it ")
     }
 
 }
