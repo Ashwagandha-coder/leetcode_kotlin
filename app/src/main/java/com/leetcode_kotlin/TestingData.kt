@@ -45,6 +45,8 @@ object MyArrays {
 
     fun subsetData() = intArrayOf(1, 2, 3)
 
+    fun maxRobData() = intArrayOf(2, 7, 9, 3, 1)
+
     fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
 
     fun maxSubArrayDP() = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
