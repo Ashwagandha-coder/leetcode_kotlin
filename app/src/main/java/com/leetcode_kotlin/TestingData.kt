@@ -47,6 +47,10 @@ object MyArrays {
 
     fun maxRobData() = intArrayOf(2, 7, 9, 3, 1)
 
+    fun containsDuplicateIIIData() = intArrayOf(8, 7, 15, 1, 6, 1, 9, 15)
+
+    fun findWaysData() = intArrayOf(1, 1, 1, 1, 1)
+
     fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
 
     fun maxSubArrayDP() = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)

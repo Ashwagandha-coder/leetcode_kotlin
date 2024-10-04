@@ -7,8 +7,5 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Solution.value.maxRob(MyArrays.maxRobData()).let {
-        println("$it ")
-    }
-
+    containsNearbyAlmostDuplicate(MyArrays.containsDuplicateIIIData(), 1, 3)
 }
