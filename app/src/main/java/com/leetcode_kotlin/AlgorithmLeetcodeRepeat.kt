@@ -573,6 +573,28 @@ private fun Repeat.backtrack(
     return
 }
 
+/**
+ * Repeat Bubble Sort
+ */
+
+
+fun Repeat.bubbleSortRepeat(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        for (j in i + 1 until len) {
+            if (arr[i] > arr[j]) {
+                arr.swapBubbleSort(i, j)
+            }
+        }
+    }
+    return arr
+}
+
+fun IntArray.swapBubbleSort(start: Int, end: Int) {
+    var temp = this[start]
+    this[start] = this[end]
+    this[end] = temp
+}
 
 
 

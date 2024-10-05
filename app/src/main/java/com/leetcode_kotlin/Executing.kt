@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    permute(MyArrays.permutationsData()).forEach {
+    Repeat.value.bubbleSortRepeat(MyArrays.sortingData()).forEach {
         print("$it ")
     }
 }
