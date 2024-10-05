@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    permute(MyArrays.permutationsData()).forEach {
+    partition("aab").forEach {
         print("$it ")
     }
 }

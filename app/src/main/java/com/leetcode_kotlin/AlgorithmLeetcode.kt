@@ -1037,12 +1037,18 @@ fun containsNearbyAlmostDuplicateIII(nums: IntArray, indexDiff: Int, valueDiff: 
     }
     return false
 }
+/*
+0 -> 0 - 4
+1 -> 4 - 8
+2 -> 8 - 11
+ */
 
 
 fun getKey(value: Int, base: Int): Int {
     return if (value > -1) value / (base + 1) else (value - base) / (base + 1)
 }
 
+// [8,0,2,4
 fun containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
     var j = 0
     val map = mutableMapOf<Int, Int>()
@@ -1050,8 +1056,8 @@ fun containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int
     while (j < nums.size) {
         val key = getKey(nums[j], valueDiff)
         if (map[key] != null) return true
-        if (map[key - 1] != null && Math.abs(map[key - 1]!! - nums[j]) <= valueDiff) return true
-        if (map[key + 1] != null && Math.abs(map[key + 1]!! - nums[j]) <= valueDiff) return true
+        if (map[key - 1] != null && abs(map[key - 1]!! - nums[j]) <= valueDiff) return true
+        if (map[key + 1] != null && abs(map[key + 1]!! - nums[j]) <= valueDiff) return true
         map[key] = nums[j]
 
         if (j >= indexDiff) {
@@ -1108,7 +1114,64 @@ fun containsNearbyDuplicate(nums: IntArray, k: Int): Boolean {
     return false
 }
 
+/**
+ *
+ */
 
+
+fun String.isPalindrome(start: Int, end: Int): Boolean {
+    var start = start
+    var end = end
+    while (start < end) {
+        if (this[start] != this[end]) {
+            return false
+        }
+        start++
+        end--
+    }
+    return true
+}
+
+
+fun partitionHelper(
+    start: Int,
+    s: String,
+    list: MutableList<List<String>?>,
+    current: MutableList<String>
+) {
+    if (start == s.length) {
+        list.add(ArrayList(current))
+        return
+    }
+
+    for (end in start until s.length) {
+        if (s.isPalindrome(start, end)) {
+            current.add(s.substring(start, end + 1))
+            partitionHelper(end + 1, s, list, current)
+            current.removeAt(current.size - 1)
+        }
+    }
+    return
+}
+
+fun partition(s: String): List<List<String>?> {
+    val list: MutableList<List<String>?> = ArrayList()
+    partitionHelper(0, s, list, ArrayList())
+    return list
+}
+
+/**
+ * 1876. Substrings of Size Three with Distinct Characters
+ */
+
+fun countGoodSubstrings(s: String): Int {
+    val len = s.length
+    var res = 0
+    for (i in 0 until len - 2) {
+        if (s[i] != s[i + 1] && s[i + 1] != s[i + 2] && s[i] != s[i + 2]) res++
+    }
+    return res
+}
 
 
 
