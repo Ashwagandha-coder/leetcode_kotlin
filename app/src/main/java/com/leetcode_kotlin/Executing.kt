@@ -7,8 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Solution.value.maxRob(MyArrays.maxRobData()).let {
-        println("$it ")
+    permute(MyArrays.permutationsData()).forEach {
+        print("$it ")
     }
-
 }

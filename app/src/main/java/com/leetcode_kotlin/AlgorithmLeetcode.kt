@@ -1018,6 +1018,97 @@ fun maxSubArray(nums: IntArray): Int {
 }
 
 
+/**
+ *  220. Contains Duplicate III
+ */
+
+
+fun containsNearbyAlmostDuplicateIII(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val len = nums.size
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until len) {
+        if (map.contains(nums[i])) {
+            var j = map[nums[i]]
+            if (i != j) return true
+            if (abs(i - j!!) <= indexDiff) return true
+            if (abs(nums[i] - nums[j]!!) <= valueDiff) return true
+        }
+        map[nums[i]] = i
+    }
+    return false
+}
+
+
+fun getKey(value: Int, base: Int): Int {
+    return if (value > -1) value / (base + 1) else (value - base) / (base + 1)
+}
+
+fun containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    var j = 0
+    val map = mutableMapOf<Int, Int>()
+
+    while (j < nums.size) {
+        val key = getKey(nums[j], valueDiff)
+        if (map[key] != null) return true
+        if (map[key - 1] != null && Math.abs(map[key - 1]!! - nums[j]) <= valueDiff) return true
+        if (map[key + 1] != null && Math.abs(map[key + 1]!! - nums[j]) <= valueDiff) return true
+        map[key] = nums[j]
+
+        if (j >= indexDiff) {
+            map.remove(getKey(nums[j - indexDiff], valueDiff))
+        }
+        j++
+    }
+    return false
+}
+
+/**
+ *
+ */
+
+fun totalWays(nums: IntArray, target: Int, index: Int): Int {
+    /** Base condition : At 0th index  */
+    if (index == 0) {
+        var ways = 0
+        /** Need to consider both of these conditions separately,
+         * Since, for nums[index]=0, both of the condition will satisfy
+         * Hence it need to be counted twice  */
+        if ((target - nums[index] == 0)) ways++
+        if (target + nums[index] == 0) ways++
+
+        return ways
+    }
+
+    val addition = totalWays(nums, target + nums[index], index - 1)
+    val subtraction = totalWays(nums, target - nums[index], index - 1)
+
+    return addition + subtraction
+}
+
+fun findTargetSumWays(nums: IntArray, target: Int): Int {
+    val n = nums.size
+    return totalWays(nums, target, n - 1)
+}
+
+
+/**
+ * 219. Contains Duplicate II
+ */
+
+fun containsNearbyDuplicate(nums: IntArray, k: Int): Boolean {
+    val len = nums.size
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until len) {
+        if (map.contains(nums[i])) {
+            var j = map[nums[i]]
+            if (abs(i - j!!) <= k) return true
+        }
+        map[nums[i]] = i
+    }
+    return false
+}
+
+
 
 
 
