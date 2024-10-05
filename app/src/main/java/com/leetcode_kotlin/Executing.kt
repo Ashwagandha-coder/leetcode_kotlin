@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Repeat.value.bubbleSortRepeat(MyArrays.sortingData()).forEach {
+    partition("aab").forEach {
         print("$it ")
     }
 }
