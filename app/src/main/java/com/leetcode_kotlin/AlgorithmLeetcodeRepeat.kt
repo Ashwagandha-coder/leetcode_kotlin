@@ -1,7 +1,5 @@
 package com.leetcode_kotlin
 
-import java.util.PriorityQueue
-import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -395,7 +393,7 @@ fun Repeat.swapElementQuickSort(arr: IntArray, start: Int, end: Int) {
 
 fun Repeat.generateParentheses(n: Int): List<String> {
     val res = mutableListOf<String>()
-    dfs(n, 0, 0, "", res)
+    generateParenthesesDfs(n, 0, 0, "", res)
     return res
 }
 
@@ -450,7 +448,7 @@ fun longestCommonPrefix(strs: Array<String>): String {
 
 fun Repeat.generate(n: Int): List<String> {
     val res = mutableListOf<String>()
-    dfs(n, 0, 0, "", res)
+    generateParenthesesDfs(n, 0, 0, "", res)
     return res
 }
 
@@ -461,10 +459,10 @@ private fun Repeat.dfs(n: Int, openC: Int, close: Int, subset: String, res: Muta
     }
 
     if (openC < n) {
-        dfs(n, openC + 1, close, subset, res)
+        generateParenthesesDfs(n, openC + 1, close, subset, res)
     }
     if (close < openC) {
-        dfs(n, openC, close + 1, subset, res)
+        generateParenthesesDfs(n, openC, close + 1, subset, res)
     }
     return
 }
@@ -493,6 +491,30 @@ fun Repeat.swapSelectionSortRepeat(arr: IntArray, start: Int, end: Int) {
     arr[end] = temp
 }
 
+
+/**
+ * 22. Generate Parentheses
+ */
+
+fun Repeat.generateParenthesis(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    generateParenthesesDfs(n, 0, 0, "", res)
+    return res
+}
+
+fun Repeat.generateParenthesesDfs(n: Int, openC: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (openC == close && openC + close == n * 2) {
+        res.add(subset)
+        return
+    }
+    if (openC < n) {
+        generateParenthesesDfs(n, openC + 1, close, "$subset(", res)
+    }
+    if (close < openC) {
+        generateParenthesesDfs(n, openC, close + 1, "$subset)", res)
+    }
+    return
+}
 
 
 
