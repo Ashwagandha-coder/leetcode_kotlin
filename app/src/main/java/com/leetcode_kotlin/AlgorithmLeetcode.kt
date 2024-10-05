@@ -1091,6 +1091,24 @@ fun findTargetSumWays(nums: IntArray, target: Int): Int {
 }
 
 
+/**
+ * 219. Contains Duplicate II
+ */
+
+fun containsNearbyDuplicate(nums: IntArray, k: Int): Boolean {
+    val len = nums.size
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until len) {
+        if (map.contains(nums[i])) {
+            var j = map[nums[i]]
+            if (abs(i - j!!) <= k) return true
+        }
+        map[nums[i]] = i
+    }
+    return false
+}
+
+
 
 
 

@@ -7,5 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    containsNearbyAlmostDuplicate(MyArrays.containsDuplicateIIIData(), 1, 3)
+    permute(MyArrays.permutationsData()).forEach {
+        print("$it ")
+    }
 }

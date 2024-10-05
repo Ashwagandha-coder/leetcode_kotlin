@@ -542,6 +542,37 @@ fun IntArray.maxRob(start: Int, end: Int): Int {
     return max
 }
 
+/**
+ *  46.Permutations
+ */
+
+
+fun Repeat.permute(nums: IntArray): MutableList<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    backtrack(res, ArrayList(), nums)
+    return res
+}
+
+private fun Repeat.backtrack(
+    res: MutableList<List<Int>>,
+    tempList: MutableList<Int>,
+    nums: IntArray
+) {
+    if (tempList.size == nums.size) {
+        res.add(ArrayList(tempList))
+        return
+    } else {
+        for (i in nums.indices) {
+            if (!tempList.contains(nums[i])) {  // element already exists, skip
+                tempList.add(nums[i])
+                backtrack(res, tempList, nums)
+                tempList.removeAt(tempList.size - 1)
+            }
+        }
+    }
+    return
+}
+
 
 
 
