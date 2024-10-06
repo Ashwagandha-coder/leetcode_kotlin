@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Solution.value.countGoodSubstringsAlternative("aababcabc").let {
-        println("$it")
+    permuteUnique(intArrayOf(1, 1, 2)).forEach {
+        print("$it ")
     }
 }

@@ -707,6 +707,7 @@ fun rec(s: String, index: Int) {
     }
     sI[index] = sI[index].toUpperCase()
     rec(sI.toString(), index + 1)
+
     sI[index] = sI[index].toLowerCase()
     rec(sI.toString(), index + 1)
 }
@@ -778,11 +779,11 @@ private fun backtrack(res: MutableList<List<Int>>, tempList: MutableList<Int>, n
         return
     } else {
         for (i in nums.indices) {
-            if (tempList.contains(nums[i])) continue  // element already exists, skip
-
-            tempList.add(nums[i])
-            backtrack(res, tempList, nums)
-            tempList.removeAt(tempList.size - 1)
+            if (!tempList.contains(nums[i])) {  // element already exists, skip
+                tempList.add(nums[i])
+                backtrack(res, tempList, nums)
+                tempList.removeAt(tempList.size - 1)
+            }
         }
         return
     }
@@ -913,7 +914,7 @@ private fun backtrack(
     idx: Int
 ) {
     var index = idx
-    if (index >= nums.size) {
+    if (index == nums.size) {
         ans.add(ArrayList(set))
         return
     }
@@ -1171,6 +1172,49 @@ fun countGoodSubstrings(s: String): Int {
         if (s[i] != s[i + 1] && s[i + 1] != s[i + 2] && s[i] != s[i + 2]) res++
     }
     return res
+}
+
+/**
+ * 47. Permutations II
+ */
+
+var N: Int = 0
+var res: MutableList<List<Int>>? = null
+
+fun permuteUnique(nums: IntArray): List<List<Int>> {
+    res = ArrayList() // List to store all unique permutations
+    N = nums.size // Length of the input array
+    Arrays.sort(nums) // Sort the array to handle duplicates
+    helper(nums, ArrayList(), ArrayList()) // Start backtracking
+    return res as ArrayList<List<Int>> // Return the list of unique permutations
+}
+
+fun helper(nums: IntArray, curr: MutableList<Int>, consumed: MutableList<Int?>) {
+    // Base case: if the size of current list equals the length of nums array, a unique permutation is formed
+    if (curr.size == N) {
+        res!!.add(ArrayList(curr)) // Add a copy of current list to result list
+        return
+    }
+
+    // Recursive case: iterate through each index in nums
+    var i = 0
+    while (i < N) {
+        if (!consumed.contains(i)) { // Skip if the index is already consumed
+            curr.add(nums[i]) // Add the element to current list
+            consumed.add(i) // Mark the index as consumed
+            helper(nums, curr, consumed) // Recursively call helper to explore further permutations
+            curr.removeAt(curr.size - 1) // Backtrack by removing the last added element
+            consumed.removeAt(consumed.size - 1) // Remove the index from consumed list
+
+
+            // Skip duplicates
+            while (i < N - 1 && nums[i] == nums[i + 1]) {
+                i++
+            }
+        }
+        i++
+    }
+    return
 }
 
 
