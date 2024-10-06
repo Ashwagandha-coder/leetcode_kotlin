@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    partition("aab").forEach {
-        print("$it ")
+    Solution.value.countGoodSubstrings("aababcabc").let {
+        println("$it")
     }
 }
