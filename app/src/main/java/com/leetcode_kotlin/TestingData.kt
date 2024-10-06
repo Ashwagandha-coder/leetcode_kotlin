@@ -45,6 +45,8 @@ object MyArrays {
 
     fun subsetData() = intArrayOf(1, 2, 3)
 
+    fun subsetDataWithDup() = intArrayOf(1, 2, 2)
+
     fun maxRobData() = intArrayOf(2, 7, 9, 3, 1)
 
     fun containsDuplicateIIIData() = intArrayOf(8, 7, 15, 1, 6, 1, 9, 15)

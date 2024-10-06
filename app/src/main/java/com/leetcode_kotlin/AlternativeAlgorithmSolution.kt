@@ -236,3 +236,41 @@ fun Solution.countGoodSubstringsAlternative(s: String): Int {
 
     return goodSubstringsCount
 }
+
+/**
+ * 268. Missing Number
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+
+fun Solution.missingNumber(nums: IntArray): Int {
+    val len = nums.size
+    var res = len
+    for (i in 0 until len) {
+        res += i - nums[i]
+    }
+    return res
+}
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Time - O(n)
+ * Space - O(1)
+ * Marking
+ */
+
+fun Solution.findDisappearedNumbers(nums: IntArray): List<Int> {
+    val len = nums.size
+    val res = mutableListOf<Int>()
+    for (i in 0 until len) {
+        var ind = abs(nums[i]) - 1
+        if (nums[ind] > 0) {
+            nums[ind] *= -1
+        }
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
+}
