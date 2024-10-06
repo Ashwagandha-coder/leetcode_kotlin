@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import android.os.Build
+import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.PriorityQueue
 import kotlin.math.abs
@@ -170,6 +172,8 @@ fun Solution.maxRob(nums: IntArray): Int {
 
 /**
  * 1876. Substrings of Size Three with Distinct Characters
+ * Time - O(n)
+ * Space - O(1) - set
  */
 
 
@@ -197,4 +201,38 @@ fun Solution.countGoodSubstrings(s: String): Int {
         charSet.clear()
     }
     return cnt
+}
+
+/**
+ * Solution with Map
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun Solution.countGoodSubstringsAlternative(s: String): Int {
+    var goodSubstringsCount = 0
+    val map: MutableMap<Char, Int> = HashMap()
+    val len = s.length
+    val k = 3
+    for (i in 0 until len) {
+        val currCharacter = s[i]
+        map[currCharacter] = map.getOrDefault(currCharacter, 0) + 1
+
+        // if we processed a window of k elements, here the window is of size 3.
+        if (i >= k - 1) {
+            if (map.size == 3) {
+                goodSubstringsCount++
+                map.remove(s[i - 2])
+            } else {
+                val characterToRemove = s[i - 2]
+                if (map[characterToRemove] == 1) {
+                    map.remove(characterToRemove)
+                } else {
+                    map[characterToRemove] = map.getOrDefault(characterToRemove, 0) - 1
+                }
+            }
+        }
+    }
+
+    return goodSubstringsCount
 }

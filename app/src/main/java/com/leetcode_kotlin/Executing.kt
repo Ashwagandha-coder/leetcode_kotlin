@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Solution.value.countGoodSubstrings("aababcabc").let {
+    Solution.value.countGoodSubstringsAlternative("aababcabc").let {
         println("$it")
     }
 }
