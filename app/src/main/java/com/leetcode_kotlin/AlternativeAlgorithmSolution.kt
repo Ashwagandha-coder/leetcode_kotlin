@@ -236,3 +236,19 @@ fun Solution.countGoodSubstringsAlternative(s: String): Int {
 
     return goodSubstringsCount
 }
+
+/**
+ * 268. Missing Number
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+
+fun Solution.missingNumber(nums: IntArray): Int {
+    val len = nums.size
+    var res = len
+    for (i in 0 until len) {
+        res += i - nums[i]
+    }
+    return res
+}
