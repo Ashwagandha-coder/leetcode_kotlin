@@ -644,3 +644,30 @@ fun Repeat.countGoodSubstrings(s: String): Int {
     return count
 }
 
+/**
+ * 46. Permutations
+ */
+
+fun Repeat.permuteOther(nums: IntArray): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    rec(nums, subset, res)
+    return res
+}
+
+fun rec(nums: IntArray, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    } else {
+        for (i in nums.indices) {
+            if (!subset.contains(nums[i])) {
+                subset.add(nums[i])
+                rec(nums, subset, res)
+                subset.removeAt(subset.size - 1)
+            }
+        }
+    }
+    return
+}
+
