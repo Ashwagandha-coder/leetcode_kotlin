@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    Solution.value.lexicalOrder(13).forEach {
+    combine(4, 2).forEach {
         print("$it ")
     }
 }

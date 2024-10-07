@@ -1189,22 +1189,22 @@ fun permuteUnique(nums: IntArray): List<List<Int>> {
     return res as ArrayList<List<Int>> // Return the list of unique permutations
 }
 
-fun helper(nums: IntArray, curr: MutableList<Int>, consumed: MutableList<Int?>) {
+fun helper(nums: IntArray, subset: MutableList<Int>, indexList: MutableList<Int?>) {
     // Base case: if the size of current list equals the length of nums array, a unique permutation is formed
-    if (curr.size == N) {
-        res!!.add(ArrayList(curr)) // Add a copy of current list to result list
+    if (subset.size == N) {
+        res!!.add(ArrayList(subset)) // Add a copy of current list to result list
         return
     }
 
     // Recursive case: iterate through each index in nums
     var i = 0
     while (i < N) {
-        if (!consumed.contains(i)) { // Skip if the index is already consumed
-            curr.add(nums[i]) // Add the element to current list
-            consumed.add(i) // Mark the index as consumed
-            helper(nums, curr, consumed) // Recursively call helper to explore further permutations
-            curr.removeAt(curr.size - 1) // Backtrack by removing the last added element
-            consumed.removeAt(consumed.size - 1) // Remove the index from consumed list
+        if (!indexList.contains(i)) { // Skip if the index is already consumed
+            subset.add(nums[i]) // Add the element to current list
+            indexList.add(i) // Mark the index as consumed
+            helper(nums, subset, indexList) // Recursively call helper to explore further permutations
+            subset.removeAt(subset.size - 1) // Backtrack by removing the last added element
+            indexList.removeAt(indexList.size - 1) // Remove the index from consumed list
 
 
             // Skip duplicates

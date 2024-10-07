@@ -43,6 +43,8 @@ object MyArrays {
 
     fun permutationsData() = intArrayOf(1, 2, 3)
 
+    fun permutationsUniqueData() = intArrayOf(1, 1, 2)
+
     fun subsetData() = intArrayOf(1, 2, 3)
 
     fun subsetDataWithDup() = intArrayOf(1, 2, 2)
