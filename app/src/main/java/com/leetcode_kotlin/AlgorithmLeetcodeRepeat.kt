@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -596,5 +597,98 @@ fun IntArray.swapBubbleSort(start: Int, end: Int) {
     this[end] = temp
 }
 
+/**
+ * Repeat Lexicographical Numbers
+ */
 
+
+fun Repeat.lexicalOrderOther(n: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    var curr = 1
+    val res = mutableListOf<Int>()
+    for (i in 1..n) {
+        res.add(curr)
+        if (curr * 10 <= n) curr *= 10
+        else {
+            while (curr % 10 == 9 || curr >= n) curr /= 10
+            curr++
+        }
+    }
+    return res
+}
+
+/**
+ * Repeat countGoodSubstrings
+ * With Set Solution
+ */
+
+
+fun Repeat.countGoodSubstrings(s: String): Int {
+    val len = s.length
+    val set = mutableSetOf<Char>()
+    val k = 3
+    var count = 0
+    for (i in 0 until len - (k - 1)) {
+        var substring = s.substring(i, i + k)
+        var isUnique = true
+        for (c in substring) {
+            if (!set.add(c)) {
+                isUnique = false
+                break
+            }
+        }
+        if (isUnique) {
+            count++
+        }
+        set.clear()
+    }
+    return count
+}
+
+/**
+ * 46. Permutations
+ */
+
+fun Repeat.permuteOther(nums: IntArray): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    rec(nums, subset, res)
+    return res
+}
+
+fun rec(nums: IntArray, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    } else {
+        for (i in nums.indices) {
+            if (!subset.contains(nums[i])) {
+                subset.add(nums[i])
+                rec(nums, subset, res)
+                subset.removeAt(subset.size - 1)
+            }
+        }
+    }
+    return
+}
+
+/**
+ * Repeat findDisappearedNumbers
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun Repeat.findDisappearedNumbersOther(nums: IntArray): List<Int> {
+    val res = ArrayList<Int>()
+    val mark = -1
+    val len = nums.size
+    for (i in 0 until len) {
+        var ind = abs(nums[i]) - 1
+        if (nums[ind] > 0) nums[ind] *= mark
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
+}
 

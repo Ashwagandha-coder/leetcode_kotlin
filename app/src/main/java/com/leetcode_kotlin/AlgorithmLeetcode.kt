@@ -1217,6 +1217,49 @@ fun helper(nums: IntArray, curr: MutableList<Int>, consumed: MutableList<Int?>) 
     return
 }
 
+/**
+ * 643. Maximum Average Subarray I
+ */
+
+fun findMaxAverage(nums: IntArray, k: Int): Double {
+    var max = Double.NEGATIVE_INFINITY
+    var w_sum = 0.0
+    val n = nums.size
+    var start = 0
+
+    for (i in 0 until n) {
+        w_sum += nums[i].toDouble()
+
+        if ((i - start + 1) == k) {
+            val avg = w_sum / k
+            max = max(avg, max)
+            w_sum -= nums[start].toDouble()
+            start += 1
+        }
+    }
+
+    return max
+}
+
+/**
+ * 386. Lexicographical Numbers
+ */
+
+
+fun lexicalOrder(n: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    var curr = 1
+    val res = mutableListOf<Int>()
+    for (i in 1..n) {
+        res.add(curr)
+        if (curr * 10 <= n) curr *= 10
+        else {
+            while (curr % 10 == 9 || curr >= n) curr /= 10
+            curr++
+        }
+    }
+    return res
+}
 
 
 

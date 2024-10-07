@@ -274,3 +274,27 @@ fun Solution.findDisappearedNumbers(nums: IntArray): List<Int> {
     }
     return res
 }
+
+/**
+ * 386. Lexicographical Numbers
+ * Recursion dfs
+ * Time - O(
+ */
+
+
+fun Solution.lexicalOrder(n: Int): List<Int> {
+    val res = mutableListOf<Int>()
+    for (i in 1..9) {
+        dfs(i, n, res)
+    }
+    return res
+}
+
+private fun dfs(number: Int, n: Int, res: MutableList<Int>) {
+    if (number > n) return
+    res.add(number)
+    for (i in 0..9) {
+        dfs(number * 10 + i, n, res)
+    }
+    return
+}
