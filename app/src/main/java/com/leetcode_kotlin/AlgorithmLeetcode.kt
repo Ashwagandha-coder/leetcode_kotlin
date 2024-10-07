@@ -1241,6 +1241,25 @@ fun findMaxAverage(nums: IntArray, k: Int): Double {
     return max
 }
 
+/**
+ * 386. Lexicographical Numbers
+ */
+
+
+fun lexicalOrder(n: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    var curr = 1
+    val res = mutableListOf<Int>()
+    for (i in 1..n) {
+        res.add(curr)
+        if (curr * 10 <= n) curr *= 10
+        else {
+            while (curr % 10 == 9 || curr >= n) curr /= 10
+            curr++
+        }
+    }
+    return res
+}
 
 
 
