@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -669,5 +670,25 @@ fun rec(nums: IntArray, subset: MutableList<Int>, res: MutableList<MutableList<I
         }
     }
     return
+}
+
+/**
+ * Repeat findDisappearedNumbers
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun Repeat.findDisappearedNumbersOther(nums: IntArray): List<Int> {
+    val res = ArrayList<Int>()
+    val mark = -1
+    val len = nums.size
+    for (i in 0 until len) {
+        var ind = abs(nums[i]) - 1
+        if (nums[ind] > 0) nums[ind] *= mark
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
 }
 
