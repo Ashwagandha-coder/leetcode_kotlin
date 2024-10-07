@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    permuteUnique(intArrayOf(1, 1, 2)).forEach {
+    Solution.value.lexicalOrder(13).forEach {
         print("$it ")
     }
 }

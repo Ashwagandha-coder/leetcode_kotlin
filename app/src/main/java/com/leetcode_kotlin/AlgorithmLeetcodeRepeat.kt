@@ -597,7 +597,7 @@ fun IntArray.swapBubbleSort(start: Int, end: Int) {
 }
 
 /**
- * Repeat Lexicographical Numbers386
+ * Repeat Lexicographical Numbers
  */
 
 
