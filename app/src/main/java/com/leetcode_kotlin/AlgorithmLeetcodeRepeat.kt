@@ -616,4 +616,31 @@ fun Repeat.lexicalOrderOther(n: Int): List<Int> {
     return res
 }
 
+/**
+ * Repeat countGoodSubstrings
+ * With Set Solution
+ */
+
+
+fun Repeat.countGoodSubstrings(s: String): Int {
+    val len = s.length
+    val set = mutableSetOf<Char>()
+    val k = 3
+    var count = 0
+    for (i in 0 until len - (k - 1)) {
+        var substring = s.substring(i, i + k)
+        var isUnique = true
+        for (c in substring) {
+            if (!set.add(c)) {
+                isUnique = false
+                break
+            }
+        }
+        if (isUnique) {
+            count++
+        }
+        set.clear()
+    }
+    return count
+}
 
