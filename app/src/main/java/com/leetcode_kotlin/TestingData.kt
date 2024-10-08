@@ -17,7 +17,7 @@ object Node {
     }
 
 
-    fun pathSumII(): TreeNode {
+    fun pathSumIIData(): TreeNode {
         val root = TreeNode(5)
         root.left = TreeNode(4)
         root.right = TreeNode(8)

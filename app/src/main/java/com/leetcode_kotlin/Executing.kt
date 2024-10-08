@@ -7,7 +7,6 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    pathSum(Node.pathSumII(), 22).forEach {
-        print("$it ")
-    }
+
+
 }

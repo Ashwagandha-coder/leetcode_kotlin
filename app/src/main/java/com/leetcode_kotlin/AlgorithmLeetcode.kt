@@ -1270,7 +1270,7 @@ fun lexicalOrder(n: Int): List<Int> {
  */
 
 
-fun pathSum(root: TreeNode?, targetSum: Int): List<List<Int>> {
+fun pathSumII(root: TreeNode?, targetSum: Int): List<List<Int>> {
     val result: MutableList<List<Int>> = ArrayList()
     val currentPath: MutableList<Int> = ArrayList()
     dfs(root, targetSum, currentPath, result)
@@ -1300,6 +1300,25 @@ private fun dfs(
     return
 }
 
+
+/**
+ * Path Sum
+ */
+
+fun hasPathSum(root: TreeNode?, targetSum: Int): Boolean {
+    if (root == null) {
+        return false
+    }
+
+    if (root.left == null && root.right == null) {
+        return targetSum == root.`val`
+    }
+
+    val leftSum = hasPathSum(root.left, targetSum - root.`val`)
+    val rightSum = hasPathSum(root.right, targetSum - root.`val`)
+
+    return leftSum || rightSum
+}
 
 
 
