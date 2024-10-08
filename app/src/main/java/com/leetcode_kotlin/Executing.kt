@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    permuteUnique(intArrayOf(3, 3, 0, 3)).forEach {
+    pathSum(Node.pathSumII(), 22).forEach {
         print("$it ")
     }
 }

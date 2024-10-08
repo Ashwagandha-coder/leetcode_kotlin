@@ -429,7 +429,7 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
  */
 
 
-fun bfs(root: MyTreeNode?): Int {
+fun bfs(root: TreeNode?): Int {
     if (root == null) return 0
     var maxLeftTree = bfs(root?.left)
     var maxRightTree = bfs(root?.right)
@@ -663,7 +663,7 @@ fun longestConsecutive(nums: IntArray): Int {
  */
 
 
-private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
+private fun dfs(root: TreeNode?, arr: MutableList<String>, sb: String) {
     var sb = sb
     if (root == null) return
     sb = sb + (root.`val`)
@@ -675,7 +675,7 @@ private fun dfs(root: MyTreeNode?, arr: MutableList<String>, sb: String) {
 }
 
 
-fun binaryTreePaths(root: MyTreeNode?): List<String> {
+fun binaryTreePaths(root: TreeNode?): List<String> {
     val arr: MutableList<String> = mutableListOf()
     dfs(root, arr, "")
     return arr
@@ -1202,7 +1202,11 @@ fun helper(nums: IntArray, subset: MutableList<Int>, indexList: MutableList<Int?
         if (!indexList.contains(i)) { // Skip if the index is already consumed
             subset.add(nums[i]) // Add the element to current list
             indexList.add(i) // Mark the index as consumed
-            helper(nums, subset, indexList) // Recursively call helper to explore further permutations
+            helper(
+                nums,
+                subset,
+                indexList
+            ) // Recursively call helper to explore further permutations
             subset.removeAt(subset.size - 1) // Backtrack by removing the last added element
             indexList.removeAt(indexList.size - 1) // Remove the index from consumed list
 
@@ -1261,6 +1265,40 @@ fun lexicalOrder(n: Int): List<Int> {
     return res
 }
 
+/**
+ * 113.Path Sum II
+ */
+
+
+fun pathSum(root: TreeNode?, targetSum: Int): List<List<Int>> {
+    val result: MutableList<List<Int>> = ArrayList()
+    val currentPath: MutableList<Int> = ArrayList()
+    dfs(root, targetSum, currentPath, result)
+    return result
+}
+
+private fun dfs(
+    node: TreeNode?,
+    targetSum: Int,
+    currentPath: MutableList<Int>,
+    result: MutableList<List<Int>>
+) {
+    if (node == null) {
+        return
+    }
+
+    currentPath.add(node.`val`)
+
+    if (node.left == null && node.right == null && targetSum == node.`val`) {
+        result.add(ArrayList(currentPath))
+    } else {
+        dfs(node.left, targetSum - node.`val`, currentPath, result)
+        dfs(node.right, targetSum - node.`val`, currentPath, result)
+    }
+
+    currentPath.removeAt(currentPath.size - 1)
+    return
+}
 
 
 

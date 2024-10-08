@@ -315,3 +315,77 @@ fun Solution.maxProfit(prices: IntArray): Int {
     }
     return profit
 }
+
+/**
+ * 14. Longest Common Prefix
+ * Time -
+ * Space -
+ */
+
+
+fun Solution.longestCommonPrefix(strs: Array<String>): String {
+    if (strs.isEmpty()) {
+        return ""
+    }
+    if (strs.size == 1) {
+        return strs[0]
+    }
+    val trie = Trie()
+    for (str in strs) {
+        trie.insert(str)
+    }
+    return trie.search(strs[0], strs.size)
+}
+
+
+internal class TrieNode {
+    var child: Array<TrieNode?> = arrayOfNulls(26)
+    var isEnd: Boolean = false
+    var count: Int = 0
+
+    fun containsKey(ch: Char): Boolean {
+        return (child[ch.code - 'a'.code] != null)
+    }
+
+    fun get(ch: Char): TrieNode? {
+        return child[ch.code - 'a'.code]
+    }
+
+    fun put(ch: Char, node: TrieNode?) {
+        child[ch.code - 'a'.code] = node
+    }
+
+    fun setEnd() {
+        isEnd = true
+    }
+}
+
+internal class Trie {
+    var root: TrieNode = TrieNode()
+
+    fun insert(word: String) {
+        var node: TrieNode? = root
+        for (i in 0 until word.length) {
+            val ch = word[i]
+            if (!node!!.containsKey(ch)) {
+                node.put(ch, TrieNode())
+            }
+            node.get(ch)!!.count++
+            node = node.get(ch)
+        }
+        node!!.setEnd()
+    }
+
+    fun search(word: String, n: Int): String {
+        var node: TrieNode? = root
+        for (i in 0 until word.length) {
+            val ch = word[i]
+            if (node!!.get(ch) != null && node.get(ch)!!.count == n) {
+                node = node.get(ch)
+            } else {
+                return word.substring(0, i)
+            }
+        }
+        return word
+    }
+}
