@@ -1,11 +1,10 @@
 package com.leetcode_kotlin
 
-import android.os.Build
-import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.PriorityQueue
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 
 class Solution {
@@ -297,4 +296,21 @@ private fun dfs(number: Int, n: Int, res: MutableList<Int>) {
         dfs(number * 10 + i, n, res)
     }
     return
+}
+
+/**
+ * 121. Best Time to Buy and Sell Stock
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun Solution.maxProfit(prices: IntArray): Int {
+    var profit = Int.MIN_VALUE
+    var min = Int.MAX_VALUE
+    val len = prices.size
+    for (i in 0 until len) {
+        min = min(min, prices[i])
+        if (prices[i] - min > profit) profit = prices[i] - min
+    }
+    return profit
 }
