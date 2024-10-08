@@ -277,7 +277,8 @@ fun Solution.findDisappearedNumbers(nums: IntArray): List<Int> {
 /**
  * 386. Lexicographical Numbers
  * Recursion dfs
- * Time - O(
+ * Time - O(n)
+ * Space - O(n)
  */
 
 
