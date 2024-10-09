@@ -1,13 +1,38 @@
 package com.leetcode_kotlin
 
+
+class TreeNode(var `val`: Int) {
+    var left: TreeNode? = null
+    var right: TreeNode? = null
+}
+
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
+
 object Node {
 
-    fun node(): MyTreeNode {
-        val node = MyTreeNode(1)
-        node.left = MyTreeNode(2)
-        node.right = MyTreeNode(3)
-        node?.left?.right = MyTreeNode(5)
+    fun node(): TreeNode {
+        val node = TreeNode(1)
+        node.left = TreeNode(2)
+        node.right = TreeNode(3)
+        node?.left?.right = TreeNode(5)
         return node
+    }
+
+
+    fun pathSumIIData(): TreeNode {
+        val root = TreeNode(5)
+        root.left = TreeNode(4)
+        root.right = TreeNode(8)
+        root.left?.left = TreeNode(11)
+        root.right?.right = TreeNode(4)
+        root.right?.left = TreeNode(13)
+        root.left?.left?.left = TreeNode(7)
+        root.left?.left?.right = TreeNode(2)
+        root.right?.right?.right = TreeNode(1)
+        root.right?.right?.left = TreeNode(5)
+        return root
     }
 }
 
@@ -53,6 +78,8 @@ object MyArrays {
 
     fun containsDuplicateIIIData() = intArrayOf(8, 7, 15, 1, 6, 1, 9, 15)
 
+    fun containsDuplicateIndexDiffValueDiffData() = Pair(2, 3)
+
     fun findWaysData() = intArrayOf(1, 1, 1, 1, 1)
 
     fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
@@ -63,15 +90,6 @@ object MyArrays {
 }
 
 
-class TreeNode(val value: Int) {
-    var left: MyTreeNode? = null
-    var right: MyTreeNode? = null
-}
-
-class MyTreeNode(var `val`: Int) {
-    var left: MyTreeNode? = null
-    var right: MyTreeNode? = null
-}
 
 
 

@@ -6,8 +6,17 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    MyArrays.also {
+        val arr = intArrayOf(1, 5, 9, 1, 5, 9)
+        it.containsDuplicateIndexDiffValueDiffData().let { el ->
+            val indexDiff = el.first
+            val valueDiff = el.second
 
-    permuteUnique(intArrayOf(3, 3, 0, 3)).forEach {
-        print("$it ")
+            containsNearbyAlmostDuplicate(arr, indexDiff, valueDiff).apply {
+                println(this)
+            }
+        }
     }
+
+
 }
