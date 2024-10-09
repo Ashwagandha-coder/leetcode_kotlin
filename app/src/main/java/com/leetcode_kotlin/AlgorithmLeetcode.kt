@@ -1023,48 +1023,35 @@ fun maxSubArray(nums: IntArray): Int {
  *  220. Contains Duplicate III
  */
 
-
-fun containsNearbyAlmostDuplicateIII(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
-    val len = nums.size
-    val map = mutableMapOf<Int, Int>()
-    for (i in 0 until len) {
-        if (map.contains(nums[i])) {
-            var j = map[nums[i]]
-            if (i != j) return true
-            if (abs(i - j!!) <= indexDiff) return true
-            if (abs(nums[i] - nums[j]!!) <= valueDiff) return true
-        }
-        map[nums[i]] = i
+fun slidingWindow(nums: IntArray, k: Int, valueDiff: Int): Boolean {
+    var i = 0
+    var j = k
+    val n = nums.size
+    while (j < n) {
+        if (abs((nums[i] - nums[j]).toDouble()) <= valueDiff) return true
+        i++
+        j++
     }
     return false
 }
-/*
-0 -> 0 - 4
-1 -> 4 - 8
-2 -> 8 - 11
- */
 
-
-fun getKey(value: Int, base: Int): Int {
-    return if (value > -1) value / (base + 1) else (value - base) / (base + 1)
-}
-
-// [8,0,2,4
 fun containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
-    var j = 0
-    val map = mutableMapOf<Int, Int>()
-
-    while (j < nums.size) {
-        val key = getKey(nums[j], valueDiff)
-        if (map[key] != null) return true
-        if (map[key - 1] != null && abs(map[key - 1]!! - nums[j]) <= valueDiff) return true
-        if (map[key + 1] != null && abs(map[key + 1]!! - nums[j]) <= valueDiff) return true
-        map[key] = nums[j]
-
-        if (j >= indexDiff) {
-            map.remove(getKey(nums[j - indexDiff], valueDiff))
+    if (valueDiff == 0) {
+        val map = HashMap<Int, Int>()
+        for (i in nums.indices) {
+            if (map.containsKey(nums[i])) {
+                if (abs((map[nums[i]]!! - i).toDouble()) <= indexDiff) return true
+            }
+            map[nums[i]] = i
         }
-        j++
+        return false
+    }
+    val j = indexDiff
+    val n = nums.size
+    var ss = false
+    for (k in 1..j) {
+        ss = slidingWindow(nums, k, valueDiff)
+        if (ss) return true
     }
     return false
 }

@@ -74,6 +74,8 @@ object MyArrays {
 
     fun containsDuplicateIIIData() = intArrayOf(8, 7, 15, 1, 6, 1, 9, 15)
 
+    fun containsDuplicateIndexDiffValueDiffData() = Pair(2, 3)
+
     fun findWaysData() = intArrayOf(1, 1, 1, 1, 1)
 
     fun maxSubArrayKadane() = intArrayOf(-5, -4, -1)
