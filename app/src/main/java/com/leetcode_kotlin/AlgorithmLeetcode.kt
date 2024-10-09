@@ -602,7 +602,7 @@ fun setZeroes(matrix: Array<IntArray>) {
 }
 
 /**
- *
+ * 48. Rotate Image
  */
 
 
@@ -1302,6 +1302,56 @@ fun hasPathSum(root: TreeNode?, targetSum: Int): Boolean {
 
     return leftSum || rightSum
 }
+
+/**
+ * 226. Invert Binary Tree
+ */
+
+fun invertTree(root: TreeNode?): TreeNode? {
+    if (root == null) return null
+    invert(root)
+    return root
+}
+fun invert(root: TreeNode?) {
+    if (root == null) return
+    else {
+        val temp = root.left
+        root.left = root.right
+        root.right = temp
+    }
+    invert(root.left)
+    invert(root.right)
+    return
+}
+
+/**
+ * 2415. Reverse Odd Levels of Binary Tree
+ */
+
+fun reverseOdd(left: TreeNode?, right: TreeNode?, level: Int) {
+    if (left == null || right == null) return
+
+    // Swap nodes' values at odd levels
+    if (level % 2 != 0) {
+        val temp = left.`val`
+        left.`val` = right.`val`
+        right.`val` = temp
+    }
+
+
+    // Recursive calls for the next level
+    reverseOdd(left.left, right.right, level + 1)
+    reverseOdd(left.right, right.left, level + 1)
+}
+
+fun reverseOddLevels(root: TreeNode?): TreeNode? {
+    if (root == null) return null
+    reverseOdd(root.left, root.right, 1)
+    return root
+}
+
+
+
 
 
 

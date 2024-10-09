@@ -34,6 +34,17 @@ object Node {
         root.right?.right?.left = TreeNode(5)
         return root
     }
+
+    fun reverseOddLevelsOfBinaryTreeData(): TreeNode {
+        val root = TreeNode(2)
+        root.left = TreeNode(3)
+        root.right = TreeNode(5)
+        root.left?.left = TreeNode(8)
+        root.left?.right = TreeNode(13)
+        root.right?.right = TreeNode(34)
+        root.right?.left = TreeNode(21)
+        return root
+    }
 }
 
 object Numbers {
