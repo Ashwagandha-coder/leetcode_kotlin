@@ -602,7 +602,7 @@ fun setZeroes(matrix: Array<IntArray>) {
 }
 
 /**
- *
+ * 48. Rotate Image
  */
 
 
@@ -1302,6 +1302,30 @@ fun hasPathSum(root: TreeNode?, targetSum: Int): Boolean {
 
     return leftSum || rightSum
 }
+
+/**
+ * 226. Invert Binary Tree
+ */
+
+fun invertTree(root: TreeNode?): TreeNode? {
+    if (root == null) return null
+    invert(root)
+    return root
+}
+fun invert(root: TreeNode?) {
+    if (root == null) return
+    else {
+        val temp = root.left
+        root.left = root.right
+        root.right = temp
+    }
+    invert(root.left)
+    invert(root.right)
+    return
+}
+
+
+
 
 
 
