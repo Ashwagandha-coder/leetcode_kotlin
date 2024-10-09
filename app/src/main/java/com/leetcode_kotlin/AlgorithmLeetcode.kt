@@ -246,10 +246,6 @@ fun countBits(n: Int): IntArray {
  * 141. Linked List Cycle
  */
 
-class ListNode(var `val`: Int) {
-    var next: ListNode? = null
-}
-
 
 fun hasCycle(head: ListNode?): Boolean {
     var slow = head

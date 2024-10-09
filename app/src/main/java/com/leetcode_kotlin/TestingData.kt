@@ -6,6 +6,10 @@ class TreeNode(var `val`: Int) {
     var right: TreeNode? = null
 }
 
+class ListNode(var `val`: Int) {
+    var next: ListNode? = null
+}
+
 object Node {
 
     fun node(): TreeNode {
