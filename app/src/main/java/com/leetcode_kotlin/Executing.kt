@@ -6,11 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Node.also {
-        val root = it.reverseOddLevelsOfBinaryTreeData()
-        reverseOddLevels(root).let { tree ->
-            println("$tree ")
-        }
+    classicalFib(4).let {
+        println("$it ")
     }
 
 

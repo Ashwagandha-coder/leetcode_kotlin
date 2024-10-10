@@ -162,9 +162,21 @@ fun insertionSort(array: IntArray): IntArray {
     return array
 }
 
+/**
+ * Classical Fibbonaci
+ */
+
+
+fun classicalFib(n: Int): Int {
+    if (n == 0 || n == 1) return n
+    var a = classicalFib(n - 1)
+    var b = classicalFib(n - 2)
+    return a + b
+}
+
 
 /**
- * Fibonaci
+ * Optimization Fibonaci
  */
 
 
@@ -1312,6 +1324,7 @@ fun invertTree(root: TreeNode?): TreeNode? {
     invert(root)
     return root
 }
+
 fun invert(root: TreeNode?) {
     if (root == null) return
     else {
@@ -1349,6 +1362,10 @@ fun reverseOddLevels(root: TreeNode?): TreeNode? {
     reverseOdd(root.left, root.right, 1)
     return root
 }
+
+
+
+
 
 
 
