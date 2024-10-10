@@ -692,3 +692,38 @@ fun Repeat.findDisappearedNumbersOther(nums: IntArray): List<Int> {
     return res
 }
 
+/**
+ * Repeat Contains Duplicate III
+ */
+
+fun Repeat.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val len = nums.size
+    if (valueDiff == 0) {
+        val map = mutableMapOf<Int, Int>()
+        for (i in 0 until len) {
+            if (map.contains(nums[i])) {
+                var j = map.get(nums[i])
+                if (abs(i - j!!) <= indexDiff) return true
+            }
+            map[nums[i]] = i
+        }
+        return false
+    }
+    var state = false
+    for (k in 1..indexDiff) {
+        state = slidingWindow(k,len,valueDiff, nums)
+        if (state) return true
+    }
+    return state
+}
+fun Repeat.slidingWindow(k: Int, len: Int, valueDiff: Int, nums: IntArray): Boolean {
+    var i = 0
+    var j = k
+    while (j < len) {
+        if (abs(nums[i] - nums[j]) <= valueDiff) return true
+        i++
+        j++
+    }
+    return false
+}
+
