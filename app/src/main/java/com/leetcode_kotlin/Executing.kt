@@ -6,8 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    classicalFib(4).let {
-        println("$it ")
+    detectCycle(LinkedList.cycleLinkedListData()).let {
+        println("${it?.`val`}")
     }
 
 
