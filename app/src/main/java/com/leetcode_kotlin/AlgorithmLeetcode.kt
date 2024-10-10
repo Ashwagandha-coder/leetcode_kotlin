@@ -1363,6 +1363,28 @@ fun reverseOddLevels(root: TreeNode?): TreeNode? {
     return root
 }
 
+/**
+ * 142. Linked List Cycle II
+ */
+
+
+fun detectCycle(head: ListNode?): ListNode? {
+    var head = head
+    var slow = head
+    var fast = head
+    while (fast?.next != null) {
+        slow = slow?.next
+        fast = fast?.next?.next
+        if (slow === fast) {
+            while (fast != head) {
+                head = head?.next
+                fast = fast?.next
+            }
+            return head
+        }
+    }
+    return null
+}
 
 
 
