@@ -59,6 +59,13 @@ object Node {
         root.right?.left = TreeNode(21)
         return root
     }
+
+    fun sameTreeData(): TreeNode {
+        val root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.right = TreeNode(3)
+        return root
+    }
 }
 
 object Numbers {

@@ -6,8 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    detectCycle(LinkedList.cycleLinkedListData()).let {
-        println("${it?.`val`}")
+    isSameTree(Node.sameTreeData(), Node.sameTreeData()).let {
+        println("$it ")
     }
 
 
