@@ -1363,7 +1363,45 @@ fun reverseOddLevels(root: TreeNode?): TreeNode? {
     return root
 }
 
+/**
+ * 142. Linked List Cycle II
+ */
 
+
+fun detectCycle(head: ListNode?): ListNode? {
+    var head = head
+    var slow = head
+    var fast = head
+    while (fast?.next != null) {
+        slow = slow?.next
+        fast = fast?.next?.next
+        if (slow === fast) {
+            while (fast != head) {
+                head = head?.next
+                fast = fast?.next
+            }
+            return head
+        }
+    }
+    return null
+}
+
+/**
+ * 100. Same Tree
+ */
+
+
+fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    if (p == null && q == null) {
+        return true
+    }
+
+    if (p != null && q != null && p.`val` == q.`val`) {
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    }
+
+    return false
+}
 
 
 

@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    classicalFib(4).let {
+    isSameTree(Node.sameTreeData(), Node.sameTreeData()).let {
         println("$it ")
     }
 

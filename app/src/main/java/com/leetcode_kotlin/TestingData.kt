@@ -10,6 +10,20 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+object LinkedList {
+
+    fun cycleLinkedListData(): ListNode {
+        val head = ListNode(3)
+        val pos = ListNode(2)
+        head.next = pos
+        head.next?.next = ListNode(0)
+        head.next?.next?.next = ListNode(-4)
+        head.next?.next?.next?.next = pos
+        return head
+    }
+
+}
+
 object Node {
 
     fun node(): TreeNode {
@@ -43,6 +57,13 @@ object Node {
         root.left?.right = TreeNode(13)
         root.right?.right = TreeNode(34)
         root.right?.left = TreeNode(21)
+        return root
+    }
+
+    fun sameTreeData(): TreeNode {
+        val root = TreeNode(1)
+        root.left = TreeNode(2)
+        root.right = TreeNode(3)
         return root
     }
 }
