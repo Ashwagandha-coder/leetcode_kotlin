@@ -1438,8 +1438,8 @@ fun maxDepth(root: TreeNode?): Int {
 fun dfs(root: TreeNode?, depth: Int): Int {
     if (root == null) return depth
 
-    var l = dfs(root.left, depth + 1)
-    var r = dfs(root.right, depth + 1)
+    val l = dfs(root.left, depth + 1)
+    val r = dfs(root.right, depth + 1)
     if (l > r) return l
     return r
 }
