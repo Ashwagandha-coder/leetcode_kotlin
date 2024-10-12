@@ -1404,6 +1404,28 @@ fun isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
 }
 
 
+/**
+ * 101. Symmetric Tree
+ */
+
+
+fun isSymmetric(root: TreeNode?): Boolean {
+    return dfs(root?.left, root?.right)
+}
+
+fun dfs(left: TreeNode?, right: TreeNode?): Boolean {
+    var leftVal = left?.`val`
+    var rightVal = right?.`val`
+
+    if (leftVal != rightVal) return false
+
+    if (left != null && right != null) {
+        return dfs(left.left, right.right) && dfs(left.right, right.left)
+    }
+
+    return true
+}
+
 
 
 
