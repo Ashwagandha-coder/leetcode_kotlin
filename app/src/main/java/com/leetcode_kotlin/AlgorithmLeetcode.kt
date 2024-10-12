@@ -1426,6 +1426,23 @@ fun dfs(left: TreeNode?, right: TreeNode?): Boolean {
     return true
 }
 
+/**
+ * 104. Maximum Depth of Binary Tree
+ */
+
+
+fun maxDepth(root: TreeNode?): Int {
+    return dfs(root,0)
+}
+
+fun dfs(root: TreeNode?, depth: Int): Int {
+    if (root == null) return depth
+
+    var l = dfs(root.left, depth + 1)
+    var r = dfs(root.right, depth + 1)
+    if (l > r) return l
+    return r
+}
 
 
 
