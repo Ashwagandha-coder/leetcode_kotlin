@@ -389,3 +389,27 @@ internal class Trie {
         return word
     }
 }
+
+/**
+ * 220. Contains Duplicate III
+ * Bucket Sort
+ */
+
+fun Solution.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    if (valueDiff < 0) return false
+    val map: MutableMap<Long, Long> = HashMap()
+    val w = valueDiff.toLong() + 1
+    for (i in nums.indices) {
+        val key: Long = getID(nums[i].toLong(), w)
+        if (map.containsKey(key)) return true
+        if (map.containsKey(key - 1) && abs((nums[i] - map[key - 1]!!).toDouble()) < w) return true
+        if (map.containsKey(key + 1) && abs((nums[i] - map[key + 1]!!).toDouble()) < w) return true
+        map[key] = nums[i].toLong()
+        if (i >= indexDiff) map.remove(getID(nums[i - indexDiff].toLong(), w))
+    }
+    return false
+}
+
+private fun getID(value: Long, w: Long): Long {
+    return if (value < 0) (value + 1) / w - 1 else value / w
+}

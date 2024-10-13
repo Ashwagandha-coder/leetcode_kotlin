@@ -6,9 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    isSameTree(Node.sameTreeData(), Node.sameTreeData()).let {
-        println("$it ")
+    Solution.value.containsNearbyAlmostDuplicate(MyArrays.containsDuplicateIIIData(), 1, 3).apply {
+        println(this)
     }
-
 
 }
