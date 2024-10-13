@@ -727,3 +727,41 @@ fun Repeat.slidingWindow(k: Int, len: Int, valueDiff: Int, nums: IntArray): Bool
     return false
 }
 
+
+/**
+ * Repeat contains duplicate III
+ */
+
+
+fun Repeat.containsNearbyAlmostDuplicateIII(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    if (valueDiff == 0) {
+        val map = mutableMapOf<Int, Int>()
+        val len = nums.size
+        for (i in 0 until len) {
+            if (map.contains(nums[i])) {
+                val j = map[nums[i]]
+                if (abs(i - j!!) <= indexDiff) return true
+            }
+            map[nums[i]] = i
+        }
+        return false
+    }
+    var ans = false
+    for (k in 1..indexDiff) {
+        ans = nums.slidingWindow(k, valueDiff)
+        if (ans) return true
+    }
+    return ans
+}
+
+fun IntArray.slidingWindow(k: Int, valueDiff: Int): Boolean {
+    var j = k
+    var i = 0
+    val len = this.size
+    while (j < len) {
+        if (abs(this[i] - this[j]) <= valueDiff) return true
+        i++
+        j++
+    }
+    return false
+}
