@@ -144,6 +144,10 @@ object MyArrays {
     fun candidatesCombinationSum() = intArrayOf(10, 1, 2, 7, 6, 1, 5)
 }
 
+object DynamicProgramming {
+    fun maxProfitIIData() = intArrayOf(7, 1, 5, 3, 6, 4)
+}
+
 
 
 
