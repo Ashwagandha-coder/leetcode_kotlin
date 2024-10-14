@@ -6,8 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Solution.value.containsNearbyAlmostDuplicate(MyArrays.containsDuplicateIIIData(), 1, 3).apply {
-        println(this)
+    maxProfitII(DynamicProgramming.maxProfitIIData()).also {
+        println("$it ")
     }
 
 }

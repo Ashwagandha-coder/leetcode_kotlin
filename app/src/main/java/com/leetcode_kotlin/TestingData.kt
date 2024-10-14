@@ -22,6 +22,29 @@ object LinkedList {
         return head
     }
 
+    fun cycleLinkedListDataII(): ListNode {
+        val head = ListNode(3)
+        val pos = ListNode(2)
+        head.next = ListNode(10)
+        head.next?.next = ListNode(0)
+        head.next?.next?.next = ListNode(-4)
+        head.next?.next?.next?.next = ListNode(20)
+        head.next?.next?.next?.next?.next = pos
+        return head
+    }
+
+    fun makeLinkedList(arr: IntArray): ListNode {
+        if (arr.isEmpty()) return ListNode(0)
+        var stub = ListNode(arr[0])
+        val head = stub
+        for (i in 1 until arr.size) {
+            val temp = ListNode(arr[i])
+            stub.next = temp
+            stub = stub.next!!
+        }
+        return head
+    }
+
 }
 
 object Node {
@@ -119,6 +142,10 @@ object MyArrays {
     fun maxSubArrayDP() = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
 
     fun candidatesCombinationSum() = intArrayOf(10, 1, 2, 7, 6, 1, 5)
+}
+
+object DynamicProgramming {
+    fun maxProfitIIData() = intArrayOf(7, 1, 5, 3, 6, 4)
 }
 
 
