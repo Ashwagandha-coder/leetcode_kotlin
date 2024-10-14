@@ -13,3 +13,13 @@ fun sample() {
         if (it == 1) return@forEach
     }
 }
+
+/**
+ *  1. custom ext fun for collection (filter, map, forEach, indexed, etc...
+ *  2. lambda function - mental and repeat
+ *  3. return@forEach - What is?
+ *  4. operators inline crossinline, noinline
+ *  5. compile kotlin - object, companion object, extension fun
+ *  6. UInt, ULong - what is?
+ *  7. Standart library, what is ?
+ */
