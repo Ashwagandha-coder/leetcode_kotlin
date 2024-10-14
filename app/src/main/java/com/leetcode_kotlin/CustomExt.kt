@@ -12,6 +12,7 @@ fun sample() {
     arr.forEach {
         if (it == 1) return@forEach
     }
+    arr.count { it == 3 }
 }
 
 /**
@@ -22,4 +23,5 @@ fun sample() {
  *  5. compile kotlin - object, companion object, extension fun
  *  6. UInt, ULong - what is?
  *  7. Standart library, what is ?
+ *  8. Search new features to kotlin API
  */
