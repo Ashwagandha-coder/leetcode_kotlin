@@ -6,8 +6,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    maxProfitII(DynamicProgramming.maxProfitIIData()).also {
-        println("$it ")
-    }
+    sample()
 
 }
