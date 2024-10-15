@@ -1110,51 +1110,6 @@ fun containsNearbyDuplicate(nums: IntArray, k: Int): Boolean {
     return false
 }
 
-/**
- *
- */
-
-
-fun String.isPalindrome(start: Int, end: Int): Boolean {
-    var start = start
-    var end = end
-    while (start < end) {
-        if (this[start] != this[end]) {
-            return false
-        }
-        start++
-        end--
-    }
-    return true
-}
-
-
-fun partitionHelper(
-    start: Int,
-    s: String,
-    list: MutableList<List<String>?>,
-    current: MutableList<String>
-) {
-    if (start == s.length) {
-        list.add(ArrayList(current))
-        return
-    }
-
-    for (end in start until s.length) {
-        if (s.isPalindrome(start, end)) {
-            current.add(s.substring(start, end + 1))
-            partitionHelper(end + 1, s, list, current)
-            current.removeAt(current.size - 1)
-        }
-    }
-    return
-}
-
-fun partition(s: String): List<List<String>?> {
-    val list: MutableList<List<String>?> = ArrayList()
-    partitionHelper(0, s, list, ArrayList())
-    return list
-}
 
 /**
  * 1876. Substrings of Size Three with Distinct Characters
@@ -1461,7 +1416,70 @@ fun maxProfitII(prices: IntArray): Int {
     return profit
 }
 
+/**
+ * 131. Palindrome Partitioning
+ */
 
+
+fun String.isPalindrome(start: Int, end: Int): Boolean {
+    var start = start
+    var end = end
+    while (start < end) {
+        if (this[start] != this[end]) {
+            return false
+        }
+        start++
+        end--
+    }
+    return true
+}
+
+
+fun partitionHelper(
+    start: Int,
+    s: String,
+    list: MutableList<List<String>?>,
+    current: MutableList<String>
+) {
+    if (start == s.length) {
+        list.add(ArrayList(current))
+        return
+    }
+
+    for (j in start until s.length) {
+        if (s.isPalindrome(start, j)) {
+            current.add(s.substring(start, j + 1))
+            partitionHelper(j + 1, s, list, current)
+            current.removeAt(current.size - 1)
+        }
+    }
+    return
+}
+
+fun partition(s: String): List<List<String>?> {
+    val list: MutableList<List<String>?> = ArrayList()
+    partitionHelper(0, s, list, ArrayList())
+    return list
+}
+
+/**
+ * 1448. Count Good Nodes in Binary Tree
+ */
+
+
+fun goodNodes(root: TreeNode?): Int {
+    return dfsGoodNodes(root, Int.MIN_VALUE)
+}
+fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
+    if (root == null) return 0
+    var temp = 0
+    var value = root?.`val`
+    if (value!! >= max) temp++
+    var new = max(max, value!!)
+    val l = dfs(root?.left, new) + temp
+    val r = dfs(root?.right, new)
+    return l + r
+}
 
 
 

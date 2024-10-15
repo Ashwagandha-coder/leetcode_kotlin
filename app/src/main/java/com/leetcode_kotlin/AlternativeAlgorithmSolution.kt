@@ -395,7 +395,11 @@ internal class Trie {
  * Bucket Sort
  */
 
-fun Solution.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+fun Solution.containsNearbyAlmostDuplicate(
+    nums: IntArray,
+    indexDiff: Int,
+    valueDiff: Int
+): Boolean {
     if (valueDiff < 0) return false
     val map: MutableMap<Long, Long> = HashMap()
     val w = valueDiff.toLong() + 1
@@ -413,3 +417,37 @@ fun Solution.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, value
 private fun getID(value: Long, w: Long): Long {
     return if (value < 0) (value + 1) / w - 1 else value / w
 }
+
+/**
+ * 386. Lexicographical Numbers
+ * Iterative Stack Solution
+ */
+
+
+fun Solution.lexicalOrderWithStack(n: Int): List<Int> {
+    val stack = ArrayDeque<StackState>()
+    val result = ArrayList<Int>()
+    for (i in 1..9) {
+        dfs(i, n, stack, result)
+    }
+    return result
+}
+
+private fun dfs(number: Int, n: Int, stack: ArrayDeque<StackState>, result: MutableList<Int>) {
+    stack.addLast(StackState(number, 0))
+    while (stack.isNotEmpty()) {
+        val state = stack.removeLast()
+        if (state.number <= n) {
+            if (state.i == 0) {
+                result.add(state.number)
+                state.number *= 10
+            }
+            if (state.i++ <= 9) {
+                stack.addLast(state)
+                stack.addLast(StackState(state.number + state.i - 1, 0))
+            }
+        }
+    }
+}
+
+class StackState(var number: Int, var i: Int)
