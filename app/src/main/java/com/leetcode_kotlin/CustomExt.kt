@@ -1,23 +1,20 @@
 package com.leetcode_kotlin
 
-
-fun IntArray.forEach(lambda: (Int) -> Unit) {
-    for (elem in this) {
-        lambda.invoke(elem)
-    }
-}
+import android.os.Build
+import android.support.annotation.RequiresApi
 
 
+@RequiresApi(Build.VERSION_CODES.N)
 fun sample() {
 
-    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
-    val iterator = list.listIterator()
-    while (iterator.hasNext()) {
-        println(iterator.next())
-    }
-    iterator
-
+    val mutableList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    val res = mutableList to 2
+    mutableList.hashCode()
+    val stream = mutableList.parallelStream()
+    val split = mutableList.spliterator()
+    split.trySplit()
 }
+
 
 /**
  * Sample of immutable iterator
@@ -70,6 +67,23 @@ fun processLogFile(logLines: MutableList<String>) {
             }
         }
     }
+}
+
+/**
+ * Sample Using Spliterator
+ */
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun sampleSpliterator() {
+    val list = listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    val spliterator = list.spliterator()
+    // sample using stream
+    list.stream().parallel().forEach {
+        println(it)
+    }
+    // sample using spliterator
+    while (spliterator.tryAdvance
+        { println(it) }) { }
 }
 
 
