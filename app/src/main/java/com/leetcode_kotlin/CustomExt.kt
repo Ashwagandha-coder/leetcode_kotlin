@@ -4,15 +4,14 @@ import android.os.Build
 import android.support.annotation.RequiresApi
 
 
-@RequiresApi(Build.VERSION_CODES.N)
 fun sample() {
 
     val mutableList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
     val res = mutableList to 2
     mutableList.hashCode()
-    val stream = mutableList.parallelStream()
-    val split = mutableList.spliterator()
-    split.trySplit()
+    mutableList.reverse()
+    mutableList.shuffle()
+
 }
 
 
@@ -83,7 +82,9 @@ fun sampleSpliterator() {
     }
     // sample using spliterator
     while (spliterator.tryAdvance
-        { println(it) }) { }
+        { println(it) }
+    ) {
+    }
 }
 
 
