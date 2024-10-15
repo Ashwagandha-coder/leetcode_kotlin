@@ -1462,6 +1462,24 @@ fun partition(s: String): List<List<String>?> {
     return list
 }
 
+/**
+ * 1448. Count Good Nodes in Binary Tree
+ */
+
+
+fun goodNodes(root: TreeNode?): Int {
+    return dfsGoodNodes(root, Int.MIN_VALUE)
+}
+fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
+    if (root == null) return 0
+    var temp = 0
+    var value = root?.`val`
+    if (value!! >= max) temp++
+    var new = max(max, value!!)
+    val l = dfs(root?.left, new) + temp
+    val r = dfs(root?.right, new)
+    return l + r
+}
 
 
 
