@@ -6,8 +6,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Repeat.value.insertionSortProd(MyArrays.sortingData()).forEach {
-        print("$it ")
-    }
+    sample()
 
 }
