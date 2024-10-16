@@ -1483,34 +1483,39 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
 }
 
 /**
- *
+ * 216. Combination Sum III
  */
 
-fun recoverTree(root: TreeNode?): Unit {
-    var first: TreeNode? = null
-    var second: TreeNode? = null
-    var pre: TreeNode = TreeNode(Int.MIN_VALUE)
 
-    fun traverse(node: TreeNode?) {
-        if (node == null) return
-        traverse(node.left)
-
-        if (first == null && pre.`val` > node.`val`) {
-            first = pre
-        }
-        if (first != null && pre.`val` > node.`val`) {
-            second = node
-        }
-        pre = node
-
-        traverse(node.right)
-    }
-    traverse(root)
-    val temp = first!!.`val`
-    first!!.`val` = second!!.`val`
-    second!!.`val` = temp
+fun combinationSum3(k: Int, n: Int): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    if (n == 1) return res
+    val subset = mutableListOf<Int>()
+    backtrack(k, n, 1, subset, res)
+    return res
 }
 
+fun backtrack(
+    k: Int,
+    n: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
+    if (n < 0) return
+    if (subset.size == k && n == 0) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index..9) {
+        if (!subset.contains(i)) {
+            subset.add(i)
+            backtrack(k, n - i, index + 1, subset, res)
+            subset.removeAt(subset.size - 1)
+        } else return
+    }
+    return
+}
 
 
 
