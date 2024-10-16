@@ -6,8 +6,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    maxProfitII(DynamicProgramming.maxProfitIIData()).also {
-        println("$it ")
+    Repeat.value.insertionSortProd(MyArrays.sortingData()).forEach {
+        print("$it ")
     }
 
 }

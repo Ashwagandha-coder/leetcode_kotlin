@@ -1387,7 +1387,7 @@ fun dfs(left: TreeNode?, right: TreeNode?): Boolean {
 
 
 fun maxDepth(root: TreeNode?): Int {
-    return dfs(root,0)
+    return dfs(root, 0)
 }
 
 fun dfs(root: TreeNode?, depth: Int): Int {
@@ -1470,6 +1470,7 @@ fun partition(s: String): List<List<String>?> {
 fun goodNodes(root: TreeNode?): Int {
     return dfsGoodNodes(root, Int.MIN_VALUE)
 }
+
 fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
     if (root == null) return 0
     var temp = 0
@@ -1481,6 +1482,34 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
     return l + r
 }
 
+/**
+ *
+ */
+
+fun recoverTree(root: TreeNode?): Unit {
+    var first: TreeNode? = null
+    var second: TreeNode? = null
+    var pre: TreeNode = TreeNode(Int.MIN_VALUE)
+
+    fun traverse(node: TreeNode?) {
+        if (node == null) return
+        traverse(node.left)
+
+        if (first == null && pre.`val` > node.`val`) {
+            first = pre
+        }
+        if (first != null && pre.`val` > node.`val`) {
+            second = node
+        }
+        pre = node
+
+        traverse(node.right)
+    }
+    traverse(root)
+    val temp = first!!.`val`
+    first!!.`val` = second!!.`val`
+    second!!.`val` = temp
+}
 
 
 
