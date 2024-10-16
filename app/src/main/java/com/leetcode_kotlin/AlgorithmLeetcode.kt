@@ -1517,6 +1517,37 @@ fun backtrack(
     return
 }
 
+/**
+ * 17. Letter Combinations of a Phone Number
+ */
+
+
+fun letterCombinations(digits: String): List<String> {
+    val map = mutableMapOf<Char, String>()
+    map.put('2', "abc");
+    map.put('3', "def");
+    map.put('4', "ghi");
+    map.put('5', "jkl");
+    map.put('6', "mno");
+    map.put('7', "pqrs");
+    map.put('8', "tuv");
+    map.put('9', "wxyz");
+    val res = mutableListOf<String>()
+    backtracking(digits, 0, StringBuilder(), res, map)
+    return res
+}
+fun backtracking(digits: String, index: Int,  subset: StringBuilder, res: MutableList<String>, numbers: Map<Char, String>) {
+    if (index == digits.length) {
+        res.add(subset.toString())
+        return
+    }
+    val letter = numbers[digits[index]]
+    for (let in 0 until (letter?.length ?: 2)) {
+        subset.append(letter?.get(let) ?: "")
+        backtracking(digits, index + 1, subset, res, numbers)
+        subset.deleteCharAt(subset.length - 1)
+    }
+}
 
 
 
