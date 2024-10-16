@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import kotlin.concurrent.timer
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -711,11 +712,12 @@ fun Repeat.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDi
     }
     var state = false
     for (k in 1..indexDiff) {
-        state = slidingWindow(k,len,valueDiff, nums)
+        state = slidingWindow(k, len, valueDiff, nums)
         if (state) return true
     }
     return state
 }
+
 fun Repeat.slidingWindow(k: Int, len: Int, valueDiff: Int, nums: IntArray): Boolean {
     var i = 0
     var j = k
@@ -733,7 +735,11 @@ fun Repeat.slidingWindow(k: Int, len: Int, valueDiff: Int, nums: IntArray): Bool
  */
 
 
-fun Repeat.containsNearbyAlmostDuplicateIII(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+fun Repeat.containsNearbyAlmostDuplicateIII(
+    nums: IntArray,
+    indexDiff: Int,
+    valueDiff: Int
+): Boolean {
     if (valueDiff == 0) {
         val map = mutableMapOf<Int, Int>()
         val len = nums.size
@@ -764,4 +770,26 @@ fun IntArray.slidingWindow(k: Int, valueDiff: Int): Boolean {
         j++
     }
     return false
+}
+
+/**
+ * Repeat Insertion Sort
+ */
+
+fun Repeat.insertionSortProd(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 1 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            swapInsertionSort(arr, sorted, sorted + 1)
+            sorted--
+        }
+    }
+    return arr
+}
+
+fun Repeat.swapInsertionSort(arr: IntArray, left: Int, right: Int) {
+    var temp = arr[left]
+    arr[left] = arr[right]
+    arr[right] = temp
 }
