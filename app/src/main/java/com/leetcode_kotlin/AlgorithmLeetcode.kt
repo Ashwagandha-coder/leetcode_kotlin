@@ -1524,19 +1524,26 @@ fun backtrack(
 
 fun letterCombinations(digits: String): List<String> {
     val map = mutableMapOf<Char, String>()
-    map.put('2', "abc");
-    map.put('3', "def");
-    map.put('4', "ghi");
-    map.put('5', "jkl");
-    map.put('6', "mno");
-    map.put('7', "pqrs");
-    map.put('8', "tuv");
-    map.put('9', "wxyz");
+    map['2'] = "abc";
+    map['3'] = "def";
+    map['4'] = "ghi";
+    map['5'] = "jkl";
+    map['6'] = "mno";
+    map['7'] = "pqrs";
+    map['8'] = "tuv";
+    map['9'] = "wxyz";
     val res = mutableListOf<String>()
     backtracking(digits, 0, StringBuilder(), res, map)
     return res
 }
-fun backtracking(digits: String, index: Int,  subset: StringBuilder, res: MutableList<String>, numbers: Map<Char, String>) {
+
+fun backtracking(
+    digits: String,
+    index: Int,
+    subset: StringBuilder,
+    res: MutableList<String>,
+    numbers: Map<Char, String>
+) {
     if (index == digits.length) {
         res.add(subset.toString())
         return
