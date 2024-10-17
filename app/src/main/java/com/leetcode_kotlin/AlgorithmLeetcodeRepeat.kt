@@ -869,3 +869,28 @@ fun Repeat.containsDuplicateNearbyAlmost(arr: IntArray, indexDiff: Int, valueDif
 fun Repeat.id(value: Int, w: Int): Int {
     return if (value < 0) value + 1 / w + 1 else value / w
 }
+
+/**
+ * Repeat Combinations
+ */
+
+fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
+    if (n == 1 && k == 1) return listOf(listOf(1))
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    backtracking(n, k, 1, subset, res)
+    return res
+}
+fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == k) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index..n) {
+        subset.add(i)
+        backtracking(n, k, i + 1, subset, res)
+        subset.removeAt(subset.size - 1)
+    }
+    return
+}
+}
