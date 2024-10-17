@@ -361,24 +361,23 @@ internal class TrieNode {
 }
 
 internal class Trie {
-    var root: TrieNode = TrieNode()
+    private var root: TrieNode = TrieNode()
 
     fun insert(word: String) {
         var node: TrieNode? = root
-        for (i in 0 until word.length) {
-            val ch = word[i]
-            if (!node!!.containsKey(ch)) {
-                node.put(ch, TrieNode())
+        for (element in word) {
+            if (!node!!.containsKey(element)) {
+                node.put(element, TrieNode())
             }
-            node.get(ch)!!.count++
-            node = node.get(ch)
+            node.get(element)!!.count++
+            node = node.get(element)
         }
         node!!.setEnd()
     }
 
     fun search(word: String, n: Int): String {
         var node: TrieNode? = root
-        for (i in 0 until word.length) {
+        for (i in word.indices) {
             val ch = word[i]
             if (node!!.get(ch) != null && node.get(ch)!!.count == n) {
                 node = node.get(ch)

@@ -6,14 +6,35 @@ import android.support.annotation.RequiresApi
 
 fun sample() {
 
+}
+
+/**
+ * Sample of Mutable List
+ */
+
+fun sampleMutableList() {
     val mutableList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
-    val res = mutableList to 2
     mutableList.hashCode()
     mutableList.reverse()
     mutableList.shuffle()
-
+    mutableList.fill(2)
+    mutableList.ifEmpty {
+        mutableList.add(1)
+    }
+    mutableList.takeIf { it.size == 1 }?.let {
+        it.forEach { elem ->
+            println("$elem ")
+        }
+    }
+    val newList = mutableList.takeWhile { it < 10 }
+    newList.forEach { println(it) }
+    mutableList.all { it == 1 }
+    mutableList.any { it == 2 }
+    mutableList.zipWithNext { a, b ->
+        println("$a $b")
+    }
+    mutableList.map { it * 2 }
 }
-
 
 /**
  * Sample of immutable iterator
@@ -81,9 +102,7 @@ fun sampleSpliterator() {
         println(it)
     }
     // sample using spliterator
-    while (spliterator.tryAdvance
-        { println(it) }
-    ) {
+    while (spliterator.tryAdvance { println(it) }) {
     }
 }
 

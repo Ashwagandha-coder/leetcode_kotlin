@@ -193,6 +193,8 @@ fun tabulation(param: Int): Int? {
 
 fun memoization(param: Int): Int {
     val cache = IntArray(param + 1)
+    cache[0] = 0
+    cache[1] = 1
     return fib(param, cache)
 }
 
@@ -1483,35 +1485,79 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
 }
 
 /**
- *
+ * 216. Combination Sum III
  */
 
-fun recoverTree(root: TreeNode?): Unit {
-    var first: TreeNode? = null
-    var second: TreeNode? = null
-    var pre: TreeNode = TreeNode(Int.MIN_VALUE)
 
-    fun traverse(node: TreeNode?) {
-        if (node == null) return
-        traverse(node.left)
-
-        if (first == null && pre.`val` > node.`val`) {
-            first = pre
-        }
-        if (first != null && pre.`val` > node.`val`) {
-            second = node
-        }
-        pre = node
-
-        traverse(node.right)
-    }
-    traverse(root)
-    val temp = first!!.`val`
-    first!!.`val` = second!!.`val`
-    second!!.`val` = temp
+fun combinationSum3(k: Int, n: Int): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    if (n == 1) return res
+    val subset = mutableListOf<Int>()
+    backtrack(k, n, 1, subset, res)
+    return res
 }
 
+fun backtrack(
+    k: Int,
+    n: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
+    if (n < 0) return
+    if (subset.size == k && n == 0) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index..9) {
+        if (!subset.contains(i)) {
+            subset.add(i)
+            backtrack(k, n - i, index + 1, subset, res)
+            subset.removeAt(subset.size - 1)
+        } else
+            return
+    }
+    return
+}
 
+/**
+ * 17. Letter Combinations of a Phone Number
+ */
+
+
+fun letterCombinations(digits: String): List<String> {
+    val map = mutableMapOf<Char, String>()
+    map['2'] = "abc";
+    map['3'] = "def";
+    map['4'] = "ghi";
+    map['5'] = "jkl";
+    map['6'] = "mno";
+    map['7'] = "pqrs";
+    map['8'] = "tuv";
+    map['9'] = "wxyz";
+    val res = mutableListOf<String>()
+    backtracking(digits, 0, StringBuilder(), res, map)
+    return res
+}
+
+fun backtracking(
+    digits: String,
+    index: Int,
+    subset: StringBuilder,
+    res: MutableList<String>,
+    numbers: Map<Char, String>
+) {
+    if (index == digits.length) {
+        res.add(subset.toString())
+        return
+    }
+    val letter = numbers[digits[index]]
+    for (let in 0 until (letter?.length ?: 2)) {
+        subset.append(letter?.get(let) ?: "")
+        backtracking(digits, index + 1, subset, res, numbers)
+        subset.deleteCharAt(subset.length - 1)
+    }
+}
 
 
 

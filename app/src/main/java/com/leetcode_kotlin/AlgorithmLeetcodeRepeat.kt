@@ -793,3 +793,103 @@ fun Repeat.swapInsertionSort(arr: IntArray, left: Int, right: Int) {
     arr[left] = arr[right]
     arr[right] = temp
 }
+
+/**
+ * Repeat tabulation for fibonacci
+ */
+
+fun Repeat.tabulation(param: Int): Int {
+    val arr = IntArray(param + 1)
+    arr[0] = 0
+    arr[1] = 1
+    for (i in 2..param) {
+        arr[i] = arr[i - 1] + arr[i - 2]
+    }
+    return arr[param]
+}
+
+/**
+ * Repeat memoization for fibonacci
+ */
+
+fun Repeat.memoization(param: Int): Int {
+    val cache = IntArray(param + 1)
+    cache[0] = 0
+    cache[1] = 1
+    return fib(param, cache)
+}
+
+fun Repeat.fibMemoization(param: Int, cache: IntArray): Int {
+    if (param == 0) return 0
+    if (param == 1) return 1
+    if (cache[param] == 0) {
+        var a = fibMemoization(param - 2, cache)
+        var b = fibMemoization(param - 1, cache)
+    }
+    return cache[param]
+}
+
+/**
+ * Repeat insertion Sort yet
+ */
+
+fun insertionSortRepeatInOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            val temp = arr[sorted]
+            arr[sorted] = arr[sorted + 1]
+            arr[sorted + 1] = temp
+            sorted--
+        }
+    }
+    return arr
+}
+
+/**
+ * Repeat Contains Duplicate III
+ */
+
+fun Repeat.containsDuplicateNearbyAlmost(arr: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    val len = arr.size
+    val w = valueDiff + 1
+    for (i in 0 until len) {
+        val key = id(arr[i], w)
+        if (map.contains(key)) return true
+        if (map.contains(key - 1) && abs(arr[i] - map[key - 1]!!) <= valueDiff) return true
+        if (map.contains(key + 1) && abs(arr[i] - map[key + 1]!!) <= valueDiff) return true
+        map[key] = arr[i]
+        if (i >= indexDiff) map.remove(id(arr[i - indexDiff], w))
+    }
+    return false
+}
+
+fun Repeat.id(value: Int, w: Int): Int {
+    return if (value < 0) value + 1 / w + 1 else value / w
+}
+
+/**
+ * Repeat Combinations
+ */
+
+fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
+    if (n == 1 && k == 1) return listOf(listOf(1))
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    backtracking(n, k, 1, subset, res)
+    return res
+}
+fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == k) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index..n) {
+        subset.add(i)
+        backtracking(n, k, i + 1, subset, res)
+        subset.removeAt(subset.size - 1)
+    }
+    return
+}

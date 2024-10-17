@@ -6,8 +6,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Repeat.value.insertionSortProd(MyArrays.sortingData()).forEach {
-        print("$it ")
+    combinationSum3(3, 9).let {
+        println("$it ")
     }
+
 
 }
