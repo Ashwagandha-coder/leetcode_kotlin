@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    Repeat.value.memoization(7).let {
+    Repeat.value.containsDuplicateNearbyAlmost(intArrayOf(1, 5, 9, 1, 5, 9), 2, 3).let {
         println("$it ")
     }
 

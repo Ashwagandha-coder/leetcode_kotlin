@@ -828,3 +828,44 @@ fun Repeat.fibMemoization(param: Int, cache: IntArray): Int {
     }
     return cache[param]
 }
+
+/**
+ * Repeat insertion Sort yet
+ */
+
+fun insertionSortRepeatInOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            val temp = arr[sorted]
+            arr[sorted] = arr[sorted + 1]
+            arr[sorted + 1] = temp
+            sorted--
+        }
+    }
+    return arr
+}
+
+/**
+ * Repeat Contains Duplicate III
+ */
+
+fun Repeat.containsDuplicateNearbyAlmost(arr: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    val len = arr.size
+    val w = valueDiff + 1
+    for (i in 0 until len) {
+        val key = id(arr[i], w)
+        if (map.contains(key)) return true
+        if (map.contains(key - 1) && abs(arr[i] - map[key - 1]!!) <= valueDiff) return true
+        if (map.contains(key + 1) && abs(arr[i] - map[key + 1]!!) <= valueDiff) return true
+        map[key] = arr[i]
+        if (i >= indexDiff) map.remove(id(arr[i - indexDiff], w))
+    }
+    return false
+}
+
+fun Repeat.id(value: Int, w: Int): Int {
+    return if (value < 0) value + 1 / w + 1 else value / w
+}
