@@ -6,6 +6,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    sample()
+    Repeat.value.memoization(7).let {
+        println("$it ")
+    }
+
 
 }

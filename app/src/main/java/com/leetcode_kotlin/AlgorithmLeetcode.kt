@@ -193,6 +193,8 @@ fun tabulation(param: Int): Int? {
 
 fun memoization(param: Int): Int {
     val cache = IntArray(param + 1)
+    cache[0] = 0
+    cache[1] = 1
     return fib(param, cache)
 }
 

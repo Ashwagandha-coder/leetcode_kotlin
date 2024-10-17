@@ -793,3 +793,38 @@ fun Repeat.swapInsertionSort(arr: IntArray, left: Int, right: Int) {
     arr[left] = arr[right]
     arr[right] = temp
 }
+
+/**
+ * Repeat tabulation for fibonacci
+ */
+
+fun Repeat.tabulation(param: Int): Int {
+    val arr = IntArray(param + 1)
+    arr[0] = 0
+    arr[1] = 1
+    for (i in 2..param) {
+        arr[i] = arr[i - 1] + arr[i - 2]
+    }
+    return arr[param]
+}
+
+/**
+ * Repeat memoization for fibonacci
+ */
+
+fun Repeat.memoization(param: Int): Int {
+    val cache = IntArray(param + 1)
+    cache[0] = 0
+    cache[1] = 1
+    return fib(param, cache)
+}
+
+fun Repeat.fibMemoization(param: Int, cache: IntArray): Int {
+    if (param == 0) return 0
+    if (param == 1) return 1
+    if (cache[param] == 0) {
+        var a = fibMemoization(param - 2, cache)
+        var b = fibMemoization(param - 1, cache)
+    }
+    return cache[param]
+}
