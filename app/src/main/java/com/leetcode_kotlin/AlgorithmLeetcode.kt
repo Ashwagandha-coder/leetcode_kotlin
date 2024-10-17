@@ -1514,7 +1514,8 @@ fun backtrack(
             subset.add(i)
             backtrack(k, n - i, index + 1, subset, res)
             subset.removeAt(subset.size - 1)
-        } else return
+        } else
+            return
     }
     return
 }
