@@ -26,6 +26,10 @@ fun sampleMutableList() {
             println("$elem ")
         }
     }
+    val num = 1
+    num.takeIf { true }.let {
+
+    }
     val newList = mutableList.takeWhile { it < 10 }
     newList.forEach { println(it) }
     mutableList.all { it == 1 }
@@ -34,6 +38,13 @@ fun sampleMutableList() {
         println("$a $b")
     }
     mutableList.map { it * 2 }
+    mutableList.onEach {
+        it
+    }
+    // fold
+    mutableList.single { it == 1 }
+    mutableList.distinct()
+    mutableList.drop(2)
 }
 
 /**

@@ -6,9 +6,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    combinationSum3(3, 9).let {
-        println("$it ")
-    }
 
 
 }

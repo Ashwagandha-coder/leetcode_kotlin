@@ -1066,34 +1066,6 @@ fun containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int
     return false
 }
 
-/**
- *
- */
-
-fun totalWays(nums: IntArray, target: Int, index: Int): Int {
-    /** Base condition : At 0th index  */
-    if (index == 0) {
-        var ways = 0
-        /** Need to consider both of these conditions separately,
-         * Since, for nums[index]=0, both of the condition will satisfy
-         * Hence it need to be counted twice  */
-        if ((target - nums[index] == 0)) ways++
-        if (target + nums[index] == 0) ways++
-
-        return ways
-    }
-
-    val addition = totalWays(nums, target + nums[index], index - 1)
-    val subtraction = totalWays(nums, target - nums[index], index - 1)
-
-    return addition + subtraction
-}
-
-fun findTargetSumWays(nums: IntArray, target: Int): Int {
-    val n = nums.size
-    return totalWays(nums, target, n - 1)
-}
-
 
 /**
  * 219. Contains Duplicate II
@@ -1557,6 +1529,73 @@ fun backtracking(
         backtracking(digits, index + 1, subset, res, numbers)
         subset.deleteCharAt(subset.length - 1)
     }
+}
+
+/**
+ * Need sol
+ */
+
+fun solveNQueens(n: Int): MutableList<List<String>> {
+    val board = Array(n) {
+        CharArray(
+            n
+        )
+    }
+    for (i in 0 until n) {
+        for (j in 0 until n) {
+            board[i][j] = '.'
+        }
+    }
+    val ans: MutableList<List<String>> = ArrayList()
+    NQueens(board, 0, n, ans)
+    return ans
+}
+
+fun NQueens(board: Array<CharArray>, row: Int, n: Int, ans: MutableList<List<String>>) {
+    if (row == n) {
+        val temp: MutableList<String> = ArrayList()
+        for (i in 0 until n) {
+            var str = ""
+            for (j in 0 until n) {
+                str += board[i][j]
+            }
+            temp.add(str)
+        }
+        ans.add(temp)
+        return
+    }
+    for (j in 0 until n) {
+        if (safe(board, row, j, n)) {
+            board[row][j] = 'Q'
+            NQueens(board, row + 1, n, ans)
+            board[row][j] = '.'
+        }
+    }
+    return
+}
+
+fun safe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean {
+    //check up
+    for (i in 0 until row) {
+        if (board[i][col] == 'Q') return false
+    }
+    //check northwest
+    var i = row
+    var j = col
+    while (i >= 0 && j >= 0) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j--
+    }
+    //check northeast
+    i = row
+    j = col
+    while (i >= 0 && j < n) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j++
+    }
+    return true
 }
 
 
