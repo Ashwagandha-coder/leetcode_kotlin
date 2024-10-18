@@ -893,3 +893,18 @@ fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, re
     }
     return
 }
+
+/**
+ * Repeat Best Time and Sell Stocks
+ */
+
+fun Repeat.maxProfit(prices: IntArray): Int {
+    var profit = 0
+    val len = prices.size
+    for (i in 1 until len) {
+        if (prices[i] > prices[i - 1]) {
+            profit += prices[i] - prices[i - 1]
+        }
+    }
+    return profit
+}
