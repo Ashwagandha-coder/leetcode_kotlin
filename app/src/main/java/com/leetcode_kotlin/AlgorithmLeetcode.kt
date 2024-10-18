@@ -3,6 +3,7 @@ package com.leetcode_kotlin
 import java.util.Arrays
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -1599,6 +1600,27 @@ fun safe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean {
 }
 
 
+/**
+ * 123. Best Time to Buy and Sell Stock III
+ */
+
+
+fun maxProfitIII(prices: IntArray): Int {
+    var buy1 = Int.MAX_VALUE
+    var buy2 = Int.MAX_VALUE
+    var sell1 = 0
+    var sell2 = 0
+    val len = prices.size
+
+    for (i in 0 until len) {
+        buy1 = min(buy1, prices[i]);
+        sell1 = max(sell1, prices[i] - buy1);
+        buy2 = min(buy2, prices[i] - sell1);
+        sell2 = max(sell2, prices[i] - buy2);
+    }
+
+    return sell2;
+}
 
 
 
