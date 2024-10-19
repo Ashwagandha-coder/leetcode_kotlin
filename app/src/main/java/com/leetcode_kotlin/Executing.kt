@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    combinationSumIterative(intArrayOf(2, 3, 6, 7), 7).let {
+    maxProfitWithKTransactionsOptimized(intArrayOf(2, 4, 1, 7, 5, 9), 2).let {
         println("$it ")
     }
 

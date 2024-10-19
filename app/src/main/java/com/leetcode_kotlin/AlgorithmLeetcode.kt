@@ -1622,6 +1622,42 @@ fun maxProfitIII(prices: IntArray): Int {
     return sell2;
 }
 
+/**
+ * 188. Best Time to Buy and Sell Stock IV
+ * O(n * k) - Time
+ * O(k) - Space
+ */
+
+
+fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
+    val n = prices.size
+    if (n == 0|| k == 0) {
+        return 0 // Нет прибыли, если нет цен или транзакций не разрешены
+    }
+
+    // Если k достаточно большое, чтобы позволить покупать и продавать каждый день, используем более простой подход
+    if (k >= n / 2) {
+        var profit = 0
+        for (i in 1 until n) {
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1]
+            }
+        }
+        return profit}
+
+    // Используем оптимизированный по памяти DP
+    val buy = IntArray(k + 1) { Int.MIN_VALUE } // buy[i] - максимальная прибыль при покупке до i транзакциями
+    val sell = IntArray(k + 1) { 0 } // sell[i] - максимальная прибыль при продаже до i транзакциями
+
+    for (price in prices) { // Итерируемся по ценам
+        for (i in 1..k) { // Итерируемся по количеству транзакций
+            buy[i] = maxOf(buy[i], sell[i - 1] - price) // Обновляем buy[i]
+            sell[i] = maxOf(sell[i], buy[i] + price) // Обновляем sell[i]
+        }
+    }
+
+    return sell[k] // Возвращаем максимальную прибыль с k транзакциями
+}
 
 
 
