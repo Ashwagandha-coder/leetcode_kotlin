@@ -6,8 +6,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    maxProfitWithKTransactionsOptimized(intArrayOf(2, 4, 1, 7, 5, 9), 2).let {
-        println("$it ")
-    }
+    sampleZipWithNext()
 
 }

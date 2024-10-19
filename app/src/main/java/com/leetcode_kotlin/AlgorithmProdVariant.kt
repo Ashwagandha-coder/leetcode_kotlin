@@ -40,5 +40,37 @@ fun ProdVariant.missingNumber(nums: IntArray): Int {
     return res - nums.sum()
 }
 
+/**
+ * 188.Best Time to Buy and Sell Stock IV
+ */
+
+
+fun maxProfitIV(prices: IntArray, k: Int): Int {
+    val n = prices.size
+    if (n == 0 || k == 0) {
+        return 0
+    }
+
+    // Если k достаточно большое, используемупрощенный подход
+    if (k >= n / 2) {
+        return prices.asSequence()
+            .zipWithNext() // Соединяем элементы последовательно
+            .filter { (prev, curr) -> curr > prev } // Фильтруем пары, где текущий элемент больше предыдущего
+            .sumOf { (prev, curr) -> curr - prev } // Суммируем разницы
+    }
+
+    // Функциональный DP с использованием fold
+    return (1..k).fold(Pair(IntArray(n) { Int.MIN_VALUE }, IntArray(n) { 0 })) { (buy, sell), i ->
+        val newBuy = prices.indices.drop(1).map { j ->
+            maxOf(buy[j - 1], sell[j - 1] - prices[j - 1])
+        }.toIntArray()
+
+        val newSell = prices.indices.drop(1).map { j ->
+            maxOf(sell[j - 1], newBuy[j - 1] + prices[j - 1])
+        }.toIntArray()
+
+        Pair(newBuy, newSell)
+    }.second.last() // Возвращаем последний элемент массива sell
+}
 
 

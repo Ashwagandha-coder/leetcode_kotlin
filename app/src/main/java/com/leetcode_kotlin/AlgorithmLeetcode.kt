@@ -1643,7 +1643,8 @@ fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
                 profit += prices[i] - prices[i - 1]
             }
         }
-        return profit}
+        return profit
+    }
 
     // Используем оптимизированный по памяти DP
     val buy = IntArray(k + 1) { Int.MIN_VALUE } // buy[i] - максимальная прибыль при покупке до i транзакциями
