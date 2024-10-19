@@ -34,7 +34,7 @@ fun ProdVariant.maxProfitIII(prices: IntArray): Int {
 
 fun ProdVariant.missingNumber(nums: IntArray): Int {
     var res = nums.size
-    nums.forEachIndexed { index, i ->
+    nums.forEachIndexed { index, _ ->
         res += index
     }
     return res - nums.sum()

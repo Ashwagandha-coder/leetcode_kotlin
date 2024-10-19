@@ -450,3 +450,29 @@ private fun dfs(number: Int, n: Int, stack: ArrayDeque<StackState>, result: Muta
 }
 
 class StackState(var number: Int, var i: Int)
+
+
+/**
+ * 39. Combination Sum
+ * Cycle Backtrack Solution
+ */
+
+fun Solution.combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    backtrack(candidates, target, 0,0, subset, res)
+    return res
+}
+fun backtrack(cand: IntArray, target: Int, total: Int, index: Int,  subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (total > target) return
+    if (total == target) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index until cand.size) {
+        subset.add(cand[i])
+        backtrack(cand, target, total + cand[i], i, subset, res)
+        subset.removeAt(subset.size - 1)
+    }
+    return
+}
