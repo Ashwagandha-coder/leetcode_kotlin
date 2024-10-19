@@ -1,10 +1,17 @@
 package com.leetcode_kotlin
 
+class ProdVariant {
+
+    companion object {
+        val value = ProdVariant()
+    }
+}
+
+
 /**
  * 123. Best Time to Buy and Sell Stock III
  */
 
-class ProdVariant
 
 fun ProdVariant.maxProfitIII(prices: IntArray): Int {
     var buy1 = Int.MAX_VALUE
@@ -19,4 +26,19 @@ fun ProdVariant.maxProfitIII(prices: IntArray): Int {
     }
     return sell2
 }
+
+/**
+ * 268. Missing Number
+ */
+
+
+fun ProdVariant.missingNumber(nums: IntArray): Int {
+    var res = nums.size
+    nums.forEachIndexed { index, i ->
+        res += index
+    }
+    return res - nums.sum()
+}
+
+
 
