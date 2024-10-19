@@ -3,6 +3,7 @@ package com.leetcode_kotlin
 import java.util.Arrays
 import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -1599,7 +1600,64 @@ fun safe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean {
 }
 
 
+/**
+ * 123. Best Time to Buy and Sell Stock III
+ */
 
+
+fun maxProfitIII(prices: IntArray): Int {
+    var buy1 = Int.MAX_VALUE
+    var buy2 = Int.MAX_VALUE
+    var sell1 = 0
+    var sell2 = 0
+    val len = prices.size
+
+    for (i in 0 until len) {
+        buy1 = min(buy1, prices[i]);
+        sell1 = max(sell1, prices[i] - buy1);
+        buy2 = min(buy2, prices[i] - sell1);
+        sell2 = max(sell2, prices[i] - buy2);
+    }
+
+    return sell2;
+}
+
+/**
+ * 188. Best Time to Buy and Sell Stock IV
+ * O(n * k) - Time
+ * O(k) - Space
+ */
+
+
+fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
+    val n = prices.size
+    if (n == 0|| k == 0) {
+        return 0 // Нет прибыли, если нет цен или транзакций не разрешены
+    }
+
+    // Если k достаточно большое, чтобы позволить покупать и продавать каждый день, используем более простой подход
+    if (k >= n / 2) {
+        var profit = 0
+        for (i in 1 until n) {
+            if (prices[i] > prices[i - 1]) {
+                profit += prices[i] - prices[i - 1]
+            }
+        }
+        return profit}
+
+    // Используем оптимизированный по памяти DP
+    val buy = IntArray(k + 1) { Int.MIN_VALUE } // buy[i] - максимальная прибыль при покупке до i транзакциями
+    val sell = IntArray(k + 1) { 0 } // sell[i] - максимальная прибыль при продаже до i транзакциями
+
+    for (price in prices) { // Итерируемся по ценам
+        for (i in 1..k) { // Итерируемся по количеству транзакций
+            buy[i] = maxOf(buy[i], sell[i - 1] - price) // Обновляем buy[i]
+            sell[i] = maxOf(sell[i], buy[i] + price) // Обновляем sell[i]
+        }
+    }
+
+    return sell[k] // Возвращаем максимальную прибыль с k транзакциями
+}
 
 
 
