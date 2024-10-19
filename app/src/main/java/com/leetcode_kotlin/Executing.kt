@@ -6,7 +6,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    ProdVariant.value.missingNumber(intArrayOf(3, 0, 1)).let {
+    combinationSumIterative(intArrayOf(2, 3, 6, 7), 7).let {
         println("$it ")
     }
 

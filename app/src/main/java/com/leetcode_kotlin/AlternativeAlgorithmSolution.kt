@@ -457,13 +457,21 @@ class StackState(var number: Int, var i: Int)
  * Cycle Backtrack Solution
  */
 
-fun Solution.combinationSum(candidates: IntArray, target: Int): List<List<Int>> {
+fun Solution.combinationSumI(candidates: IntArray, target: Int): List<List<Int>> {
     val res = mutableListOf<MutableList<Int>>()
     val subset = mutableListOf<Int>()
-    backtrack(candidates, target, 0,0, subset, res)
+    backtrack(candidates, target, 0, 0, subset, res)
     return res
 }
-fun backtrack(cand: IntArray, target: Int, total: Int, index: Int,  subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+
+fun backtrack(
+    cand: IntArray,
+    target: Int,
+    total: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
     if (total > target) return
     if (total == target) {
         res.add(ArrayList(subset))
@@ -475,4 +483,40 @@ fun backtrack(cand: IntArray, target: Int, total: Int, index: Int,  subset: Muta
         subset.removeAt(subset.size - 1)
     }
     return
+}
+
+/**
+ * 39. Combination Sum
+ * Iterative Solution
+ */
+
+fun combinationSumIterative(candidates: IntArray, target: Int): List<List<Int>> {
+    val result = mutableListOf<List<Int>>() // Хранит итоговые уникальные комбинации
+    val combinations = mutableListOf<MutableList<Int>>() // Хранитформируемые комбинации
+    combinations.add(mutableListOf()) // Начинаем с пустой комбинации
+
+    for (candidate in candidates) { // Внешний цикл: перебор кандидатов
+        val newCombinations = mutableListOf<MutableList<Int>>() // Новые комбинации для текущего кандидата
+        for (combination in combinations) { // Внутренний цикл: перебор существующих комбинаций
+            var currentSum = combination.sum() // Текущая сумма элементов комбинации
+            var count = 0 // Счетчик добавлений текущего кандидата
+
+            while(currentSum + candidate <= target) { // Пока сумма не превышает цель
+                count++
+                val newCombination = combination.toMutableList() // Копия текущей комбинации
+                repeat(count) { newCombination.add(candidate) } // Добавляем кандидата count раз
+
+                if (currentSum + candidate == target) {
+                    result.add(newCombination) // Если достигли цели, добавляем в результат
+                } else {
+                    newCombinations.add(newCombination) // Иначе добавляем в newCombinations для дальнейшего исследования
+                }
+
+                currentSum += candidate // Обновляем текущую сумму
+            }
+        }
+        combinations.addAll(newCombinations) // Добавляем новые комбинации для следующего кандидата
+    }
+
+    return result // Возвращаем список уникальных комбинаций
 }
