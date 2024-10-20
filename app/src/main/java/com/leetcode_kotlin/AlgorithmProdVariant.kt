@@ -42,6 +42,7 @@ fun ProdVariant.missingNumber(nums: IntArray): Int {
 
 /**
  * 188.Best Time to Buy and Sell Stock IV
+ * Prod Variant
  */
 
 
@@ -53,8 +54,7 @@ fun maxProfitIV(prices: IntArray, k: Int): Int {
 
     // Если k достаточно большое, используемупрощенный подход
     if (k >= n / 2) {
-        return prices.asSequence()
-            .zipWithNext() // Соединяем элементы последовательно
+        return prices.asSequence().zipWithNext() // Соединяем элементы последовательно
             .filter { (prev, curr) -> curr > prev } // Фильтруем пары, где текущий элемент больше предыдущего
             .sumOf { (prev, curr) -> curr - prev } // Суммируем разницы
     }
@@ -73,4 +73,14 @@ fun maxProfitIV(prices: IntArray, k: Int): Int {
     }.second.last() // Возвращаем последний элемент массива sell
 }
 
+/**
+ * 122. Best Time to Buy and Sell Stock II
+ * Prod Variant
+ */
+
+fun maxProfitIIProdVariant(prices: IntArray): Int = prices
+    .asSequence()
+    .zipWithNext()
+    .filter { (prev, curr) -> curr > prev }
+    .sumOf { (prev, curr) -> curr - prev }
 
