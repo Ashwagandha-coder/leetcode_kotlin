@@ -1552,7 +1552,12 @@ fun solveNQueens(n: Int): List<List<String>> {
 }
 
 
-fun backtracking(row: Int, n: Int, solutions: MutableList<MutableList<String>>, board: Array<CharArray>) {
+fun backtracking(
+    row: Int,
+    n: Int,
+    solutions: MutableList<MutableList<String>>,
+    board: Array<CharArray>
+) {
     if (row == n) {
         solutions.add(board.map { it.joinToString("") } as MutableList<String>)
         return
@@ -1590,6 +1595,57 @@ fun isValid(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
         j++
     }
     return true // Если все ок
+}
+
+/**
+ * 52. N-Queens II
+ * Time - O(n!)
+ * Space - O(n)
+ */
+
+fun totalNQueens(n: Int): Int {
+    val board = Array(n) {CharArray(n) { '.' }}
+    val res = backtracking(0, n, board)
+    return res
+}
+
+fun backtracking(
+    row: Int,
+    n: Int,
+    board: Array<CharArray>): Int {
+    if (row == n) {
+        return 1
+    }
+    var count = 0
+    for (col in 0 until n) {
+        if (isValidII(row, col, board, n)) {
+            board[row][col] = 'Q'
+            count += backtracking(row + 1, n, board)
+            board[row][col] = '.'
+        }
+    }
+    return count
+}
+fun isValidII(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
+    for (i in 0 until row) {
+        if (board[i][col] == 'Q') return false
+    }
+    var i = row - 1
+    var j = col - 1
+    while (i >= 0 && j >= 0) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j--
+    }
+
+    i = row - 1
+    j = col + 1
+    while (i >= 0 && j < n) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j++
+    }
+    return true
 }
 
 
