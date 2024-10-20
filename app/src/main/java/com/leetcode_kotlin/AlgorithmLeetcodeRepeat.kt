@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import kotlin.math.abs
 import kotlin.math.max
 
 
@@ -347,12 +348,562 @@ fun Repeat.swapSelectionSortElement(arr: IntArray, start: Int, end: Int) {
     arr[end] = temp
 }
 
+/**
+ * Repeat Quick Sort
+ */
 
 
+fun Repeat.myWrap(arr: IntArray): IntArray {
+    wrapQuickSort(arr, 0, arr.size - 1)
+    return arr
+}
+
+fun Repeat.wrapQuickSort(arr: IntArray, start: Int, end: Int) {
+    if (start >= end) return
+    val wall = partOfSortHoaraRepeat(arr, start, end)
+    wrapQuickSort(arr, start, wall - 1)
+    wrapQuickSort(arr, wall, end)
+}
+
+fun Repeat.partOfSortHoaraRepeat(arr: IntArray, start: Int, end: Int): Int {
+    var left = start
+    var right = end
+    val pivot = arr[(left + right) / 2]
+    while (left <= right) {
+        while (arr[left] < pivot) left++
+        while (arr[right] > pivot) right--
+        if (left <= right) {
+            swapElementQuickSort(arr, left, right)
+            left++
+            right--
+        }
+    }
+    return left
+}
+
+fun Repeat.swapElementQuickSort(arr: IntArray, start: Int, end: Int) {
+    var temp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = temp
+}
+
+/**
+ *  generate Parentheses
+ */
 
 
+fun Repeat.generateParentheses(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    generateParenthesesDfs(n, 0, 0, "", res)
+    return res
+}
+
+private fun dfs(n: Int, open: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (open == close && open + close == n * 2) {
+        res.add(subset)
+        return
+    }
+    if (open < n) {
+        dfs(n, open + 1, close, "$subset(", res)
+    }
+
+    if (close < open) {
+        dfs(n, open, close + 1, "$subset)", res)
+    }
+    return
+}
+
+/**
+ * Longest Consecutive SubSequence
+ */
 
 
+/**
+ * Longest Common Prefix
+ */
 
 
+fun longestCommonPrefix(strs: Array<String>): String {
+    val map = mutableMapOf<Char, Int>()
+    val size = strs.size
+    var prefix = ""
+    for (str in strs) {
+        var len = str.length - 1
+        for (j in 0 until len) {
+            if (!map.contains(str[j])) map[str[j]] = 1
+            else {
+                var value = map[str[j]]
+                value = value!! + 1
+                map[str[j]] = value
+            }
+            if (map[str[j]] == size) prefix += str[j]
+        }
+    }
+    return prefix
+}
 
+
+/**
+ * genearte paranthesis
+ */
+
+fun Repeat.generate(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    generateParenthesesDfs(n, 0, 0, "", res)
+    return res
+}
+
+private fun Repeat.dfs(n: Int, openC: Int, close: Int, subset: String, res: MutableList<String>) {
+    if (openC == close && openC + close == n * 2) {
+        res.add(subset)
+        return
+    }
+
+    if (openC < n) {
+        generateParenthesesDfs(n, openC + 1, close, subset, res)
+    }
+    if (close < openC) {
+        generateParenthesesDfs(n, openC, close + 1, subset, res)
+    }
+    return
+}
+
+/**
+ * Repeat Selection Sort
+ * 3.10.24
+ */
+
+
+fun Repeat.selectionSortRepeat(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[min] > arr[j]) min = j
+        }
+        if (min != i) swapSelectionSortRepeat(arr, min, i)
+    }
+    return arr
+}
+
+fun Repeat.swapSelectionSortRepeat(arr: IntArray, start: Int, end: Int) {
+    var temp = arr[start]
+    arr[start] = arr[end]
+    arr[end] = temp
+}
+
+
+/**
+ * 22. Generate Parentheses
+ */
+
+fun Repeat.generateParenthesis(n: Int): List<String> {
+    val res = mutableListOf<String>()
+    generateParenthesesDfs(n, 0, 0, "", res)
+    return res
+}
+
+fun Repeat.generateParenthesesDfs(
+    n: Int,
+    openC: Int,
+    close: Int,
+    subset: String,
+    res: MutableList<String>
+) {
+    if (openC == close && openC + close == n * 2) {
+        res.add(subset)
+        return
+    }
+    if (openC < n) {
+        generateParenthesesDfs(n, openC + 1, close, "$subset(", res)
+    }
+    if (close < openC) {
+        generateParenthesesDfs(n, openC, close + 1, "$subset)", res)
+    }
+    return
+}
+
+/**
+ * 213. House Robber II
+ */
+
+fun Repeat.rob(nums: IntArray): Int {
+    if (nums.size == 1) return nums[0]
+    return max(nums.maxRob(0, nums.size - 2), nums.maxRob(1, nums.size - 1))
+}
+
+fun IntArray.maxRob(start: Int, end: Int): Int {
+    var alt = 0
+    var max = 0
+    for (i in start..end) {
+        var temp = max(max, alt + this[i])
+        alt = max
+        max = temp
+    }
+    return max
+}
+
+/**
+ *  46.Permutations
+ */
+
+
+fun Repeat.permute(nums: IntArray): MutableList<List<Int>> {
+    val res: MutableList<List<Int>> = ArrayList()
+    backtrack(res, ArrayList(), nums)
+    return res
+}
+
+private fun Repeat.backtrack(
+    res: MutableList<List<Int>>,
+    tempList: MutableList<Int>,
+    nums: IntArray
+) {
+    if (tempList.size == nums.size) {
+        res.add(ArrayList(tempList))
+        return
+    } else {
+        for (i in nums.indices) {
+            if (!tempList.contains(nums[i])) {  // element already exists, skip
+                tempList.add(nums[i])
+                backtrack(res, tempList, nums)
+                tempList.removeAt(tempList.size - 1)
+            }
+        }
+    }
+    return
+}
+
+/**
+ * Repeat Bubble Sort
+ */
+
+
+fun Repeat.bubbleSortRepeat(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        for (j in i + 1 until len) {
+            if (arr[i] > arr[j]) {
+                arr.swapBubbleSort(i, j)
+            }
+        }
+    }
+    return arr
+}
+
+fun IntArray.swapBubbleSort(start: Int, end: Int) {
+    var temp = this[start]
+    this[start] = this[end]
+    this[end] = temp
+}
+
+/**
+ * Repeat Lexicographical Numbers
+ */
+
+
+fun Repeat.lexicalOrderOther(n: Int): List<Int> {
+    if (n == 1) return listOf(1)
+    var curr = 1
+    val res = mutableListOf<Int>()
+    for (i in 1..n) {
+        res.add(curr)
+        if (curr * 10 <= n) curr *= 10
+        else {
+            while (curr % 10 == 9 || curr >= n) curr /= 10
+            curr++
+        }
+    }
+    return res
+}
+
+/**
+ * Repeat countGoodSubstrings
+ * With Set Solution
+ */
+
+
+fun Repeat.countGoodSubstrings(s: String): Int {
+    val len = s.length
+    val set = mutableSetOf<Char>()
+    val k = 3
+    var count = 0
+    for (i in 0 until len - (k - 1)) {
+        var substring = s.substring(i, i + k)
+        var isUnique = true
+        for (c in substring) {
+            if (!set.add(c)) {
+                isUnique = false
+                break
+            }
+        }
+        if (isUnique) {
+            count++
+        }
+        set.clear()
+    }
+    return count
+}
+
+/**
+ * 46. Permutations
+ */
+
+fun Repeat.permuteOther(nums: IntArray): List<List<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    rec(nums, subset, res)
+    return res
+}
+
+fun rec(nums: IntArray, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == nums.size) {
+        res.add(ArrayList(subset))
+        return
+    } else {
+        for (i in nums.indices) {
+            if (!subset.contains(nums[i])) {
+                subset.add(nums[i])
+                rec(nums, subset, res)
+                subset.removeAt(subset.size - 1)
+            }
+        }
+    }
+    return
+}
+
+/**
+ * Repeat findDisappearedNumbers
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun Repeat.findDisappearedNumbersOther(nums: IntArray): List<Int> {
+    val res = ArrayList<Int>()
+    val mark = -1
+    val len = nums.size
+    for (i in 0 until len) {
+        var ind = abs(nums[i]) - 1
+        if (nums[ind] > 0) nums[ind] *= mark
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
+}
+
+/**
+ * Repeat Contains Duplicate III
+ */
+
+fun Repeat.containsNearbyAlmostDuplicate(nums: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val len = nums.size
+    if (valueDiff == 0) {
+        val map = mutableMapOf<Int, Int>()
+        for (i in 0 until len) {
+            if (map.contains(nums[i])) {
+                var j = map.get(nums[i])
+                if (abs(i - j!!) <= indexDiff) return true
+            }
+            map[nums[i]] = i
+        }
+        return false
+    }
+    var state = false
+    for (k in 1..indexDiff) {
+        state = slidingWindow(k, len, valueDiff, nums)
+        if (state) return true
+    }
+    return state
+}
+
+fun Repeat.slidingWindow(k: Int, len: Int, valueDiff: Int, nums: IntArray): Boolean {
+    var i = 0
+    var j = k
+    while (j < len) {
+        if (abs(nums[i] - nums[j]) <= valueDiff) return true
+        i++
+        j++
+    }
+    return false
+}
+
+
+/**
+ * Repeat contains duplicate III
+ */
+
+
+fun Repeat.containsNearbyAlmostDuplicateIII(
+    nums: IntArray,
+    indexDiff: Int,
+    valueDiff: Int
+): Boolean {
+    if (valueDiff == 0) {
+        val map = mutableMapOf<Int, Int>()
+        val len = nums.size
+        for (i in 0 until len) {
+            if (map.contains(nums[i])) {
+                val j = map[nums[i]]
+                if (abs(i - j!!) <= indexDiff) return true
+            }
+            map[nums[i]] = i
+        }
+        return false
+    }
+    var ans = false
+    for (k in 1..indexDiff) {
+        ans = nums.slidingWindow(k, valueDiff)
+        if (ans) return true
+    }
+    return ans
+}
+
+fun IntArray.slidingWindow(k: Int, valueDiff: Int): Boolean {
+    var j = k
+    var i = 0
+    val len = this.size
+    while (j < len) {
+        if (abs(this[i] - this[j]) <= valueDiff) return true
+        i++
+        j++
+    }
+    return false
+}
+
+/**
+ * Repeat Insertion Sort
+ */
+
+fun Repeat.insertionSortProd(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 1 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            swapInsertionSort(arr, sorted, sorted + 1)
+            sorted--
+        }
+    }
+    return arr
+}
+
+fun Repeat.swapInsertionSort(arr: IntArray, left: Int, right: Int) {
+    var temp = arr[left]
+    arr[left] = arr[right]
+    arr[right] = temp
+}
+
+/**
+ * Repeat tabulation for fibonacci
+ */
+
+fun Repeat.tabulation(param: Int): Int {
+    val arr = IntArray(param + 1)
+    arr[0] = 0
+    arr[1] = 1
+    for (i in 2..param) {
+        arr[i] = arr[i - 1] + arr[i - 2]
+    }
+    return arr[param]
+}
+
+/**
+ * Repeat memoization for fibonacci
+ */
+
+fun Repeat.memoization(param: Int): Int {
+    val cache = IntArray(param + 1)
+    cache[0] = 0
+    cache[1] = 1
+    return fib(param, cache)
+}
+
+fun Repeat.fibMemoization(param: Int, cache: IntArray): Int {
+    if (param == 0) return 0
+    if (param == 1) return 1
+    if (cache[param] == 0) {
+        var a = fibMemoization(param - 2, cache)
+        var b = fibMemoization(param - 1, cache)
+    }
+    return cache[param]
+}
+
+/**
+ * Repeat insertion Sort yet
+ */
+
+fun insertionSortRepeatInOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var sorted = i - 1
+        while (sorted > -1 && arr[sorted] > arr[sorted + 1]) {
+            val temp = arr[sorted]
+            arr[sorted] = arr[sorted + 1]
+            arr[sorted + 1] = temp
+            sorted--
+        }
+    }
+    return arr
+}
+
+/**
+ * Repeat Contains Duplicate III
+ */
+
+fun Repeat.containsDuplicateNearbyAlmost(arr: IntArray, indexDiff: Int, valueDiff: Int): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    val len = arr.size
+    val w = valueDiff + 1
+    for (i in 0 until len) {
+        val key = id(arr[i], w)
+        if (map.contains(key)) return true
+        if (map.contains(key - 1) && abs(arr[i] - map[key - 1]!!) <= valueDiff) return true
+        if (map.contains(key + 1) && abs(arr[i] - map[key + 1]!!) <= valueDiff) return true
+        map[key] = arr[i]
+        if (i >= indexDiff) map.remove(id(arr[i - indexDiff], w))
+    }
+    return false
+}
+
+fun Repeat.id(value: Int, w: Int): Int {
+    return if (value < 0) value + 1 / w + 1 else value / w
+}
+
+/**
+ * Repeat Combinations
+ */
+
+fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
+    if (n == 1 && k == 1) return listOf(listOf(1))
+    val res = mutableListOf<MutableList<Int>>()
+    val subset = mutableListOf<Int>()
+    backtracking(n, k, 1, subset, res)
+    return res
+}
+fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == k) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in index..n) {
+        subset.add(i)
+        backtracking(n, k, i + 1, subset, res)
+        subset.removeAt(subset.size - 1)
+    }
+    return
+}
+
+/**
+ * Repeat Best Time and Sell Stocks
+ */
+
+fun Repeat.maxProfit(prices: IntArray): Int {
+    var profit = 0
+    val len = prices.size
+    for (i in 1 until len) {
+        if (prices[i] > prices[i - 1]) {
+            profit += prices[i] - prices[i - 1]
+        }
+    }
+    return profit
+}

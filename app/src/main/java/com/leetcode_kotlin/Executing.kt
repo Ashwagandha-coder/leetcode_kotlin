@@ -6,10 +6,5 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    generateParenthesis(3).let {
-        println("$it ")
-    }
-
-
 
 }
