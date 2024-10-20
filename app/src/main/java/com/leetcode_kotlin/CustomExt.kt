@@ -1,11 +1,42 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
 
 
 fun sample() {
 
+}
+
+/**
+ * Sample of zip
+ */
+
+
+fun sampleZip() {
+    val list = mutableListOf(12, 465, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20)
+    val otherList =
+        mutableListOf(12, 657, 67, 98, 32, 22, 54, 12, 76, 43, 33, 13, 14, 15, 16, 17, 18, 19, 20)
+    val newList = list.zip(otherList)
+    val newPair = list.zip(otherList) { a, b -> a + b }
+    newPair.forEach {
+        println(it)
+    }
+    val map = list.zip(otherList).toMap()
+    map.forEach { (k, v) -> println("$k : $v") }
+}
+
+/**
+ * Sample of zipWithNext
+ */
+
+fun sampleZipWithNext() {
+    val listing = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 2342, 123, 4, 6, 7, 8, 9)
+    val oth = listing.zipWithNext()
+    oth.forEach {
+        println(it)
+    }
 }
 
 /**

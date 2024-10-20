@@ -1533,70 +1533,63 @@ fun backtracking(
 }
 
 /**
- * Need sol
+ * 51. N-Queens
+ * Time - O(
  */
 
-fun solveNQueens(n: Int): MutableList<List<String>> {
-    val board = Array(n) {
-        CharArray(
-            n
-        )
-    }
-    for (i in 0 until n) {
-        for (j in 0 until n) {
-            board[i][j] = '.'
-        }
-    }
-    val ans: MutableList<List<String>> = ArrayList()
-    NQueens(board, 0, n, ans)
-    return ans
+// . . . .
+// .
+// .
+// .
+
+// n = 4
+fun solveNQueens(n: Int): List<List<String>> {
+    val solutions = mutableListOf<MutableList<String>>()
+    val board = Array(n) { CharArray(n) { '.' } }
+
+    backtracking(0, n, solutions, board)
+    return solutions
 }
 
-fun NQueens(board: Array<CharArray>, row: Int, n: Int, ans: MutableList<List<String>>) {
+
+fun backtracking(row: Int, n: Int, solutions: MutableList<MutableList<String>>, board: Array<CharArray>) {
     if (row == n) {
-        val temp: MutableList<String> = ArrayList()
-        for (i in 0 until n) {
-            var str = ""
-            for (j in 0 until n) {
-                str += board[i][j]
-            }
-            temp.add(str)
-        }
-        ans.add(temp)
+        solutions.add(board.map { it.joinToString("") } as MutableList<String>)
         return
     }
-    for (j in 0 until n) {
-        if (safe(board, row, j, n)) {
-            board[row][j] = 'Q'
-            NQueens(board, row + 1, n, ans)
-            board[row][j] = '.'
+
+    for (col in 0 until n) {
+        if (isValid(row, col, board, n)) {
+            board[row][col] = 'Q'
+            backtracking(row + 1, n, solutions, board)
+            board[row][col] = '.'
         }
     }
     return
 }
 
-fun safe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean {
-    //check up
+fun isValid(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
+    // Проверка по вертикали
     for (i in 0 until row) {
         if (board[i][col] == 'Q') return false
     }
-    //check northwest
-    var i = row
-    var j = col
+    // по диагонали влево-вверх
+    var i = row - 1
+    var j = col - 1
     while (i >= 0 && j >= 0) {
         if (board[i][j] == 'Q') return false
         i--
         j--
     }
-    //check northeast
-    i = row
-    j = col
+    // по диагонали вправо-вверх
+    i = row - 1
+    j = col + 1
     while (i >= 0 && j < n) {
         if (board[i][j] == 'Q') return false
         i--
         j++
     }
-    return true
+    return true // Если все ок
 }
 
 
@@ -1628,10 +1621,12 @@ fun maxProfitIII(prices: IntArray): Int {
  * O(k) - Space
  */
 
+// 7 1 5 3 2 9
+// k = 2
 
 fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
     val n = prices.size
-    if (n == 0|| k == 0) {
+    if (n == 0 || k == 0) {
         return 0 // Нет прибыли, если нет цен или транзакций не разрешены
     }
 
@@ -1643,20 +1638,23 @@ fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
                 profit += prices[i] - prices[i - 1]
             }
         }
-        return profit}
+        return profit
+    }
 
     // Используем оптимизированный по памяти DP
-    val buy = IntArray(k + 1) { Int.MIN_VALUE } // buy[i] - максимальная прибыль при покупке до i транзакциями
-    val sell = IntArray(k + 1) { 0 } // sell[i] - максимальная прибыль при продаже до i транзакциями
+    val buy =
+        IntArray(k + 1) { Int.MIN_VALUE } // buy[i] - максимальная прибыль при покупке до i транзакциями
+    val profit =
+        IntArray(k + 1) { 0 } // sell[i] - максимальная прибыль при продаже до i транзакциями
 
     for (price in prices) { // Итерируемся по ценам
         for (i in 1..k) { // Итерируемся по количеству транзакций
-            buy[i] = maxOf(buy[i], sell[i - 1] - price) // Обновляем buy[i]
-            sell[i] = maxOf(sell[i], buy[i] + price) // Обновляем sell[i]
+            buy[i] = maxOf(buy[i], profit[i - 1] - price) // Обновляем buy[i]
+            profit[i] = maxOf(profit[i], buy[i] + price) // Обновляем sell[i]
         }
     }
 
-    return sell[k] // Возвращаем максимальную прибыль с k транзакциями
+    return profit[k] // Возвращаем максимальную прибыль с k транзакциями
 }
 
 
