@@ -931,3 +931,25 @@ fun Repeat.isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
 
     return true
 }
+
+/**
+ * Repeat Reverse odd level of a Binary Tree
+ */
+
+fun Repeat.reverseOddLevels(root: TreeNode?): TreeNode? {
+    dfs(root?.left, root?.right, 1)
+    return root
+}
+
+fun dfs(left: TreeNode?, right: TreeNode?, level: Int) {
+    if (left == null && right == null) return
+
+    if (level % 2 != 0) {
+        val temp = left?.`val`
+        left?.`val` = right?.`val`!!
+        right?.`val` = temp!!
+    }
+    dfs(left?.left, right?.right, level + 1)
+    dfs(left?.right, right?.left, level + 1)
+    return
+}
