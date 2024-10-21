@@ -7,14 +7,14 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    val node = TreeNode(1)
-    node?.left = TreeNode(2)
+    val numArray = NumArrayAlt(intArrayOf(-2, 0, 3, -5, 2, -1))
+    val sum1 = numArray.sumRange(0, 2) // sum1 = 1
+    val sum2 = numArray.sumRange(2, 5) // sum2 = -1
+    val sum3 = numArray.sumRange(0, 5) // sum3 = -3
 
-    val oth = TreeNode(1)
-    oth?.right = TreeNode(2)
+    println(sum1)
+    println(sum2)
+    println(sum3)
 
-    isSameTreeProdVariant(node, oth).let {
-        println("$it ")
-    }
 
 }

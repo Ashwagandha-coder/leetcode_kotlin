@@ -953,3 +953,21 @@ fun dfs(left: TreeNode?, right: TreeNode?, level: Int) {
     dfs(left?.right, right?.left, level + 1)
     return
 }
+
+/**
+ * Repeat Range Sum Query - Immutable
+ */
+
+class RepeatNumArray(val nums: IntArray) {
+
+    fun sumRange(left: Int, right: Int): Int {
+        var l = left
+        var sum = 0
+        while (l <= right) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
+}
