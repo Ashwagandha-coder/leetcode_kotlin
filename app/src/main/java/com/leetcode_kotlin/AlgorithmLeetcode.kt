@@ -1765,6 +1765,71 @@ class NumMatrix(private val matrix: Array<IntArray>) {
 
 }
 
+/**
+ *
+ */
+
+
+fun solveSudoku(board: Array<CharArray>): Unit {
+    backtrack(board, 0)
+}
+
+fun backtrack(board: Array<CharArray>, row: Int) {
+    if (row == 9) return
+    for (col in 0..8) {
+        val num = number(board, row, col)
+        if (num != -1) {
+            board[row][col] = num.toChar()
+            backtrack(board, row + 1)
+            board[row][col] = '.'
+        }
+    }
+}
+
+fun number(board: Array<CharArray>, row: Int, col: Int): Int {
+    val valid = Array<Boolean>(10) { false }
+    valid[0] = true
+
+    for (i in 0..8) {
+        if (board[row][i] != '.') {
+            val num = (board[row][i]).code / 10
+            valid[num] = true
+        }
+    }
+
+    for (i in 0..8) {
+        if (board[i][col] != '.') {
+            val num = board[i][col].code / 10
+            valid[num] = true
+        }
+    }
+
+    var i = 0
+    var j = 0
+    while (i <= 2) {
+        while (j <= 2) {
+            if (board[i][j] != '.') {
+                val num = board[i][j].code / 10
+                valid[num] = true
+            }
+            j++
+        }
+        j = 0
+        i++
+    }
+    var counter = 0
+    var ind = 0
+    for (i in 0..8) {
+        if (!valid[i]) {
+            ind = i
+            counter++
+        }
+    }
+
+    if (counter > 1) return -1
+    return ind
+
+}
 
 
 
