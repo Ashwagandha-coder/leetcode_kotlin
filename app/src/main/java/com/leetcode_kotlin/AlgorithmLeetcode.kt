@@ -1605,7 +1605,7 @@ fun isValid(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
  */
 
 fun totalNQueens(n: Int): Int {
-    val board = Array(n) {CharArray(n) { '.' }}
+    val board = Array(n) { CharArray(n) { '.' } }
     val res = backtracking(0, n, board)
     return res
 }
@@ -1613,7 +1613,8 @@ fun totalNQueens(n: Int): Int {
 fun backtracking(
     row: Int,
     n: Int,
-    board: Array<CharArray>): Int {
+    board: Array<CharArray>
+): Int {
     if (row == n) {
         return 1
     }
@@ -1627,6 +1628,7 @@ fun backtracking(
     }
     return count
 }
+
 fun isValidII(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
     for (i in 0 until row) {
         if (board[i][col] == 'Q') return false
@@ -1732,6 +1734,31 @@ class NumArrayII(val nums: IntArray) {
         while (l <= right) {
             sum += nums[l]
             l++
+        }
+        return sum
+    }
+
+}
+
+/**
+ * 304. Range Sum Query 2D - Immutable
+ */
+
+class NumMatrix(private val matrix: Array<IntArray>) {
+
+    fun sumRegion(row1: Int, col1: Int, row2: Int, col2: Int): Int {
+        var top = row1
+        var bottom = row2
+        var l = col1
+        var r = col2
+        var sum = 0
+        while (top <= bottom) {
+            while (l <= r) {
+                sum += matrix[top][l]
+                l++
+            }
+            l = col1
+            top++
         }
         return sum
     }
