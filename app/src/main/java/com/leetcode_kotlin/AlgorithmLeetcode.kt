@@ -1534,7 +1534,8 @@ fun backtracking(
 
 /**
  * 51. N-Queens
- * Time - O(
+ * Time - O(n!)
+ * Space - O(n)
  */
 
 // . . . .

@@ -84,3 +84,16 @@ fun maxProfitIIProdVariant(prices: IntArray): Int = prices
     .filter { (prev, curr) -> curr > prev }
     .sumOf { (prev, curr) -> curr - prev }
 
+
+/**
+ * 100.Same Tree
+ */
+
+fun isSameTreeProdVariant(p: TreeNode?, q: TreeNode?): Boolean {
+    return when {
+        p == null && q == null -> true
+        p == null || q == null -> false
+        p.`val` != q.`val` -> false
+        else -> isSameTreeProdVariant(p.left, q.left) && isSameTreeProdVariant(p.right, q.right)
+    }
+}

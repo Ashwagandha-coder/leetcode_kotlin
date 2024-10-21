@@ -880,7 +880,14 @@ fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
     backtracking(n, k, 1, subset, res)
     return res
 }
-fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+
+fun Repeat.backtracking(
+    n: Int,
+    k: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
     if (subset.size == k) {
         res.add(ArrayList(subset))
         return
@@ -906,4 +913,21 @@ fun Repeat.maxProfit(prices: IntArray): Int {
         }
     }
     return profit
+}
+
+/**
+ * Repeat Same Tree
+ */
+
+fun Repeat.isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    val one = p?.`val`
+    val two = q?.`val`
+
+    if (one != two) return false
+
+    if (p != null && q != null) {
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    }
+
+    return true
 }
