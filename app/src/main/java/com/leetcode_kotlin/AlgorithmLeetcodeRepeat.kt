@@ -880,7 +880,14 @@ fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
     backtracking(n, k, 1, subset, res)
     return res
 }
-fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+
+fun Repeat.backtracking(
+    n: Int,
+    k: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
     if (subset.size == k) {
         res.add(ArrayList(subset))
         return
@@ -906,4 +913,61 @@ fun Repeat.maxProfit(prices: IntArray): Int {
         }
     }
     return profit
+}
+
+/**
+ * Repeat Same Tree
+ */
+
+fun Repeat.isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    val one = p?.`val`
+    val two = q?.`val`
+
+    if (one != two) return false
+
+    if (p != null && q != null) {
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    }
+
+    return true
+}
+
+/**
+ * Repeat Reverse odd level of a Binary Tree
+ */
+
+fun Repeat.reverseOddLevels(root: TreeNode?): TreeNode? {
+    dfs(root?.left, root?.right, 1)
+    return root
+}
+
+fun dfs(left: TreeNode?, right: TreeNode?, level: Int) {
+    if (left == null && right == null) return
+
+    if (level % 2 != 0) {
+        val temp = left?.`val`
+        left?.`val` = right?.`val`!!
+        right?.`val` = temp!!
+    }
+    dfs(left?.left, right?.right, level + 1)
+    dfs(left?.right, right?.left, level + 1)
+    return
+}
+
+/**
+ * Repeat Range Sum Query - Immutable
+ */
+
+class RepeatNumArray(val nums: IntArray) {
+
+    fun sumRange(left: Int, right: Int): Int {
+        var l = left
+        var sum = 0
+        while (l <= right) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
 }

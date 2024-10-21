@@ -1534,7 +1534,8 @@ fun backtracking(
 
 /**
  * 51. N-Queens
- * Time - O(
+ * Time - O(n!)
+ * Space - O(n)
  */
 
 // . . . .
@@ -1552,7 +1553,12 @@ fun solveNQueens(n: Int): List<List<String>> {
 }
 
 
-fun backtracking(row: Int, n: Int, solutions: MutableList<MutableList<String>>, board: Array<CharArray>) {
+fun backtracking(
+    row: Int,
+    n: Int,
+    solutions: MutableList<MutableList<String>>,
+    board: Array<CharArray>
+) {
     if (row == n) {
         solutions.add(board.map { it.joinToString("") } as MutableList<String>)
         return
@@ -1590,6 +1596,59 @@ fun isValid(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
         j++
     }
     return true // Если все ок
+}
+
+/**
+ * 52. N-Queens II
+ * Time - O(n!)
+ * Space - O(n)
+ */
+
+fun totalNQueens(n: Int): Int {
+    val board = Array(n) { CharArray(n) { '.' } }
+    val res = backtracking(0, n, board)
+    return res
+}
+
+fun backtracking(
+    row: Int,
+    n: Int,
+    board: Array<CharArray>
+): Int {
+    if (row == n) {
+        return 1
+    }
+    var count = 0
+    for (col in 0 until n) {
+        if (isValidII(row, col, board, n)) {
+            board[row][col] = 'Q'
+            count += backtracking(row + 1, n, board)
+            board[row][col] = '.'
+        }
+    }
+    return count
+}
+
+fun isValidII(row: Int, col: Int, board: Array<CharArray>, n: Int): Boolean {
+    for (i in 0 until row) {
+        if (board[i][col] == 'Q') return false
+    }
+    var i = row - 1
+    var j = col - 1
+    while (i >= 0 && j >= 0) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j--
+    }
+
+    i = row - 1
+    j = col + 1
+    while (i >= 0 && j < n) {
+        if (board[i][j] == 'Q') return false
+        i--
+        j++
+    }
+    return true
 }
 
 
@@ -1657,6 +1716,54 @@ fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
     return profit[k] // Возвращаем максимальную прибыль с k транзакциями
 }
 
+/**
+ * 307. Range Sum Query - Mutable
+ */
+
+
+class NumArrayII(val nums: IntArray) {
+
+    fun update(index: Int, `val`: Int) {
+        val value = `val`
+        nums[index] = value
+    }
+
+    fun sumRange(left: Int, right: Int): Int {
+        var l = left
+        var sum = 0
+        while (l <= right) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
+}
+
+/**
+ * 304. Range Sum Query 2D - Immutable
+ */
+
+class NumMatrix(private val matrix: Array<IntArray>) {
+
+    fun sumRegion(row1: Int, col1: Int, row2: Int, col2: Int): Int {
+        var top = row1
+        var bottom = row2
+        var l = col1
+        var r = col2
+        var sum = 0
+        while (top <= bottom) {
+            while (l <= r) {
+                sum += matrix[top][l]
+                l++
+            }
+            l = col1
+            top++
+        }
+        return sum
+    }
+
+}
 
 
 

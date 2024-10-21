@@ -318,8 +318,7 @@ fun Solution.maxProfit(prices: IntArray): Int {
 
 /**
  * 14. Longest Common Prefix
- * Time -
- * Space -
+ * Trie Solution
  */
 
 
@@ -496,12 +495,13 @@ fun combinationSumIterative(candidates: IntArray, target: Int): List<List<Int>> 
     combinations.add(mutableListOf()) // Начинаем с пустой комбинации
 
     for (candidate in candidates) { // Внешний цикл: перебор кандидатов
-        val newCombinations = mutableListOf<MutableList<Int>>() // Новые комбинации для текущего кандидата
+        val newCombinations =
+            mutableListOf<MutableList<Int>>() // Новые комбинации для текущего кандидата
         for (combination in combinations) { // Внутренний цикл: перебор существующих комбинаций
             var currentSum = combination.sum() // Текущая сумма элементов комбинации
             var count = 0 // Счетчик добавлений текущего кандидата
 
-            while(currentSum + candidate <= target) { // Пока сумма не превышает цель
+            while (currentSum + candidate <= target) { // Пока сумма не превышает цель
                 count++
                 val newCombination = combination.toMutableList() // Копия текущей комбинации
                 repeat(count) { newCombination.add(candidate) } // Добавляем кандидата count раз
@@ -519,4 +519,23 @@ fun combinationSumIterative(candidates: IntArray, target: Int): List<List<Int>> 
     }
 
     return result // Возвращаем список уникальных комбинаций
+}
+
+/**
+ * 303. Range Sum Query Immutable
+ * Alternative Solution
+ */
+
+class NumArrayAlt(nums: IntArray) {
+    private val prefixSums: IntArray = IntArray(nums.size + 1)
+
+    init {
+        for (i in nums.indices) {
+            prefixSums[i + 1] = prefixSums[i] + nums[i]
+        }
+    }
+
+    fun sumRange(left: Int, right: Int): Int {
+        return prefixSums[right + 1] - prefixSums[left]
+    }
 }

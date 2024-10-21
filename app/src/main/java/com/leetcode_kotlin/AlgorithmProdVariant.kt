@@ -10,6 +10,7 @@ class ProdVariant {
 
 /**
  * 123. Best Time to Buy and Sell Stock III
+ * Prod Variant
  */
 
 
@@ -29,6 +30,7 @@ fun ProdVariant.maxProfitIII(prices: IntArray): Int {
 
 /**
  * 268. Missing Number
+ * Prod Variant
  */
 
 
@@ -84,3 +86,44 @@ fun maxProfitIIProdVariant(prices: IntArray): Int = prices
     .filter { (prev, curr) -> curr > prev }
     .sumOf { (prev, curr) -> curr - prev }
 
+
+/**
+ * 100.Same Tree
+ * Prod Variant
+ */
+
+fun isSameTreeProdVariant(p: TreeNode?, q: TreeNode?): Boolean {
+    return when {
+        p == null && q == null -> true
+        p == null || q == null -> false
+        p.`val` != q.`val` -> false
+        else -> isSameTreeProdVariant(p.left, q.left) && isSameTreeProdVariant(p.right, q.right)
+    }
+}
+
+/**
+ * 2415.Reverse Odd Level of al Binary Tree
+ * Prod Variant
+ */
+
+fun reverseOddLevelBinaryTree(root: TreeNode?): TreeNode? {
+    dfsProdVariant(root?.left, root?.right, 1)
+    return root
+}
+
+fun dfsProdVariant(left: TreeNode?, right: TreeNode?, level: Int) {
+    when {
+        left == null && right == null -> return
+        level % 2 != 0 -> {
+            val temp = left?.`val`
+            left?.`val` = right?.`val`!!
+            right?.`val` = temp!!
+        }
+
+        else -> {
+            dfsProdVariant(left?.left, right?.right, level + 1)
+            dfsProdVariant(left?.right, right?.left, level + 1)
+        }
+
+    }
+}
