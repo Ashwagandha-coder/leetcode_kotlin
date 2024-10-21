@@ -1714,6 +1714,29 @@ fun maxProfitWithKTransactionsOptimized(prices: IntArray, k: Int): Int {
     return profit[k] // Возвращаем максимальную прибыль с k транзакциями
 }
 
+/**
+ * 307. Range Sum Query - Mutable
+ */
+
+
+class NumArrayII(val nums: IntArray) {
+
+    fun update(index: Int, `val`: Int) {
+        val value = `val`
+        nums[index] = value
+    }
+
+    fun sumRange(left: Int, right: Int): Int {
+        var l = left
+        var sum = 0
+        while (l <= right) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
+}
 
 
 
