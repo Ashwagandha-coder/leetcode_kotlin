@@ -539,3 +539,33 @@ class NumArrayAlt(nums: IntArray) {
         return prefixSums[right + 1] - prefixSums[left]
     }
 }
+
+/**
+ * 2095. Delete the Middle Node of a Linked List
+ */
+
+fun deleteMiddleAlt(head: ListNode?): ListNode? {
+    if (head?.next == null) return null
+    var prev = head
+    var slow = head
+    var fast = head
+    while (fast?.next != null) {
+        prev = slow
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    prev?.next = slow?.next
+
+    return head
+}
+
+
+
+
+
+
+
+
+
+
+

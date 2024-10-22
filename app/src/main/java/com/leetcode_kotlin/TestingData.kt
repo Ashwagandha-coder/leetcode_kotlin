@@ -10,6 +10,15 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+fun ListNode.printListNode() {
+    var p = this
+    while (p?.next != null) {
+        print("${p.`val`} -> ")
+        p = p?.next!!
+    }
+    print("${p.`val`} ")
+}
+
 object LinkedList {
 
     fun cycleLinkedListData(): ListNode {
@@ -44,6 +53,7 @@ object LinkedList {
         }
         return head
     }
+
 
 }
 
