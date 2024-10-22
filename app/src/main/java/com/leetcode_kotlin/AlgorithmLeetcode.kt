@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
+import java.util.LinkedList
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -1831,6 +1833,31 @@ fun number(board: Array<CharArray>, row: Int, col: Int): Int {
 
 }
 
+/**
+ * BFS - Breath First Search
+ */
+
+class TreeNodeParametrized<T>(val value: T) {
+    val children: MutableList<TreeNodeParametrized<T>> = mutableListOf()
+}
+
+fun <T> bfs(root: TreeNodeParametrized<T>): List<T> {
+    val result = mutableListOf<T>()
+    val queue: Queue<TreeNodeParametrized<T>> = LinkedList()
+
+    queue.offer(root)
+
+    while (queue.isNotEmpty()) {
+        val node = queue.poll()
+        result.add(node.value)
+
+        for (child in node.children) {
+            queue.offer(child)
+        }
+    }
+
+    return result
+}
 
 
 

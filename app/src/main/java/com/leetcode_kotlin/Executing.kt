@@ -8,10 +8,15 @@ import kotlin.random.Random
 
 fun main() {
 
-    val sudoku = generateSudokuTestCase()
+    val root = TreeNodeParametrized(1)
+    root.children.add(TreeNodeParametrized(2))
+    root.children.add(TreeNodeParametrized(3))
+    root.children[0].children.add(TreeNodeParametrized(4))
+    root.children[0].children.add(TreeNodeParametrized(5))
 
-    solveSudoku(sudoku).let {
-        print("$it ")
+    val bfsTraversal = bfs(root)
+    bfsTraversal.let {
+        println("$it ")
     }
 }
 
