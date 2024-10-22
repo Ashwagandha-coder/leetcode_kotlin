@@ -436,19 +436,6 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
     return letters[left]
 }
 
-/**
- * BFS - Breath First Search
- * Time - O(n)  Space - O(n)
- */
-
-
-fun bfs(root: TreeNode?): Int {
-    if (root == null) return 0
-    var maxLeftTree = bfs(root?.left)
-    var maxRightTree = bfs(root?.right)
-
-    return max(maxLeftTree, maxRightTree) + root.`val`
-}
 
 /**
  * Quick Sort
@@ -1858,6 +1845,8 @@ fun <T> bfs(root: TreeNodeParametrized<T>): List<T> {
 
     return result
 }
+
+
 
 
 
