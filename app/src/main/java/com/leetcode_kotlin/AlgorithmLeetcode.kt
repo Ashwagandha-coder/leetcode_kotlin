@@ -1755,71 +1755,6 @@ class NumMatrix(private val matrix: Array<IntArray>) {
 
 }
 
-/**
- *
- */
-
-
-fun solveSudoku(board: Array<CharArray>): Unit {
-    backtrack(board, 0)
-}
-
-fun backtrack(board: Array<CharArray>, row: Int) {
-    if (row == 9) return
-    for (col in 0..8) {
-        val num = number(board, row, col)
-        if (num != -1) {
-            board[row][col] = num.toChar()
-            backtrack(board, row + 1)
-            board[row][col] = '.'
-        }
-    }
-}
-
-fun number(board: Array<CharArray>, row: Int, col: Int): Int {
-    val valid = Array<Boolean>(10) { false }
-    valid[0] = true
-
-    for (i in 0..8) {
-        if (board[row][i] != '.') {
-            val num = (board[row][i]).code / 10
-            valid[num] = true
-        }
-    }
-
-    for (i in 0..8) {
-        if (board[i][col] != '.') {
-            val num = board[i][col].code / 10
-            valid[num] = true
-        }
-    }
-
-    var i = 0
-    var j = 0
-    while (i <= 2) {
-        while (j <= 2) {
-            if (board[i][j] != '.') {
-                val num = board[i][j].code / 10
-                valid[num] = true
-            }
-            j++
-        }
-        j = 0
-        i++
-    }
-    var counter = 0
-    var ind = 0
-    for (i in 0..8) {
-        if (!valid[i]) {
-            ind = i
-            counter++
-        }
-    }
-
-    if (counter > 1) return -1
-    return ind
-
-}
 
 /**
  * BFS - Breath First Search
@@ -1854,13 +1789,13 @@ fun <T> bfs(root: TreeNodeParametrized<T>): List<T> {
 
 
 fun kthLargestLevelSum(root: TreeNode?, k: Int): Long {
-    val res: MutableList<Long> = ArrayList() // To store sum of each level
-    val q: Queue<TreeNode?> = LinkedList() // Queue for level-order traversal
-    q.add(root) // Start BFS from the root node
+    val res: MutableList<Long> = ArrayList()
+    val q: Queue<TreeNode?> = LinkedList()
+    q.add(root)
 
     while (!q.isEmpty()) {
-        val n = q.size // Number of nodes at the current level
-        var sum: Long = 0 // Sum of node values at the current level
+        val n = q.size
+        var sum: Long = 0
 
         for (i in 0 until n) {
             val node = q.poll()
@@ -1869,15 +1804,17 @@ fun kthLargestLevelSum(root: TreeNode?, k: Int): Long {
             if (node!!.left != null) q.add(node!!.left)
             if (node!!.right != null) q.add(node!!.right)
         }
-        res.add(sum) // Store the sum of the current level
+        res.add(sum)
     }
 
     if (k > res.size) return -1
 
-    res.sortWith(Collections.reverseOrder()) // Sort level sums in descending order
+    res.sortWith(Collections.reverseOrder())
 
-    return res[k - 1] // Return the k-th largest sum
+    return res[k - 1]
 }
+
+
 
 
 
