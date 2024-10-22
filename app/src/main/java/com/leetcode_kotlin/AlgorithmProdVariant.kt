@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import android.support.annotation.Keep
+
 class ProdVariant {
 
     companion object {

@@ -1,6 +1,9 @@
 package com.leetcode_kotlin
 
 import java.util.Arrays
+import java.util.Collections
+import java.util.LinkedList
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -434,19 +437,6 @@ fun nextGreatestLetterLogN(letters: CharArray, target: Char): Char {
     return letters[left]
 }
 
-/**
- * BFS - Breath First Search
- * Time - O(n)  Space - O(n)
- */
-
-
-fun bfs(root: TreeNode?): Int {
-    if (root == null) return 0
-    var maxLeftTree = bfs(root?.left)
-    var maxRightTree = bfs(root?.right)
-
-    return max(maxLeftTree, maxRightTree) + root.`val`
-}
 
 /**
  * Quick Sort
@@ -1765,6 +1755,88 @@ class NumMatrix(private val matrix: Array<IntArray>) {
 
 }
 
+
+/**
+ * BFS - Breath First Search
+ */
+
+class TreeNodeParametrized<T>(val value: T) {
+    val children: MutableList<TreeNodeParametrized<T>> = mutableListOf()
+
+}
+
+fun <T> bfs(root: TreeNodeParametrized<T>): List<T> {
+    val result = mutableListOf<T>()
+    val queue: Queue<TreeNodeParametrized<T>> = LinkedList()
+
+    queue.offer(root)
+
+    while (queue.isNotEmpty()) {
+        val node = queue.poll()
+        result.add(node.value)
+
+        for (child in node.children) {
+            queue.offer(child)
+        }
+    }
+
+    return result
+}
+
+/**
+ * 2583. Kth Largest Sum in a Binary Tree
+ */
+
+
+fun kthLargestLevelSum(root: TreeNode?, k: Int): Long {
+    val res: MutableList<Long> = ArrayList()
+    val q: Queue<TreeNode?> = LinkedList()
+    q.add(root)
+
+    while (!q.isEmpty()) {
+        val n = q.size
+        var sum: Long = 0
+
+        for (i in 0 until n) {
+            val node = q.poll()
+            sum += node!!.`val`.toLong()
+
+            if (node!!.left != null) q.add(node!!.left)
+            if (node!!.right != null) q.add(node!!.right)
+        }
+        res.add(sum)
+    }
+
+    if (k > res.size) return -1
+
+    res.sortWith(Collections.reverseOrder())
+
+    return res[k - 1]
+}
+
+/**
+ * 2095. Delete the Middle Node of a Linked List
+ */
+
+fun deleteMiddle(head: ListNode?): ListNode? {
+    if (head?.next == null) return null
+    var count = 0
+    var p = head
+    while (p != null) {
+        p = p?.next
+        count++
+    }
+    count /= 2
+    p = head
+    val cache = p
+    while (count - 1 != 0) {
+        p = p?.next
+        count--
+    }
+    var temp = p?.next?.next
+    p?.next = temp
+    return cache
+}
 
 
 
