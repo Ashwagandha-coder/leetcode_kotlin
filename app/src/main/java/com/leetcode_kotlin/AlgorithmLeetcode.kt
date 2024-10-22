@@ -1814,7 +1814,29 @@ fun kthLargestLevelSum(root: TreeNode?, k: Int): Long {
     return res[k - 1]
 }
 
+/**
+ * 2095. Delete the Middle Node of a Linked List
+ */
 
+fun deleteMiddle(head: ListNode?): ListNode? {
+    if (head?.next == null) return null
+    var count = 0
+    var p = head
+    while (p != null) {
+        p = p?.next
+        count++
+    }
+    count /= 2
+    p = head
+    val cache = p
+    while (count - 1 != 0) {
+        p = p?.next
+        count--
+    }
+    var temp = p?.next?.next
+    p?.next = temp
+    return cache
+}
 
 
 
