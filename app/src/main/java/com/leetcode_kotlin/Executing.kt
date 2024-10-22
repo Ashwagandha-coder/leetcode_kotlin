@@ -7,9 +7,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    var head = LinkedList.makeLinkedList(intArrayOf(1, 3, 4, 7, 1, 2, 6))
+    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
 
-    deleteMiddleAlt(head).let { it?.printListNode() }
+    TODO("Write custom ext function with generics and add rem note for repeat")
+
+    reverseList(head).let { it?.printListNode() }
 
 
 }
