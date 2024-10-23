@@ -10,6 +10,15 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+fun ListNode.printListNode() {
+    var p = this
+    while (p?.next != null) {
+        print("${p.`val`} -> ")
+        p = p?.next!!
+    }
+    print("${p.`val`} ")
+}
+
 object LinkedList {
 
     fun cycleLinkedListData(): ListNode {
@@ -33,7 +42,7 @@ object LinkedList {
         return head
     }
 
-    fun makeLinkedList(arr: IntArray): ListNode {
+    fun makeListNode(arr: IntArray): ListNode {
         if (arr.isEmpty()) return ListNode(0)
         var stub = ListNode(arr[0])
         val head = stub
@@ -45,6 +54,19 @@ object LinkedList {
         return head
     }
 
+
+}
+
+fun IntArray.toListNode(): ListNode {
+    if (this.isEmpty()) return ListNode(0)
+    var stub = ListNode(this[0])
+    val head = stub
+    for (i in 1 until this.size) {
+        val temp = ListNode(this[i])
+        stub.next = temp
+        stub = stub.next!!
+    }
+    return head
 }
 
 object Node {
