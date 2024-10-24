@@ -1838,7 +1838,69 @@ fun deleteMiddle(head: ListNode?): ListNode? {
     return cache
 }
 
+/**
+ * 37. Sudoku Solver
+ * Time - O(9(N∗N))
+ * Space - O(N*N)
+ */
 
+
+fun wrapSudoku(board: Array<CharArray>) {
+    solveSudoku(board)
+}
+
+
+
+fun solveSudoku(board: Array<CharArray>): Boolean {
+    for (row in 0..8) {
+        for (col in 0..8) {
+            if (board[row][col] == '.') { // Empty cell is represented by'.'
+                for (num in '1'..'9') {
+                    if (isValid(board, row, col, num)) {
+                        board[row][col] = num
+
+                        if (solveSudoku(board)) {
+                            return true
+                        } else {
+                            board[row][col] = '.' // Backtrack
+                        }
+                    }
+                }
+                return false // No valid number found
+            }
+        }
+    }
+    return true // Puzzle solved
+}
+
+private fun isValid(board: Array<CharArray>, row: Int, col: Int, num: Char): Boolean {
+    // Check row
+    for (i in 0..8) {
+        if (board[row][i] == num) {
+            return false
+        }
+    }
+
+    // Check column
+    for (i in 0..8) {
+        if (board[i][col] == num) {
+            return false
+        }
+    }
+
+    // Check 3x3 subgrid
+    val subgridRowStart = row / 3 * 3
+    val subgridColStart = col / 3 * 3
+    for (i in subgridRowStart until subgridRowStart + 3) {
+        for (j in subgridColStart until subgridColStart + 3) {
+            if (board[i][j] == num) {
+                return false
+            }
+        }
+    }
+
+    return true // Number is valid
+}
 
 
 
