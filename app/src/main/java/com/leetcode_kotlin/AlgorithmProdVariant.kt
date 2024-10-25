@@ -1,12 +1,35 @@
 package com.leetcode_kotlin
 
-import android.support.annotation.Keep
 
 class ProdVariant {
 
     companion object {
         val value = ProdVariant()
     }
+}
+
+/**
+ * 121. Best Time to Buy and Sell Stock
+ * Prod Variant
+ */
+
+fun maxProfitIProdVariant(nums: IntArray): Int {
+    var maxProfit = Int.MIN_VALUE
+    var minPrice = Int.MAX_VALUE
+    nums.forEach { price ->
+        minPrice = minOf(minPrice, price)
+        maxProfit = maxOf(maxProfit, price - minPrice)
+    }
+    return maxProfit
+}
+
+
+fun maxProfitIProdVariantWithFold(prices: IntArray): Int {
+    return prices.fold(Pair(Int.MAX_VALUE, 0)) { (minPrice, maxProfit), price ->
+        val currentMinPrice = minOf(minPrice, price)
+        val currentMaxProfit = maxOf(maxProfit, price - minPrice)
+        Pair(currentMinPrice, currentMaxProfit)
+    }.second
 }
 
 
