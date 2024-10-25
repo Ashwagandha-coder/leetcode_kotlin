@@ -129,3 +129,23 @@ fun dfsProdVariant(left: TreeNode?, right: TreeNode?, level: Int) {
 
     }
 }
+
+/**
+ * 322. Coin Change
+ * Prod Variant
+ */
+
+fun coinChangeProdVariant(coins: IntArray, amount: Int): Int {
+    val dp = IntArray(amount + 1) { Int.MAX_VALUE }.apply {
+        this[0] = 0
+    }
+
+    coins.forEach { coin ->
+        (coin..amount).forEach { i ->
+            if (dp[i - coin] != Int.MAX_VALUE) {
+                dp[i] = minOf(dp[i], 1 + dp[i - coin])
+            }
+        }
+    }
+    return dp[amount].takeIf { it != Int.MAX_VALUE } ?: -1
+}

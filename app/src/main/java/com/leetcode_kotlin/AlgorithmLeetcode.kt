@@ -1850,7 +1850,6 @@ fun wrapSudoku(board: Array<CharArray>) {
 }
 
 
-
 fun solveSudoku(board: Array<CharArray>): Boolean {
     for (row in 0..8) {
         for (col in 0..8) {
@@ -1902,6 +1901,28 @@ private fun isValid(board: Array<CharArray>, row: Int, col: Int, num: Char): Boo
     return true // Number is valid
 }
 
+
+/**
+ * 322. Coin Change
+ */
+
+
+fun coinChange(coins: IntArray, amount: Int): Int {
+    val minCoins = IntArray(amount + 1)
+    Arrays.fill(minCoins, amount + 1)
+    minCoins[0] = 0
+
+    for (i in 1..amount) {
+        for (j in coins.indices) {
+            if (i - coins[j] >= 0) {
+                minCoins[i] = min(minCoins[i].toDouble(), (1 + minCoins[i - coins[j]]).toDouble())
+                    .toInt()
+            }
+        }
+    }
+
+    return if (minCoins[amount] != amount + 1) minCoins[amount] else -1
+}
 
 
 
