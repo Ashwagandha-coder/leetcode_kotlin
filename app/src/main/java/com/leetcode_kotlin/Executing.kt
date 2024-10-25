@@ -7,7 +7,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    coinChange(intArrayOf(1, 2, 5), 11).also {
+    coinChangeProdVariant(intArrayOf(1, 2, 5), 11).also {
         println(it)
     }
 
