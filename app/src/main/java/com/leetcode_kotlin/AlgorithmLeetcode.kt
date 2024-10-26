@@ -2077,6 +2077,25 @@ fun dfs(nums: IntArray, left: Int, right: Int): TreeNode? {
     return root
 }
 
+/**
+ * 485. Max Consecutive Ones
+ */
+
+
+fun findMaxConsecutiveOnes(nums: IntArray): Int {
+    var count = 0
+    var local = 0
+    val len = nums.size
+    for (i in 0 until len) {
+        if (nums[i] == 1) local++
+        if (nums[i] == 0) {
+            count = max(count, local)
+            local = 0
+        }
+    }
+    count = max(count, local)
+    return count
+}
 
 
 
