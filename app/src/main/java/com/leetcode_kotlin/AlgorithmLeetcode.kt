@@ -2065,6 +2065,7 @@ private class State {
 fun sortedArrayToBST(nums: IntArray): TreeNode? {
     return dfs(nums, 0, nums.size - 1)
 }
+
 /*
 -10,-3,0,5,9
  */
@@ -2098,6 +2099,26 @@ fun findMaxConsecutiveOnes(nums: IntArray): Int {
 }
 
 
+/**
+ * 349. Intersection of Two Arrays
+ */
+
+fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    val res = mutableListOf<Int>()
+    val len = nums1.size
+    val len2 = nums2.size
+    for (i in 0 until len) {
+        map[nums1[i]] = i
+    }
+    for (i in 0 until len2) {
+        if (map.contains(nums2[i])) {
+            res.add(nums2[i])
+            map.remove(nums2[i])
+        }
+    }
+    return res.toIntArray()
+}
 
 
 
