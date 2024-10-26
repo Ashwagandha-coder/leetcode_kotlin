@@ -5,12 +5,19 @@ package com.leetcode_kotlin
  * Executing
  */
 
+
+
 fun main() {
 
-    generateTrees(3).also {
-        it.forEach { tree ->
-            print("${tree!!?.`val`} ")
-        }
+    val root = TreeNode(3)
+    root.left = TreeNode(1)
+    root.right = TreeNode(4)
+    root.right!!.left = TreeNode(2)
+
+    recoverTree(root)
+
+    root.also {
+        println(it.`val`)
     }
 
 }

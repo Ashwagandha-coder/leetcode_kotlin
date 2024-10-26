@@ -2013,6 +2013,54 @@ private fun valid(node: TreeNode?, minimum: Long, maximum: Long): Boolean {
     )
 }
 
+/**
+ * 99.Recover Binary Search Tree
+ */
+
+/*
+    1
+   / \
+  2   3
+ / \   \
+4   5   2
+ */
+
+fun recoverTree(root: TreeNode?) {
+    val state = State() // Создаем объект для хранения состояния
+    inorder(root, state)
+    // Меняем значения двух переставленных узлов местами
+    val temp = state.first!!.`val`
+    state.first!!.`val` = state.second!!.`val`
+    state.second!!.`val` = temp
+}
+
+private fun inorder(root: TreeNode?, state: State) {
+    if (root == null) return
+
+    inorder(root.left, state)
+
+    // Проверяем на переставленные узлы
+    if (state.prev != null && state.prev!!.`val` > root.`val`) {
+        if (state.first == null) {
+            state.first = state.prev
+        }
+        state.second = root
+    }
+    state.prev = root
+
+    inorder(root.right, state)
+}
+
+// Внутренний класс для хранения состояния
+private class State {
+    var first: TreeNode? = null
+    var second: TreeNode? = null
+    var prev: TreeNode? = null
+}
+
+
+
+
 
 
 
