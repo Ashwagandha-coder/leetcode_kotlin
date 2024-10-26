@@ -1925,6 +1925,24 @@ fun coinChange(coins: IntArray, amount: Int): Int {
 }
 
 
+/**
+ * 94. Binary Tree Inorder Traversal
+ */
+
+
+fun inorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    dfs(root, res)
+    return res
+}
+
+fun dfs(root: TreeNode?, res: MutableList<Int>) {
+    if (root == null) return
+    dfs(root?.left, res)
+    res.add(root.`val`)
+    dfs(root?.right, res)
+}
+
 
 
 
