@@ -6,18 +6,12 @@ package com.leetcode_kotlin
  */
 
 
-
 fun main() {
 
-    val root = TreeNode(3)
-    root.left = TreeNode(1)
-    root.right = TreeNode(4)
-    root.right!!.left = TreeNode(2)
+    val arr = intArrayOf(-10, -3, 0, 5, 9)
 
-    recoverTree(root)
-
-    root.also {
-        println(it.`val`)
+    sortedArrayToBST(arr).also {
+        println(it?.`val`)
     }
 
 }

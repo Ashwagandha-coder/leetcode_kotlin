@@ -2058,6 +2058,25 @@ private class State {
     var prev: TreeNode? = null
 }
 
+/**
+ * 108. Convert Sorted Array to Binary Search Tree
+ */
+
+fun sortedArrayToBST(nums: IntArray): TreeNode? {
+    return dfs(nums, 0, nums.size - 1)
+}
+/*
+-10,-3,0,5,9
+ */
+fun dfs(nums: IntArray, left: Int, right: Int): TreeNode? {
+    if (left > right) return null
+    var mid = (left + right) / 2
+    val root = TreeNode(nums[mid])
+    root?.left = dfs(nums, left, mid - 1)
+    root?.right = dfs(nums, mid + 1, right)
+    return root
+}
+
 
 
 
