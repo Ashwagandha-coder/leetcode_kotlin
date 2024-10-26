@@ -2120,6 +2120,14 @@ fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
     return res.toIntArray()
 }
 
+/**
+ * 500. Keyboard Row
+ */
+
+fun findWords(words: Array<String>) = words.filter { word ->
+    rows.any { it.containsAll(word.lowercase().toList()) }
+}.toTypedArray()
+private val rows = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm").map { it.toList() }
 
 
 
