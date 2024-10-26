@@ -1925,6 +1925,93 @@ fun coinChange(coins: IntArray, amount: Int): Int {
 }
 
 
+/**
+ * 94. Binary Tree Inorder Traversal
+ */
+
+
+fun inorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    dfs(root, res)
+    return res
+}
+
+fun dfs(root: TreeNode?, res: MutableList<Int>) {
+    if (root == null) return
+    dfs(root?.left, res)
+    res.add(root.`val`)
+    dfs(root?.right, res)
+}
+
+/**
+ *
+ */
+
+
+fun generateTrees(n: Int): List<TreeNode?> {
+    if (n == 0) {
+        return ArrayList()
+    }
+
+    val memo: MutableMap<String, List<TreeNode?>> = HashMap()
+
+    return generateTreesHelper(1, n, memo)
+}
+
+private fun generateTreesHelper(
+    start: Int,
+    end: Int,
+    memo: MutableMap<String, List<TreeNode?>>
+): List<TreeNode?> {
+    val key = "$start-$end"
+    if (memo.containsKey(key)) {
+        return memo[key]!!
+    }
+
+    val trees: MutableList<TreeNode?> = ArrayList()
+    if (start > end) {
+        trees.add(null)
+        return trees
+    }
+
+    for (rootVal in start..end) {
+        val leftTrees = generateTreesHelper(start, rootVal - 1, memo)
+        val rightTrees = generateTreesHelper(rootVal + 1, end, memo)
+
+        for (leftTree in leftTrees) {
+            for (rightTree in rightTrees) {
+                val root = TreeNode(rootVal)
+                root.left = leftTree
+                root.right = rightTree
+                trees.add(root)
+            }
+        }
+    }
+
+    memo[key] = trees
+    return trees
+}
+
+/**
+ * 98. Validate Binary Search Tree
+ */
+
+
+fun isValidBST(root: TreeNode?): Boolean {
+    return valid(root, Long.MIN_VALUE, Long.MAX_VALUE)
+}
+
+private fun valid(node: TreeNode?, minimum: Long, maximum: Long): Boolean {
+    if (node == null) return true
+
+    if (!(node.`val` > minimum && node.`val` < maximum)) return false
+
+    return valid(node.left, minimum, node.`val`.toLong()) && valid(
+        node.right,
+        node.`val`.toLong(),
+        maximum
+    )
+}
 
 
 
