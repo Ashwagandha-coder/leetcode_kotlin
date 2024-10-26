@@ -7,10 +7,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    coinChangeProdVariant(intArrayOf(1, 2, 5), 11).also {
-        println(it)
+    generateTrees(3).also {
+        it.forEach { tree ->
+            print("${tree!!?.`val`} ")
+        }
     }
-
 
 }
 

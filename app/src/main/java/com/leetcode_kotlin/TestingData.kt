@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
+
 
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
@@ -8,6 +10,21 @@ class TreeNode(var `val`: Int) {
 
 class ListNode(var `val`: Int) {
     var next: ListNode? = null
+}
+
+fun TreeNode.printTreeNodes(): List<Int?> {
+    val root = this
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val node = q.poll()
+        res.add(node.`val`)
+        if (root?.left != null) q.offer(root?.left)
+        if (root?.right != null) q.offer(root?.right)
+        else q.offer(null)
+    }
+    return res
 }
 
 fun ListNode.printListNode() {
@@ -19,7 +36,7 @@ fun ListNode.printListNode() {
     print("${p.`val`} ")
 }
 
-object LinkedList {
+object LinkedListData {
 
     fun cycleLinkedListData(): ListNode {
         val head = ListNode(3)
