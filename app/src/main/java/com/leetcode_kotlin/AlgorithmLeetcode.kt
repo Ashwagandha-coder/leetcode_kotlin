@@ -1915,8 +1915,8 @@ fun coinChange(coins: IntArray, amount: Int): Int {
     for (i in 1..amount) {
         for (j in coins.indices) {
             if (i - coins[j] >= 0) {
-                minCoins[i] = min(minCoins[i].toDouble(), (1 + minCoins[i - coins[j]]).toDouble())
-                    .toInt()
+                minCoins[i] = minOf(minCoins[i], (1 + minCoins[i - coins[j]]))
+                // Min(2, 1)
             }
         }
     }
@@ -2013,6 +2013,121 @@ private fun valid(node: TreeNode?, minimum: Long, maximum: Long): Boolean {
     )
 }
 
+/**
+ * 99.Recover Binary Search Tree
+ */
+
+/*
+    1
+   / \
+  2   3
+ / \   \
+4   5   2
+ */
+
+fun recoverTree(root: TreeNode?) {
+    val state = State() // Создаем объект для хранения состояния
+    inorder(root, state)
+    // Меняем значения двух переставленных узлов местами
+    val temp = state.first!!.`val`
+    state.first!!.`val` = state.second!!.`val`
+    state.second!!.`val` = temp
+}
+
+private fun inorder(root: TreeNode?, state: State) {
+    if (root == null) return
+
+    inorder(root.left, state)
+
+    // Проверяем на переставленные узлы
+    if (state.prev != null && state.prev!!.`val` > root.`val`) {
+        if (state.first == null) {
+            state.first = state.prev
+        }
+        state.second = root
+    }
+    state.prev = root
+
+    inorder(root.right, state)
+}
+
+// Внутренний класс для хранения состояния
+private class State {
+    var first: TreeNode? = null
+    var second: TreeNode? = null
+    var prev: TreeNode? = null
+}
+
+/**
+ * 108. Convert Sorted Array to Binary Search Tree
+ */
+
+fun sortedArrayToBST(nums: IntArray): TreeNode? {
+    return dfs(nums, 0, nums.size - 1)
+}
+
+/*
+-10,-3,0,5,9
+ */
+fun dfs(nums: IntArray, left: Int, right: Int): TreeNode? {
+    if (left > right) return null
+    var mid = (left + right) / 2
+    val root = TreeNode(nums[mid])
+    root?.left = dfs(nums, left, mid - 1)
+    root?.right = dfs(nums, mid + 1, right)
+    return root
+}
+
+/**
+ * 485. Max Consecutive Ones
+ */
+
+
+fun findMaxConsecutiveOnes(nums: IntArray): Int {
+    var count = 0
+    var local = 0
+    val len = nums.size
+    for (i in 0 until len) {
+        if (nums[i] == 1) local++
+        if (nums[i] == 0) {
+            count = max(count, local)
+            local = 0
+        }
+    }
+    count = max(count, local)
+    return count
+}
+
+
+/**
+ * 349. Intersection of Two Arrays
+ */
+
+fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    val res = mutableListOf<Int>()
+    val len = nums1.size
+    val len2 = nums2.size
+    for (i in 0 until len) {
+        map[nums1[i]] = i
+    }
+    for (i in 0 until len2) {
+        if (map.contains(nums2[i])) {
+            res.add(nums2[i])
+            map.remove(nums2[i])
+        }
+    }
+    return res.toIntArray()
+}
+
+/**
+ * 500. Keyboard Row
+ */
+
+fun findWords(words: Array<String>) = words.filter { word ->
+    rows.any { it.containsAll(word.lowercase().toList()) }
+}.toTypedArray()
+private val rows = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm").map { it.toList() }
 
 
 

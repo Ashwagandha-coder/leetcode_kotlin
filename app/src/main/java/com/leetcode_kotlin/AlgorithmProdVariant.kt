@@ -172,3 +172,35 @@ fun coinChangeProdVariant(coins: IntArray, amount: Int): Int {
     }
     return dp[amount].takeIf { it != Int.MAX_VALUE } ?: -1
 }
+
+/**
+ * 51. N-Queens
+ * Prod Variant
+ */
+
+fun solveNQueensProdVariant(n: Int): List<List<String>> {
+    val initialBoard = Array(n) { CharArray(n) { '.' } }
+    return solve(initialBoard, 0, n)
+}
+
+
+fun isSafe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean =
+    (0 until row).none { i ->
+        board[i][col] == 'Q' || // Check column
+                col - row + i >= 0 && board[i][col - row + i] == 'Q' || // Check main diagonal
+                col + row - i < n && board[i][col + row - i] == 'Q'  // Check anti-diagonal
+    }
+
+
+fun solve(board: Array<CharArray>, row: Int, n: Int): List<List<String>> =
+    if (row == n) {
+        listOf(board.map { it.joinToString("") })
+    } else {
+        (0 until n)
+            .filter { col -> isSafe(board, row, col, n) }
+            .flatMap { col ->
+                val newBoard = board.map { it.copyOf() }.toTypedArray()
+                newBoard[row][col] = 'Q'
+                solve(newBoard, row + 1, n)
+            }
+    }
