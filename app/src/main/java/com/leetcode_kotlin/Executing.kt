@@ -8,10 +8,5 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val matrix = Matrix.createMatrix()
-
-    NumMatrixProdVariant(matrix).sumRegion(2, 1, 4, 3).also {
-        println(it)
-    }
 }
 
