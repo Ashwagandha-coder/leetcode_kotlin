@@ -1915,8 +1915,8 @@ fun coinChange(coins: IntArray, amount: Int): Int {
     for (i in 1..amount) {
         for (j in coins.indices) {
             if (i - coins[j] >= 0) {
-                minCoins[i] = min(minCoins[i].toDouble(), (1 + minCoins[i - coins[j]]).toDouble())
-                    .toInt()
+                minCoins[i] = minOf(minCoins[i], (1 + minCoins[i - coins[j]]))
+                // Min(2, 1)
             }
         }
     }
