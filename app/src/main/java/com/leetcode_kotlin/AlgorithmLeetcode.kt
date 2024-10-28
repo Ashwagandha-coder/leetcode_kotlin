@@ -1011,7 +1011,7 @@ fun maxSubArray(nums: IntArray): Int {
     var res = nums[0]
     var total = 0
     val len = nums.size
-    for (i in 0..len - 1) {
+    for (i in 0 until len) {
         if (total < 0) total = 0
         total += nums[i]
         res = max(res, total)

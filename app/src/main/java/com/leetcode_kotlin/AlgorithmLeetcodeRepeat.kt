@@ -991,3 +991,24 @@ fun Repeat.bfs(root: TreeNode?): List<Int> {
     }
     return res
 }
+
+
+/**
+ * Repeat Selection Sort
+ */
+
+fun Repeat.selectionSortFinalOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[j] < arr[min]) min = j
+        }
+        if (min != i) {
+            val temp = arr[min]
+            arr[min] = arr[i]
+            arr[i] = temp
+        }
+    }
+    return arr
+}

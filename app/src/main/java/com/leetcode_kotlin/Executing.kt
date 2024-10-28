@@ -8,10 +8,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = Node.node()
+    val arr = intArrayOf(-2, 1, -3, 4, -1, 2, 1, -5, 4)
 
-    Repeat.value.bfs(root).also {
-        print(it)
+    Repeat.value.selectionSortFinalOctember(arr).also {
+        it.forEach { num -> print("$num ") }
     }
 
 }
