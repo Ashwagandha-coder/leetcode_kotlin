@@ -105,11 +105,9 @@ fun maxProfitIV(prices: IntArray, k: Int): Int {
  * Prod Variant
  */
 
-fun maxProfitIIProdVariant(prices: IntArray): Int = prices
-    .asSequence()
-    .zipWithNext()
-    .filter { (prev, curr) -> curr > prev }
-    .sumOf { (prev, curr) -> curr - prev }
+fun maxProfitIIProdVariant(prices: IntArray): Int =
+    prices.asSequence().zipWithNext().filter { (prev, curr) -> curr > prev }
+        .sumOf { (prev, curr) -> curr - prev }
 
 
 /**
@@ -184,23 +182,37 @@ fun solveNQueensProdVariant(n: Int): List<List<String>> {
 }
 
 
-fun isSafe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean =
-    (0 until row).none { i ->
-        board[i][col] == 'Q' || // Check column
-                col - row + i >= 0 && board[i][col - row + i] == 'Q' || // Check main diagonal
-                col + row - i < n && board[i][col + row - i] == 'Q'  // Check anti-diagonal
-    }
+fun isSafe(board: Array<CharArray>, row: Int, col: Int, n: Int): Boolean = (0 until row).none { i ->
+    board[i][col] == 'Q' || // Check column
+            col - row + i >= 0 && board[i][col - row + i] == 'Q' || // Check main diagonal
+            col + row - i < n && board[i][col + row - i] == 'Q'  // Check anti-diagonal
+}
 
 
-fun solve(board: Array<CharArray>, row: Int, n: Int): List<List<String>> =
-    if (row == n) {
-        listOf(board.map { it.joinToString("") })
-    } else {
-        (0 until n)
-            .filter { col -> isSafe(board, row, col, n) }
-            .flatMap { col ->
-                val newBoard = board.map { it.copyOf() }.toTypedArray()
-                newBoard[row][col] = 'Q'
-                solve(newBoard, row + 1, n)
-            }
+fun solve(board: Array<CharArray>, row: Int, n: Int): List<List<String>> = if (row == n) {
+    listOf(board.map { it.joinToString("") })
+} else {
+    (0 until n).filter { col -> isSafe(board, row, col, n) }.flatMap { col ->
+        val newBoard = board.map { it.copyOf() }.toTypedArray()
+        newBoard[row][col] = 'Q'
+        solve(newBoard, row + 1, n)
     }
+}
+
+
+/**
+ * 128. Longest Consecutive Sequence
+ * Prod Variant
+ */
+
+
+fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
+    val set = nums.toHashSet()
+    return set.filter { !set.contains(it - 1) }
+        .maxOfOrNull { num ->
+        generateSequence(num) { s -> s + 1 }
+            .takeWhile {
+            set.contains(it)
+        }.count()
+    } ?: 0
+}
