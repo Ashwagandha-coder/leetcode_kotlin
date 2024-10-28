@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -970,4 +971,44 @@ class RepeatNumArray(val nums: IntArray) {
         return sum
     }
 
+}
+
+/**
+ * Repeat BFS
+ */
+
+
+fun Repeat.bfs(root: TreeNode?): List<Int> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+
+    while (q.isNotEmpty()) {
+        val node = q.poll()
+        res.add(node.`val`)
+        if (node?.left != null) q.offer(node?.left)
+        if (node?.right != null) q.offer(node?.right)
+    }
+    return res
+}
+
+
+/**
+ * Repeat Selection Sort
+ */
+
+fun Repeat.selectionSortFinalOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[j] < arr[min]) min = j
+        }
+        if (min != i) {
+            val temp = arr[min]
+            arr[min] = arr[i]
+            arr[i] = temp
+        }
+    }
+    return arr
 }
