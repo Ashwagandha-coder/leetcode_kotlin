@@ -2163,6 +2163,30 @@ fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
     return res?.next
 }
 
+/**
+ * 152. Maximum Product Subarray
+ */
+
+fun maxProduct(nums: IntArray): Int {
+    var max = nums[0]
+    var min = nums[0]
+    var ans = nums[0]
+    val len = nums.size
+    for (i in 1 until len) {
+        if (nums[i] < 0) {
+            var temp = max
+            max = min
+            min = temp
+        }
+
+        max = maxOf(nums[i], max * nums[i])
+        min = minOf(nums[i], min * nums[i])
+
+        ans = maxOf(ans, max)
+    }
+    return ans
+}
+
 
 
 
