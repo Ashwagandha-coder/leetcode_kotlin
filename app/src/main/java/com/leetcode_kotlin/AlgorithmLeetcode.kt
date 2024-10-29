@@ -2130,6 +2130,63 @@ fun findWords(words: Array<String>) = words.filter { word ->
 private val rows = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm").map { it.toList() }
 
 
+/**
+ * 2. Add Two Numbers
+ */
+
+fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
+    var l1 = l1
+    var l2 = l2
+    var dummy: ListNode? = ListNode(0)
+    val res = dummy
+    var total = 0
+    var carry = 0
+
+    while (l1 != null || l2 != null || carry != 0) {
+        total = carry
+
+        if (l1 != null) {
+            total += l1.`val`
+            l1 = l1.next
+        }
+        if (l2 != null) {
+            total += l2.`val`
+            l2 = l2.next
+        }
+
+        val num = total % 10
+        carry = total / 10
+        dummy?.next = ListNode(num)
+        dummy = dummy?.next
+    }
+
+    return res?.next
+}
+
+/**
+ * 152. Maximum Product Subarray
+ */
+
+fun maxProduct(nums: IntArray): Int {
+    var max = nums[0]
+    var min = nums[0]
+    var ans = nums[0]
+    val len = nums.size
+    for (i in 1 until len) {
+        if (nums[i] < 0) {
+            var temp = max
+            max = min
+            min = temp
+        }
+
+        max = maxOf(nums[i], max * nums[i])
+        min = minOf(nums[i], min * nums[i])
+
+        ans = maxOf(ans, max)
+    }
+    return ans
+}
+
 
 
 
