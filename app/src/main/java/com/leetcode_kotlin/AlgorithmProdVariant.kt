@@ -210,9 +210,9 @@ fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
     val set = nums.toHashSet()
     return set.filter { !set.contains(it - 1) }
         .maxOfOrNull { num ->
-        generateSequence(num) { s -> s + 1 }
-            .takeWhile {
-            set.contains(it)
-        }.count()
-    } ?: 0
+            generateSequence(num) { s -> s + 1 }
+                .takeWhile {
+                    set.contains(it)
+                }.count()
+        } ?: 0
 }
