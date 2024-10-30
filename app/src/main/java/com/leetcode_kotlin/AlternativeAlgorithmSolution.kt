@@ -560,6 +560,14 @@ fun deleteMiddleAlt(head: ListNode?): ListNode? {
     return head
 }
 
+/**
+ * 152. Maximum Product Subarray
+ */
+
+fun maxProductAltSolution(nums: IntArray): Int {
+    return 0
+}
+
 
 
 
