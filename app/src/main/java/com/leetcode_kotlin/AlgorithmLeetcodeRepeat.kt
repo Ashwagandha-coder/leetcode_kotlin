@@ -1012,3 +1012,22 @@ fun Repeat.selectionSortFinalOctember(arr: IntArray): IntArray {
     }
     return arr
 }
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Repeat
+ */
+
+fun findDisappearedNumbersRepeat(nums: IntArray): List<Int> {
+    val res = mutableListOf<Int>()
+    val mark = -1
+    val len = nums.size
+    for (i in 0 until len) {
+        val ind = abs(nums[i])
+        if (nums[ind - 1] > 0) nums[ind - 1] *= mark
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
+}

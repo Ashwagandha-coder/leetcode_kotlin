@@ -216,3 +216,8 @@ fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
                 }.count()
         } ?: 0
 }
+
+
+/**
+ *
+ */
