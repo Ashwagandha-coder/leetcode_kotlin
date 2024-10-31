@@ -8,11 +8,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(-2, 1, 3, -5)
+    val arr = intArrayOf(4, 3, 2, 7, 8, 2, 3, 1)
 
-    maxProduct(arr).also {
-        println(it)
-    }
+    findDisappearedNumberProdVariantII(arr).also { println(it) }
 
 }
+
 

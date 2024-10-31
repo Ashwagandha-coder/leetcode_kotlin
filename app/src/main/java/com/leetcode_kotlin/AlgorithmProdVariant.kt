@@ -225,7 +225,7 @@ fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
  * Prod Variant
  */
 
-fun findAllDisappearedNumber(nums: IntArray): List<Int> {
+fun findDisappearedNumberProdVariant(nums: IntArray): List<Int> {
     val mark = -1
     val res = mutableListOf<Int>()
     nums.forEach {
@@ -236,4 +236,20 @@ fun findAllDisappearedNumber(nums: IntArray): List<Int> {
         if (nums[index] > 0) res.add(index + 1)
     }
     return res
+}
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Prod Variant II
+ */
+
+
+fun findDisappearedNumberProdVariantII(nums: IntArray): List<Int> {
+    val mark = -1
+    nums.forEach {
+        val index = abs(it)
+        if (nums[index - 1] > 0) nums[index - 1] *= mark
+    }
+
+    return (1..nums.size).filter { nums[it - 1] > 0 }
 }
