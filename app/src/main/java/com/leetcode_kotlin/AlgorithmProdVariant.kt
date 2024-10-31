@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import kotlin.math.abs
+
 
 class ProdVariant {
 
@@ -215,4 +217,39 @@ fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
                     set.contains(it)
                 }.count()
         } ?: 0
+}
+
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Prod Variant
+ */
+
+fun findDisappearedNumberProdVariant(nums: IntArray): List<Int> {
+    val mark = -1
+    val res = mutableListOf<Int>()
+    nums.forEach {
+        val ind = abs(it)
+        if (nums[ind - 1] > 0) nums[ind - 1] *= mark
+    }
+    nums.forEachIndexed { index, i ->
+        if (nums[index] > 0) res.add(index + 1)
+    }
+    return res
+}
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Prod Variant II
+ */
+
+
+fun findDisappearedNumberProdVariantII(nums: IntArray): List<Int> {
+    val mark = -1
+    nums.forEach {
+        val index = abs(it)
+        if (nums[index - 1] > 0) nums[index - 1] *= mark
+    }
+
+    return (1..nums.size).filter { nums[it - 1] > 0 }
 }
