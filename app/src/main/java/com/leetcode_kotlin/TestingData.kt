@@ -74,6 +74,17 @@ object LinkedListData {
 
 }
 
+fun ListNode.toList(): List<Int> {
+    val res = mutableListOf<Int>()
+    var curr = this
+    while (curr?.next != null) {
+        res.add(curr.`val`)
+        curr = curr?.next!!
+    }
+    res.add(curr.`val`)
+    return res
+}
+
 fun IntArray.toListNode(): ListNode {
     if (this.isEmpty()) return ListNode(0)
     var stub = ListNode(this[0])

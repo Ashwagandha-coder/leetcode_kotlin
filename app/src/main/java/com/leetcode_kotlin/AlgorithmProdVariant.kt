@@ -279,9 +279,13 @@ fun findMaxConsecutiveOnesProdVariant(nums: IntArray): Int {
 
 
 fun findMaxConsecutiveOnesProdVariantII(nums: IntArray): Int {
-    return nums.fold(0 to 0) { (longest, max), num ->
+    return nums.fold(0 to 0) { (maxCount, currentCount), num ->
         if (num == 1) {
-            maxOf(longest, max + 1) to max + 1
-        } else max to 0
+            val updatedCurrentCount = currentCount + 1
+            maxOf(maxCount, updatedCurrentCount) to updatedCurrentCount
+        } else {
+            maxCount to 0
+        }
     }.first
 }
+

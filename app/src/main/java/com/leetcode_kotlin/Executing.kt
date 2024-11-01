@@ -8,12 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(1, 1, 0, 1, 1, 1)
+    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
 
-    findMaxConsecutiveOnesProdVariantII(arr).also {
-        println(it)
-    }
-
+    reverseListAlt(head).also { println(it?.toList()) }
 
 }
 
