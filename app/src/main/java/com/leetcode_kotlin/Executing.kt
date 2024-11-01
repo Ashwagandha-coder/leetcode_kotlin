@@ -8,9 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(4, 3, 2, 7, 8, 2, 3, 1)
+    val arr = intArrayOf(1, 12, -5, -6, 50, 3)
 
-    findDisappearedNumberProdVariantII(arr).also { println(it) }
+    findMaxAverage(
+        arr, 4
+    ).also { println(it) }
 
 }
 

@@ -568,6 +568,20 @@ fun maxProductAltSolution(nums: IntArray): Int {
     return 0
 }
 
+/**
+ * 206. Reverse Linked List
+ * Alt Solution
+ */
+
+
+fun reverseListAlt(head: ListNode?): ListNode? {
+    if (head?.next == null) return head // Base case: If head is null or has no next, it's the new head
+    val newHead = reverseListAlt(head.next) // Recursively reverse the rest of the list
+    head.next?.next = head // Reverse the link between head and its next
+    head.next = null // Set head's next to null to avoid cycles
+    return newHead
+}
+
 
 
 

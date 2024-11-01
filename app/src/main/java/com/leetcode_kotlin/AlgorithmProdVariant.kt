@@ -253,3 +253,54 @@ fun findDisappearedNumberProdVariantII(nums: IntArray): List<Int> {
 
     return (1..nums.size).filter { nums[it - 1] > 0 }
 }
+
+/**
+ * 485. Max Consecutive Ones
+ * Prod Variant
+ */
+
+fun findMaxConsecutiveOnesProdVariant(nums: IntArray): Int {
+    var longest = 0
+    var max = 0
+    nums.forEach {
+        if (it == 1) max++
+        if (it == 0) {
+            longest = maxOf(longest, max)
+            max = 0
+        }
+    }
+    return maxOf(longest, max)
+}
+
+/**
+ * 485. Max Consecutive Ones
+ * Prod Variant II
+ */
+
+
+fun findMaxConsecutiveOnesProdVariantII(nums: IntArray): Int {
+    return nums.fold(0 to 0) { (maxCount, currentCount), num ->
+        if (num == 1) {
+            val updatedCurrentCount = currentCount + 1
+            maxOf(maxCount, updatedCurrentCount) to updatedCurrentCount
+        } else {
+            maxCount to 0
+        }
+    }.first
+}
+
+/**
+ * 643. Maximum Average Subarray I
+ * Prod Variant
+ */
+
+fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
+    var sum = nums.take(k).sum()
+    var maxSum = sum
+    for (i in k until nums.size) {
+        sum += nums[i]
+        sum -= nums[i - k]
+        maxSum = maxOf(maxSum, sum)
+    }
+    return maxSum / k
+}

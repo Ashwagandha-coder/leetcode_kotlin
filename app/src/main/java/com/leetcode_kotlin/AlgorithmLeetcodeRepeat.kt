@@ -1031,3 +1031,7 @@ fun findDisappearedNumbersRepeat(nums: IntArray): List<Int> {
     }
     return res
 }
+
+/**
+ * Repeat N-Queens Prod Variant
+ */
