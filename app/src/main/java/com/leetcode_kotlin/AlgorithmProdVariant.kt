@@ -289,3 +289,18 @@ fun findMaxConsecutiveOnesProdVariantII(nums: IntArray): Int {
     }.first
 }
 
+/**
+ * 643. Maximum Average Subarray I
+ * Prod Variant
+ */
+
+fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
+    var sum = nums.take(k).sum()
+    var maxSum = sum
+    for (i in k until nums.size) {
+        sum += nums[i]
+        sum -= nums[i - k]
+        maxSum = maxOf(maxSum, sum)
+    }
+    return sum / k
+}

@@ -8,9 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
+    val arr = intArrayOf(1, 12, -5, -6, 50, 3)
 
-    reverseListAlt(head).also { println(it?.toList()) }
+    findMaxAverage(
+        arr, 4
+    ).also { println(it) }
 
 }
 
