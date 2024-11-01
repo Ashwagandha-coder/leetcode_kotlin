@@ -8,9 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "cbbd"
+    val s = "leeetcode"
 
-    longestPalindrome(s).also { println(it) }
+    makeFancyString(s).also { println(it) }
+
+
 
 }
 

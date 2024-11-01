@@ -2225,6 +2225,29 @@ private fun expandAroundCenter(s: String, left: Int, right: Int): Int {
     return right - left - 1
 }
 
+/**
+ * 1957. Delete Characters to Make Fancy String
+ */
+
+
+fun makeFancyString(s: String): String? {
+    val ans = java.lang.StringBuilder()
+    ans.append(s[0])
+    val n = s.length
+    var cnt = 1
+    for (i in 1 until n) {
+        if (s[i] == ans[ans.length - 1]) {
+            cnt++
+            if (cnt < 3) {
+                ans.append(s[i])
+            }
+        } else {
+            cnt = 1
+            ans.append(s[i])
+        }
+    }
+    return ans.toString()
+}
 
 
 
