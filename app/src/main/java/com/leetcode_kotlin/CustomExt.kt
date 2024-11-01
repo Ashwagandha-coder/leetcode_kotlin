@@ -1,6 +1,5 @@
 package com.leetcode_kotlin
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
 
