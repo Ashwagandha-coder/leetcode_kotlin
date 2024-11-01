@@ -10,6 +10,17 @@ fun sample() {
 }
 
 /**
+ * Sample of fold function
+ */
+
+fun sampleFold() {
+    val arr = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 2, 4, 4, 6, 7, 8, 8, 4, 5, 7, 6)
+    val ans = arr.fold(0) { acc, num ->
+        num + acc
+    }
+}
+
+/**
  * Sample of zip
  */
 
