@@ -8,11 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(1, 12, -5, -6, 50, 3)
+    val s = "cbbd"
 
-    findMaxAverage(
-        arr, 4
-    ).also { println(it) }
+    longestPalindrome(s).also { println(it) }
 
 }
 

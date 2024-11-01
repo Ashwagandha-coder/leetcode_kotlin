@@ -2127,6 +2127,7 @@ fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
 fun findWords(words: Array<String>) = words.filter { word ->
     rows.any { it.containsAll(word.lowercase().toList()) }
 }.toTypedArray()
+
 private val rows = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm").map { it.toList() }
 
 
@@ -2187,6 +2188,42 @@ fun maxProduct(nums: IntArray): Int {
     return ans
 }
 
+/**
+ * 5. Longest Palindromic Substring
+ */
+
+
+fun longestPalindrome(s: String?): String? {
+    if (s.isNullOrEmpty()) {
+        return ""
+    }
+
+    var start = 0
+    var end = 0
+    val len = s.length
+    for (i in 0 until len) {
+        val odd = expandAroundCenter(s, i, i)
+        val even = expandAroundCenter(s, i, i + 1)
+        val maxLen = max(odd.toDouble(), even.toDouble()).toInt()
+
+        if (maxLen > end - start) {
+            start = i - (maxLen - 1) / 2
+            end = i + maxLen / 2
+        }
+    }
+
+    return s.substring(start, end + 1)
+}
+
+private fun expandAroundCenter(s: String, left: Int, right: Int): Int {
+    var left = left
+    var right = right
+    while (left >= 0 && right < s.length && s[left] == s[right]) {
+        left--
+        right++
+    }
+    return right - left - 1
+}
 
 
 
