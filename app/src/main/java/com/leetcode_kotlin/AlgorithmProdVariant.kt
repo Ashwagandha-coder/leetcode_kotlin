@@ -302,5 +302,5 @@ fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
         sum -= nums[i - k]
         maxSum = maxOf(maxSum, sum)
     }
-    return sum / k
+    return maxSum / k
 }
