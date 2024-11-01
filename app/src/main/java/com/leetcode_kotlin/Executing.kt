@@ -8,9 +8,12 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(4, 3, 2, 7, 8, 2, 3, 1)
+    val arr = intArrayOf(1, 1, 0, 1, 1, 1)
 
-    findDisappearedNumberProdVariantII(arr).also { println(it) }
+    findMaxConsecutiveOnesProdVariantII(arr).also {
+        println(it)
+    }
+
 
 }
 

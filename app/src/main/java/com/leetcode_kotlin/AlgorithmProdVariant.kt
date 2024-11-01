@@ -253,3 +253,35 @@ fun findDisappearedNumberProdVariantII(nums: IntArray): List<Int> {
 
     return (1..nums.size).filter { nums[it - 1] > 0 }
 }
+
+/**
+ * 485. Max Consecutive Ones
+ * Prod Variant
+ */
+
+fun findMaxConsecutiveOnesProdVariant(nums: IntArray): Int {
+    var longest = 0
+    var max = 0
+    nums.forEach {
+        if (it == 1) max++
+        if (it == 0) {
+            longest = maxOf(longest, max)
+            max = 0
+        }
+    }
+    return maxOf(longest, max)
+}
+
+/**
+ * 485. Max Consecutive Ones
+ * Prod Variant II
+ */
+
+
+fun findMaxConsecutiveOnesProdVariantII(nums: IntArray): Int {
+    return nums.fold(0 to 0) { (longest, max), num ->
+        if (num == 1) {
+            maxOf(longest, max + 1) to max + 1
+        } else max to 0
+    }.first
+}
