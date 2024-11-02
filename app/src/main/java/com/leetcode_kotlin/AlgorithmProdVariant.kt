@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
 import kotlin.math.abs
 
 
@@ -314,3 +315,16 @@ fun countGoodSubstringsProdVariant(s: String): Int =
     s.windowed(3).count { it.toSet().size == 3 }
 
 
+/**
+ * 392. Is Subsequence
+ * Prod Variant
+ */
+
+
+fun isSubsequenceProdVariant(s: String, t: String): Boolean {
+    var sIndex = 0
+    t.forEach {
+        if (sIndex < s.length && s[sIndex] == it) sIndex++
+    }
+    return sIndex == s.length
+}

@@ -2273,7 +2273,10 @@ private fun rob(root: TreeNode?, map: MutableMap<TreeNode?, Int?>): Int {
         ans += rob(root.right!!.left, map) + rob(root.right!!.right, map)
     }
 
-    ans = max((ans + root.`val`).toDouble(), (rob(root.left, map) + rob(root.right, map)).toDouble()).toInt()
+    ans = max(
+        (ans + root.`val`).toDouble(),
+        (rob(root.left, map) + rob(root.right, map)).toDouble()
+    ).toInt()
     map[root] = ans
 
     return ans
@@ -2295,6 +2298,27 @@ fun isCircularSentence(sentence: String): Boolean {
         if (sentence[i - 1] == ' ' && sentence[i] != last) return false
     }
     return first == sentence[len - 1]
+}
+
+/**
+ * 792. Number of Matching Subsequences
+ */
+
+
+fun numMatchingSubSequence(s: String, words: Array<String>): Int {
+    var count = 0
+    val len = words.size
+    for (word in words) {
+        var temp = word
+        var i = 0
+        var j = 0
+        while (j < s.length && i < temp.length) {
+            if (s[j] == temp[i]) i++
+            j++
+        }
+        if (i >= temp.length) count++
+    }
+    return count
 }
 
 

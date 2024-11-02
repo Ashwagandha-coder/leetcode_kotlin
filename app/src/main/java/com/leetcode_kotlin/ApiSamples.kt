@@ -6,6 +6,16 @@ import android.support.annotation.RequiresApi
 
 fun sample() {
 
+    val mutableList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+
+    mutableList.fold(0) { acc, num ->
+        acc * 2
+    }
+    val list = listOf(listOf(1, 2, 3, 4), listOf(2, 5, 7, 8))
+    val res = list.flatMap { listOf(it) }
+
+    mutableList.last { it == 3 }
+
 }
 
 /**
@@ -76,8 +86,8 @@ fun sampleMutableList() {
     mutableList.all { it == 1 }
     mutableList.any { it == 2 }
     mutableList.zipWithNext { a, b ->
-        println("$a $b")
-    }
+        a + b
+    }.let { println(it) }
     mutableList.map { it * 2 }
     mutableList.onEach {
         it
