@@ -8,9 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = createTreeNodeForBFS()
-
-    bfsRepeat(root).also { println(it) }
+    sample()
 
 }
 
