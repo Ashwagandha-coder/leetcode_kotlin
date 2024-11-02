@@ -627,6 +627,24 @@ fun longestPalindrome(s: String): String {
     return s.substring(start, start + maxLength)
 }
 
+/**
+ * 2490. Circular Sentence
+ */
+
+fun isCircularSentence(sentence: String): Boolean {
+    val len = sentence.length
+    val first = sentence[0]
+    var last = '1'
+    for (i in 1 until len) {
+        if (sentence[i] == ' ') {
+            last = sentence[i - 1]
+        }
+        if (sentence[i - 1] == ' ' && sentence[i] == last) continue
+        if (sentence[i - 1] == ' ' && sentence[i] != last) return false
+    }
+    return first == sentence[len - 1]
+}
+
 
 
 
