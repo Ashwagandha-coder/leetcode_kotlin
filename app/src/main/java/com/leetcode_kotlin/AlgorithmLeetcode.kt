@@ -2127,6 +2127,7 @@ fun intersection(nums1: IntArray, nums2: IntArray): IntArray {
 fun findWords(words: Array<String>) = words.filter { word ->
     rows.any { it.containsAll(word.lowercase().toList()) }
 }.toTypedArray()
+
 private val rows = listOf("qwertyuiop", "asdfghjkl", "zxcvbnm").map { it.toList() }
 
 
@@ -2187,7 +2188,114 @@ fun maxProduct(nums: IntArray): Int {
     return ans
 }
 
+/**
+ * 5. Longest Palindromic Substring
+ */
 
+
+fun longestPalindrome(s: String?): String? {
+    if (s.isNullOrEmpty()) {
+        return ""
+    }
+
+    var start = 0
+    var end = 0
+    val len = s.length
+    for (i in 0 until len) {
+        val odd = expandAroundCenter(s, i, i)
+        val even = expandAroundCenter(s, i, i + 1)
+        val maxLen = max(odd.toDouble(), even.toDouble()).toInt()
+
+        if (maxLen > end - start) {
+            start = i - (maxLen - 1) / 2
+            end = i + maxLen / 2
+        }
+    }
+
+    return s.substring(start, end + 1)
+}
+
+private fun expandAroundCenter(s: String, left: Int, right: Int): Int {
+    var left = left
+    var right = right
+    while (left >= 0 && right < s.length && s[left] == s[right]) {
+        left--
+        right++
+    }
+    return right - left - 1
+}
+
+/**
+ * 1957. Delete Characters to Make Fancy String
+ */
+
+
+fun makeFancyString(s: String): String? {
+    val ans = java.lang.StringBuilder()
+    ans.append(s[0])
+    val n = s.length
+    var cnt = 1
+    for (i in 1 until n) {
+        if (s[i] == ans[ans.length - 1]) {
+            cnt++
+            if (cnt < 3) {
+                ans.append(s[i])
+            }
+        } else {
+            cnt = 1
+            ans.append(s[i])
+        }
+    }
+    return ans.toString()
+}
+
+
+/**
+ *
+ */
+
+fun rob(root: TreeNode?): Int {
+    return rob(root, HashMap())
+}
+
+private fun rob(root: TreeNode?, map: MutableMap<TreeNode?, Int?>): Int {
+    if (root == null) return 0
+
+    if (map.containsKey(root)) return map[root]!!
+
+    var ans = 0
+
+    if (root.left != null) {
+        ans += rob(root.left!!.left, map) + rob(root.left!!.right, map)
+    }
+
+    if (root.right != null) {
+        ans += rob(root.right!!.left, map) + rob(root.right!!.right, map)
+    }
+
+    ans = max((ans + root.`val`).toDouble(), (rob(root.left, map) + rob(root.right, map)).toDouble()).toInt()
+    map[root] = ans
+
+    return ans
+}
+
+/**
+ * 2490. Circular Sentence
+ */
+
+fun isCircularSentence(sentence: String): Boolean {
+    val len = sentence.length
+    val first = sentence[0]
+    var last = '1'
+    for (i in 1 until len) {
+        if (sentence[i] == ' ') {
+            last = sentence[i - 1]
+        }
+        if (sentence[i - 1] == ' ' && sentence[i] == last) continue
+        if (sentence[i - 1] == ' ' && sentence[i] != last) return false
+    }
+    return first == sentence[len - 1]
+}
 
 
 
