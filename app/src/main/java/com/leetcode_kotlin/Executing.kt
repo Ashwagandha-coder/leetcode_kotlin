@@ -8,7 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val s = "abc"
 
+    val t = "ahbgde"
+
+    isSubsequence(s, t).also { println(it) }
 
 }
 
