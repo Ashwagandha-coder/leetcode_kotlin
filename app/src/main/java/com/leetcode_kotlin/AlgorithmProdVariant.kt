@@ -304,3 +304,13 @@ fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
     }
     return maxSum / k
 }
+
+/**
+ * 1876. Substrings of Size Three with Distinct Characters
+ * Prod Variant
+ */
+
+fun countGoodSubstringsProdVariant(s: String): Int =
+    s.windowed(3).count { it.toSet().size == 3 }
+
+
