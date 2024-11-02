@@ -2250,6 +2250,35 @@ fun makeFancyString(s: String): String? {
 }
 
 
+/**
+ *
+ */
+
+fun rob(root: TreeNode?): Int {
+    return rob(root, HashMap())
+}
+
+private fun rob(root: TreeNode?, map: MutableMap<TreeNode?, Int?>): Int {
+    if (root == null) return 0
+
+    if (map.containsKey(root)) return map[root]!!
+
+    var ans = 0
+
+    if (root.left != null) {
+        ans += rob(root.left!!.left, map) + rob(root.left!!.right, map)
+    }
+
+    if (root.right != null) {
+        ans += rob(root.right!!.left, map) + rob(root.right!!.right, map)
+    }
+
+    ans = max((ans + root.`val`).toDouble(), (rob(root.left, map) + rob(root.right, map)).toDouble()).toInt()
+    map[root] = ans
+
+    return ans
+}
+
 
 
 

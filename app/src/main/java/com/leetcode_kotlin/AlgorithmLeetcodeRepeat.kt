@@ -1033,5 +1033,26 @@ fun findDisappearedNumbersRepeat(nums: IntArray): List<Int> {
 }
 
 /**
- * Repeat N-Queens Prod Variant
+ * 1876. Substrings of Size Three with Distinct Characters
+ * Repeat
  */
+
+fun countGoodSubstringsRepeat(s: String): Int {
+    val len = s.length
+    val set = mutableSetOf<Char>()
+    val k = 3
+    var count = 0
+    for (i in 0 until len - 2) {
+        val sub = s.substring(i, k + i)
+        var isUnique = true
+        for (char in sub) {
+            if (!set.add(char)) {
+                isUnique = false
+                break
+            }
+        }
+        if (isUnique) count++
+        set.clear()
+    }
+    return count
+}

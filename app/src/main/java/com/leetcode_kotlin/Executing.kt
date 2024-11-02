@@ -8,10 +8,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "leeetcode"
-
-    makeFancyString(s).also { println(it) }
-
 
 
 }
