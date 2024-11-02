@@ -1056,3 +1056,26 @@ fun countGoodSubstringsRepeat(s: String): Int {
     }
     return count
 }
+
+/**
+ * BFS Repeat
+ */
+
+fun bfsRepeat(root: TreeNode): List<Int> {
+    if (root == null) return listOf()
+    val queue = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    queue.offer(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        for (i in 0 until size) {
+            val node = queue.poll()
+            res.add(node.`val`)
+            node.also {
+                if (it.left != null) queue.offer(node?.left)
+                if (it.right != null) queue.offer(node?.right)
+            }
+        }
+    }
+    return res
+}
