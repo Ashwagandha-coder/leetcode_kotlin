@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
 import kotlin.math.abs
 
 
@@ -312,5 +313,4 @@ fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
 
 fun countGoodSubstringsProdVariant(s: String): Int =
     s.windowed(3).count { it.toSet().size == 3 }
-
 
