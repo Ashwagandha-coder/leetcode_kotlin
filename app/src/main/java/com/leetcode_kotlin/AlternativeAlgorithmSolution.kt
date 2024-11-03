@@ -642,6 +642,15 @@ fun isSubsequence(s: String, t: String): Boolean {
     return sp == s.length
 }
 
+/**
+ * 796. Rotate String
+ * Alt Solution , Time - O(n) , Space - O(n)
+ */
+
+fun rotateStringAlt(s: String, goal: String): Boolean {
+    return if (s.length != goal.length) false else (s + s).contains(goal)
+}
+
 
 
 
