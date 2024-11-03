@@ -8,7 +8,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    sample()
+    val s = "gcmbf"
+    val goal = "fgcmb"
+
+    rotateString(s, goal).also { println(it) }
 
 }
 

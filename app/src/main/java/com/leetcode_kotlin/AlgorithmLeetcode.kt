@@ -2321,6 +2321,21 @@ fun numMatchingSubSequence(s: String, words: Array<String>): Int {
     return count
 }
 
+/**
+ * 796. Rotate String
+ */
+
+
+fun rotateString(s: String, goal: String): Boolean {
+    var temp = s
+    val len = s.length
+    for (i in 0 until len) {
+        if (temp == goal) return true
+        temp = s.substring(i + 1, len)
+        temp += s.substring(0, i + 1)
+    }
+    return false
+}
 
 
 
