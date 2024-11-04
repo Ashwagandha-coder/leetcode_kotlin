@@ -8,10 +8,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "pwwkew"
-
-    lengthOfLongestSubstring(s).also { println(it) }
-
 }
 
 fun createTreeNodeForBFS(): TreeNode {

@@ -2338,28 +2338,6 @@ fun rotateString(s: String, goal: String): Boolean {
 }
 
 /**
- *
- */
-
-fun lengthOfLongestSubstring(s: String): Int {
-    val len = s.length
-    var res = ""
-    val map = mutableMapOf<Char, Int>()
-    for (i in 0 until len) {
-        if (map.contains(s[i])) {
-            map[s[i]] = map[s[i]]!! + 1
-        } else map[s[i]] = 1
-    }
-    for (i in 0 until len) {
-        if (map.contains(s[i])) {
-            res += s[i]
-            map.remove(s[i])
-        }
-    }
-    return res.length
-}
-
-/**
  * 3163. String Compression III
  */
 
