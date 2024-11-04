@@ -8,8 +8,6 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    sample()
-
 }
 
 fun createTreeNodeForBFS(): TreeNode {

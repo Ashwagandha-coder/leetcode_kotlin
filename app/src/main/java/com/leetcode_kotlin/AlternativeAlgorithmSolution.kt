@@ -583,12 +583,13 @@ fun reverseListAlt(head: ListNode?): ListNode? {
 }
 
 /**
- * 1957. Delete Characters to Make Fancy String
+ *
  * Alt Solution with 2D dp array
  */
 
 
-fun longestPalindrome(s: String): String {
+
+fun longestPalindromeAlt(s: String): String {
     val n = s.length
     if (n < 2) return s
 
@@ -640,6 +641,15 @@ fun isSubsequence(s: String, t: String): Boolean {
         tp++
     }
     return sp == s.length
+}
+
+/**
+ * 796. Rotate String
+ * Alt Solution , Time - O(n) , Space - O(n)
+ */
+
+fun rotateStringAlt(s: String, goal: String): Boolean {
+    return if (s.length != goal.length) false else (s + s).contains(goal)
 }
 
 
