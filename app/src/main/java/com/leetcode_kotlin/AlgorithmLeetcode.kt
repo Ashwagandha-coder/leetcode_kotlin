@@ -2337,6 +2337,52 @@ fun rotateString(s: String, goal: String): Boolean {
     return false
 }
 
+/**
+ *
+ */
+
+fun lengthOfLongestSubstring(s: String): Int {
+    val len = s.length
+    var res = ""
+    val map = mutableMapOf<Char, Int>()
+    for (i in 0 until len) {
+        if (map.contains(s[i])) {
+            map[s[i]] = map[s[i]]!! + 1
+        } else map[s[i]] = 1
+    }
+    for (i in 0 until len) {
+        if (map.contains(s[i])) {
+            res += s[i]
+            map.remove(s[i])
+        }
+    }
+    return res.length
+}
+
+/**
+ * 3163. String Compression III
+ */
+
+fun compressedString(word: String): String {
+    val comp = java.lang.StringBuilder()
+    var cnt = 1
+    val n = word.length
+    var ch = word[0]
+    for (i in 1 until n) {
+        if (word[i] == ch && cnt < 9) {
+            cnt++
+        } else {
+            comp.append(cnt).append(ch)
+            ch = word[i]
+            cnt = 1
+        }
+    }
+    comp.append(cnt).append(ch)
+    return comp.toString()
+}
+
+
+
 
 
 

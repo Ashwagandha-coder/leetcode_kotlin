@@ -8,10 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "gcmbf"
-    val goal = "fgcmb"
+    val s = "pwwkew"
 
-    rotateString(s, goal).also { println(it) }
+    lengthOfLongestSubstring(s).also { println(it) }
 
 }
 
