@@ -2373,6 +2373,24 @@ fun minChanges(s: String): Int {
 }
 
 
+/**
+ * 7. Reverse Integer
+ */
+
+fun reverse(x: Int): Int {
+    var x = x
+    var res = 0
+    while (x != 0) {
+        var digit = x % 10
+        x /= 10
+        if (res > Int.MAX_VALUE / 10 || (res == Int.MAX_VALUE / 10 && digit > 7)) return 0
+        if (res < Int.MIN_VALUE / 10 || (res == Int.MIN_VALUE / 10 && digit < -8)) return 0
+        res = res * 10 + digit
+    }
+    return res
+}
+
+
 
 
 
