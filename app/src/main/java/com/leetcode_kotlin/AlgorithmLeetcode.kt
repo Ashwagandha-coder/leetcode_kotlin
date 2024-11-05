@@ -2485,6 +2485,41 @@ fun reverse(obj: MutableList<MutableList<Int>>) {
     }
 }
 
+/**
+ * 109. Convert Sorted List to Binary Search Tree
+ */
+
+
+fun sortedListToBST(head: ListNode?): TreeNode? {
+    if (head == null) return null
+    if (head.next == null) return TreeNode(head.`val`)
+
+    var slow = head
+    var fast = head
+    var prev: ListNode? = null
+
+    // Finding the middle element
+    while (fast?.next != null) {
+        prev = slow
+        slow = slow!!.next
+        fast = fast.next!!.next
+    }
+
+    // Create the root node with the middle element
+    val root = TreeNode(slow!!.`val`)
+
+    // Disconnect the left part of the list
+    fast = slow!!.next
+    if (prev != null) {
+        prev.next = null
+    }
+
+    // Recursively build left and right subtrees
+    root.left = sortedListToBST(head) // Left subtree
+    root.right = sortedListToBST(fast) // Right subtree
+
+    return root
+}
 
 
 
