@@ -8,6 +8,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val s = "101010"
+
+    minChanges(s).also { println(it) }
+
 }
 
 fun createTreeNodeForBFS(): TreeNode {

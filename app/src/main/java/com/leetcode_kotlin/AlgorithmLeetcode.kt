@@ -2359,6 +2359,20 @@ fun compressedString(word: String): String {
     return comp.toString()
 }
 
+/**
+ * 2914. Minimum Number of Changes to Make Binary String Beautiful
+ */
+
+fun minChanges(s: String): Int {
+    var count = 0
+    val len = s.length
+    for (i in 0 until len - 1 step 2) {
+        if (s[i] != s[i + 1]) count++
+    }
+    return count
+}
+
+
 
 
 
