@@ -2390,6 +2390,33 @@ fun reverse(x: Int): Int {
     return res
 }
 
+/**
+ * 102. Binary Tree Level Order Traversal
+ */
+
+fun levelOrder(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    return bfs(root)
+}
+
+private fun bfs(root: TreeNode?): List<List<Int>> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    return res
+}
+
 
 
 
