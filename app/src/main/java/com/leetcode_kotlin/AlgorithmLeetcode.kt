@@ -2417,6 +2417,36 @@ private fun bfs(root: TreeNode?): List<List<Int>> {
     return res
 }
 
+/**
+ * 103. Binary Tree Zigzag Level Order Traversal
+ */
+
+fun zigzagLevelOrder(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val res = bfsZigZag(root)
+    for (i in 1 until res.size step 2) Collections.reverse(res[i])
+    return res
+}
+
+fun bfsZigZag(root: TreeNode?): List<List<Int>> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    var zigzag = true
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    return res
+}
+
 
 
 
