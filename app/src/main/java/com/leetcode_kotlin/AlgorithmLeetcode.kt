@@ -2447,6 +2447,44 @@ fun bfsZigZag(root: TreeNode?): List<List<Int>> {
     return res
 }
 
+/**
+ * 107. Binary Tree Level Order Traversal II
+ */
+
+fun levelOrderBottom(root: TreeNode?): List<List<Int>> = bfsOrderBottom(root)
+
+fun bfsOrderBottom(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    reverse(res)
+    return res
+}
+
+fun reverse(obj: MutableList<MutableList<Int>>) {
+    var i = 0
+    var j = obj.size - 1
+    while (i < j) {
+        var temp = obj[i]
+        obj[i] = obj[j]
+        obj[j] = temp
+        i++
+        j--
+    }
+}
+
 
 
 
