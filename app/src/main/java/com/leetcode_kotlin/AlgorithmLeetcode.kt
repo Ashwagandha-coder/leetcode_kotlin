@@ -2359,6 +2359,95 @@ fun compressedString(word: String): String {
     return comp.toString()
 }
 
+/**
+ * 2914. Minimum Number of Changes to Make Binary String Beautiful
+ */
+
+fun minChanges(s: String): Int {
+    var count = 0
+    val len = s.length
+    for (i in 0 until len - 1 step 2) {
+        if (s[i] != s[i + 1]) count++
+    }
+    return count
+}
+
+
+/**
+ * 7. Reverse Integer
+ */
+
+fun reverse(x: Int): Int {
+    var x = x
+    var res = 0
+    while (x != 0) {
+        var digit = x % 10
+        x /= 10
+        if (res > Int.MAX_VALUE / 10 || (res == Int.MAX_VALUE / 10 && digit > 7)) return 0
+        if (res < Int.MIN_VALUE / 10 || (res == Int.MIN_VALUE / 10 && digit < -8)) return 0
+        res = res * 10 + digit
+    }
+    return res
+}
+
+/**
+ * 102. Binary Tree Level Order Traversal
+ */
+
+fun levelOrder(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    return bfs(root)
+}
+
+private fun bfs(root: TreeNode?): List<List<Int>> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    return res
+}
+
+/**
+ * 103. Binary Tree Zigzag Level Order Traversal
+ */
+
+fun zigzagLevelOrder(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val res = bfsZigZag(root)
+    for (i in 1 until res.size step 2) Collections.reverse(res[i])
+    return res
+}
+
+fun bfsZigZag(root: TreeNode?): List<List<Int>> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    var zigzag = true
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    return res
+}
+
+
 
 
 
