@@ -2251,38 +2251,6 @@ fun makeFancyString(s: String): String? {
 
 
 /**
- *
- */
-
-fun rob(root: TreeNode?): Int {
-    return rob(root, HashMap())
-}
-
-private fun rob(root: TreeNode?, map: MutableMap<TreeNode?, Int?>): Int {
-    if (root == null) return 0
-
-    if (map.containsKey(root)) return map[root]!!
-
-    var ans = 0
-
-    if (root.left != null) {
-        ans += rob(root.left!!.left, map) + rob(root.left!!.right, map)
-    }
-
-    if (root.right != null) {
-        ans += rob(root.right!!.left, map) + rob(root.right!!.right, map)
-    }
-
-    ans = max(
-        (ans + root.`val`).toDouble(),
-        (rob(root.left, map) + rob(root.right, map)).toDouble()
-    ).toInt()
-    map[root] = ans
-
-    return ans
-}
-
-/**
  * 2490. Circular Sentence
  */
 
@@ -2447,8 +2415,121 @@ fun bfsZigZag(root: TreeNode?): List<List<Int>> {
     return res
 }
 
+/**
+ * 107. Binary Tree Level Order Traversal II
+ */
+
+fun levelOrderBottom(root: TreeNode?): List<List<Int>> = bfsOrderBottom(root)
+
+fun bfsOrderBottom(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<MutableList<Int>>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        val subset = mutableListOf<Int>()
+        for (i in 0 until size) {
+            val node = q.poll()
+            subset.add(node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(subset)
+    }
+    reverse(res)
+    return res
+}
+
+fun reverse(obj: MutableList<MutableList<Int>>) {
+    var i = 0
+    var j = obj.size - 1
+    while (i < j) {
+        var temp = obj[i]
+        obj[i] = obj[j]
+        obj[j] = temp
+        i++
+        j--
+    }
+}
+
+/**
+ * 109. Convert Sorted List to Binary Search Tree
+ */
 
 
+fun sortedListToBST(head: ListNode?): TreeNode? {
+    if (head == null) return null
+    if (head.next == null) return TreeNode(head.`val`)
+
+    var slow = head
+    var fast = head
+    var prev: ListNode? = null
+
+    // Finding the middle element
+    while (fast?.next != null) {
+        prev = slow
+        slow = slow!!.next
+        fast = fast.next!!.next
+    }
+
+    // Create the root node with the middle element
+    val root = TreeNode(slow!!.`val`)
+
+    // Disconnect the left part of the list
+    fast = slow!!.next
+    if (prev != null) {
+        prev.next = null
+    }
+
+    // Recursively build left and right subtrees
+    root.left = sortedListToBST(head) // Left subtree
+    root.right = sortedListToBST(fast) // Right subtree
+
+    return root
+}
+
+/**
+ * 3. Longest Substring Without Repeating Characters
+ */
+
+fun lengthOfLongestSubstring(s: String): Int {
+    var left = 0
+    var maxLength = 0
+    val charSet = HashSet<Char>()
+
+    for (right in 0 until s.length) {
+        while (charSet.contains(s[right])) {
+            charSet.remove(s[left])
+            left++
+        }
+
+        charSet.add(s[right])
+        maxLength = max(maxLength.toDouble(), (right - left + 1).toDouble()).toInt()
+    }
+
+    return maxLength
+}
+
+/**
+ * 300. Longest Increasing Subsequence
+ */
+
+
+fun lengthOfLIS(nums: IntArray): Int {
+    val dp = IntArray(nums.size) { 1 }
+    val len = nums.size
+    var ans = 1
+    for (i in 0 until len) {
+        for (j in 0 until i) {
+            if (nums[i] > nums[j]) {
+                dp[i] = maxOf(dp[i], dp[j] + 1)
+                ans = maxOf(ans, dp[i])
+            }
+        }
+    }
+    return ans
+}
 
 
 

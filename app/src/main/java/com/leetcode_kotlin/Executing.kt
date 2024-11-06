@@ -8,6 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val arr = intArrayOf(10, 9, 2, 5, 3, 7, 101, 18)
+
+    lengthOfLIS(arr).also { println(it) }
 
 }
 
