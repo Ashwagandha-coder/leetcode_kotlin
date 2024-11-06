@@ -2251,38 +2251,6 @@ fun makeFancyString(s: String): String? {
 
 
 /**
- *
- */
-
-fun rob(root: TreeNode?): Int {
-    return rob(root, HashMap())
-}
-
-private fun rob(root: TreeNode?, map: MutableMap<TreeNode?, Int?>): Int {
-    if (root == null) return 0
-
-    if (map.containsKey(root)) return map[root]!!
-
-    var ans = 0
-
-    if (root.left != null) {
-        ans += rob(root.left!!.left, map) + rob(root.left!!.right, map)
-    }
-
-    if (root.right != null) {
-        ans += rob(root.right!!.left, map) + rob(root.right!!.right, map)
-    }
-
-    ans = max(
-        (ans + root.`val`).toDouble(),
-        (rob(root.left, map) + rob(root.right, map)).toDouble()
-    ).toInt()
-    map[root] = ans
-
-    return ans
-}
-
-/**
  * 2490. Circular Sentence
  */
 
@@ -2521,6 +2489,27 @@ fun sortedListToBST(head: ListNode?): TreeNode? {
     return root
 }
 
+/**
+ * 3. Longest Substring Without Repeating Characters
+ */
+
+fun lengthOfLongestSubstring(s: String): Int {
+    var left = 0
+    var maxLength = 0
+    val charSet = HashSet<Char>()
+
+    for (right in 0 until s.length) {
+        while (charSet.contains(s[right])) {
+            charSet.remove(s[left])
+            left++
+        }
+
+        charSet.add(s[right])
+        maxLength = max(maxLength.toDouble(), (right - left + 1).toDouble()).toInt()
+    }
+
+    return maxLength
+}
 
 
 

@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val head = intArrayOf(-10, -3, 0, 5, 9).toListNode()
+    val s = "abcabcbb"
 
-    sortedListToBST(head)
+    lengthOfLongestSubstring(s).also { println(it) }
 
 }
 
