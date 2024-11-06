@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "abcabcbb"
+    val arr = intArrayOf(10, 9, 2, 5, 3, 7, 101, 18)
 
-    lengthOfLongestSubstring(s).also { println(it) }
+    lengthOfLIS(arr).also { println(it) }
 
 }
 

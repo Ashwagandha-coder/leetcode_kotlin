@@ -2511,6 +2511,25 @@ fun lengthOfLongestSubstring(s: String): Int {
     return maxLength
 }
 
+/**
+ * 300. Longest Increasing Subsequence
+ */
+
+
+fun lengthOfLIS(nums: IntArray): Int {
+    val dp = IntArray(nums.size) { 1 }
+    val len = nums.size
+    var ans = 1
+    for (i in 0 until len) {
+        for (j in 0 until i) {
+            if (nums[i] > nums[j]) {
+                dp[i] = maxOf(dp[i], dp[j] + 1)
+                ans = maxOf(ans, dp[i])
+            }
+        }
+    }
+    return ans
+}
 
 
 
