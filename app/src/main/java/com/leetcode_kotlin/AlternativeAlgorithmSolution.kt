@@ -652,6 +652,26 @@ fun rotateStringAlt(s: String, goal: String): Boolean {
     return if (s.length != goal.length) false else (s + s).contains(goal)
 }
 
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun maxProductTwoElementsAltSolution(nums: IntArray): Int {
+    var one = 0
+    var two = 0
+    val len = nums.size
+    for (i in 0 until len) {
+        if (nums[i] > one) one = nums[i]
+        if (one > two) {
+            var temp = two
+            two = one
+            one = temp
+        }
+    }
+    return (one - 1) * (two - 1)
+}
 
 
 
