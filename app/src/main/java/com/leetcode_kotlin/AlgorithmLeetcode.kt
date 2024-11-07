@@ -2559,6 +2559,32 @@ fun findKthLargest(nums: IntArray, k: Int): Int {
     return res
 }
 
+/**
+ * 23. Merge k Sorted Lists
+ */
+
+fun mergeKLists(lists: Array<ListNode?>): ListNode? {
+    if (lists.isEmpty()) return null
+    val pq = PriorityQueue<Int>()
+    val len = lists.size
+    for (i in 0 until len) {
+        var head = lists[i]
+        while (head != null) {
+            pq.offer(head.`val`)
+            head = head?.next
+        }
+    }
+    var stub = ListNode(0)
+    var ans = stub
+    while (pq.isNotEmpty()) {
+        val value = pq.poll()
+        val node = ListNode(value)
+        stub.next = node
+        stub = stub.next!!
+    }
+    return ans.next
+}
+
 
 
 
