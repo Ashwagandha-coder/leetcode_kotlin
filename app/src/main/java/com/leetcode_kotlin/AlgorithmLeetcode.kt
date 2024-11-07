@@ -2575,7 +2575,7 @@ fun mergeKLists(lists: Array<ListNode?>): ListNode? {
         }
     }
     var stub = ListNode(0)
-    var ans = stub
+    val ans = stub
     while (pq.isNotEmpty()) {
         val value = pq.poll()
         val node = ListNode(value)
