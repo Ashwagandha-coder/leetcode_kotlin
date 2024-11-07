@@ -1,8 +1,11 @@
 package com.leetcode_kotlin
 
+import android.os.Build
+import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
+import java.util.PriorityQueue
 import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
@@ -2541,6 +2544,21 @@ fun maxProductTwoElements(nums: IntArray): Int {
     val len = nums.size
     return (nums[len - 1] - 1) * (nums[len - 2] - 1)
 }
+
+/**
+ * 215. Kth Largest Element in an Array
+ */
+
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun findKthLargest(nums: IntArray, k: Int): Int {
+    val pq = PriorityQueue<Int> {a, b -> b - a}
+    pq.addAll(nums.toTypedArray())
+    var res = 0
+    for (i in 0 until k) res = pq.poll()
+    return res
+}
+
 
 
 
