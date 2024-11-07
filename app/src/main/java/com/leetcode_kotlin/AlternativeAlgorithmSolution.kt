@@ -1,6 +1,5 @@
 package com.leetcode_kotlin
 
-import android.annotation.SuppressLint
 import java.util.Arrays
 import java.util.PriorityQueue
 import kotlin.math.abs
@@ -688,6 +687,49 @@ fun maxProductTwoElementsPriorityQueueSolution(nums: IntArray): Int {
     return (one - 1) * (two - 1)
 }
 
+/**
+ * 23. Merge k Sorted Lists
+ * Alt Solution
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+fun mergeKListsAltSolution(lists: Array<ListNode?>): ListNode? {
+    var lists = lists
+    if (lists.isEmpty()) return null
+
+    while (lists.size > 1) {
+        val temp: MutableList<ListNode?> = ArrayList()
+        var i = 0
+        while (i < lists.size) {
+            val l1 = lists[i]
+            val l2 = if (i + 1 < lists.size) lists[i + 1] else null
+            temp.add(mergeListNodes(l1, l2))
+            i += 2
+        }
+        lists = temp.toTypedArray<ListNode?>()
+    }
+    return lists.first()
+}
+
+fun mergeListNodes(l1: ListNode?, l2: ListNode?): ListNode? {
+    var l1 = l1
+    var l2 = l2
+    var stub = ListNode(0)
+    val head = stub
+    while (l1 != null && l2 != null) {
+        if (l1.`val` > l2.`val`) {
+            stub?.next = l2
+            l2 = l2?.next
+        } else {
+            stub?.next = l1
+            l1 = l1?.next
+        }
+        stub = stub.next!!
+    }
+    stub?.next = l1 ?: l2
+    return head?.next
+}
 
 
 
