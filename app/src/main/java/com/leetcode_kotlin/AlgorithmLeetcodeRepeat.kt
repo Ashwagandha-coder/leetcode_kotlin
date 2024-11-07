@@ -1079,3 +1079,22 @@ fun bfsRepeat(root: TreeNode): List<Int> {
     }
     return res
 }
+
+/**
+ * Repeat Length Incresing Subsequnce
+ */
+
+fun Repeat.lengthOfIncreasingSubsequence(nums: IntArray): Int {
+    val len = nums.size
+    val dp = IntArray(len) { 1 }
+    var ans = 1
+    for (i in 0 until len) {
+        for (j in 0 until i) {
+            if (nums[i] > nums[j]) {
+                dp[i] = maxOf(dp[i], dp[j] + 1)
+                ans = maxOf(ans, dp[i])
+            }
+        }
+    }
+    return ans
+}
