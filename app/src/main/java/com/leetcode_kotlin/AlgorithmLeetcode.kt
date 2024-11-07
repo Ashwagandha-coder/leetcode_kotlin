@@ -2531,6 +2531,18 @@ fun lengthOfLIS(nums: IntArray): Int {
 }
 
 
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n * logn)
+ */
+
+fun maxProductTwoElements(nums: IntArray): Int {
+    nums.sort()
+    val len = nums.size
+    return (nums[len - 1] - 1) * (nums[len - 2] - 1)
+}
+
+
 
 
 
