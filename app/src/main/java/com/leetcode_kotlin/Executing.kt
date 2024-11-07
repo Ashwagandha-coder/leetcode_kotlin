@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(10, 9, 2, 5, 3, 7, 101, 18)
+    val arr = intArrayOf(3, 4, 5, 2)
+    maxProductTwoElementsPriorityQueueSolution(arr).also { println(it) }
 
-    Repeat.value.lengthOfIncreasingSubsequence(arr).also { println(it) }
 
 }
 

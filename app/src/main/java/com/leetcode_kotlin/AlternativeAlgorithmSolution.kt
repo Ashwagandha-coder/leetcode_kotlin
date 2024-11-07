@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import java.util.Arrays
 import java.util.PriorityQueue
 import kotlin.math.abs
@@ -588,7 +589,6 @@ fun reverseListAlt(head: ListNode?): ListNode? {
  */
 
 
-
 fun longestPalindromeAlt(s: String): String {
     val n = s.length
     if (n < 2) return s
@@ -670,6 +670,21 @@ fun maxProductTwoElementsAltSolution(nums: IntArray): Int {
             one = temp
         }
     }
+    return (one - 1) * (two - 1)
+}
+
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+
+fun maxProductTwoElementsPriorityQueueSolution(nums: IntArray): Int {
+    val pq = PriorityQueue<Int> { num1, num2 -> num2 - num1 }
+    pq.addAll(nums.toTypedArray())
+    val one = pq.poll()
+    val two = pq.poll()
     return (one - 1) * (two - 1)
 }
 
