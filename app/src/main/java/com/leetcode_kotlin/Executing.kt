@@ -8,10 +8,15 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(10, 9, 2, 5, 3, 7, 101, 18)
+    test()
 
-    Repeat.value.lengthOfIncreasingSubsequence(arr).also { println(it) }
 
+}
+
+fun test() {
+    val num = listOf(4, 5, 6, 67, 8)
+    val res = num.maxByOrNull { it == 68 }
+    println(res)
 }
 
 fun createTreeNodeForBFS(): TreeNode {

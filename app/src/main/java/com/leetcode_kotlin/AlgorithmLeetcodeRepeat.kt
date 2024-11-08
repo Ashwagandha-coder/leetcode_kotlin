@@ -1098,3 +1098,39 @@ fun Repeat.lengthOfIncreasingSubsequence(nums: IntArray): Int {
     }
     return ans
 }
+
+/**
+ * Repeat longest Palindrome
+ */
+
+fun longestPalindromeRepeat(s: String): String {
+    if (s.length == 1) return s
+    val len = s.length
+    val dp = Array(len) { BooleanArray(len) }
+    var maxLen = 0
+    var start = 0
+    var end = 0
+    for (i in 0 until len) dp[i][i] = true
+    for (i in 0 until len - 1) {
+        if (s[i] == s[i + 1]) {
+            dp[i][i + 1] = true
+            start = i
+            end = i + 1
+            maxLen = 2
+        }
+    }
+    for (size in 3..len) {
+        for (i in 0 until (len - size) + 1) {
+            var j = i + (size - 1)
+            if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                dp[i][j] = true
+                if (size > maxLen) {
+                    maxLen = size
+                    start = i
+                    end = j
+                }
+            }
+        }
+    }
+    return s.substring(start, end + 1)
+}

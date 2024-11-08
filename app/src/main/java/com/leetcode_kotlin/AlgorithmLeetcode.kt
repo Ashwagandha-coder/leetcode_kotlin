@@ -1,8 +1,12 @@
 package com.leetcode_kotlin
 
+import android.os.Build
+import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
+import java.util.Objects
+import java.util.PriorityQueue
 import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
@@ -2530,6 +2534,83 @@ fun lengthOfLIS(nums: IntArray): Int {
     return ans
 }
 
+
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n * logn)
+ */
+
+fun maxProductTwoElements(nums: IntArray): Int {
+    nums.sort()
+    val len = nums.size
+    return (nums[len - 1] - 1) * (nums[len - 2] - 1)
+}
+
+/**
+ * 215. Kth Largest Element in an Array
+ */
+
+
+@RequiresApi(Build.VERSION_CODES.N)
+fun findKthLargest(nums: IntArray, k: Int): Int {
+    val pq = PriorityQueue<Int> {a, b -> b - a}
+    pq.addAll(nums.toTypedArray())
+    var res = 0
+    for (i in 0 until k) res = pq.poll()
+    return res
+}
+
+/**
+ * 23. Merge k Sorted Lists
+ */
+
+fun mergeKLists(lists: Array<ListNode?>): ListNode? {
+    if (lists.isEmpty()) return null
+    val pq = PriorityQueue<Int>()
+    val len = lists.size
+    for (i in 0 until len) {
+        var head = lists[i]
+        while (head != null) {
+            pq.offer(head.`val`)
+            head = head?.next
+        }
+    }
+    var stub = ListNode(0)
+    val ans = stub
+    while (pq.isNotEmpty()) {
+        val value = pq.poll()
+        val node = ListNode(value)
+        stub.next = node
+        stub = stub.next!!
+    }
+    return ans.next
+}
+
+/**
+ *
+ */
+
+fun topKFrequent(nums: IntArray, k: Int): IntArray? {
+    val counter: MutableMap<Int, Int> = HashMap()
+    for (n in nums) {
+        counter[n] = counter.getOrDefault(n, 0) + 1
+    }
+
+    val heap = PriorityQueue { a: Map.Entry<Int, Int>, b: Map.Entry<Int, Int> ->
+        b.value.compareTo(a.value)
+    }
+
+    for (entry in counter.entries) {
+        heap.offer(entry)
+    }
+
+    val res = IntArray(k)
+    for (i in 0 until k) {
+        res[i] = Objects.requireNonNull(heap.poll()).key
+    }
+
+    return res
+}
 
 
 

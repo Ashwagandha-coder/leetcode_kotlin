@@ -211,13 +211,11 @@ fun solve(board: Array<CharArray>, row: Int, n: Int): List<List<String>> = if (r
 
 fun longestConsecutiveSequenceProdVariant(nums: IntArray): Int {
     val set = nums.toHashSet()
-    return set.filter { !set.contains(it - 1) }
-        .maxOfOrNull { num ->
-            generateSequence(num) { s -> s + 1 }
-                .takeWhile {
-                    set.contains(it)
-                }.count()
-        } ?: 0
+    return set.filter { !set.contains(it - 1) }.maxOfOrNull { num ->
+        generateSequence(num) { s -> s + 1 }.takeWhile {
+            set.contains(it)
+        }.count()
+    } ?: 0
 }
 
 
@@ -311,8 +309,7 @@ fun findMaxAverageProdVariant(nums: IntArray, k: Int): Int {
  * Prod Variant
  */
 
-fun countGoodSubstringsProdVariant(s: String): Int =
-    s.windowed(3).count { it.toSet().size == 3 }
+fun countGoodSubstringsProdVariant(s: String): Int = s.windowed(3).count { it.toSet().size == 3 }
 
 
 /**
@@ -327,4 +324,19 @@ fun isSubsequenceProdVariant(s: String, t: String): Boolean {
         if (sIndex < s.length && s[sIndex] == it) sIndex++
     }
     return sIndex == s.length
+}
+
+/**
+ * 5. Longest Palindromic Substring
+ * Prod Variant
+ * Time - O(n^3)
+ * Space - O(n^2)
+ */
+
+fun String.longestPalindrome(): String {
+    return (1..length).flatMap { i ->
+        (0 until length - i + 1).map { j ->
+            substring(j, j + 1)
+        }
+    }.filter { it == it.reversed() }.maxByOrNull { it.length } ?: ""
 }

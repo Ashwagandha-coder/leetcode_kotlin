@@ -588,7 +588,6 @@ fun reverseListAlt(head: ListNode?): ListNode? {
  */
 
 
-
 fun longestPalindromeAlt(s: String): String {
     val n = s.length
     if (n < 2) return s
@@ -652,7 +651,125 @@ fun rotateStringAlt(s: String, goal: String): Boolean {
     return if (s.length != goal.length) false else (s + s).contains(goal)
 }
 
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n)
+ * Space - O(1)
+ */
 
+fun maxProductTwoElementsAltSolution(nums: IntArray): Int {
+    var one = 0
+    var two = 0
+    val len = nums.size
+    for (i in 0 until len) {
+        if (nums[i] > one) one = nums[i]
+        if (one > two) {
+            var temp = two
+            two = one
+            one = temp
+        }
+    }
+    return (one - 1) * (two - 1)
+}
+
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+
+fun maxProductTwoElementsPriorityQueueSolution(nums: IntArray): Int {
+    val pq = PriorityQueue<Int> { num1, num2 -> num2 - num1 }
+    pq.addAll(nums.toTypedArray())
+    val one = pq.poll()
+    val two = pq.poll()
+    return (one - 1) * (two - 1)
+}
+
+/**
+ * 23. Merge k Sorted Lists
+ * Alt Solution
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+fun mergeKListsAltSolution(lists: Array<ListNode?>): ListNode? {
+    var lists = lists
+    if (lists.isEmpty()) return null
+
+    while (lists.size > 1) {
+        val temp: MutableList<ListNode?> = ArrayList()
+        var i = 0
+        while (i < lists.size) {
+            val l1 = lists[i]
+            val l2 = if (i + 1 < lists.size) lists[i + 1] else null
+            temp.add(mergeListNodes(l1, l2))
+            i += 2
+        }
+        lists = temp.toTypedArray<ListNode?>()
+    }
+    return lists.first()
+}
+
+fun mergeListNodes(l1: ListNode?, l2: ListNode?): ListNode? {
+    var l1 = l1
+    var l2 = l2
+    var stub = ListNode(0)
+    val head = stub
+    while (l1 != null && l2 != null) {
+        if (l1.`val` > l2.`val`) {
+            stub?.next = l2
+            l2 = l2?.next
+        } else {
+            stub?.next = l1
+            l1 = l1?.next
+        }
+        stub = stub.next!!
+    }
+    stub?.next = l1 ?: l2
+    return head?.next
+}
+
+/**
+ * Algo Meneier
+ */
+
+fun longestPalindrome(s: String): String? {
+    var s = s
+    if (s.length <= 1) {
+        return s
+    }
+
+    var maxLen = 1
+    var maxStr = s.substring(0, 1)
+    s = "#" + s.replace("".toRegex(), "#") + "#"
+    val dp = IntArray(s.length)
+    var center = 0
+    var right = 0
+
+    for (i in s.indices) {
+        if (i < right) {
+            dp[i] = min((right - i).toDouble(), dp[2 * center - i].toDouble()).toInt()
+        }
+
+        while (i - dp[i] - 1 >= 0 && i + dp[i] + 1 < s.length && s[i - dp[i] - 1] == s[i + dp[i] + 1]) {
+            dp[i]++
+        }
+
+        if (i + dp[i] > right) {
+            center = i
+            right = i + dp[i]
+        }
+
+        if (dp[i] > maxLen) {
+            maxLen = dp[i]
+            maxStr = s.substring(i - dp[i], i + dp[i] + 1).replace("#".toRegex(), "")
+        }
+    }
+
+    return maxStr
+}
 
 
 
