@@ -8,10 +8,15 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "caba"
-    longestPalindromeRepeat(s).also { println(it) }
+    test()
 
 
+}
+
+fun test() {
+    val num = listOf(4, 5, 6, 67, 8)
+    val res = num.maxByOrNull { it == 68 }
+    println(res)
 }
 
 fun createTreeNodeForBFS(): TreeNode {
