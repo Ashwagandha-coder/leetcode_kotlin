@@ -8,8 +8,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(3, 4, 5, 2)
-    maxProductTwoElementsPriorityQueueSolution(arr).also { println(it) }
+    val s = "caba"
+    longestPalindromeRepeat(s).also { println(it) }
 
 
 }

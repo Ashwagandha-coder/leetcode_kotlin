@@ -5,6 +5,7 @@ import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
+import java.util.Objects
 import java.util.PriorityQueue
 import java.util.Queue
 import kotlin.math.abs
@@ -2583,6 +2584,32 @@ fun mergeKLists(lists: Array<ListNode?>): ListNode? {
         stub = stub.next!!
     }
     return ans.next
+}
+
+/**
+ *
+ */
+
+fun topKFrequent(nums: IntArray, k: Int): IntArray? {
+    val counter: MutableMap<Int, Int> = HashMap()
+    for (n in nums) {
+        counter[n] = counter.getOrDefault(n, 0) + 1
+    }
+
+    val heap = PriorityQueue { a: Map.Entry<Int, Int>, b: Map.Entry<Int, Int> ->
+        b.value.compareTo(a.value)
+    }
+
+    for (entry in counter.entries) {
+        heap.offer(entry)
+    }
+
+    val res = IntArray(k)
+    for (i in 0 until k) {
+        res[i] = Objects.requireNonNull(heap.poll()).key
+    }
+
+    return res
 }
 
 
