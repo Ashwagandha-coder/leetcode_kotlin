@@ -731,6 +731,46 @@ fun mergeListNodes(l1: ListNode?, l2: ListNode?): ListNode? {
     return head?.next
 }
 
+/**
+ * Algo Meneier
+ */
+
+fun longestPalindrome(s: String): String? {
+    var s = s
+    if (s.length <= 1) {
+        return s
+    }
+
+    var maxLen = 1
+    var maxStr = s.substring(0, 1)
+    s = "#" + s.replace("".toRegex(), "#") + "#"
+    val dp = IntArray(s.length)
+    var center = 0
+    var right = 0
+
+    for (i in s.indices) {
+        if (i < right) {
+            dp[i] = min((right - i).toDouble(), dp[2 * center - i].toDouble()).toInt()
+        }
+
+        while (i - dp[i] - 1 >= 0 && i + dp[i] + 1 < s.length && s[i - dp[i] - 1] == s[i + dp[i] + 1]) {
+            dp[i]++
+        }
+
+        if (i + dp[i] > right) {
+            center = i
+            right = i + dp[i]
+        }
+
+        if (dp[i] > maxLen) {
+            maxLen = dp[i]
+            maxStr = s.substring(i - dp[i], i + dp[i] + 1).replace("#".toRegex(), "")
+        }
+    }
+
+    return maxStr
+}
+
 
 
 
