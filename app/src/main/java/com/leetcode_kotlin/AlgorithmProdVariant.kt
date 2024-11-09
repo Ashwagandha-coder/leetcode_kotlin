@@ -340,3 +340,16 @@ fun String.longestPalindrome(): String {
         }
     }.filter { it == it.reversed() }.maxByOrNull { it.length } ?: ""
 }
+
+/**
+ * 7. Reverse Integer
+ */
+
+fun Int.reverse(number: Int): Int {
+    val reversed = number.toString().reversed()
+    return try {
+        reversed.toInt()
+    } catch (e: NumberFormatException) {
+        0
+    }
+}
