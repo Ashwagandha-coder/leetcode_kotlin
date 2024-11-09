@@ -1134,3 +1134,20 @@ fun longestPalindromeRepeat(s: String): String {
     }
     return s.substring(start, end + 1)
 }
+
+/**
+ * Repeat Reverse Integer
+ */
+
+fun reverseRepeat(x: Int): Int {
+    var x = x
+    var res = 0
+    while (x != 0) {
+        var temp = x % 10
+        x /= 10
+        if (res > Int.MAX_VALUE / 10 || (res == Int.MAX_VALUE / 10 && temp > 8)) return 0
+        if (res < Int.MIN_VALUE / 10 || (res == Int.MIN_VALUE / 10 && temp < -7)) return 0
+        res = res * 10 + temp
+    }
+    return res
+}
