@@ -343,6 +343,7 @@ fun String.longestPalindrome(): String {
 
 /**
  * 7. Reverse Integer
+ * Prod Variant
  */
 
 fun Int.reverse(number: Int): Int {
