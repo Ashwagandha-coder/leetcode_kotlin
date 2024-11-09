@@ -354,3 +354,20 @@ fun Int.reverse(number: Int): Int {
         0
     }
 }
+
+/**
+ * 206. Reverse Linked List
+ * Prod Variant
+ */
+
+fun ListNode.reverse(): ListNode? {
+    return when {
+        this == null || next == null -> this
+        else -> {
+            val tail = next?.reverse()
+            next?.next = this
+            next = null
+            tail
+        }
+    }
+}

@@ -1151,3 +1151,20 @@ fun reverseRepeat(x: Int): Int {
     }
     return res
 }
+
+/**
+ * Repeat Reverse Linked List
+ */
+
+fun reverseListRepeat(head: ListNode?): ListNode? {
+    var prev: ListNode? = null
+    var curr = head
+    var next: ListNode? = null
+    while (curr != null) {
+        next = curr?.next
+        curr?.next = prev
+        prev = curr
+        curr = next
+    }
+    return prev
+}
