@@ -8,7 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    test()
+    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
+
+    head.reverse()?.printListNode()
 
 
 }

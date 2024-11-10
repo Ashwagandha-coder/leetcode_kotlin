@@ -2612,6 +2612,35 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray? {
     return res
 }
 
+/**
+ * 92. Reverse Linked List II
+ */
+
+fun reverseBetween(head: ListNode?, left: Int, right: Int): ListNode? {
+    if (head == null || left == right) {
+        return head
+    }
+
+    val dummy = ListNode(0)
+    dummy.next = head
+    var prev: ListNode? = dummy
+
+    for (i in 0 until left - 1) {
+        prev = prev!!.next
+    }
+
+    val cur = prev!!.next
+
+    for (i in 0 until right - left) {
+        val temp = cur!!.next
+        cur!!.next = temp!!.next
+        temp!!.next = prev!!.next
+        prev!!.next = temp
+    }
+
+    return dummy.next
+}
+
 
 
 

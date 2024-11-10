@@ -343,6 +343,7 @@ fun String.longestPalindrome(): String {
 
 /**
  * 7. Reverse Integer
+ * Prod Variant
  */
 
 fun Int.reverse(number: Int): Int {
@@ -351,5 +352,22 @@ fun Int.reverse(number: Int): Int {
         reversed.toInt()
     } catch (e: NumberFormatException) {
         0
+    }
+}
+
+/**
+ * 206. Reverse Linked List
+ * Prod Variant
+ */
+
+fun ListNode.reverse(): ListNode? {
+    return when {
+        this == null || next == null -> this
+        else -> {
+            val tail = next?.reverse()
+            next?.next = this
+            next = null
+            tail
+        }
     }
 }
