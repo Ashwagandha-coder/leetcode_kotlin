@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
+    val arr = intArrayOf(5, 4, 3, 2, 1)
 
-    head.reverse()?.printListNode()
+    findRelativeRanks(arr).also { println(it) }
 
 
 }

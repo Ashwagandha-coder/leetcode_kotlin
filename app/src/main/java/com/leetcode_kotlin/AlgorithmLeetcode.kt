@@ -2553,7 +2553,7 @@ fun maxProductTwoElements(nums: IntArray): Int {
 
 @RequiresApi(Build.VERSION_CODES.N)
 fun findKthLargest(nums: IntArray, k: Int): Int {
-    val pq = PriorityQueue<Int> {a, b -> b - a}
+    val pq = PriorityQueue<Int> { a, b -> b - a }
     pq.addAll(nums.toTypedArray())
     var res = 0
     for (i in 0 until k) res = pq.poll()
@@ -2639,6 +2639,35 @@ fun reverseBetween(head: ListNode?, left: Int, right: Int): ListNode? {
     }
 
     return dummy.next
+}
+
+/**
+ * 506. Relative Ranks
+ */
+
+fun findRelativeRanks(score: IntArray): Array<String> {
+    val pq = PriorityQueue<Int> { a, b -> b - a }
+    val map = mutableMapOf<Int, Int>()
+    val len = score.size
+    val ans = Array(len) { "" }
+    var count = 1
+    val gold = "Gold Medal"
+    val silver = "Silver Medal"
+    val bronze = "Bronze Medal"
+    for (i in 0 until len) {
+        map[score[i]] = i
+        pq.offer(score[i])
+    }
+    while (pq.isNotEmpty()) {
+        val num = pq.poll()
+        val index = map[num]
+        if (count == 1) ans[index!!] = gold
+        if (count == 2) ans[index!!] = silver
+        if (count == 3) ans[index!!] = bronze
+        if (count > 3) ans[index!!] = count.toString()
+        count++
+    }
+    return ans
 }
 
 
