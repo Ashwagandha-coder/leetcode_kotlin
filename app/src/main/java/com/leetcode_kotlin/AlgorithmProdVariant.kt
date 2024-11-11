@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import java.util.LinkedList
+import java.util.PriorityQueue
 import kotlin.math.abs
 
 
@@ -370,4 +372,31 @@ fun ListNode.reverse(): ListNode? {
             tail
         }
     }
+}
+
+/**
+ * 506. Relative Ranks
+ * Prod Variant
+ */
+
+@SuppressLint("NewApi")
+fun findRelativeRanksProdVariant(nums: IntArray): Array<String> {
+    val pq = PriorityQueue<Int> { a, b -> b - a }
+    val map = mutableMapOf<Int, Int>()
+    val res = Array(nums.size) { "" }
+    nums.forEachIndexed { e, index ->
+        map[e] = index
+        pq.offer(e)
+    }
+    repeat(nums.size) {
+        val num = pq.poll()
+        val index = map.getOrDefault(num, 0)
+        res[index] = when (it) {
+            1 -> "Gold Medal"
+            2 -> "Silver Medal"
+            3 -> "Bronze Medal"
+            else -> num.toString()
+        }
+    }
+    return res
 }
