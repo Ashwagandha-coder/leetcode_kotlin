@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
 import java.util.Arrays
@@ -2586,31 +2587,6 @@ fun mergeKLists(lists: Array<ListNode?>): ListNode? {
     return ans.next
 }
 
-/**
- *
- */
-
-fun topKFrequent(nums: IntArray, k: Int): IntArray? {
-    val counter: MutableMap<Int, Int> = HashMap()
-    for (n in nums) {
-        counter[n] = counter.getOrDefault(n, 0) + 1
-    }
-
-    val heap = PriorityQueue { a: Map.Entry<Int, Int>, b: Map.Entry<Int, Int> ->
-        b.value.compareTo(a.value)
-    }
-
-    for (entry in counter.entries) {
-        heap.offer(entry)
-    }
-
-    val res = IntArray(k)
-    for (i in 0 until k) {
-        res[i] = Objects.requireNonNull(heap.poll()).key
-    }
-
-    return res
-}
 
 /**
  * 92. Reverse Linked List II
@@ -2669,6 +2645,35 @@ fun findRelativeRanks(score: IntArray): Array<String> {
     }
     return ans
 }
+
+/**
+ * 347. Top K Frequent Elements
+ */
+
+fun topKFrequent(nums: IntArray, k: Int): IntArray? {
+    val map: MutableMap<Int, Int> = HashMap()
+    for (n in nums) {
+        map[n] = map.getOrDefault(n, 0) + 1
+    }
+
+    val heap = PriorityQueue { a: Map.Entry<Int, Int>, b: Map.Entry<Int, Int> ->
+        b.value.compareTo(a.value)
+    }
+
+    for (entry in map.entries) {
+        heap.offer(entry)
+    }
+
+    val res = IntArray(k)
+    for (i in 0 until k) {
+        res[i] = heap.poll().key
+    }
+
+    return res
+}
+
+
+
 
 
 
