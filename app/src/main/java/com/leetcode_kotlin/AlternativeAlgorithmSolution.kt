@@ -771,6 +771,26 @@ fun longestPalindrome(s: String): String? {
     return maxStr
 }
 
+/**
+ * 347. Top K Frequent Elements
+ * Alt Solution
+ */
+
+fun topKFrequentAlt(nums: IntArray, k: Int): IntArray {
+    val frequencyMap = nums.toList().groupingBy { it }.eachCount()
+    val priorityQueue =
+        PriorityQueue<Int>(compareByDescending { frequencyMap[it] })
+
+    priorityQueue.addAll(frequencyMap.keys)
+
+    val result = IntArray(k)
+    for (i in 0 until k) {
+        result[i] = priorityQueue.poll()
+    }
+
+    return result
+}
+
 
 
 
