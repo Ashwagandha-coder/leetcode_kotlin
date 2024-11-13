@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.PriorityQueue
+
 
 /**
  * Executing
@@ -8,9 +10,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val strs = arrayOf("flow", "flight", "flower")
-
-    longestCommonPrefixWithTrie(strs).also { println(it) }
+    usingComparable()
 
 }
 
@@ -42,6 +42,20 @@ fun createTreeNodeForPathSumIII(): TreeNode {
     root?.left?.left?.right = TreeNode(-2)
     root?.left?.right?.right = TreeNode(1)
     return root
+}
+
+
+class Impl : Comparable<Int> {
+    override fun compareTo(other: Int): Int = 0
+}
+
+
+fun queueWork() {
+    val comparable = object : Comparable<Int> {
+        override fun compareTo(other: Int): Int {
+            TODO("Not yet implemented")
+        }
+    }
 }
 
 

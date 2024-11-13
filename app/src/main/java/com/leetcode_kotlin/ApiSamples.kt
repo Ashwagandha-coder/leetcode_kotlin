@@ -184,3 +184,26 @@ fun sampleSpliterator() {
  *  7. Standart library, what is ?
  *  8. Search new features to kotlin API
  */
+
+/**
+ * Sample Using Comparable
+ */
+
+data class Task(val name: String, val priority: Int) : Comparable<Task> {
+    override fun compareTo(other: Task): Int {
+        return this.priority.compareTo(other.priority) // Сравнение по приоритету
+    }
+}
+
+data class Polet(val time: Int, val priority: Int) : Comparable<Polet> {
+    override fun compareTo(other: Polet): Int = this.priority.compareTo(other.priority)
+
+}
+
+
+fun usingComparable() {
+    val polets = listOf(Polet(23, 1), Polet(34, 2), Polet(45, 1))
+    val sorter = polets.sorted()
+    println(sorter)
+}
+
