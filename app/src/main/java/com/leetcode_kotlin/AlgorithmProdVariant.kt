@@ -408,7 +408,7 @@ fun findRelativeRanksProdVariant(nums: IntArray): Array<String> {
  * Space - O(W) where W - is width in each level in tree
  */
 
-fun levelOrderTraversal(root: TreeNode?): List<List<Int>> = bfsProdVariant(root)
+fun levelOrderProdVariant(root: TreeNode?): List<List<Int>> = bfsProdVariant(root)
 
 fun bfsProdVariant(root: TreeNode?): List<List<Int>> {
     val res = mutableListOf<MutableList<Int>>()
