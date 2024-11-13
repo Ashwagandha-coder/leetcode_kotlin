@@ -207,3 +207,19 @@ fun usingComparable() {
     println(sorter)
 }
 
+/**
+ * Sample Using Comparator
+ */
+
+class TaskNameComparator : Comparator<Polet> {
+    override fun compare(o1: Polet, o2: Polet): Int =
+        o1.priority.compareTo(o2.priority)
+}
+
+fun usingComparator() {
+    val polets = listOf(Polet(23, 1), Polet(34, 2), Polet(45, 1))
+    val lambda: (a: Polet, b: Polet) -> Int = { one, two -> one.compareTo(two) }
+    val sorter = polets.sortedWith { one, two -> one.compareTo(two) }
+    println(sorter)
+}
+

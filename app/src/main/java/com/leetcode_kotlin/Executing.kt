@@ -10,7 +10,7 @@ import java.util.PriorityQueue
 
 fun main() {
 
-    usingComparable()
+    usingComparator()
 
 }
 
