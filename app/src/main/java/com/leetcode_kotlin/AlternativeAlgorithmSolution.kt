@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import java.util.Arrays
+import java.util.LinkedList
 import java.util.PriorityQueue
 import kotlin.math.abs
 import kotlin.math.max
@@ -679,6 +681,7 @@ fun maxProductTwoElementsAltSolution(nums: IntArray): Int {
  */
 
 
+@SuppressLint("NewApi")
 fun maxProductTwoElementsPriorityQueueSolution(nums: IntArray): Int {
     val pq = PriorityQueue<Int> { num1, num2 -> num2 - num1 }
     pq.addAll(nums.toTypedArray())
@@ -769,6 +772,53 @@ fun longestPalindrome(s: String): String? {
     }
 
     return maxStr
+}
+
+/**
+ * 347. Top K Frequent Elements
+ * Alt Solution
+ */
+
+fun topKFrequentAlt(nums: IntArray, k: Int): IntArray {
+    val frequencyMap = nums.toList().groupingBy { it }.eachCount()
+    val priorityQueue =
+        PriorityQueue<Int>(compareByDescending { frequencyMap[it] })
+
+    priorityQueue.addAll(frequencyMap.keys)
+
+    val result = IntArray(k)
+    for (i in 0 until k) {
+        result[i] = priorityQueue.poll()
+    }
+
+    return result
+}
+
+/**
+ * 102. Binary Tree Level Order Traversal
+ * Alt Solution with Recursion
+ */
+
+fun levelOrderAltSolution(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val ans = mutableListOf<MutableList<Int>>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    levelOrderAltBfs(root, q, ans)
+    return ans
+}
+fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<MutableList<Int>>) {
+    if (q.isEmpty()) return
+    val size = q.size
+    val subset = mutableListOf<Int>()
+    for (i in 0 until size) {
+        val node = q.poll()
+        subset.add(node.`val`)
+        if (node?.left != null) q.offer(node?.left)
+        if (node?.right != null) q.offer(node?.right)
+    }
+    ans.add(subset)
+    levelOrderAltBfs(root, q, ans)
 }
 
 

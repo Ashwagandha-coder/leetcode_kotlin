@@ -1,12 +1,10 @@
 package com.leetcode_kotlin
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
-import java.util.Objects
 import java.util.PriorityQueue
 import java.util.Queue
 import kotlin.math.abs
@@ -2671,6 +2669,35 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray? {
 
     return res
 }
+
+/**
+ * 437. Path Sum III
+ */
+
+fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
+    val prefixSumMap = mutableMapOf<Long, Int>(0L to 1) // Use Long for keys
+    var count = 0
+
+    fun dfs(node: TreeNode?, currentSum: Long) { // Use Long for currentSum
+        node ?: return
+
+        val newSum = currentSum + node.`val`
+        count += prefixSumMap.getOrDefault(
+            newSum - targetSum.toLong(),
+            0
+        ) // Convert targetSum to Long
+        prefixSumMap[newSum] = prefixSumMap.getOrDefault(newSum, 0) + 1
+
+        dfs(node.left, newSum)
+        dfs(node.right, newSum)
+
+        prefixSumMap[newSum] = prefixSumMap.getOrDefault(newSum, 0) - 1
+    }
+
+    dfs(root, 0L) // Start DFS with initial currentSum as Long
+    return count
+}
+
 
 
 
