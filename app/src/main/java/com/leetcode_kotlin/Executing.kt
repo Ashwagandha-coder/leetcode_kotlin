@@ -8,7 +8,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-
+    val root = createTreeNodeForPathSumIII()
+    pathSumIII(root, 8).apply { println(this) }
 
 }
 
@@ -26,6 +27,19 @@ fun createTreeNodeForBFS(): TreeNode {
     root.left!!.right = TreeNode(5)
     root.right!!.left = TreeNode(6)
     root.right!!.right = TreeNode(7)
+    return root
+}
+
+fun createTreeNodeForPathSumIII(): TreeNode {
+    val root = TreeNode(10)
+    root.left = TreeNode(5)
+    root.right = TreeNode(-3)
+    root.left!!.left = TreeNode(3)
+    root.left!!.right = TreeNode(2)
+    root.right!!.right = TreeNode(11)
+    root?.left?.left?.left = TreeNode(3)
+    root?.left?.left?.right = TreeNode(-2)
+    root?.left?.right?.right = TreeNode(1)
     return root
 }
 
