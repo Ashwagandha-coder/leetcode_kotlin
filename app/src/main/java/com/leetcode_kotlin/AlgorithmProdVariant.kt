@@ -427,3 +427,46 @@ fun bfsProdVariant(root: TreeNode?): List<List<Int>> {
     }
     return res
 }
+
+/**
+ * 113. Path Sum II
+ * Prod Variant
+ * Time - O(n)
+ * Space - O(H) where H - is height tree
+ */
+
+fun pathSum(root: TreeNode?, targetSum: Int): List<List<Int>> {
+    val result: MutableList<List<Int>> = ArrayList()
+    val currentPath: MutableList<Int> = ArrayList()
+    dfsPathSumProdVariant(root, currentPath, 0, targetSum, result)
+    return result
+}
+
+
+fun dfsPathSumProdVariant(
+    node: TreeNode?,
+    currentPath: List<Int>,
+    currentSum: Int,
+    target: Int,
+    result: MutableList<List<Int>>
+) {
+    node ?: return // If node is null, return
+
+    val newPath = currentPath + node.`val`
+    val newSum = currentSum + node.`val`
+
+    if (node.left == null && node.right == null && newSum == target) {
+        result.add(newPath) // Add the path to the result
+    } else {
+        node.left?.let {
+            dfsPathSumProdVariant(
+                it, newPath, newSum, target, result
+            )
+        }
+        node.right?.let {
+            dfsPathSumProdVariant(
+                it, newPath, newSum, target, result
+            )
+        }
+    }
+}
