@@ -481,7 +481,7 @@ fun dfsPathSumProdVariant(
 
 fun combinationSumProdVariant(candidates: IntArray, target: Int): List<List<Int>> {
     val result = mutableListOf<List<Int>>()
-    backtrackProdVariant(candidates, mutableListOf(), target, 0, result) // Start backtracking
+    backtrackProdVariant(candidates, mutableListOf(), target, 0, result)
     return result
 }
 
@@ -493,12 +493,12 @@ fun backtrackProdVariant(
     res: MutableList<List<Int>>
 ) {
     if (remaining == 0) {
-        res.add(combination) // Found a valid combination
+        res.add(combination)
         return
     }
 
     if (remaining < 0) {
-        return // Combination exceeds target
+        return
     }
 
     for (i in start until candidates.size) {
@@ -508,7 +508,22 @@ fun backtrackProdVariant(
             remaining - candidates[i],
             i,
             res
-        ) // Explore further
+        )
     }
     return
+}
+
+/**
+ * 347. Top K Frequent Elements
+ * Prod Variant
+ */
+
+fun topKFrequentProdVariant(nums: IntArray, k: Int): IntArray {
+    return nums.toList().groupingBy { it } // Group elements by their values
+        .eachCount() // Count the frequency of each element
+        .entries // Get the entries (key-value pairs)
+        .sortedByDescending { it.value } // Sort by frequency in descending order
+        .take(k) // Take the top k elements
+        .map { it.key } // Extract the keys (elements)
+        .toIntArray() // Convert to IntArray
 }
