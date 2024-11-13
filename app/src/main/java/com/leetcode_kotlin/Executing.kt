@@ -8,8 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = createTreeNodeForPathSumIII()
-    pathSumIII(root, 8).apply { println(this) }
+    val strs = arrayOf("flow", "flight", "flower")
+
+    longestCommonPrefixWithTrie(strs).also { println(it) }
 
 }
 
