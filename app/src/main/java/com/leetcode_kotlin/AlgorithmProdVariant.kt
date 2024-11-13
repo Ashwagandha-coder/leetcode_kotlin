@@ -470,3 +470,45 @@ fun dfsPathSumProdVariant(
         }
     }
 }
+
+
+/**
+ * 39. Combination Sum
+ * Prod Variant
+ * Time - O(2^N)
+ * Space - O(N)
+ */
+
+fun combinationSumProdVariant(candidates: IntArray, target: Int): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    backtrackProdVariant(candidates, mutableListOf(), target, 0, result) // Start backtracking
+    return result
+}
+
+fun backtrackProdVariant(
+    candidates: IntArray,
+    combination: List<Int>,
+    remaining: Int,
+    start: Int,
+    res: MutableList<List<Int>>
+) {
+    if (remaining == 0) {
+        res.add(combination) // Found a valid combination
+        return
+    }
+
+    if (remaining < 0) {
+        return // Combination exceeds target
+    }
+
+    for (i in start until candidates.size) {
+        backtrackProdVariant(
+            candidates,
+            (combination + candidates[i]),
+            remaining - candidates[i],
+            i,
+            res
+        ) // Explore further
+    }
+    return
+}
