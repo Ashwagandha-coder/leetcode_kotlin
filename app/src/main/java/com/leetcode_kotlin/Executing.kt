@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
 
+
+
 /**
  * Executing
  */
@@ -8,8 +10,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = createTreeNodeForPathSumIII()
-    pathSumIII(root, 8).apply { println(this) }
+    usingComparable()
 
 }
 
@@ -42,5 +43,6 @@ fun createTreeNodeForPathSumIII(): TreeNode {
     root?.left?.right?.right = TreeNode(1)
     return root
 }
+
 
 

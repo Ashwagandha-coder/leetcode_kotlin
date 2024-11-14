@@ -2675,7 +2675,7 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray? {
  */
 
 fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
-    val prefixSumMap = mutableMapOf<Long, Int>(0L to 1) // Use Long for keys
+    val prefixSumMap = mutableMapOf(0L to 1) // Use Long for keys
     var count = 0
 
     fun dfs(node: TreeNode?, currentSum: Long) { // Use Long for currentSum
