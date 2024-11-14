@@ -1,6 +1,6 @@
 package com.leetcode_kotlin
 
-import java.util.PriorityQueue
+
 
 
 /**
@@ -10,7 +10,7 @@ import java.util.PriorityQueue
 
 fun main() {
 
-    usingComparator()
+    usingComparable()
 
 }
 
@@ -44,18 +44,5 @@ fun createTreeNodeForPathSumIII(): TreeNode {
     return root
 }
 
-
-class Impl : Comparable<Int> {
-    override fun compareTo(other: Int): Int = 0
-}
-
-
-fun queueWork() {
-    val comparable = object : Comparable<Int> {
-        override fun compareTo(other: Int): Int {
-            TODO("Not yet implemented")
-        }
-    }
-}
 
 
