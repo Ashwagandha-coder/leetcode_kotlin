@@ -1,12 +1,32 @@
 package com.leetcode_kotlin
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.support.annotation.RequiresApi
 
 
 fun sample() {
 
+    val mutableList = mutableListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+
+    mutableList.fold(0) { acc, num ->
+        acc * 2
+    }
+    val list = listOf(listOf(1, 2, 3, 4), listOf(2, 5, 7, 8))
+    val res = list.flatMap { listOf(it) }
+
+    mutableList.last { it == 3 }
+
+}
+
+/**
+ * Sample of fold function
+ */
+
+fun sampleFold() {
+    val arr = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 5, 6, 2, 4, 4, 6, 7, 8, 8, 4, 5, 7, 6)
+    val ans = arr.fold(0) { acc, num ->
+        num + acc
+    }
 }
 
 /**
@@ -66,8 +86,8 @@ fun sampleMutableList() {
     mutableList.all { it == 1 }
     mutableList.any { it == 2 }
     mutableList.zipWithNext { a, b ->
-        println("$a $b")
-    }
+        a + b
+    }.let { println(it) }
     mutableList.map { it * 2 }
     mutableList.onEach {
         it
@@ -164,3 +184,42 @@ fun sampleSpliterator() {
  *  7. Standart library, what is ?
  *  8. Search new features to kotlin API
  */
+
+/**
+ * Sample Using Comparable
+ */
+
+data class Task(val name: String, val priority: Int) : Comparable<Task> {
+    override fun compareTo(other: Task): Int {
+        return this.priority.compareTo(other.priority) // Сравнение по приоритету
+    }
+}
+
+data class Polet(val time: Int, val priority: Int) : Comparable<Polet> {
+    override fun compareTo(other: Polet): Int = this.priority.compareTo(other.priority)
+
+}
+
+
+fun usingComparable() {
+    val polets = listOf(Polet(23, 1), Polet(34, 2), Polet(45, 1))
+    val sorter = polets.sorted()
+    println(sorter)
+}
+
+/**
+ * Sample Using Comparator
+ */
+
+class TaskNameComparator : Comparator<Polet> {
+    override fun compare(o1: Polet, o2: Polet): Int =
+        o1.priority.compareTo(o2.priority)
+}
+
+fun usingComparator() {
+    val polets = listOf(Polet(23, 1), Polet(34, 2), Polet(45, 1))
+    val lambda: (a: Polet, b: Polet) -> Int = { one, two -> one.compareTo(two) }
+    val sorter = polets.sortedWith { one, two -> one.compareTo(two) }
+    println(sorter)
+}
+

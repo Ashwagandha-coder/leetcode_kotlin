@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import android.annotation.SuppressLint
 import java.util.Arrays
+import java.util.LinkedList
 import java.util.PriorityQueue
 import kotlin.math.abs
 import kotlin.math.max
@@ -29,6 +31,7 @@ fun maxSubArrayAlternative(nums: IntArray): Int {
 }
 
 /**
+ * 53. Maximum Subarray
  * Tabulation
  * Time - O(n), Space - O(n)
  */
@@ -318,75 +321,51 @@ fun Solution.maxProfit(prices: IntArray): Int {
 
 /**
  * 14. Longest Common Prefix
- * Time -
- * Space -
+ * Trie Solution
  */
 
+class TrieNode {
+    val children = mutableMapOf<Char, TrieNode>()
+    var isEndOfWord = false
+}
 
-fun Solution.longestCommonPrefix(strs: Array<String>): String {
+class Trie {
+    val root = TrieNode()
+
+    fun insert(word: String) {
+        var node = root
+        for (char in word) {
+            if (!node.children.containsKey(char)) {
+                node.children[char] = TrieNode()
+            }
+            node = node.children[char]!!
+        }
+        node.isEndOfWord = true
+    }
+
+    fun longestCommonPrefix(): String {
+        var node = root
+        val prefix = StringBuilder()
+        while (node.children.size == 1 && !node.isEndOfWord) {
+            val char = node.children.keys.first()
+            prefix.append(char)
+            node = node.children[char]!!
+        }
+        return prefix.toString()
+    }
+}
+
+fun longestCommonPrefixWithTrie(strs: Array<String>): String {
     if (strs.isEmpty()) {
         return ""
     }
-    if (strs.size == 1) {
-        return strs[0]
-    }
+
     val trie = Trie()
     for (str in strs) {
         trie.insert(str)
     }
-    return trie.search(strs[0], strs.size)
-}
 
-
-internal class TrieNode {
-    var child: Array<TrieNode?> = arrayOfNulls(26)
-    var isEnd: Boolean = false
-    var count: Int = 0
-
-    fun containsKey(ch: Char): Boolean {
-        return (child[ch.code - 'a'.code] != null)
-    }
-
-    fun get(ch: Char): TrieNode? {
-        return child[ch.code - 'a'.code]
-    }
-
-    fun put(ch: Char, node: TrieNode?) {
-        child[ch.code - 'a'.code] = node
-    }
-
-    fun setEnd() {
-        isEnd = true
-    }
-}
-
-internal class Trie {
-    private var root: TrieNode = TrieNode()
-
-    fun insert(word: String) {
-        var node: TrieNode? = root
-        for (element in word) {
-            if (!node!!.containsKey(element)) {
-                node.put(element, TrieNode())
-            }
-            node.get(element)!!.count++
-            node = node.get(element)
-        }
-        node!!.setEnd()
-    }
-
-    fun search(word: String, n: Int): String {
-        var node: TrieNode? = root
-        for (i in word.indices) {
-            val ch = word[i]
-            if (node!!.get(ch) != null && node.get(ch)!!.count == n) {
-                node = node.get(ch)
-            } else {
-                return word.substring(0, i)
-            }
-        }
-        return word
-    }
+    return trie.longestCommonPrefix()
 }
 
 /**
@@ -496,12 +475,13 @@ fun combinationSumIterative(candidates: IntArray, target: Int): List<List<Int>> 
     combinations.add(mutableListOf()) // Начинаем с пустой комбинации
 
     for (candidate in candidates) { // Внешний цикл: перебор кандидатов
-        val newCombinations = mutableListOf<MutableList<Int>>() // Новые комбинации для текущего кандидата
+        val newCombinations =
+            mutableListOf<MutableList<Int>>() // Новые комбинации для текущего кандидата
         for (combination in combinations) { // Внутренний цикл: перебор существующих комбинаций
             var currentSum = combination.sum() // Текущая сумма элементов комбинации
             var count = 0 // Счетчик добавлений текущего кандидата
 
-            while(currentSum + candidate <= target) { // Пока сумма не превышает цель
+            while (currentSum + candidate <= target) { // Пока сумма не превышает цель
                 count++
                 val newCombination = combination.toMutableList() // Копия текущей комбинации
                 repeat(count) { newCombination.add(candidate) } // Добавляем кандидата count раз
@@ -520,3 +500,306 @@ fun combinationSumIterative(candidates: IntArray, target: Int): List<List<Int>> 
 
     return result // Возвращаем список уникальных комбинаций
 }
+
+/**
+ * 303. Range Sum Query Immutable
+ * Alternative Solution
+ */
+
+class NumArrayAlt(nums: IntArray) {
+    private val prefixSums: IntArray = IntArray(nums.size + 1)
+
+    init {
+        for (i in nums.indices) {
+            prefixSums[i + 1] = prefixSums[i] + nums[i]
+        }
+    }
+
+    fun sumRange(left: Int, right: Int): Int {
+        return prefixSums[right + 1] - prefixSums[left]
+    }
+}
+
+/**
+ * 2095. Delete the Middle Node of a Linked List
+ */
+
+fun deleteMiddleAlt(head: ListNode?): ListNode? {
+    if (head?.next == null) return null
+    var prev = head
+    var slow = head
+    var fast = head
+    while (fast?.next != null) {
+        prev = slow
+        slow = slow?.next
+        fast = fast?.next?.next
+    }
+    prev?.next = slow?.next
+
+    return head
+}
+
+/**
+ * 152. Maximum Product Subarray
+ */
+
+fun maxProductAltSolution(nums: IntArray): Int {
+    return 0
+}
+
+/**
+ * 206. Reverse Linked List
+ * Alt Solution
+ */
+
+
+fun reverseListAlt(head: ListNode?): ListNode? {
+    if (head?.next == null) return head // Base case: If head is null or has no next, it's the new head
+    val newHead = reverseListAlt(head.next) // Recursively reverse the rest of the list
+    head.next?.next = head // Reverse the link between head and its next
+    head.next = null // Set head's next to null to avoid cycles
+    return newHead
+}
+
+/**
+ *
+ * Alt Solution with 2D dp array
+ */
+
+
+fun longestPalindromeAlt(s: String): String {
+    val n = s.length
+    if (n < 2) return s
+
+    val dp = Array(n) { BooleanArray(n) }
+    var start = 0
+    var maxLength = 1
+
+
+    for (i in 0 until n) {
+        dp[i][i] = true
+    }
+
+
+    for (i in 0 until n - 1) {
+        if (s[i] == s[i + 1]) {
+            dp[i][i + 1] = true
+            start = i
+            maxLength = 2
+        }
+    }
+
+
+    for (len in 3..n) {
+        for (i in 0 until n - len + 1) {
+            val j = i + len - 1
+            if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                dp[i][j] = true
+                if (len > maxLength) {
+                    start = i
+                    maxLength = len
+                }
+            }
+        }
+    }
+
+    return s.substring(start, start + maxLength)
+}
+
+/**
+ * 392. Is Subsequence
+ * Alt Solution
+ */
+
+fun isSubsequence(s: String, t: String): Boolean {
+    var sp = 0
+    var tp = 0
+    while (sp < s.length && tp < t.length) {
+        if (s[sp] == t[tp]) sp++
+        tp++
+    }
+    return sp == s.length
+}
+
+/**
+ * 796. Rotate String
+ * Alt Solution , Time - O(n) , Space - O(n)
+ */
+
+fun rotateStringAlt(s: String, goal: String): Boolean {
+    return if (s.length != goal.length) false else (s + s).contains(goal)
+}
+
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun maxProductTwoElementsAltSolution(nums: IntArray): Int {
+    var one = 0
+    var two = 0
+    val len = nums.size
+    for (i in 0 until len) {
+        if (nums[i] > one) one = nums[i]
+        if (one > two) {
+            var temp = two
+            two = one
+            one = temp
+        }
+    }
+    return (one - 1) * (two - 1)
+}
+
+/**
+ * 1464. Maximum Product of Two Elements in an Array
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+
+@SuppressLint("NewApi")
+fun maxProductTwoElementsPriorityQueueSolution(nums: IntArray): Int {
+    val pq = PriorityQueue<Int> { num1, num2 -> num2 - num1 }
+    pq.addAll(nums.toTypedArray())
+    val one = pq.poll()
+    val two = pq.poll()
+    return (one - 1) * (two - 1)
+}
+
+/**
+ * 23. Merge k Sorted Lists
+ * Alt Solution
+ * Time - O(n * log k)
+ * Space - O(n)
+ */
+
+fun mergeKListsAltSolution(lists: Array<ListNode?>): ListNode? {
+    var lists = lists
+    if (lists.isEmpty()) return null
+
+    while (lists.size > 1) {
+        val temp: MutableList<ListNode?> = ArrayList()
+        var i = 0
+        while (i < lists.size) {
+            val l1 = lists[i]
+            val l2 = if (i + 1 < lists.size) lists[i + 1] else null
+            temp.add(mergeListNodes(l1, l2))
+            i += 2
+        }
+        lists = temp.toTypedArray<ListNode?>()
+    }
+    return lists.first()
+}
+
+fun mergeListNodes(l1: ListNode?, l2: ListNode?): ListNode? {
+    var l1 = l1
+    var l2 = l2
+    var stub = ListNode(0)
+    val head = stub
+    while (l1 != null && l2 != null) {
+        if (l1.`val` > l2.`val`) {
+            stub?.next = l2
+            l2 = l2?.next
+        } else {
+            stub?.next = l1
+            l1 = l1?.next
+        }
+        stub = stub.next!!
+    }
+    stub?.next = l1 ?: l2
+    return head?.next
+}
+
+/**
+ * Algo Meneier
+ */
+
+fun longestPalindrome(s: String): String? {
+    var s = s
+    if (s.length <= 1) {
+        return s
+    }
+
+    var maxLen = 1
+    var maxStr = s.substring(0, 1)
+    s = "#" + s.replace("".toRegex(), "#") + "#"
+    val dp = IntArray(s.length)
+    var center = 0
+    var right = 0
+
+    for (i in s.indices) {
+        if (i < right) {
+            dp[i] = min((right - i).toDouble(), dp[2 * center - i].toDouble()).toInt()
+        }
+
+        while (i - dp[i] - 1 >= 0 && i + dp[i] + 1 < s.length && s[i - dp[i] - 1] == s[i + dp[i] + 1]) {
+            dp[i]++
+        }
+
+        if (i + dp[i] > right) {
+            center = i
+            right = i + dp[i]
+        }
+
+        if (dp[i] > maxLen) {
+            maxLen = dp[i]
+            maxStr = s.substring(i - dp[i], i + dp[i] + 1).replace("#".toRegex(), "")
+        }
+    }
+
+    return maxStr
+}
+
+/**
+ * 347. Top K Frequent Elements
+ * Alt Solution
+ */
+
+fun topKFrequentAlt(nums: IntArray, k: Int): IntArray {
+    val frequencyMap = nums.toList().groupingBy { it }.eachCount()
+    val priorityQueue =
+        PriorityQueue<Int>(compareByDescending { frequencyMap[it] })
+
+    priorityQueue.addAll(frequencyMap.keys)
+
+    val result = IntArray(k)
+    for (i in 0 until k) {
+        result[i] = priorityQueue.poll()
+    }
+
+    return result
+}
+
+/**
+ * 102. Binary Tree Level Order Traversal
+ * Alt Solution with Recursion
+ */
+
+fun levelOrderAltSolution(root: TreeNode?): List<List<Int>> {
+    if (root == null) return listOf()
+    val ans = mutableListOf<MutableList<Int>>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    levelOrderAltBfs(root, q, ans)
+    return ans
+}
+fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<MutableList<Int>>) {
+    if (q.isEmpty()) return
+    val size = q.size
+    val subset = mutableListOf<Int>()
+    for (i in 0 until size) {
+        val node = q.poll()
+        subset.add(node.`val`)
+        if (node?.left != null) q.offer(node?.left)
+        if (node?.right != null) q.offer(node?.right)
+    }
+    ans.add(subset)
+    levelOrderAltBfs(root, q, ans)
+}
+
+
+
+
+
+

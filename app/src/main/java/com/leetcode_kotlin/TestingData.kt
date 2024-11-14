@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
+
 
 class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
@@ -10,7 +12,31 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
-object LinkedList {
+fun TreeNode.printTreeNodes(): List<Int?> {
+    val root = this
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val node = q.poll()
+        res.add(node.`val`)
+        if (root?.left != null) q.offer(root?.left)
+        if (root?.right != null) q.offer(root?.right)
+        else q.offer(null)
+    }
+    return res
+}
+
+fun ListNode.printListNode() {
+    var p = this
+    while (p?.next != null) {
+        print("${p.`val`} -> ")
+        p = p?.next!!
+    }
+    print("${p.`val`} ")
+}
+
+object LinkedListData {
 
     fun cycleLinkedListData(): ListNode {
         val head = ListNode(3)
@@ -33,7 +59,7 @@ object LinkedList {
         return head
     }
 
-    fun makeLinkedList(arr: IntArray): ListNode {
+    fun makeListNode(arr: IntArray): ListNode {
         if (arr.isEmpty()) return ListNode(0)
         var stub = ListNode(arr[0])
         val head = stub
@@ -45,6 +71,30 @@ object LinkedList {
         return head
     }
 
+
+}
+
+fun ListNode.toList(): List<Int> {
+    val res = mutableListOf<Int>()
+    var curr = this
+    while (curr?.next != null) {
+        res.add(curr.`val`)
+        curr = curr?.next!!
+    }
+    res.add(curr.`val`)
+    return res
+}
+
+fun IntArray.toListNode(): ListNode {
+    if (this.isEmpty()) return ListNode(0)
+    var stub = ListNode(this[0])
+    val head = stub
+    for (i in 1 until this.size) {
+        val temp = ListNode(this[i])
+        stub.next = temp
+        stub = stub.next!!
+    }
+    return head
 }
 
 object Node {
@@ -146,6 +196,33 @@ object MyArrays {
 
 object DynamicProgramming {
     fun maxProfitIIData() = intArrayOf(7, 1, 5, 3, 6, 4)
+}
+
+class SolveSudoku {
+
+    fun makeSudoku(): Array<CharArray> = arrayOf(
+        charArrayOf('5', '3', '.', '.', '7', '.', '.', '.', '.'),
+        charArrayOf('6', '.', '.', '1', '9', '5', '.', '.', '.'),
+        charArrayOf('.', '9', '8', '.', '.', '.', '.', '6', '.'),
+        charArrayOf('8', '.', '.', '.', '6', '.', '.', '.', '3'),
+        charArrayOf('4', '.', '.', '8', '.', '3', '.', '.', '1'),
+        charArrayOf('7', '.', '.', '.', '2', '.', '.', '.', '6'),
+        charArrayOf('.', '6', '.', '.', '.', '.', '2', '8', '.'),
+        charArrayOf('.', '.', '.', '4', '1', '9', '.', '.', '5'),
+        charArrayOf('.', '.', '.', '.', '8', '.', '.', '7', '9')
+    )
+
+
+}
+
+object Matrix {
+    fun createMatrix() = arrayOf(
+        intArrayOf(3, 0, 1, 4, 2),
+        intArrayOf(5, 6, 3, 2, 1),
+        intArrayOf(1, 2, 0, 1, 5),
+        intArrayOf(4, 1, 0, 1, 7),
+        intArrayOf(1, 0, 3, 0, 5)
+    )
 }
 
 

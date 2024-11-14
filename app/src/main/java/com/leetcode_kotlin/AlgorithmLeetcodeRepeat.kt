@@ -1,5 +1,6 @@
 package com.leetcode_kotlin
 
+import java.util.LinkedList
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -880,7 +881,14 @@ fun Repeat.combine(n: Int, k: Int): List<List<Int>> {
     backtracking(n, k, 1, subset, res)
     return res
 }
-fun Repeat.backtracking(n: Int, k: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+
+fun Repeat.backtracking(
+    n: Int,
+    k: Int,
+    index: Int,
+    subset: MutableList<Int>,
+    res: MutableList<MutableList<Int>>
+) {
     if (subset.size == k) {
         res.add(ArrayList(subset))
         return
@@ -906,4 +914,257 @@ fun Repeat.maxProfit(prices: IntArray): Int {
         }
     }
     return profit
+}
+
+/**
+ * Repeat Same Tree
+ */
+
+fun Repeat.isSameTree(p: TreeNode?, q: TreeNode?): Boolean {
+    val one = p?.`val`
+    val two = q?.`val`
+
+    if (one != two) return false
+
+    if (p != null && q != null) {
+        return isSameTree(p.left, q.left) && isSameTree(p.right, q.right)
+    }
+
+    return true
+}
+
+/**
+ * Repeat Reverse odd level of a Binary Tree
+ */
+
+fun Repeat.reverseOddLevels(root: TreeNode?): TreeNode? {
+    dfs(root?.left, root?.right, 1)
+    return root
+}
+
+fun dfs(left: TreeNode?, right: TreeNode?, level: Int) {
+    if (left == null && right == null) return
+
+    if (level % 2 != 0) {
+        val temp = left?.`val`
+        left?.`val` = right?.`val`!!
+        right?.`val` = temp!!
+    }
+    dfs(left?.left, right?.right, level + 1)
+    dfs(left?.right, right?.left, level + 1)
+    return
+}
+
+/**
+ * Repeat Range Sum Query - Immutable
+ */
+
+class RepeatNumArray(val nums: IntArray) {
+
+    fun sumRange(left: Int, right: Int): Int {
+        var l = left
+        var sum = 0
+        while (l <= right) {
+            sum += nums[l]
+            l++
+        }
+        return sum
+    }
+
+}
+
+/**
+ * Repeat BFS
+ */
+
+
+fun Repeat.bfs(root: TreeNode?): List<Int> {
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+
+    while (q.isNotEmpty()) {
+        val node = q.poll()
+        res.add(node.`val`)
+        if (node?.left != null) q.offer(node?.left)
+        if (node?.right != null) q.offer(node?.right)
+    }
+    return res
+}
+
+
+/**
+ * Repeat Selection Sort
+ */
+
+fun Repeat.selectionSortFinalOctember(arr: IntArray): IntArray {
+    val len = arr.size
+    for (i in 0 until len) {
+        var min = i
+        for (j in i + 1 until len) {
+            if (arr[j] < arr[min]) min = j
+        }
+        if (min != i) {
+            val temp = arr[min]
+            arr[min] = arr[i]
+            arr[i] = temp
+        }
+    }
+    return arr
+}
+
+/**
+ * 448. Find All Numbers Disappeared in an Array
+ * Repeat
+ */
+
+fun findDisappearedNumbersRepeat(nums: IntArray): List<Int> {
+    val res = mutableListOf<Int>()
+    val mark = -1
+    val len = nums.size
+    for (i in 0 until len) {
+        val ind = abs(nums[i])
+        if (nums[ind - 1] > 0) nums[ind - 1] *= mark
+    }
+    for (i in 0 until len) {
+        if (nums[i] > 0) res.add(i + 1)
+    }
+    return res
+}
+
+/**
+ * 1876. Substrings of Size Three with Distinct Characters
+ * Repeat
+ */
+
+fun countGoodSubstringsRepeat(s: String): Int {
+    val len = s.length
+    val set = mutableSetOf<Char>()
+    val k = 3
+    var count = 0
+    for (i in 0 until len - 2) {
+        val sub = s.substring(i, k + i)
+        var isUnique = true
+        for (char in sub) {
+            if (!set.add(char)) {
+                isUnique = false
+                break
+            }
+        }
+        if (isUnique) count++
+        set.clear()
+    }
+    return count
+}
+
+/**
+ * BFS Repeat
+ */
+
+fun bfsRepeat(root: TreeNode): List<Int> {
+    if (root == null) return listOf()
+    val queue = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    queue.offer(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        for (i in 0 until size) {
+            val node = queue.poll()
+            res.add(node.`val`)
+            node.also {
+                if (it.left != null) queue.offer(node?.left)
+                if (it.right != null) queue.offer(node?.right)
+            }
+        }
+    }
+    return res
+}
+
+/**
+ * Repeat Length Incresing Subsequnce
+ */
+
+fun Repeat.lengthOfIncreasingSubsequence(nums: IntArray): Int {
+    val len = nums.size
+    val dp = IntArray(len) { 1 }
+    var ans = 1
+    for (i in 0 until len) {
+        for (j in 0 until i) {
+            if (nums[i] > nums[j]) {
+                dp[i] = maxOf(dp[i], dp[j] + 1)
+                ans = maxOf(ans, dp[i])
+            }
+        }
+    }
+    return ans
+}
+
+/**
+ * Repeat longest Palindrome
+ */
+
+fun longestPalindromeRepeat(s: String): String {
+    if (s.length == 1) return s
+    val len = s.length
+    val dp = Array(len) { BooleanArray(len) }
+    var maxLen = 0
+    var start = 0
+    var end = 0
+    for (i in 0 until len) dp[i][i] = true
+    for (i in 0 until len - 1) {
+        if (s[i] == s[i + 1]) {
+            dp[i][i + 1] = true
+            start = i
+            end = i + 1
+            maxLen = 2
+        }
+    }
+    for (size in 3..len) {
+        for (i in 0 until (len - size) + 1) {
+            var j = i + (size - 1)
+            if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                dp[i][j] = true
+                if (size > maxLen) {
+                    maxLen = size
+                    start = i
+                    end = j
+                }
+            }
+        }
+    }
+    return s.substring(start, end + 1)
+}
+
+/**
+ * Repeat Reverse Integer
+ */
+
+fun reverseRepeat(x: Int): Int {
+    var x = x
+    var res = 0
+    while (x != 0) {
+        var temp = x % 10
+        x /= 10
+        if (res > Int.MAX_VALUE / 10 || (res == Int.MAX_VALUE / 10 && temp > 8)) return 0
+        if (res < Int.MIN_VALUE / 10 || (res == Int.MIN_VALUE / 10 && temp < -7)) return 0
+        res = res * 10 + temp
+    }
+    return res
+}
+
+/**
+ * Repeat Reverse Linked List
+ */
+
+fun reverseListRepeat(head: ListNode?): ListNode? {
+    var prev: ListNode? = null
+    var curr = head
+    var next: ListNode? = null
+    while (curr != null) {
+        next = curr?.next
+        curr?.next = prev
+        prev = curr
+        curr = next
+    }
+    return prev
 }
