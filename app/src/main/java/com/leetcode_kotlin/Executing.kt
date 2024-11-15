@@ -1,8 +1,6 @@
 package com.leetcode_kotlin
 
 
-
-
 /**
  * Executing
  */
@@ -10,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    usingComparable()
+    nthUglyNumber(10).also { println(it) }
 
 }
 
