@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    nthUglyNumber(10).also { println(it) }
+    nthUglyNumberAltSolution(10).also { println(it) }
 
 }
 

@@ -799,6 +799,36 @@ fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<
 }
 
 
+/**
+ * 264. Ugly Number II
+ * Alt Solution with priority queue
+ * Time Complexity - O(n * log n)
+ * Space Complexity - O(n)
+ */
+
+fun nthUglyNumberAltSolution(n: Int): Int {
+    val priorityQueue = PriorityQueue<Long>()
+    val seen = HashSet<Long>()
+
+    priorityQueue.offer(1L)
+    seen.add(1L)
+
+    var currentUgly = 1L
+    for (i in 1..n) {
+        currentUgly = priorityQueue.poll()
+        val nextUglyNumbers = listOf(currentUgly * 2, currentUgly * 3, currentUgly * 5)
+        for (nextUgly in nextUglyNumbers) {
+            if (!seen.contains(nextUgly)) {
+                priorityQueue.offer(nextUgly)
+                seen.add(nextUgly)
+            }
+        }
+    }
+
+    return currentUgly.toInt()
+}
+
+
 
 
 
