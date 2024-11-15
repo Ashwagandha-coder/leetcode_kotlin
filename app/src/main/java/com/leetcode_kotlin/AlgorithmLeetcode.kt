@@ -2698,6 +2698,29 @@ fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
     return count
 }
 
+/**
+ * 264. Ugly Number II
+ */
+
+fun nthUglyNumber(n: Int): Int {
+    val uglyNumbers = IntArray(n)
+    uglyNumbers[0] = 1
+
+    var p2 = 0
+    var p3 = 0
+    var p5 = 0
+
+    for (i in 1 until n) {
+        val nextUgly = minOf(uglyNumbers[p2] * 2, uglyNumbers[p3] * 3, uglyNumbers[p5] * 5)
+        uglyNumbers[i] = nextUgly
+
+        if (nextUgly == uglyNumbers[p2] * 2) p2++
+        if (nextUgly == uglyNumbers[p3] * 3) p3++
+        if (nextUgly == uglyNumbers[p5] * 5) p5++
+    }
+
+    return uglyNumbers[n - 1]
+}
 
 
 
