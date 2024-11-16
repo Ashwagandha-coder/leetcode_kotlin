@@ -828,6 +828,25 @@ fun nthUglyNumberAltSolution(n: Int): Int {
     return currentUgly.toInt()
 }
 
+/**
+ *
+ */
+
+fun isCircularSentenceAltSolution(sentence: String): Boolean {
+    val words = sentence.split(" ")
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+    for (i in words.indices) {
+        val currentWord = words[i]
+        val nextWord = words[(i + 1) % words.size] // Circular next word
+        if (currentWord.last() != nextWord.first()) {
+            return false
+        }
+    }
+    return true
+}
+
 
 
 

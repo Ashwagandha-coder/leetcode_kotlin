@@ -2747,6 +2747,41 @@ fun isUgly(n: Int): Boolean {
     return true
 }
 
+/**
+ * 3254. Find the Power of K-Size Subarrays I
+ */
+
+fun resultsArray(nums: IntArray, k: Int): IntArray {
+    val len = nums.size
+    val res = IntArray(len - k + 1)
+    var max = 0
+    var left = 0
+    for (i in 0 until len) {
+        var isSorted = true
+        if (i - left == (k - 1)) {
+            var j = i
+            while (j > left) {
+                if (nums[j] <= nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                if (nums[j] - 1 != nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                max = maxOf(max, nums[j])
+                j--
+            }
+            max = maxOf(max, nums[j])
+            if (isSorted) res[left] = max
+            else res[left] = -1
+            max = 0
+            left++
+        }
+    }
+    return res
+}
+
 
 
 
