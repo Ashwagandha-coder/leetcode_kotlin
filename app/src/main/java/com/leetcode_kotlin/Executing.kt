@@ -10,7 +10,7 @@ fun main() {
 
     val s = "leetcode exercises sound delightful"
 
-    isCircularSentenceAltSolution(s).also { println(it) }
+    isCircularSentenceProdVariant(s).also { println(it) }
 
 }
 

@@ -530,7 +530,12 @@ fun topKFrequentProdVariant(nums: IntArray, k: Int): IntArray {
  */
 
 fun isCircularSentenceProdVariant(sentence: String): Boolean {
-    val words = sentence.split("")
+    val words = sentence.split(" ")
+
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+
     return words.zipWithNext { current, next -> current.last() == next.first() }
         .all { it } && words.last().last() == words.first().first()
 }
