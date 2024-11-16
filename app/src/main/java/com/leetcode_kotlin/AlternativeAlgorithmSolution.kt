@@ -784,6 +784,7 @@ fun levelOrderAltSolution(root: TreeNode?): List<List<Int>> {
     levelOrderAltBfs(root, q, ans)
     return ans
 }
+
 fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<MutableList<Int>>) {
     if (q.isEmpty()) return
     val size = q.size
@@ -840,7 +841,8 @@ fun isCircularSentenceAltSolution(sentence: String): Boolean {
     }
     for (i in words.indices) {
         val currentWord = words[i]
-        val nextWord = words[(i + 1) % words.size] // Circular next word
+        val index = (i + 1) % words.size
+        val nextWord = words[index] // Circular next word
         if (currentWord.last() != nextWord.first()) {
             return false
         }
