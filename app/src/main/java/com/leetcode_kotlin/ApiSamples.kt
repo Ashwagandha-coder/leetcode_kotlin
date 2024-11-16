@@ -223,3 +223,12 @@ fun usingComparator() {
     println(sorter)
 }
 
+
+/**
+ * Function for using set
+ */
+
+inline fun <T> Set<T>.containsNot(element: T, perform: () -> Unit) {
+    if (!this.contains(element)) perform()
+}
+
