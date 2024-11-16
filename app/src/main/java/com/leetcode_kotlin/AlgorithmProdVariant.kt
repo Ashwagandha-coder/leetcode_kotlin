@@ -539,3 +539,24 @@ fun isCircularSentenceProdVariant(sentence: String): Boolean {
     return words.zipWithNext { current, next -> current.last() == next.first() }
         .all { it } && words.last().last() == words.first().first()
 }
+
+/**
+ * 264. Ugly Number II
+ * Prod Variant
+ */
+
+fun nthUglyNumberProdVariant(n: Int): Int {
+    val uglyNumbers = mutableListOf(1)
+    var (p2, p3, p5) = arrayOf(0, 0, 0) // Destructuring declaration
+    repeat(n - 1) {
+        val nextUgly = listOf(uglyNumbers[p2] * 2, uglyNumbers[p3] * 3, uglyNumbers[p5] * 5).min()
+        uglyNumbers.add(nextUgly)
+
+        if (nextUgly == uglyNumbers[p2] * 2) p2++
+        if (nextUgly == uglyNumbers[p3] * 3) p3++
+        if (nextUgly == uglyNumbers[p5] * 5) p5++
+
+    }
+    return uglyNumbers.last()
+}
+

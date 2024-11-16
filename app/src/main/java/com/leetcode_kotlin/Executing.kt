@@ -10,10 +10,9 @@ fun main() {
 
     val s = "leetcode exercises sound delightful"
 
-    isCircularSentenceProdVariant(s).also { println(it) }
+    nthUglyNumberProdVariant(10).also { println(it) }
 
 }
-
 
 
 fun test() {
