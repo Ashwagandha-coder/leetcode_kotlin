@@ -2722,6 +2722,68 @@ fun nthUglyNumber(n: Int): Int {
     return uglyNumbers[n - 1]
 }
 
+/**
+ * 263. Ugly Number
+ */
+
+fun isUgly(n: Int): Boolean {
+    if (n == 0) return false
+    var n = n
+    while (n != 1) {
+        if (n % 2 == 0) {
+            n /= 2
+            continue
+        }
+        if (n % 3 == 0) {
+            n /= 3
+            continue
+        }
+        if (n % 5 == 0) {
+            n /= 5
+            continue
+        }
+        return false
+    }
+    return true
+}
+
+/**
+ * 3254. Find the Power of K-Size Subarrays I
+ */
+
+fun resultsArray(nums: IntArray, k: Int): IntArray {
+    val len = nums.size
+    val res = IntArray(len - k + 1)
+    var max = 0
+    var left = 0
+    for (i in 0 until len) {
+        var isSorted = true
+        if (i - left == (k - 1)) {
+            var j = i
+            while (j > left) {
+                if (nums[j] <= nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                if (nums[j] - 1 != nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                max = maxOf(max, nums[j])
+                j--
+            }
+            max = maxOf(max, nums[j])
+            if (isSorted) res[left] = max
+            else res[left] = -1
+            max = 0
+            left++
+        }
+    }
+    return res
+}
+
+
+
 
 
 

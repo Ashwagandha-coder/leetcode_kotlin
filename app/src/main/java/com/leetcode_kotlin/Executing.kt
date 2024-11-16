@@ -8,7 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    nthUglyNumberAltSolution(10).also { println(it) }
+    val s = "leetcode exercises sound delightful"
+
+    isCircularSentenceProdVariant(s).also { println(it) }
 
 }
 

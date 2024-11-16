@@ -784,6 +784,7 @@ fun levelOrderAltSolution(root: TreeNode?): List<List<Int>> {
     levelOrderAltBfs(root, q, ans)
     return ans
 }
+
 fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<MutableList<Int>>) {
     if (q.isEmpty()) return
     val size = q.size
@@ -826,6 +827,27 @@ fun nthUglyNumberAltSolution(n: Int): Int {
     }
 
     return currentUgly.toInt()
+}
+
+/**
+ * 2490. Circular Sentence
+ * Alt Solution
+ */
+
+fun isCircularSentenceAltSolution(sentence: String): Boolean {
+    val words = sentence.split(" ")
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+    for (i in words.indices) {
+        val currentWord = words[i]
+        val index = (i + 1) % words.size
+        val nextWord = words[index] // Circular next word
+        if (currentWord.last() != nextWord.first()) {
+            return false
+        }
+    }
+    return true
 }
 
 

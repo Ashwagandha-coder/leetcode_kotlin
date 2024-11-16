@@ -503,11 +503,7 @@ fun backtrackProdVariant(
 
     for (i in start until candidates.size) {
         backtrackProdVariant(
-            candidates,
-            (combination + candidates[i]),
-            remaining - candidates[i],
-            i,
-            res
+            candidates, (combination + candidates[i]), remaining - candidates[i], i, res
         )
     }
     return
@@ -526,4 +522,20 @@ fun topKFrequentProdVariant(nums: IntArray, k: Int): IntArray {
         .take(k) // Take the top k elements
         .map { it.key } // Extract the keys (elements)
         .toIntArray() // Convert to IntArray
+}
+
+/**
+ * 2490. Circular Sentence
+ * Prod Variant
+ */
+
+fun isCircularSentenceProdVariant(sentence: String): Boolean {
+    val words = sentence.split(" ")
+
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+
+    return words.zipWithNext { current, next -> current.last() == next.first() }
+        .all { it } && words.last().last() == words.first().first()
 }
