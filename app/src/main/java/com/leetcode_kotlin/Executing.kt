@@ -10,7 +10,6 @@ fun main() {
 
     val s = "leetcode exercises sound delightful"
 
-    nthUglyNumberProdVariant(10).also { println(it) }
 
 }
 
