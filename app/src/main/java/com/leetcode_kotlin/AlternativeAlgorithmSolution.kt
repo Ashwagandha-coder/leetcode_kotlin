@@ -829,7 +829,8 @@ fun nthUglyNumberAltSolution(n: Int): Int {
 }
 
 /**
- *
+ * 2490. Circular Sentence
+ * Alt Solution
  */
 
 fun isCircularSentenceAltSolution(sentence: String): Boolean {
