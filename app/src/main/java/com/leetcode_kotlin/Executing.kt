@@ -8,11 +8,23 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "leetcode exercises sound delightful"
+    val root = flattenData()
 
+    flatten(root)
+    root.also { println(it?.`val`) }
 
 }
 
+
+fun flattenData(): TreeNode? {
+    val root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(5)
+    root.left?.left = TreeNode(3)
+    root.left?.right = TreeNode(4)
+    root.right?.right = TreeNode(6)
+    return root
+}
 
 fun test() {
     val num = listOf(4, 5, 6, 67, 8)
