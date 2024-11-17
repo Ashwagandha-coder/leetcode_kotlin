@@ -2810,6 +2810,27 @@ fun flatten(root: TreeNode?): Unit {
     return
 }
 
+/**
+ *
+ */
+
+fun groupAnagrams(strs: Array<String>): List<List<String>> {
+    val ans: MutableMap<String, MutableList<String>> = HashMap()
+
+    for (s in strs) {
+        val chars = s.toCharArray()
+        Arrays.sort(chars)
+        val key = String(chars)
+        if (!ans.containsKey(key)) {
+            ans[key] = ArrayList()
+        }
+        ans[key]!!.add(s)
+    }
+    val res = mutableListOf<List<String>>()
+    res.addAll(ans.values)
+    return res
+}
+
 
 
 
