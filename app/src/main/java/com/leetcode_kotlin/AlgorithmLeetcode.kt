@@ -2782,6 +2782,34 @@ fun resultsArray(nums: IntArray, k: Int): IntArray {
     return res
 }
 
+/**
+ *
+ */
+
+/*
+    1
+  2   5
+ 3 4   6
+ */
+
+fun flatten(root: TreeNode?): Unit {
+    if (root == null) return
+
+    flatten(root.left)
+    flatten(root.right)
+
+    if (root.left != null) {
+        var tail = root.left
+        while (tail?.right != null) {
+            tail = tail?.right
+        }
+        tail?.right = root.right
+        root.right = root.left
+        root.left = null
+    }
+    return
+}
+
 
 
 
