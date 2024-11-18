@@ -2783,14 +2783,9 @@ fun resultsArray(nums: IntArray, k: Int): IntArray {
 }
 
 /**
- *
+ * 114. Flatten Binary Tree to Linked List
  */
 
-/*
-    1
-  2   5
- 3 4   6
- */
 
 fun flatten(root: TreeNode?): Unit {
     if (root == null) return
