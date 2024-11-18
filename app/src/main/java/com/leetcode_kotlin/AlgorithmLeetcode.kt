@@ -2814,7 +2814,7 @@ fun groupAnagrams(strs: Array<String>): List<List<String>> {
 
     for (s in strs) {
         val chars = s.toCharArray()
-        Arrays.sort(chars)
+        chars.sort()
         val key = String(chars)
         if (!ans.containsKey(key)) {
             ans[key] = ArrayList()
@@ -2826,7 +2826,24 @@ fun groupAnagrams(strs: Array<String>): List<List<String>> {
     return res
 }
 
+/**
+ * 110. Balanced Binary Tree
+ */
 
+
+fun isBalanced(root: TreeNode?): Boolean {
+    if (root == null) return true
+
+    val leftHeight = height(root.left)
+    val rightHeight = height(root.right)
+
+    return abs(leftHeight - rightHeight) <= 1 && isBalanced(root.left) && isBalanced(root.right)
+}
+
+fun height(node: TreeNode?): Int {
+    if (node == null) return 0
+    return 1 + maxOf(height(node.left), height(node.right))
+}
 
 
 
