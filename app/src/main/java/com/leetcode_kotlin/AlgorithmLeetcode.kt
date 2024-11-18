@@ -2783,14 +2783,9 @@ fun resultsArray(nums: IntArray, k: Int): IntArray {
 }
 
 /**
- *
+ * 114. Flatten Binary Tree to Linked List
  */
 
-/*
-    1
-  2   5
- 3 4   6
- */
 
 fun flatten(root: TreeNode?): Unit {
     if (root == null) return
@@ -2810,7 +2805,45 @@ fun flatten(root: TreeNode?): Unit {
     return
 }
 
+/**
+ * 49. Group Anagrams
+ */
 
+fun groupAnagrams(strs: Array<String>): List<List<String>> {
+    val ans: MutableMap<String, MutableList<String>> = HashMap()
+
+    for (s in strs) {
+        val chars = s.toCharArray()
+        chars.sort()
+        val key = String(chars)
+        if (!ans.containsKey(key)) {
+            ans[key] = ArrayList()
+        }
+        ans[key]!!.add(s)
+    }
+    val res = mutableListOf<List<String>>()
+    res.addAll(ans.values)
+    return res
+}
+
+/**
+ * 110. Balanced Binary Tree
+ */
+
+
+fun isBalanced(root: TreeNode?): Boolean {
+    if (root == null) return true
+
+    val leftHeight = height(root.left)
+    val rightHeight = height(root.right)
+
+    return abs(leftHeight - rightHeight) <= 1 && isBalanced(root.left) && isBalanced(root.right)
+}
+
+fun height(node: TreeNode?): Int {
+    if (node == null) return 0
+    return 1 + maxOf(height(node.left), height(node.right))
+}
 
 
 
