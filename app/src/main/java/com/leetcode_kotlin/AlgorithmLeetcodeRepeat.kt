@@ -1168,3 +1168,18 @@ fun reverseListRepeat(head: ListNode?): ListNode? {
     }
     return prev
 }
+
+/**
+ * Repeat Max Consecutive Ones
+ */
+
+fun maxConsecutiveOnesRepeatProdVariant(nums: IntArray): Int {
+    return nums.fold(0 to 0) { (maxCount, currentCount), num ->
+        if (num == 1) {
+            val update = currentCount + 1
+            maxOf(maxCount, update) to update
+        } else {
+            maxCount to 0
+        }
+    }.first
+}
