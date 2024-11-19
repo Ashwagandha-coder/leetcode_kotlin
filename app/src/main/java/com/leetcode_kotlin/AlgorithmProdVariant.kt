@@ -560,3 +560,24 @@ fun nthUglyNumberProdVariant(n: Int): Int {
     return uglyNumbers.last()
 }
 
+/**
+ * 110. Balanced Binary Tree
+ */
+
+
+fun isBalancedProdVariant(root: TreeNode?): Boolean {
+    return when {
+        root == null -> true
+        else -> abs(
+            heightProdVariant(root?.left) - heightProdVariant(root?.right)
+        ) <= 1 && isBalancedProdVariant(root?.left) && isBalancedProdVariant(root?.right)
+    }
+}
+
+fun heightProdVariant(root: TreeNode?): Int = when {
+    root == null -> 0
+    else -> 1 + maxOf(heightProdVariant(root?.left), heightProdVariant(root?.right))
+}
+
+
+
