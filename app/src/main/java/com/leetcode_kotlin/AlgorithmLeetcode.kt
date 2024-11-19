@@ -7,6 +7,7 @@ import java.util.Collections
 import java.util.LinkedList
 import java.util.PriorityQueue
 import java.util.Queue
+import java.util.Stack
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -2869,6 +2870,28 @@ fun maximumSubarraySum(nums: IntArray, k: Int): Long {
         }
     }
     return sum
+}
+
+
+/**
+ *
+ */
+
+fun findLengthOfShortestSubarray(arr: IntArray): Int {
+    var count = 0
+    val len = arr.size
+    val stack = Stack<Int>()
+    stack.push(arr[0])
+    for (i in 1 until len) {
+        if (arr[i] >= stack.peek()) stack.push(arr[i])
+        else {
+            stack.pop()
+            count++
+            if (stack.peek() <= arr[i]) stack.push(arr[i])
+            else count++
+        }
+    }
+    return count
 }
 
 

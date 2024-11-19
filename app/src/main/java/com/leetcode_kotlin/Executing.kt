@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.Stack
+
 
 /**
  * Executing
@@ -8,9 +10,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = arrayOf("eat", "tea", "tan", "ate", "nat", "bat")
+    val arr = intArrayOf(1, 2, 3, 10, 4, 2, 3, 5)
 
-    groupAnagramsAltSolution(arr).also { println(it) }
+    findLengthOfShortestSubarray(arr).also { println(it) }
 
 }
 
