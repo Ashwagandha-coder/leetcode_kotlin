@@ -8,10 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = flattenData()
+    val arr = arrayOf("eat", "tea", "tan", "ate", "nat", "bat")
 
-    flatten(root)
-    root.also { println(it?.`val`) }
+    groupAnagramsAltSolution(arr).also { println(it) }
 
 }
 

@@ -850,6 +850,36 @@ fun isCircularSentenceAltSolution(sentence: String): Boolean {
     return true
 }
 
+/**
+ * 49. Group Anagrams
+ * Alternative Solution
+ */
+
+fun groupAnagramsAltSolution(strs: Array<String>): MutableList<List<String>> {
+    val ans: MutableMap<String, MutableList<String>> = HashMap()
+
+    for (s in strs) {
+        val count = IntArray(26)
+
+        // Count frequency of each letter in the string
+        for (c in s.toCharArray()) {
+            count[c.code - 'a'.code]++
+        }
+
+        val sb = java.lang.StringBuilder()
+        for (num in count) {
+            sb.append(num).append("#")
+        }
+        val key = sb.toString()
+        if (!ans.containsKey(key)) {
+            ans[key] = ArrayList()
+        }
+        ans[key]!!.add(s)
+    }
+
+    return ArrayList(ans.values)
+}
+
 
 
 
