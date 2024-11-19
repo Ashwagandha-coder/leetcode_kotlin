@@ -2845,6 +2845,32 @@ fun height(node: TreeNode?): Int {
     return 1 + maxOf(height(node.left), height(node.right))
 }
 
+/**
+ * 2461. Maximum Sum of Distinct Subarrays With Length K
+ */
+
+
+fun maximumSubarraySum(nums: IntArray, k: Int): Long {
+    var sum = 0L
+    val map = mutableMapOf<Int, Int>()
+    val len = nums.size
+    var left = 0
+    var local = 0L
+    for (i in 0 until len) {
+        local += nums[i].toLong()
+        map[nums[i]] = map.getOrDefault(nums[i], 0) + 1
+        if (i - left == (k - 1)) {
+            if (map.size == k) sum = maxOf(sum, local)
+            map[nums[i - (k - 1)]] = map.getOrDefault(nums[i - (k - 1)], 0) - 1
+            val value = map.getOrDefault(nums[i - (k - 1)], 0)
+            if (value == 0) map.remove(nums[i - (k - 1)])
+            local -= nums[i - (k - 1)].toLong()
+            left++
+        }
+    }
+    return sum
+}
+
 
 
 
