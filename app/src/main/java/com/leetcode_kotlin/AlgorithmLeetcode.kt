@@ -2909,6 +2909,31 @@ fun postorder(root: TreeNode?, res: MutableList<Int>) {
     res.add(root.`val` ?: 0)
 }
 
+/**
+ * 129. Sum Root to Leaf Numbers
+ */
+
+fun sumNumbers(root: TreeNode?): Int {
+    return dfs(root, 0, 0)
+}
+fun dfs(root: TreeNode?, local: Int, sum: Int): Int {
+    var local = local
+    var sum = sum
+    if (root == null) return sum
+    if (root?.left == null && root?.right == null) {
+        local += root?.`val` ?: 0
+        sum += local
+        return sum
+    }
+    local += root?.`val` ?: 0
+    local *= 10
+    sum = dfs(root?.left, local, sum)
+    sum = dfs(root?.right, local, sum)
+    return sum
+}
+
+
+
 
 
 
