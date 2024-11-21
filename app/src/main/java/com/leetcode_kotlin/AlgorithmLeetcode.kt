@@ -2874,25 +2874,24 @@ fun maximumSubarraySum(nums: IntArray, k: Int): Long {
 
 
 /**
- *
+ * 144. Binary Tree Preorder Traversal
  */
 
-fun findLengthOfShortestSubarray(arr: IntArray): Int {
-    var count = 0
-    val len = arr.size
-    val stack = Stack<Int>()
-    stack.push(arr[0])
-    for (i in 1 until len) {
-        if (arr[i] >= stack.peek()) stack.push(arr[i])
-        else {
-            stack.pop()
-            count++
-            if (stack.peek() <= arr[i]) stack.push(arr[i])
-            else count++
-        }
-    }
-    return count
+fun preorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    preorder(root, res)
+    return res
 }
+
+fun preorder(root: TreeNode?, res: MutableList<Int>) {
+    root ?: return
+    res.add(root.`val` ?: 0)
+    preorder(root?.left, res)
+    preorder(root?.right, res)
+    return
+}
+
+
 
 
 
