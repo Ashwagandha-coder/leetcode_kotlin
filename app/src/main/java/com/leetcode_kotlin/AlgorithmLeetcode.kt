@@ -2891,6 +2891,23 @@ fun preorder(root: TreeNode?, res: MutableList<Int>) {
     return
 }
 
+/**
+ * 145. Binary Tree Postorder Traversal
+ */
+
+
+fun postorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    postorder(root, res)
+    return res
+}
+
+fun postorder(root: TreeNode?, res: MutableList<Int>) {
+    root ?: return
+    postorder(root?.left, res)
+    postorder(root?.right, res)
+    res.add(root.`val` ?: 0)
+}
 
 
 
