@@ -12,7 +12,6 @@ fun main() {
 
     val arr = intArrayOf(1, 2, 3, 10, 4, 2, 3, 5)
 
-    findLengthOfShortestSubarray(arr).also { println(it) }
 
 }
 
