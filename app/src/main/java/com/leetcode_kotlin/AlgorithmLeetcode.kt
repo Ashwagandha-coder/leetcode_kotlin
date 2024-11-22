@@ -2916,6 +2916,7 @@ fun postorder(root: TreeNode?, res: MutableList<Int>) {
 fun sumNumbers(root: TreeNode?): Int {
     return dfs(root, 0, 0)
 }
+
 fun dfs(root: TreeNode?, local: Int, sum: Int): Int {
     var local = local
     var sum = sum
@@ -2930,6 +2931,28 @@ fun dfs(root: TreeNode?, local: Int, sum: Int): Int {
     sum = dfs(root?.left, local, sum)
     sum = dfs(root?.right, local, sum)
     return sum
+}
+
+
+/**
+ * 139. Word Break
+ */
+
+
+fun wordBreak(s: String, wordDict: List<String>): Boolean {
+    val dp = BooleanArray(s.length + 1)
+    dp[0] = true
+
+    for (i in 1 until dp.size) {
+        for (j in 0 until i) {
+            if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                dp[i] = true
+                break
+            }
+        }
+    }
+
+    return dp[s.length]
 }
 
 
