@@ -8,12 +8,16 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "leetcode"
+    val root = TreeNode(7)
+    root.left = TreeNode(3)
+    root.right = TreeNode(15)
+    root.right?.left = TreeNode(9)
+    root.right?.right = TreeNode(20)
 
-    val dictionary = listOf("leet", "code")
-
-    wordBreakAltSolution(s, dictionary)
-
+    val iterator = BSTIterator(root)
+    while (iterator.hasNext()) {
+        println(iterator.next())
+    }
 
 }
 
