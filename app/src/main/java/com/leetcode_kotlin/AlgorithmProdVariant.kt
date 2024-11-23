@@ -617,5 +617,19 @@ fun setZeroesProdVariant(matrix: Array<IntArray>) {
     if (firstColZero) for (i in 0 until m) matrix[i][0] = 0
 }
 
+/**
+ * 287. Find the Duplicate Number
+ * Prod Variant
+ */
+
+fun findDuplicateProdVariant(nums: IntArray): Int {
+    nums.forEach {
+        val ind = abs(nums[it])
+        if (nums[ind] < 0) return ind
+        nums[ind] *= -1
+    }
+    return 0
+}
+
 
 
