@@ -1,7 +1,6 @@
 package com.leetcode_kotlin
 
 
-
 /**
  * Executing
  */
@@ -9,7 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(1, 2, 3, 10, 4, 2, 3, 5)
+    val s = "leetcode"
+
+    val arr = listOf("leet", "code")
+
+    wordBreak(s, arr).also { println(it) }
 
 
 }
