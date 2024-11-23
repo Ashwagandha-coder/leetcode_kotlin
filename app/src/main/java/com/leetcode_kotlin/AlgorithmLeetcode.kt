@@ -598,7 +598,7 @@ fun setZeroes(matrix: Array<IntArray>) {
                 forCols[j] = true
             }
         }
-    } //we marked the rows and cols with true
+    }
 
 
     for (i in 0 until m) {
