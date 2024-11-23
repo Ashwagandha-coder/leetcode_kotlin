@@ -10,9 +10,9 @@ fun main() {
 
     val s = "leetcode"
 
-    val arr = listOf("leet", "code")
+    val dictionary = listOf("leet", "code")
 
-    wordBreak(s, arr).also { println(it) }
+    wordBreakAltSolution(s, dictionary)
 
 
 }
