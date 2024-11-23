@@ -1,7 +1,5 @@
 package com.leetcode_kotlin
 
-import java.util.Stack
-
 
 /**
  * Executing
@@ -10,9 +8,16 @@ import java.util.Stack
 
 fun main() {
 
-    val arr = intArrayOf(1, 2, 3, 10, 4, 2, 3, 5)
+    val root = TreeNode(7)
+    root.left = TreeNode(3)
+    root.right = TreeNode(15)
+    root.right?.left = TreeNode(9)
+    root.right?.right = TreeNode(20)
 
-    findLengthOfShortestSubarray(arr).also { println(it) }
+    val iterator = BSTIterator(root)
+    while (iterator.hasNext()) {
+        println(iterator.next())
+    }
 
 }
 

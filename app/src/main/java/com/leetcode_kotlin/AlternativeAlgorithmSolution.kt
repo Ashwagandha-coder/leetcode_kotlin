@@ -880,6 +880,52 @@ fun groupAnagramsAltSolution(strs: Array<String>): MutableList<List<String>> {
     return ArrayList(ans.values)
 }
 
+/**
+ * 139. Word Break
+ */
+
+
+class TrieNodeWordBreak {
+    val children = mutableMapOf<Char, TrieNodeWordBreak>()
+    var isWordEnd = false
+}
+
+class TrieWordBreak {
+    val root = TrieNodeWordBreak()
+
+    fun insert(word: String) {
+        var node = root
+        for (char in word) {
+            node = node.children.getOrPut(char) { TrieNodeWordBreak() }
+        }
+        node.isWordEnd = true
+    }
+}
+
+fun wordBreakAltSolution(s: String, wordDict: List<String>): Boolean {
+    val trie = TrieWordBreak()
+    for (word in wordDict) {
+        trie.insert(word)
+    }
+
+    return canBreak(0, s, trie)
+}
+
+fun canBreak(start: Int, s: String, trie: TrieWordBreak): Boolean {
+    if (start == s.length) return true
+
+    var node = trie.root
+    for (i in start until s.length) {
+        node = node.children[s[i]] ?: return false
+        if (node.isWordEnd && canBreak(i + 1, s, trie)) {
+            return true
+        }
+    }
+
+    return false
+}
+
+
 
 
 

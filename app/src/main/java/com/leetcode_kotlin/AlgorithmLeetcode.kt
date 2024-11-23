@@ -2955,6 +2955,37 @@ fun wordBreak(s: String, wordDict: List<String>): Boolean {
     return dp[s.length]
 }
 
+/**
+ * 173. Binary Search Tree Iterator
+ */
+
+
+class BSTIterator(root: TreeNode?) {
+    private val stack = ArrayDeque<TreeNode>()
+
+    init {
+        pushLeftNodes(root)
+    }
+
+    fun hasNext(): Boolean {
+        return stack.isNotEmpty()
+    }
+
+    fun next(): Int {
+        val node = stack.removeLast()
+        pushLeftNodes(node.right)
+        return node.`val`
+    }
+
+    private fun pushLeftNodes(node: TreeNode?) {
+        var current = node
+        while (current != null) {
+            stack.addLast(current)
+            current = current.left
+        }
+    }
+}
+
 
 
 
