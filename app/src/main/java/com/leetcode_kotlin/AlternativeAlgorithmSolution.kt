@@ -927,6 +927,7 @@ fun canBreak(start: Int, s: String, trie: TrieWordBreak): Boolean {
 
 /**
  * 73. Set Matrix Zeroes
+ * Alternative Solution
  */
 
 fun setZeroesAltSolution(matrix: Array<IntArray>) {
