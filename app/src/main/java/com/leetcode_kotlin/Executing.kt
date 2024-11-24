@@ -8,17 +8,24 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val matrix = arrayOf(
+        intArrayOf(1, 1, 1),
+        intArrayOf(1, 0, 1),
+        intArrayOf(1, 1, 1)
+    )
+
+    setZeroesAltSolution(matrix)
+
+}
+
+fun bstIteratorData(): BSTIterator {
     val root = TreeNode(7)
     root.left = TreeNode(3)
     root.right = TreeNode(15)
     root.right?.left = TreeNode(9)
     root.right?.right = TreeNode(20)
 
-    val iterator = BSTIterator(root)
-    while (iterator.hasNext()) {
-        println(iterator.next())
-    }
-
+    return BSTIterator(root)
 }
 
 
