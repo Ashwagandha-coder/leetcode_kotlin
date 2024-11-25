@@ -2986,6 +2986,31 @@ class BSTIterator(root: TreeNode?) {
     }
 }
 
+/**
+ * 222. Count Complete Tree Nodes
+ */
+
+fun countNodes(root: TreeNode?): Int {
+    root ?: return 0
+    return bfsCountNodes(root)
+}
+
+fun bfsCountNodes(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    var count = 0
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        count += size
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+    return count
+}
+
 
 
 
