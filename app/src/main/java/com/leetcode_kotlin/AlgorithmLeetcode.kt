@@ -3011,6 +3011,51 @@ fun bfsCountNodes(root: TreeNode?): Int {
     return count
 }
 
+/**
+ * 199. Binary Tree Right Side View
+ */
+
+fun rightSideView(root: TreeNode?): List<Int> {
+    return if (root == null) listOf() else bfsRightSideView(root)
+}
+
+fun bfsRightSideView(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (i == size - 1) res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    return res
+}
+
+/**
+ * 230. Kth Smallest Element in a BST
+ */
+
+fun kthSmallest(root: TreeNode?, k: Int): Int {
+    val res = mutableListOf<Int>()
+    inorder(root, res)
+    return res[k - 1]
+}
+
+fun inorder(root: TreeNode?, res: MutableList<Int>) {
+    when (root) {
+        null -> return
+        else -> {
+            inorder(root?.left, res)
+            res.add(root.`val`)
+            inorder(root?.right, res)
+        }
+    }
+}
+
 
 
 

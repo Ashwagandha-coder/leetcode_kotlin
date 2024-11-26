@@ -970,6 +970,29 @@ fun setZeroesAltSolution(matrix: Array<IntArray>) {
     }
 }
 
+/**
+ * 230. Kth Smallest Element in a BST
+ * Alt Solution
+ */
+
+fun kthSmallestAltSolution(root: TreeNode?, k: Int): Int {
+    if (root?.left == null && root?.right == null) return root?.`val` ?: 0
+    val res = mutableListOf<Int>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    res.sort()
+    return res[k - 1]
+}
+
 
 
 
