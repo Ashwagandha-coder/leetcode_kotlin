@@ -3035,6 +3035,27 @@ fun bfsRightSideView(root: TreeNode?): List<Int> {
     return res
 }
 
+/**
+ * 230. Kth Smallest Element in a BST
+ */
+
+fun kthSmallest(root: TreeNode?, k: Int): Int {
+    val res = mutableListOf<Int>()
+    inorder(root, res)
+    return res[k - 1]
+}
+
+fun inorder(root: TreeNode?, res: MutableList<Int>) {
+    when (root) {
+        null -> return
+        else -> {
+            inorder(root?.left, res)
+            res.add(root.`val`)
+            inorder(root?.right, res)
+        }
+    }
+}
+
 
 
 

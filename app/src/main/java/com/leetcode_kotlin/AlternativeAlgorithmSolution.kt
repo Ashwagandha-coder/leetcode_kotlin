@@ -975,7 +975,7 @@ fun setZeroesAltSolution(matrix: Array<IntArray>) {
  * Alt Solution
  */
 
-fun kthSmallest(root: TreeNode?, k: Int): Int {
+fun kthSmallestAltSolution(root: TreeNode?, k: Int): Int {
     if (root?.left == null && root?.right == null) return root?.`val` ?: 0
     val res = mutableListOf<Int>()
     val q = LinkedList<TreeNode>()
