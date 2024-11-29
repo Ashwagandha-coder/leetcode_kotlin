@@ -1,6 +1,7 @@
 package com.leetcode_kotlin
 
 import android.os.Build
+import android.support.annotation.NonNull
 import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
@@ -3055,6 +3056,36 @@ fun inorder(root: TreeNode?, res: MutableList<Int>) {
         }
     }
 }
+
+
+/**
+ *
+ */
+
+
+fun maxPathSum(root: TreeNode?): Int {
+    val maxSumHolder = IntHolder(Int.MIN_VALUE)
+    maxPathSumRecursive(root, maxSumHolder)
+    return maxSumHolder.value
+}
+
+fun maxPathSumRecursive(node: TreeNode?, maxSumHolder: IntHolder): Int {
+    if (node == null) {
+        return 0
+    }
+
+    val leftSum = maxOf(maxPathSumRecursive(node.left, maxSumHolder), 0)
+    val rightSum = maxOf(maxPathSumRecursive(node.right, maxSumHolder), 0)
+
+    // Update maxSum if current path is greater
+    maxSumHolder.value = maxOf(maxSumHolder.value, node.`val` + leftSum + rightSum)
+
+    // Return max path sum that can be extended from current node
+    return node.`val` + maxOf(leftSum, rightSum)
+}
+
+// Helper class to hold the maxSum value
+class IntHolder(var value: Int)
 
 
 
