@@ -994,7 +994,8 @@ fun kthSmallestAltSolution(root: TreeNode?, k: Int): Int {
 }
 
 /**
- *
+ * 3254. Find the Power of K-Size Subarrays I
+ * Alt Solution
  */
 
 fun powerOfSubarrays(nums: IntArray, k: Int): IntArray {
