@@ -993,6 +993,42 @@ fun kthSmallestAltSolution(root: TreeNode?, k: Int): Int {
     return res[k - 1]
 }
 
+/**
+ *
+ */
+
+fun powerOfSubarrays(nums: IntArray, k: Int): IntArray {
+    if (nums.isEmpty()) return intArrayOf()
+    val n = nums.size
+    val results = IntArray(n - k + 1)
+
+    for (i in 0 until n - k + 1) {
+        val subarray = nums.copyOfRange(i, i + k)
+        results[i] = calculatePower(subarray)
+    }
+
+    return results
+}
+
+fun calculatePower(subarray: IntArray): Int {
+    return if (isConsecutiveAndSorted(subarray)) {
+        subarray.last()
+    } else {
+        -1
+    }
+}
+
+fun isConsecutiveAndSorted(arr: IntArray): Boolean {
+    if (arr.isEmpty()) return true
+    for (i in 1 until arr.size) {
+        if (arr[i] != arr[i - 1] + 1) {
+            return false
+        }
+    }
+    return true
+}
+
+
 
 
 
