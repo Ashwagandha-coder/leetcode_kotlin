@@ -3059,7 +3059,7 @@ fun inorder(root: TreeNode?, res: MutableList<Int>) {
 
 
 /**
- *
+ * 124. Binary Tree Maximum Path Sum
  */
 
 
@@ -3077,14 +3077,14 @@ fun maxPathSumRecursive(node: TreeNode?, maxSumHolder: IntHolder): Int {
     val leftSum = maxOf(maxPathSumRecursive(node.left, maxSumHolder), 0)
     val rightSum = maxOf(maxPathSumRecursive(node.right, maxSumHolder), 0)
 
-    // Update maxSum if current path is greater
+
     maxSumHolder.value = maxOf(maxSumHolder.value, node.`val` + leftSum + rightSum)
 
-    // Return max path sum that can be extended from current node
+
     return node.`val` + maxOf(leftSum, rightSum)
 }
 
-// Helper class to hold the maxSum value
+
 class IntHolder(var value: Int)
 
 
