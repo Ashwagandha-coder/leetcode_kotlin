@@ -3088,7 +3088,64 @@ fun maxPathSumRecursive(node: TreeNode?, maxSumHolder: IntHolder): Int {
 class IntHolder(var value: Int)
 
 
+/**
+ * 297. Serialize and Deserialize Binary Tree
+ */
 
+
+class Codec() {
+    // Encodes a tree to a single string.
+    fun serialize(root: TreeNode?): String {
+        if (root == null) return ""
+
+        val result = StringBuilder()
+        val queue = ArrayDeque<TreeNode?>()
+        queue.add(root)
+
+        while (queue.isNotEmpty()) {
+            val node = queue.removeFirst()
+
+            if (node == null) {
+                result.append("null,")
+            } else {
+                result.append("${node.`val`},")
+                queue.add(node.left)
+                queue.add(node.right)
+            }
+        }
+
+        return result.toString().dropLast(1) // Remove trailing comma
+    }
+
+    // Decodes your encoded data to tree.
+    fun deserialize(data: String): TreeNode? {
+        if (data.isEmpty()) return null
+
+        val values = data.split(",").toTypedArray()
+        val root = TreeNode(values[0].toInt())
+        val queue = ArrayDeque<TreeNode?>()
+        queue.add(root)
+        var i = 1
+
+        while (queue.isNotEmpty() && i < values.size) {
+            val node = queue.removeFirst()
+
+            if (values[i] != "null") {
+                node?.left = TreeNode(values[i].toInt())
+                queue.add(node?.left)
+            }
+            i++
+
+            if (i < values.size && values[i] != "null") {
+                node?.right = TreeNode(values[i].toInt())
+                queue.add(node?.right)
+            }
+            i++
+        }
+
+        return root
+    }
+}
 
 
 
