@@ -1029,6 +1029,64 @@ fun isConsecutiveAndSorted(arr: IntArray): Boolean {
     return true
 }
 
+/**
+ *
+ */
+
+fun reverseOddLevelsAltSolution(root: TreeNode?): TreeNode? {
+    if (root == null) return null
+
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(root)
+    var level = 0
+
+    while (queue.isNotEmpty()) {
+        level++
+        val levelSize = queue.size
+        val levelNodes = mutableListOf<TreeNode>()
+
+        for (i in 0 until levelSize) {
+            val node = queue.removeFirst()
+            levelNodes.add(node)
+
+            if (node.left != null) {
+                queue.add(node.left!!)
+            }
+            if (node.right != null) {
+                queue.add(node.right!!)
+            }
+        }
+
+        if (level % 2 != 0) {
+            reverseLevelNodes(levelNodes)
+
+            for (i in 0 until levelSize) {
+                val node = levelNodes[i]
+                if (node.left != null && node.right != null) {
+                    val temp = node.left!!.`val`
+                    node.left!!.`val` = node.right!!.`val`
+                    node.right!!.`val` = temp
+                }
+            }
+        }
+    }
+
+    return root
+}
+
+private fun reverseLevelNodes(nodes: MutableList<TreeNode>) {
+    var left = 0
+    var right = nodes.size - 1
+
+    while (left < right) {
+        val temp = nodes[left]
+        nodes[left] = nodes[right]
+        nodes[right] = temp
+        left++
+        right--
+    }
+}
+
 
 
 
