@@ -631,5 +631,26 @@ fun findDuplicateProdVariant(nums: IntArray): Int {
     return 0
 }
 
+/**
+ * 101. Symmetric Tree
+ * Prod Variant
+ */
+
+fun isSymmetricProdVariant(root: TreeNode?): Boolean =
+    dfsIsSymmetricProdVariant(root?.left, root?.right)
+
+fun dfsIsSymmetricProdVariant(left: TreeNode?, right: TreeNode?): Boolean {
+    return when {
+        left == null && right == null -> true
+        left == null || right == null -> false
+        left?.`val` != right?.`val` -> false
+        else -> dfsIsSymmetricProdVariant(left?.left, right?.right) &&
+                dfsIsSymmetricProdVariant(
+                    left?.right,
+                    right?.left
+                )
+    }
+}
+
 
 
