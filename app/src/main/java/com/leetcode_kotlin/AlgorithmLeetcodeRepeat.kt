@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import java.util.Collections
 import java.util.LinkedList
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -1182,4 +1184,37 @@ fun maxConsecutiveOnesRepeatProdVariant(nums: IntArray): Int {
             maxCount to 0
         }
     }.first
+}
+
+/**
+ * 2583. Kth Largest Sum in a Binary Tree
+ * Repeat problem
+ */
+
+
+fun Repeat.kthLargestLevelSum(root: TreeNode?, k: Int): Long {
+    val res: MutableList<Long> = ArrayList() // To store sum of each level
+    val q: Queue<TreeNode?> = LinkedList() // Queue for level-order traversal
+    q.add(root) // Start BFS from the root node
+
+    while (!q.isEmpty()) {
+        val n = q.size // Number of nodes at the current level
+        var sum: Long = 0 // Sum of node values at the current level
+
+        for (i in 0 until n) {
+            val node = q.poll()
+            sum += node!!.`val`.toLong()
+
+            if (node!!.left != null) q.add(node!!.left)
+            if (node!!.right != null) q.add(node!!.right)
+        }
+        res.add(sum) // Store the sum of the current level
+    }
+
+    if (k > res.size) return -1
+
+    res.sortWith(Collections.reverseOrder()) // Sort level sums in descending order
+
+    return res[k - 1] // Return the k-th largest sum
+
 }
