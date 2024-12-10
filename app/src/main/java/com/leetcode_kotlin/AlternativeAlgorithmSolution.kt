@@ -1109,6 +1109,29 @@ fun subsetsAltSolution(nums: IntArray): List<List<Int>> {
     return result
 }
 
+/**
+ * 3163. String Compression III
+ * Alternative Solution
+ */
+
+fun compressStringAltSolution(chars: CharArray): Int {
+    var index = 0
+    var i = 0
+    while (i < chars.size) {
+        var j = i
+        while (j < chars.size && chars[j] == chars[i]) j++
+        chars[index++] = chars[i]
+        if (j - i > 1) {
+            val count = (j - i).toString()
+            for (digit in count) {
+                chars[index++] = digit
+            }
+        }
+        i = j
+    }
+    return index
+}
+
 
 
 
