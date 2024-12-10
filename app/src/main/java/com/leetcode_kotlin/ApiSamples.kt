@@ -232,3 +232,13 @@ inline fun <T> Set<T>.containsNot(element: T, perform: () -> Unit) {
     if (!this.contains(element)) perform()
 }
 
+/**
+ * Split function testing
+ */
+
+
+fun stringTesting() {
+    val str = "rdighdfghd,fijgdifjg"
+    val res = str.split(",")
+    println(res)
+}
