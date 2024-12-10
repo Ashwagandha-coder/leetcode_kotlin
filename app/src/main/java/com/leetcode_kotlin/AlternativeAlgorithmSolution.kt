@@ -1087,6 +1087,28 @@ private fun reverseLevelNodes(nodes: MutableList<TreeNode>) {
     }
 }
 
+/**
+ * 78. Subsets
+ * Alternative Solution using Loop
+ */
+
+fun subsetsAltSolution(nums: IntArray): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    result.add(emptyList())
+
+    for (num in nums) {
+        val newSubsets = mutableListOf<List<Int>>()
+        for (subset in result) {
+            val newSubset = subset.toMutableList()
+            newSubset.add(num)
+            newSubsets.add(newSubset)
+        }
+        result.addAll(newSubsets)
+    }
+
+    return result
+}
+
 
 
 
