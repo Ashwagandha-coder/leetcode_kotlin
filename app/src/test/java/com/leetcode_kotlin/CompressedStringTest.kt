@@ -11,7 +11,8 @@ class CompressedStringTest {
         val expected = "3a2b1c3d"
         val actual = compressedString(word)
         assertEquals(expected, actual)
-    }@Test
+    }
+    @Test
     fun testCompressedString_example2() {
         val word = "a"
         val expected = "1a"
