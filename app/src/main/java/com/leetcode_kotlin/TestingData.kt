@@ -27,6 +27,30 @@ fun TreeNode.printTreeNodes(): List<Int?> {
     return res
 }
 
+fun List<String>.toTreeNode(): TreeNode? {
+    if (this.isEmpty()) return null
+    val root = TreeNode(this[0].toInt())
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    var i = 1
+    while (q.isNotEmpty() && i < this.size) {
+        val node = q.poll()
+        if (this[i] != "null") {
+            val new = TreeNode(this[i].toInt())
+            node?.left = new
+            q.offer(new)
+        }
+        i++
+        if (i < this.size && this[i] != "null") {
+            val new = TreeNode(this[i].toInt())
+            node?.right = new
+            q.offer(new)
+        }
+        i++
+    }
+    return root
+}
+
 fun ListNode.printListNode() {
     var p = this
     while (p?.next != null) {

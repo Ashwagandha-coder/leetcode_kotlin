@@ -3172,7 +3172,7 @@ class Codec449() {
             }
         }
 
-        return sb.toString().substring(0, sb.length - 1) // Remove trailing comma}
+        return sb.toString().substring(0, sb.length - 1)
 
 
         fun deserialize(data: String): TreeNode? {
@@ -3203,6 +3203,38 @@ class Codec449() {
             return root
         }
     }
+}
+
+/**
+ * 450. Delete Node in a BST
+ */
+
+
+fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
+    if (root == null) return null
+
+    if (key < root.`val`) {
+        root.left = deleteNode(root.left, key)
+    } else if (key > root.`val`) {
+        root.right = deleteNode(root.right, key)
+    } else {
+
+        if (root.left == null) return root.right
+        if (root.right == null) return root.left
+
+
+        var successor = root.right
+        while (successor!!.left != null) {
+            successor = successor.left
+        }
+
+        root.`val` = successor.`val`
+
+
+        root.right = deleteNode(root.right, successor.`val`)
+    }
+
+    return root
 }
 
 
