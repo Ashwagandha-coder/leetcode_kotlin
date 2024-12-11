@@ -3147,6 +3147,96 @@ class Codec() {
     }
 }
 
+/**
+ * 449. Serialize and Deserialize BST
+ */
+
+
+@Suppress("UNREACHABLE_CODE")
+class Codec449() {
+
+    fun serialize(root: TreeNode?): String {
+        if (root == null) return ""
+        val sb = StringBuilder()
+        val queue: Queue<TreeNode?> = LinkedList()
+        queue.offer(root)
+
+        while (queue.isNotEmpty()) {
+            val node = queue.poll()
+            if (node == null) {
+                sb.append("null,")
+            } else {
+                sb.append(node.`val`).append(",")
+                queue.offer(node.left)
+                queue.offer(node.right)
+            }
+        }
+
+        return sb.toString().substring(0, sb.length - 1)
+
+
+        fun deserialize(data: String): TreeNode? {
+            if (data.isEmpty()) return null
+
+            val values = data.split(",").toTypedArray()
+            val queue: Queue<TreeNode?> = LinkedList()
+            val root = TreeNode(values[0].toInt())
+            queue.offer(root)
+            var i = 1
+
+            while (queue.isNotEmpty() && i < values.size) {
+                val node = queue.poll()
+                if (node != null) {
+                    if (values[i] != "null") {
+                        node.left = TreeNode(values[i].toInt())
+                        queue.offer(node.left)
+                    }
+                    i++
+                    if (i < values.size && values[i] != "null") {
+                        node.right = TreeNode(values[i].toInt())
+                        queue.offer(node.right)
+                    }
+                    i++
+                }
+            }
+
+            return root
+        }
+    }
+}
+
+/**
+ * 450. Delete Node in a BST
+ */
+
+
+fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
+    if (root == null) return null
+
+    if (key < root.`val`) {
+        root.left = deleteNode(root.left, key)
+    } else if (key > root.`val`) {
+        root.right = deleteNode(root.right, key)
+    } else {
+
+        if (root.left == null) return root.right
+        if (root.right == null) return root.left
+
+
+        var successor = root.right
+        while (successor!!.left != null) {
+            successor = successor.left
+        }
+
+        root.`val` = successor.`val`
+
+
+        root.right = deleteNode(root.right, successor.`val`)
+    }
+
+    return root
+}
+
 
 
 
