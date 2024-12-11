@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import java.util.Arrays
 import java.util.LinkedList
 import java.util.PriorityQueue
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -1117,7 +1118,8 @@ fun subsetsAltSolution(nums: IntArray): List<List<Int>> {
 fun compressAltSolution(chars: CharArray): String {
     val sb = StringBuilder()
     var i = 0
-    while (i < chars.size) {var j = i
+    while (i < chars.size) {
+        var j = i
         while (j < chars.size && chars[j] == chars[i]) {
             j++
         }
@@ -1128,6 +1130,37 @@ fun compressAltSolution(chars: CharArray): String {
         i = j
     }
     return sb.toString()
+}
+
+/**
+ * 1448. Count Good Nodes in Binary Tree
+ * Alternative Solution
+ */
+
+fun goodNodesAltSolution(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var goodNodesCount = 0
+    val queue: Queue<Pair<TreeNode, Int>> = LinkedList()
+    queue.offer(Pair(root, root.`val`)) // Initial max value is root's value
+
+    while (queue.isNotEmpty()) {
+        val (node, maxSoFar) = queue.poll()
+
+        if (node.`val` >= maxSoFar) {
+            goodNodesCount++
+        }
+
+        if (node.left != null) {
+            queue.offer(Pair(node.left!!, maxOf(maxSoFar, node.left!!.`val`)))
+        }
+
+        if (node.right != null) {
+            queue.offer(Pair(node.right!!, maxOf(maxSoFar, node.right!!.`val`)))
+        }
+    }
+
+    return goodNodesCount
 }
 
 

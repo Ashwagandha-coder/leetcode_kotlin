@@ -1447,8 +1447,8 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
     var value = root?.`val`
     if (value!! >= max) temp++
     var new = max(max, value!!)
-    val l = dfs(root?.left, new) + temp
-    val r = dfs(root?.right, new)
+    val l = dfsGoodNodes(root?.left, new) + temp
+    val r = dfsGoodNodes(root?.right, new)
     return l + r
 }
 
