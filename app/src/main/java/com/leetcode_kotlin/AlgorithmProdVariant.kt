@@ -652,5 +652,11 @@ fun dfsIsSymmetricProdVariant(left: TreeNode?, right: TreeNode?): Boolean {
     }
 }
 
+/**
+ * 136. Single Number
+ */
+
+fun singleNumberProdVariant(nums: IntArray): Int = nums.reduce { acc, i -> acc xor i }
+
 
 
