@@ -1,14 +1,12 @@
 package com.leetcode_kotlin
 
 import android.os.Build
-import android.support.annotation.NonNull
 import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
 import java.util.PriorityQueue
 import java.util.Queue
-import java.util.Stack
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
