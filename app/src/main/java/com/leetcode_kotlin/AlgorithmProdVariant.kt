@@ -654,9 +654,32 @@ fun dfsIsSymmetricProdVariant(left: TreeNode?, right: TreeNode?): Boolean {
 
 /**
  * 136. Single Number
+ * Prod Variant
  */
 
 fun singleNumberProdVariant(nums: IntArray): Int = nums.reduce { acc, i -> acc xor i }
 
+/**
+ * 98. Validate Binary Search Tree
+ * Prod Variant
+ */
 
+fun isValidBSTProdVariant(root: TreeNode?): Boolean =
+    isValidBSTDFSProdVariant(root, Long.MIN_VALUE, Long.MAX_VALUE)
+
+fun isValidBSTDFSProdVariant(root: TreeNode?, min: Long, max: Long): Boolean {
+    return when {
+        root == null -> true
+        !(root.`val` < max && root.`val` > min) -> false
+        else -> isValidBSTDFSProdVariant(
+            root?.left,
+            min,
+            root.`val`.toLong()
+        ) && isValidBSTDFSProdVariant(
+            root?.right,
+            root.`val`.toLong(),
+            max
+        )
+    }
+}
 
