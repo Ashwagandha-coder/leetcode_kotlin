@@ -1,14 +1,12 @@
 package com.leetcode_kotlin
 
 import android.os.Build
-import android.support.annotation.NonNull
 import android.support.annotation.RequiresApi
 import java.util.Arrays
 import java.util.Collections
 import java.util.LinkedList
 import java.util.PriorityQueue
 import java.util.Queue
-import java.util.Stack
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -1447,8 +1445,8 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
     var value = root?.`val`
     if (value!! >= max) temp++
     var new = max(max, value!!)
-    val l = dfs(root?.left, new) + temp
-    val r = dfs(root?.right, new)
+    val l = dfsGoodNodes(root?.left, new) + temp
+    val r = dfsGoodNodes(root?.right, new)
     return l + r
 }
 
@@ -3235,6 +3233,32 @@ fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
     }
 
     return root
+}
+
+/**
+ * 508. Most Frequent Subtree Sum
+ */
+
+fun findFrequentTreeSum(root: TreeNode?): IntArray {
+    val sumFrequencyMap = mutableMapOf<Int, Int>()
+    calculateSubtreeSums(root, sumFrequencyMap)
+
+    val maxFrequency = sumFrequencyMap.values.maxOrNull() ?: 0
+    val mostFrequentSums = sumFrequencyMap.filterValues { it == maxFrequency }.keys.toIntArray()
+
+    return mostFrequentSums
+}
+
+private fun calculateSubtreeSums(node: TreeNode?, sumFrequencyMap: MutableMap<Int, Int>): Int {
+    if (node == null) return 0
+
+    val leftSum = calculateSubtreeSums(node.left, sumFrequencyMap)
+    val rightSum = calculateSubtreeSums(node.right, sumFrequencyMap)
+
+    val subtreeSum = node.`val` + leftSum + rightSum
+    sumFrequencyMap[subtreeSum] = sumFrequencyMap.getOrDefault(subtreeSum, 0) + 1
+
+    return subtreeSum
 }
 
 

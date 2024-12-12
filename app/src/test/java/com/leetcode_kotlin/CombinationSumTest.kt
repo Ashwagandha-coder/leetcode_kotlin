@@ -1,7 +1,8 @@
 package com.leetcode_kotlin
 
 import org.junit.Test
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.Assertions.assertEquals
 
 class CombinationSumTest {
 
