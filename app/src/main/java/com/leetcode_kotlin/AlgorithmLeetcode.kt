@@ -3261,6 +3261,32 @@ private fun calculateSubtreeSums(node: TreeNode?, sumFrequencyMap: MutableMap<In
     return subtreeSum
 }
 
+/**
+ * 654. Maximum Binary Tree
+ */
+
+fun constructMaximumBinaryTree(nums: IntArray): TreeNode? {
+    if (nums.isEmpty()) return null
+
+    val maxIndex = findMaxIndex(nums)
+    val root = TreeNode(nums[maxIndex])
+
+    root.left = constructMaximumBinaryTree(nums.copyOfRange(0, maxIndex))
+    root.right = constructMaximumBinaryTree(nums.copyOfRange(maxIndex + 1, nums.size))
+
+    return root
+}
+
+private fun findMaxIndex(nums: IntArray): Int {
+    var maxIndex = 0
+    for (i in 1 until nums.size) {
+        if (nums[i] > nums[maxIndex]) {
+            maxIndex = i
+        }
+    }
+    return maxIndex
+}
+
 
 
 
