@@ -2298,6 +2298,7 @@ fun numMatchingSubSequence(s: String, words: Array<String>): Int {
 
 
 fun rotateString(s: String, goal: String): Boolean {
+    if (s.isEmpty()) return true
     var temp = s
     val len = s.length
     for (i in 0 until len) {
@@ -3259,6 +3260,32 @@ private fun calculateSubtreeSums(node: TreeNode?, sumFrequencyMap: MutableMap<In
     sumFrequencyMap[subtreeSum] = sumFrequencyMap.getOrDefault(subtreeSum, 0) + 1
 
     return subtreeSum
+}
+
+/**
+ * 654. Maximum Binary Tree
+ */
+
+fun constructMaximumBinaryTree(nums: IntArray): TreeNode? {
+    if (nums.isEmpty()) return null
+
+    val maxIndex = findMaxIndex(nums)
+    val root = TreeNode(nums[maxIndex])
+
+    root.left = constructMaximumBinaryTree(nums.copyOfRange(0, maxIndex))
+    root.right = constructMaximumBinaryTree(nums.copyOfRange(maxIndex + 1, nums.size))
+
+    return root
+}
+
+private fun findMaxIndex(nums: IntArray): Int {
+    var maxIndex = 0
+    for (i in 1 until nums.size) {
+        if (nums[i] > nums[maxIndex]) {
+            maxIndex = i
+        }
+    }
+    return maxIndex
 }
 
 
