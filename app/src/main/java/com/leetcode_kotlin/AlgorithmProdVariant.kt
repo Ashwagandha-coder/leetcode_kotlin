@@ -683,3 +683,28 @@ fun isValidBSTDFSProdVariant(root: TreeNode?, min: Long, max: Long): Boolean {
     }
 }
 
+/**
+ * 307. Range Sum Query - Mutable
+ * Prod Variant
+ */
+
+class NumArrayProdVariant(nums: IntArray) {
+
+    private val prefixSum = IntArray(nums.size + 1) { 0 }
+
+    init {
+        for (i in nums.indices) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i]
+        }
+    }
+
+    fun update(index: Int, `val`: Int) {
+        val diff = `val` - (prefixSum[index + 1] - prefixSum[index])
+        for (i in index + 1..prefixSum.lastIndex) {
+            prefixSum[i] += diff
+        }
+    }
+
+    fun sumRange(left: Int, right: Int): Int = prefixSum[right + 1] - prefixSum[left]
+}
+
