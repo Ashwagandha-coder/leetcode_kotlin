@@ -3288,6 +3288,45 @@ private fun findMaxIndex(nums: IntArray): Int {
     return maxIndex
 }
 
+/**
+ * 662. Maximum Width of Binary Tree
+ */
+
+
+fun widthOfBinaryTree(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var maxWidth = 0
+    val queue: Queue<Pair<TreeNode, Int>> = LinkedList()
+    queue.offer(Pair(root, 0)) // Initial index of root is 0
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+        var leftmostIndex = -1
+        var rightmostIndex = -1
+
+        for (i in 0 until levelSize) {
+            val (node, index) = queue.poll()
+
+            if (leftmostIndex == -1) {
+                leftmostIndex = index
+            }
+            rightmostIndex = index
+
+            if (node.left != null) {
+                queue.offer(Pair(node.left!!, 2 * index + 1)) // Left child index
+            }
+            if (node.right != null) {
+                queue.offer(Pair(node.right!!, 2 * index + 2)) // Right child index
+            }
+        }
+
+        maxWidth = maxOf(maxWidth, rightmostIndex - leftmostIndex + 1)
+    }
+
+    return maxWidth
+}
+
 
 
 

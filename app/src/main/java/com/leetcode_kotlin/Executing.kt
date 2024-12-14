@@ -8,9 +8,14 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val root = listOf("5", "3", "6", "2", "4", "null", "7").toTreeNode()
-    val key = 3
-    deleteNode(root, key)
+    val root = TreeNode(1)
+    root.left = TreeNode(3)
+    root.right = TreeNode(2)
+    root.left!!.left = TreeNode(5)
+    root.left!!.right = TreeNode(3)
+    root.right!!.right = TreeNode(9)
+
+    widthOfBinaryTree(root).also { println(it) }
 
 }
 
