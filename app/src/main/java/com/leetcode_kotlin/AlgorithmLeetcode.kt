@@ -3327,6 +3327,33 @@ fun widthOfBinaryTree(root: TreeNode?): Int {
     return maxWidth
 }
 
+/**
+ * 105. Construct Binary Tree from Preorder and Inorder Traversal
+ */
+
+
+fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
+    if (preorder.isEmpty() || inorder.isEmpty()) {
+        return null
+    }
+
+    val rootValue = preorder[0]
+    val root = TreeNode(rootValue)
+
+    val rootIndexInInorder = inorder.indexOf(rootValue)
+
+    root.left = buildTree(
+        preorder.copyOfRange(1, rootIndexInInorder + 1),
+        inorder.copyOfRange(0, rootIndexInInorder)
+    )
+    root.right = buildTree(
+        preorder.copyOfRange(rootIndexInInorder + 1, preorder.size),
+        inorder.copyOfRange(rootIndexInInorder + 1, inorder.size)
+    )
+
+    return root
+}
+
 
 
 
