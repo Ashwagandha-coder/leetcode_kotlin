@@ -3331,7 +3331,12 @@ fun widthOfBinaryTree(root: TreeNode?): Int {
  * 105. Construct Binary Tree from Preorder and Inorder Traversal
  */
 
-
+// 3 9 7
+// 9 3 7
+/*
+   3
+  9 7
+ */
 fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     if (preorder.isEmpty() || inorder.isEmpty()) {
         return null
@@ -3352,6 +3357,30 @@ fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     )
 
     return root
+}
+
+/**
+ * 451. Sort Characters By Frequency
+ */
+
+fun frequencySort(s: String): String {
+    val pq = PriorityQueue<Pair<Int, Char>> { a, b -> b.first - a.first }
+    val map = mutableMapOf<Char, Int>()
+    val len = s.length
+    for (i in 0 until len) {
+        map[s[i]] = map.getOrDefault(s[i], 0) + 1
+    }
+    for (i in 0 until len) {
+        val obj = Pair(map.getOrDefault(s[i], 0), s[i])
+        pq.offer(obj)
+        map.remove(s[i])
+    }
+    var res = ""
+    while (pq.isNotEmpty()) {
+        val obj = pq.poll()
+        repeat(obj.first) { res += obj.second }
+    }
+    return res
 }
 
 
