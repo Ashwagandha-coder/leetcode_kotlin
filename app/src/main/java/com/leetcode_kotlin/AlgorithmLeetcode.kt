@@ -3331,12 +3331,6 @@ fun widthOfBinaryTree(root: TreeNode?): Int {
  * 105. Construct Binary Tree from Preorder and Inorder Traversal
  */
 
-// 3 9 7
-// 9 3 7
-/*
-   3
-  9 7
- */
 fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     if (preorder.isEmpty() || inorder.isEmpty()) {
         return null
@@ -3381,6 +3375,37 @@ fun frequencySort(s: String): String {
         repeat(obj.first) { res += obj.second }
     }
     return res
+}
+
+/**
+ * 116. Populating Next Right Pointers in Each Node
+ */
+
+fun connect(root: Node?): Node? {
+    if (root == null) return null
+    bfs(root)
+    return root
+}
+
+fun bfs(root: Node) {
+    val q = LinkedList<Node>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var prev: Node? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (size % 2 == 0) {
+                if (prev == null) prev = node
+                else {
+                    prev?.next = node
+                    prev = node
+                }
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
 }
 
 

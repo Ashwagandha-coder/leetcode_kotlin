@@ -6,7 +6,6 @@ import org.junit.Test
 class SingleNumberTest {
 
 
-
     @Test
     fun testSingleNumber_example1() {
         val nums = intArrayOf(2, 2, 1)
