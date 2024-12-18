@@ -3331,12 +3331,6 @@ fun widthOfBinaryTree(root: TreeNode?): Int {
  * 105. Construct Binary Tree from Preorder and Inorder Traversal
  */
 
-// 3 9 7
-// 9 3 7
-/*
-   3
-  9 7
- */
 fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     if (preorder.isEmpty() || inorder.isEmpty()) {
         return null

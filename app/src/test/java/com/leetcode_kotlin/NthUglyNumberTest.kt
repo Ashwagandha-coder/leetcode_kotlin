@@ -6,7 +6,6 @@ import org.junit.Test
 class NthUglyNumberTest {
 
 
-
     @Test
     fun testNthUglyNumber_example1() {
         val n = 10
@@ -27,7 +26,7 @@ class NthUglyNumberTest {
     fun testNthUglyNumber_largeN() {
         val n = 1500
         val expected = 859963392 // Expected value for n = 1500
-        val actual= nthUglyNumber(n)
+        val actual = nthUglyNumber(n)
         assertEquals(expected, actual)
     }
 

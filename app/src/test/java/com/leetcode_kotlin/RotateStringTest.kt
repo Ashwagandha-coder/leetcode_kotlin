@@ -6,7 +6,6 @@ import org.junit.Test
 class RotateStringTest {
 
 
-
     @Test
     fun testRotateString_example1() {
         val s = "abcde"
