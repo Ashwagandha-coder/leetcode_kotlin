@@ -3408,6 +3408,36 @@ fun bfs(root: Node) {
     }
 }
 
+/**
+ * 373. Find K Pairs with Smallest Sums
+ */
+
+fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    if (nums1.isEmpty() || nums2.isEmpty() || k == 0) {
+        return result
+    }
+
+    val priorityQueue = PriorityQueue<Triple<Int, Int, Int>>(
+        compareBy { nums1[it.first] + nums2[it.second] }
+    )
+
+    for (i in 0 until minOf(nums1.size, k)) {
+        priorityQueue.offer(Triple(i, 0, nums1[i] + nums2[0]))
+    }
+
+    while (priorityQueue.isNotEmpty() && result.size < k) {
+        val (i,j, _) = priorityQueue.poll()
+        result.add(listOf(nums1[i], nums2[j]))
+
+        if (j + 1 < nums2.size) {
+            priorityQueue.offer(Triple(i, j + 1, nums1[i] + nums2[j + 1]))
+        }
+    }
+
+    return result
+}
+
 
 
 
