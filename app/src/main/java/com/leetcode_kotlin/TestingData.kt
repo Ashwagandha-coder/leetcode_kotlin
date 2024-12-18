@@ -12,6 +12,12 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+class Node(var `val`: Int) {
+    var left: Node? = null
+    var right: Node? = null
+    var next: Node? = null
+}
+
 fun TreeNode.printTreeNodes(): List<Int?> {
     val root = this
     val q = LinkedList<TreeNode>()
@@ -110,7 +116,7 @@ fun ListNode.toList(): List<Int> {
 }
 
 
-object Node {
+object NodeForTree {
 
     fun node(): TreeNode {
         val node = TreeNode(1)
