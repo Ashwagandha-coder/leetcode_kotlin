@@ -3427,13 +3427,36 @@ fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
     }
 
     while (priorityQueue.isNotEmpty() && result.size < k) {
-        val (i,j, _) = priorityQueue.poll()
+        val (i, j, _) = priorityQueue.poll()
         result.add(listOf(nums1[i], nums2[j]))
 
         if (j + 1 < nums2.size) {
             priorityQueue.offer(Triple(i, j + 1, nums1[i] + nums2[j + 1]))
         }
     }
+
+    return result
+}
+
+/**
+ * 658. Find K Closest Elements
+ */
+
+fun findClosestElements(arr: IntArray, k: Int, x: Int): List<Int> {
+    val priorityQueue = PriorityQueue<Pair<Int, Int>>(compareBy { (num, index) ->
+        Math.abs(num - x) * 10000 + index // Custom comparator
+    })
+
+    for (index in arr.indices) {
+        priorityQueue.offer(arr[index] to index)
+    }
+
+    val result = mutableListOf<Int>()
+    for (i in 0 until k) {
+        result.add(priorityQueue.poll().first)
+    }
+
+    result.sortWith(compareBy { arr.indexOf(it) }) //Sort by original index
 
     return result
 }
