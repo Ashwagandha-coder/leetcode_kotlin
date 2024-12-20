@@ -3492,6 +3492,37 @@ fun maxSlidingWindow(nums: IntArray, k: Int): IntArray {
     return result
 }
 
+/**
+ * 295. Find Median from Data Stream
+ */
+
+class MedianFinder() {
+    private val maxHeap = PriorityQueue<Int>(Collections.reverseOrder()) // Stores smaller half
+    private val minHeap = PriorityQueue<Int>() // Stores larger half
+
+    fun addNum(num: Int) {
+        if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+            maxHeap.offer(num)
+        } else {
+            minHeap.offer(num)
+        }
+
+        // Balance the heaps to maintain median property
+        if (maxHeap.size > minHeap.size + 1) {
+            minHeap.offer(maxHeap.poll())
+        } else if (minHeap.size > maxHeap.size) {
+            maxHeap.offer(minHeap.poll())
+        }
+    }
+
+    fun findMedian(): Double {
+        return if (maxHeap.size == minHeap.size) {
+            (maxHeap.peek() + minHeap.peek()).toDouble() / 2
+        } else {
+            maxHeap.peek().toDouble() // Max heap has one more element for odd size
+        }
+    }
+}
 
 
 
