@@ -8,10 +8,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val nums = intArrayOf(1, 3, -1, -3, 5, 3, 6, 7)
-    val k = 3
+    val s = "LeetcodeHelpsMeLearn"
+    val spaces = intArrayOf(8, 13, 15)
 
-    maxSlidingWindow(nums, k)
+    addSpaces(s, spaces)
 
 }
 

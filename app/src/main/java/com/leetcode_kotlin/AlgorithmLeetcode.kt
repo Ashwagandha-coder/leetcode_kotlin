@@ -3524,6 +3524,70 @@ class MedianFinder() {
     }
 }
 
+/**
+ * 1346. Check If N and Its Double Exist
+ */
+
+fun checkIfExist(arr: IntArray): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until arr.size) {
+        if (!map.contains(arr[i])) map[arr[i]] = i
+        else if (arr[i] == 0) return true
+    }
+    for (i in 0 until arr.size) {
+        if (arr[i] != 0 && map.contains(arr[i] * 2)) return true
+    }
+    return false
+}
+
+/**
+ * 2109. Adding Spaces to a String
+ */
+
+fun addSpaces(s: String, spaces: IntArray): String {
+    val result = StringBuilder()
+    var spacesIndex = 0
+
+    for (i in s.indices) {
+        if (spacesIndex < spaces.size && i == spaces[spacesIndex]) {
+            result.append(" ")
+            spacesIndex++
+        }
+        result.append(s[i])
+    }
+
+    return result.toString()
+}
+
+/**
+ * 117. Populating Next Right Pointers in Each Node II
+ */
+
+fun connectII(root: Node?): Node? {
+    val q = LinkedList<Node>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var prev: Node? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (prev == null) {
+                prev = node
+            } else {
+                prev?.next = node
+                prev = node
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+    return root
+}
+
+
+
+
+
 
 
 
