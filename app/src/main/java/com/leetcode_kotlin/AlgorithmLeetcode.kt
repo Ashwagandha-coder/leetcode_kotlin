@@ -3524,6 +3524,22 @@ class MedianFinder() {
     }
 }
 
+/**
+ * 1346. Check If N and Its Double Exist
+ */
+
+fun checkIfExist(arr: IntArray): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until arr.size) {
+        if (!map.contains(arr[i])) map[arr[i]] = i
+        else if (arr[i] == 0) return true
+    }
+    for (i in 0 until arr.size) {
+        if (arr[i] != 0 && map.contains(arr[i] * 2)) return true
+    }
+    return false
+}
+
 
 
 
