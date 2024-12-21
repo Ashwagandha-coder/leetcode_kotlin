@@ -3540,6 +3540,25 @@ fun checkIfExist(arr: IntArray): Boolean {
     return false
 }
 
+/**
+ * 2109. Adding Spaces to a String
+ */
+
+fun addSpaces(s: String, spaces: IntArray): String {
+    val result = StringBuilder()
+    var spacesIndex = 0
+
+    for (i in s.indices) {
+        if (spacesIndex < spaces.size && i == spaces[spacesIndex]) {
+            result.append(" ")
+            spacesIndex++
+        }
+        result.append(s[i])
+    }
+
+    return result.toString()
+}
+
 
 
 
