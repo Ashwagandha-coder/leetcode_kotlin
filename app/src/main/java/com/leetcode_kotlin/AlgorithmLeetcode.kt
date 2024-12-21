@@ -3559,6 +3559,35 @@ fun addSpaces(s: String, spaces: IntArray): String {
     return result.toString()
 }
 
+/**
+ * 117. Populating Next Right Pointers in Each Node II
+ */
+
+fun connectII(root: Node?): Node? {
+    val q = LinkedList<Node>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var prev: Node? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (prev == null) {
+                prev = node
+            } else {
+                prev?.next = node
+                prev = node
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+    return root
+}
+
+
+
+
+
 
 
 
