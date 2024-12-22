@@ -3585,6 +3585,30 @@ fun connectII(root: Node?): Node? {
 }
 
 
+/**
+ * 331. Verify Preorder Serialization of a Binary Tree
+ */
+
+
+fun isValidSerialization(preorder: String): Boolean {
+    val nodes = preorder.split(",")
+    var diff = 1
+
+    for (node in nodes) {
+        diff--
+
+        if(diff < 0) {
+            return false
+        }
+
+        if (node != "#") {
+            diff += 2
+        }
+    }
+
+    return diff == 0
+}
+
 
 
 
