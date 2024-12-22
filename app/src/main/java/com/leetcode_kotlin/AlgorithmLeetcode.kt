@@ -3597,7 +3597,7 @@ fun isValidSerialization(preorder: String): Boolean {
     for (node in nodes) {
         diff--
 
-        if(diff < 0) {
+        if (diff < 0) {
             return false
         }
 
@@ -3607,6 +3607,35 @@ fun isValidSerialization(preorder: String): Boolean {
     }
 
     return diff == 0
+}
+
+/**
+ * 404. Sum of Left Leaves
+ */
+
+fun sumOfLeftLeaves(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var sum = 0
+    val queue = LinkedList<Pair<TreeNode, Boolean>>()
+    queue.offer(root to false)
+
+    while (queue.isNotEmpty()) {
+        val (node, isLeft) = queue.poll()
+
+        if (node.left == null && node.right == null && isLeft) {
+            sum += node.`val`
+        }
+
+        if (node.left != null) {
+            queue.offer(node.left!! to true)
+        }
+        if (node.right != null) {
+            queue.offer(node.right!! to false)
+        }
+    }
+
+    return sum
 }
 
 
