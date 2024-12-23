@@ -3597,7 +3597,7 @@ fun isValidSerialization(preorder: String): Boolean {
     for (node in nodes) {
         diff--
 
-        if(diff < 0) {
+        if (diff < 0) {
             return false
         }
 
@@ -3607,6 +3607,69 @@ fun isValidSerialization(preorder: String): Boolean {
     }
 
     return diff == 0
+}
+
+/**
+ * 404. Sum of Left Leaves
+ */
+
+fun sumOfLeftLeaves(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var sum = 0
+    val queue = LinkedList<Pair<TreeNode, Boolean>>()
+    queue.offer(root to false)
+
+    while (queue.isNotEmpty()) {
+        val (node, isLeft) = queue.poll()
+
+        if (node.left == null && node.right == null && isLeft) {
+            sum += node.`val`
+        }
+
+        if (node.left != null) {
+            queue.offer(node.left!! to true)
+        }
+        if (node.right != null) {
+            queue.offer(node.right!! to false)
+        }
+    }
+
+    return sum
+}
+
+/**
+ * 111. Minimum Depth of Binary Tree
+ */
+
+fun minDepth(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    val queue = LinkedList<TreeNode>()
+    queue.offer(root)
+    var depth = 1
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+
+        for (i in 0 until levelSize) {
+            val node = queue.poll()
+
+            if (node.left == null && node.right == null) {
+                return depth // Found a leaf node, return depth
+            }
+
+            if (node.left != null) {
+                queue.offer(node.left!!)
+            }
+            if (node.right != null) {
+                queue.offer(node.right!!)
+            }
+        }
+
+        depth++
+    }
+    return depth
 }
 
 
