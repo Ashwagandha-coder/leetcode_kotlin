@@ -3638,6 +3638,40 @@ fun sumOfLeftLeaves(root: TreeNode?): Int {
     return sum
 }
 
+/**
+ * 111. Minimum Depth of Binary Tree
+ */
+
+fun minDepth(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    val queue = LinkedList<TreeNode>()
+    queue.offer(root)
+    var depth = 1
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+
+        for (i in 0 until levelSize) {
+            val node = queue.poll()
+
+            if (node.left == null && node.right == null) {
+                return depth // Found a leaf node, return depth
+            }
+
+            if (node.left != null) {
+                queue.offer(node.left!!)
+            }
+            if (node.right != null) {
+                queue.offer(node.right!!)
+            }
+        }
+
+        depth++
+    }
+    return depth
+}
+
 
 
 
