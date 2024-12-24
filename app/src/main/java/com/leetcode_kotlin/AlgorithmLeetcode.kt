@@ -3672,6 +3672,83 @@ fun minDepth(root: TreeNode?): Int {
     return depth
 }
 
+/**
+ * 513. Find Bottom Left Tree Value
+ */
+
+fun findBottomLeftValue(root: TreeNode?): Int = bfsFindBottomLeftValue(root)
+
+fun bfsFindBottomLeftValue(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    var value = 0
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var leftMost = true
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (node?.left == null && node?.right == null && leftMost) {
+                value = node.`val`
+                leftMost = false
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        if (q.isEmpty()) return value
+    }
+    return value
+}
+
+/**
+ * 515. Find Largest Value in Each Tree Row
+ */
+
+fun largestValues(root: TreeNode?): List<Int> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var max = Int.MIN_VALUE
+        for (i in 0 until size) {
+            val node = q.poll()
+            max = maxOf(max, node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(max)
+    }
+    return res
+}
+
+/**
+ * 530. Minimum Absolute Difference in BST
+ */
+
+fun getMinimumDifference(root: TreeNode?): Int {
+    var minDiff = Int.MAX_VALUE
+    var prev: Int? = null
+
+    fun inorder(root: TreeNode?) {
+        if (root == null) return
+
+        inorder(root.left)
+
+        prev?.let {
+            minDiff = minOf(minDiff, root.`val` - it)
+        }
+        prev = root.`val`
+
+        inorder(root.right)
+    }
+
+    inorder(root)
+    return minDiff
+}
+
+
+
 
 
 
