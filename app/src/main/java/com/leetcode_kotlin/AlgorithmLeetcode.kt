@@ -3699,6 +3699,29 @@ fun bfsFindBottomLeftValue(root: TreeNode?): Int {
     return value
 }
 
+/**
+ * 515. Find Largest Value in Each Tree Row
+ */
+
+fun largestValues(root: TreeNode?): List<Int> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var max = Int.MIN_VALUE
+        for (i in 0 until size) {
+            val node = q.poll()
+            max = maxOf(max, node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(max)
+    }
+    return res
+}
+
 
 
 
