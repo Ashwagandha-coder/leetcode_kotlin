@@ -3672,6 +3672,35 @@ fun minDepth(root: TreeNode?): Int {
     return depth
 }
 
+/**
+ * 513. Find Bottom Left Tree Value
+ */
+
+fun findBottomLeftValue(root: TreeNode?): Int = bfsFindBottomLeftValue(root)
+
+fun bfsFindBottomLeftValue(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    var value = 0
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var leftMost = true
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (node?.left == null && node?.right == null && leftMost) {
+                value = node.`val`
+                leftMost = false
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        if (q.isEmpty()) return value
+    }
+    return value
+}
+
+
+
 
 
 
