@@ -3722,6 +3722,31 @@ fun largestValues(root: TreeNode?): List<Int> {
     return res
 }
 
+/**
+ * 530. Minimum Absolute Difference in BST
+ */
+
+fun getMinimumDifference(root: TreeNode?): Int {
+    var minDiff = Int.MAX_VALUE
+    var prev: Int? = null
+
+    fun inorder(root: TreeNode?) {
+        if (root == null) return
+
+        inorder(root.left)
+
+        prev?.let {
+            minDiff = minOf(minDiff, root.`val` - it)
+        }
+        prev = root.`val`
+
+        inorder(root.right)
+    }
+
+    inorder(root)
+    return minDiff
+}
+
 
 
 
