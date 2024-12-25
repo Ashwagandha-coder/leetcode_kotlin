@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val preorder = "9,3,4,#,#,1,#,#,2,#,6,#,#"
+    val array = intArrayOf(0, 0, 1, 2, 3, 5, 2, 3, 2, 1, 0)
 
-    isValidSerialization(preorder)
+    peakIndexInMountainArray(array).let { println("$it") }
 
 }
 

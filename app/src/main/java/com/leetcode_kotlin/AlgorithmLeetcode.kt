@@ -3747,6 +3747,23 @@ fun getMinimumDifference(root: TreeNode?): Int {
     return minDiff
 }
 
+/**
+ * 852. Peak Index in a Mountain Array
+ */
+
+
+fun peakIndexInMountainArray(A: IntArray): Int {
+    var l = 0
+    var r = A.size - 1
+    var m: Int
+    while (l < r) {
+        m = (l + r) / 2
+        if (A[m] < A[m + 1]) l = m + 1
+        else r = m
+    }
+    return l
+}
+
 
 
 
