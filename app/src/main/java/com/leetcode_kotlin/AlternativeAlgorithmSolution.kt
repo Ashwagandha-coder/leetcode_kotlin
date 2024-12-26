@@ -1187,6 +1187,30 @@ private fun dfs(node: TreeNode?, result: MutableList<Int>, level: Int) {
     dfs(node.right, result, level + 1)
 }
 
+/**
+ * 513. Find Bottom Left Tree Value
+ * dfs - approach
+ */
+
+fun findBottomLeftValueAltSolution(root: TreeNode?): Int {
+    var maxDepth = -1
+    var value = 0
+
+    fun dfs(root: TreeNode?, depth: Int) {
+        if (root == null) return
+
+        if (depth > maxDepth) {
+            maxDepth = depth
+            value = root?.`val` ?: 0
+        }
+
+        dfs(root?.left, depth + 1)
+        dfs(root?.right, depth + 1)
+    }
+    dfs(root, 0)
+    return value
+}
+
 
 
 
