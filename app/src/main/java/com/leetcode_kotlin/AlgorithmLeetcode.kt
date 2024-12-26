@@ -3764,6 +3764,21 @@ fun peakIndexInMountainArray(A: IntArray): Int {
     return l
 }
 
+/**
+ * 162. Find Peak Element
+ */
+
+fun findPeakElement(nums: IntArray): Int {
+    var l = 0
+    var r = nums.size - 1
+    while (l < r) {
+        var m = (l + r) / 2
+        if (nums[m] < nums[m + 1]) l = m + 1
+        else r = m
+    }
+    return l
+}
+
 
 
 
