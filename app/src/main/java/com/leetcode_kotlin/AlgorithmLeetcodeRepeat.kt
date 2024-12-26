@@ -1218,3 +1218,27 @@ fun Repeat.kthLargestLevelSum(root: TreeNode?, k: Int): Long {
     return res[k - 1] // Return the k-th largest sum
 
 }
+
+/**
+ * Largest Value Repeat
+ */
+
+
+fun largestValuesRepeat(root: TreeNode?): List<Int> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    val list = mutableListOf<Int>()
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var max = Int.MIN_VALUE
+        for (i in 0 until size) {
+            val node = q.poll()
+            max = maxOf(max, node.`val` ?: 0)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+        list.add(max)
+    }
+    return list
+}

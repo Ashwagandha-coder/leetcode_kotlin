@@ -3806,6 +3806,59 @@ fun local(nums: IntArray, target: Int): Boolean {
     return if (nums[l] == target) true else false
 }
 
+/**
+ * 34. Find First and Last Position of Element in Sorted Array
+ */
+
+fun searchRange(nums: IntArray, target: Int): IntArray {
+    val firstPosition = findFirstPosition(nums, target)
+    val lastPosition = findLastPosition(nums, target)
+
+    return intArrayOf(firstPosition, lastPosition)
+}
+
+private fun findFirstPosition(nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var firstPosition = -1
+
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+
+        if (nums[mid] == target) {
+            firstPosition = mid
+            high = mid - 1
+        } else if (nums[mid] < target) {
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+
+    return firstPosition
+}
+
+private fun findLastPosition(nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var lastPosition = -1
+
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+
+        if (nums[mid] == target) {
+            lastPosition = mid
+            low = mid + 1
+        } else if (nums[mid] < target) {
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+
+    return lastPosition
+}
+
 
 
 

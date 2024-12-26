@@ -1163,6 +1163,54 @@ fun goodNodesAltSolution(root: TreeNode?): Int {
     return goodNodesCount
 }
 
+/**
+ * 515. Find Largest Value in Each Tree Row
+ * dfs - approach
+ */
+
+fun largestValueAltSolution(root: TreeNode?): List<Int> {
+    val result = mutableListOf<Int>()
+    dfs(root, result, 0)
+    return result
+}
+
+private fun dfs(node: TreeNode?, result: MutableList<Int>, level: Int) {
+    if (node == null) return
+
+    if (level == result.size) {
+        result.add(node.`val`)
+    } else {
+        result[level] = maxOf(result[level], node.`val`)
+    }
+
+    dfs(node.left, result, level + 1)
+    dfs(node.right, result, level + 1)
+}
+
+/**
+ * 513. Find Bottom Left Tree Value
+ * dfs - approach
+ */
+
+fun findBottomLeftValueAltSolution(root: TreeNode?): Int {
+    var maxDepth = -1
+    var value = 0
+
+    fun dfs(root: TreeNode?, depth: Int) {
+        if (root == null) return
+
+        if (depth > maxDepth) {
+            maxDepth = depth
+            value = root?.`val` ?: 0
+        }
+
+        dfs(root?.left, depth + 1)
+        dfs(root?.right, depth + 1)
+    }
+    dfs(root, 0)
+    return value
+}
+
 
 
 

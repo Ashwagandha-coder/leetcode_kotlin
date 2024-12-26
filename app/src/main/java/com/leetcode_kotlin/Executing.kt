@@ -8,11 +8,12 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val array = intArrayOf(0, 0, 1, 2, 3, 5, 2, 3, 2, 1, 0)
+    val arr = intArrayOf(2, 2)
 
-    peakIndexInMountainArray(array).let { println("$it") }
+    searchRange(arr, 2).also { it.forEach { elem -> println(elem) } }
 
 }
+
 
 
 
