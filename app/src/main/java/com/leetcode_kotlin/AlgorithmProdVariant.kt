@@ -709,7 +709,7 @@ class NumArrayProdVariant(nums: IntArray) {
 }
 
 /**
- *
+ * 852. Peak Index in a Mountain Array
  */
 
 fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
