@@ -8,9 +8,15 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val array = intArrayOf(0, 0, 1, 2, 3, 5, 2, 3, 2, 1, 0)
 
-    peakIndexInMountainArray(array).also { println("$it") }
+    val root = TreeNode(1)
+    root.left = TreeNode(3)
+    root.right = TreeNode(2)
+    root.left!!.left = TreeNode(5)
+    root.left!!.right = TreeNode(3)
+    root.right!!.right = TreeNode(9)
+
+    largestValueAltSolution(root).also { println(it) }
 
 }
 
