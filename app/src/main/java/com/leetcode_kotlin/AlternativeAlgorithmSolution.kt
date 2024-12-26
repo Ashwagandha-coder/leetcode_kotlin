@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import java.util.Arrays
 import java.util.LinkedList
 import java.util.PriorityQueue
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -784,6 +785,7 @@ fun levelOrderAltSolution(root: TreeNode?): List<List<Int>> {
     levelOrderAltBfs(root, q, ans)
     return ans
 }
+
 fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<MutableList<Int>>) {
     if (q.isEmpty()) return
     val size = q.size
@@ -796,6 +798,417 @@ fun levelOrderAltBfs(root: TreeNode?, q: LinkedList<TreeNode>, ans: MutableList<
     }
     ans.add(subset)
     levelOrderAltBfs(root, q, ans)
+}
+
+
+/**
+ * 264. Ugly Number II
+ * Alt Solution with priority queue
+ * Time Complexity - O(n * log n)
+ * Space Complexity - O(n)
+ */
+
+fun nthUglyNumberAltSolution(n: Int): Int {
+    val priorityQueue = PriorityQueue<Long>()
+    val seen = HashSet<Long>()
+
+    priorityQueue.offer(1L)
+    seen.add(1L)
+
+    var currentUgly = 1L
+    for (i in 1..n) {
+        currentUgly = priorityQueue.poll()
+        val nextUglyNumbers = listOf(currentUgly * 2, currentUgly * 3, currentUgly * 5)
+        for (nextUgly in nextUglyNumbers) {
+            if (!seen.contains(nextUgly)) {
+                priorityQueue.offer(nextUgly)
+                seen.add(nextUgly)
+            }
+        }
+    }
+
+    return currentUgly.toInt()
+}
+
+/**
+ * 2490. Circular Sentence
+ * Alt Solution
+ */
+
+fun isCircularSentenceAltSolution(sentence: String): Boolean {
+    val words = sentence.split(" ")
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+    for (i in words.indices) {
+        val currentWord = words[i]
+        val index = (i + 1) % words.size
+        val nextWord = words[index] // Circular next word
+        if (currentWord.last() != nextWord.first()) {
+            return false
+        }
+    }
+    return true
+}
+
+/**
+ * 49. Group Anagrams
+ * Alternative Solution
+ */
+
+fun groupAnagramsAltSolution(strs: Array<String>): MutableList<List<String>> {
+    val ans: MutableMap<String, MutableList<String>> = HashMap()
+
+    for (s in strs) {
+        val count = IntArray(26)
+
+        // Count frequency of each letter in the string
+        for (c in s.toCharArray()) {
+            count[c.code - 'a'.code]++
+        }
+
+        val sb = java.lang.StringBuilder()
+        for (num in count) {
+            sb.append(num).append("#")
+        }
+        val key = sb.toString()
+        if (!ans.containsKey(key)) {
+            ans[key] = ArrayList()
+        }
+        ans[key]!!.add(s)
+    }
+
+    return ArrayList(ans.values)
+}
+
+/**
+ * 139. Word Break
+ */
+
+
+class TrieNodeWordBreak {
+    val children = mutableMapOf<Char, TrieNodeWordBreak>()
+    var isWordEnd = false
+}
+
+class TrieWordBreak {
+    val root = TrieNodeWordBreak()
+
+    fun insert(word: String) {
+        var node = root
+        for (char in word) {
+            node = node.children.getOrPut(char) { TrieNodeWordBreak() }
+        }
+        node.isWordEnd = true
+    }
+}
+
+fun wordBreakAltSolution(s: String, wordDict: List<String>): Boolean {
+    val trie = TrieWordBreak()
+    for (word in wordDict) {
+        trie.insert(word)
+    }
+
+    return canBreak(0, s, trie)
+}
+
+fun canBreak(start: Int, s: String, trie: TrieWordBreak): Boolean {
+    if (start == s.length) return true
+
+    var node = trie.root
+    for (i in start until s.length) {
+        node = node.children[s[i]] ?: return false
+        if (node.isWordEnd && canBreak(i + 1, s, trie)) {
+            return true
+        }
+    }
+
+    return false
+}
+
+/**
+ * 73. Set Matrix Zeroes
+ * Alternative Solution
+ */
+
+fun setZeroesAltSolution(matrix: Array<IntArray>) {
+    val m = matrix.size
+    val n = matrix[0].size
+    var firstRowZero = false
+    var firstColZero = false
+
+
+    for (i in 0 until m) {
+        for (j in 0 until n) {
+            if (matrix[i][j] == 0) {
+                if (i == 0) firstRowZero = true
+                if (j == 0) firstColZero = true
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+            }
+        }
+    }
+
+
+    for (i in 1 until m) {
+        for (j in 1 until n) {
+            if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+
+
+    if (firstRowZero) {
+        for (j in 0 until n) {
+            matrix[0][j] = 0
+        }
+    }
+    if (firstColZero) {
+        for (i in 0 until m) {
+            matrix[i][0] = 0
+        }
+    }
+}
+
+/**
+ * 230. Kth Smallest Element in a BST
+ * Alt Solution
+ */
+
+fun kthSmallestAltSolution(root: TreeNode?, k: Int): Int {
+    if (root?.left == null && root?.right == null) return root?.`val` ?: 0
+    val res = mutableListOf<Int>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    res.sort()
+    return res[k - 1]
+}
+
+/**
+ * 3254. Find the Power of K-Size Subarrays I
+ * Alt Solution
+ */
+
+fun powerOfSubarrays(nums: IntArray, k: Int): IntArray {
+    if (nums.isEmpty()) return intArrayOf()
+    val n = nums.size
+    val results = IntArray(n - k + 1)
+
+    for (i in 0 until n - k + 1) {
+        val subarray = nums.copyOfRange(i, i + k)
+        results[i] = calculatePower(subarray)
+    }
+
+    return results
+}
+
+fun calculatePower(subarray: IntArray): Int {
+    return if (isConsecutiveAndSorted(subarray)) {
+        subarray.last()
+    } else {
+        -1
+    }
+}
+
+fun isConsecutiveAndSorted(arr: IntArray): Boolean {
+    if (arr.isEmpty()) return true
+    for (i in 1 until arr.size) {
+        if (arr[i] != arr[i - 1] + 1) {
+            return false
+        }
+    }
+    return true
+}
+
+/**
+ *
+ */
+
+fun reverseOddLevelsAltSolution(root: TreeNode?): TreeNode? {
+    if (root == null) return null
+
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(root)
+    var level = 0
+
+    while (queue.isNotEmpty()) {
+        level++
+        val levelSize = queue.size
+        val levelNodes = mutableListOf<TreeNode>()
+
+        for (i in 0 until levelSize) {
+            val node = queue.removeFirst()
+            levelNodes.add(node)
+
+            if (node.left != null) {
+                queue.add(node.left!!)
+            }
+            if (node.right != null) {
+                queue.add(node.right!!)
+            }
+        }
+
+        if (level % 2 != 0) {
+            reverseLevelNodes(levelNodes)
+
+            for (i in 0 until levelSize) {
+                val node = levelNodes[i]
+                if (node.left != null && node.right != null) {
+                    val temp = node.left!!.`val`
+                    node.left!!.`val` = node.right!!.`val`
+                    node.right!!.`val` = temp
+                }
+            }
+        }
+    }
+
+    return root
+}
+
+private fun reverseLevelNodes(nodes: MutableList<TreeNode>) {
+    var left = 0
+    var right = nodes.size - 1
+
+    while (left < right) {
+        val temp = nodes[left]
+        nodes[left] = nodes[right]
+        nodes[right] = temp
+        left++
+        right--
+    }
+}
+
+/**
+ * 78. Subsets
+ * Alternative Solution using Loop
+ */
+
+fun subsetsAltSolution(nums: IntArray): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    result.add(emptyList())
+
+    for (num in nums) {
+        val newSubsets = mutableListOf<List<Int>>()
+        for (subset in result) {
+            val newSubset = subset.toMutableList()
+            newSubset.add(num)
+            newSubsets.add(newSubset)
+        }
+        result.addAll(newSubsets)
+    }
+
+    return result
+}
+
+/**
+ * 3163. String Compression III
+ * Alternative Solution
+ */
+
+fun compressAltSolution(chars: CharArray): String {
+    val sb = StringBuilder()
+    var i = 0
+    while (i < chars.size) {
+        var j = i
+        while (j < chars.size && chars[j] == chars[i]) {
+            j++
+        }
+        sb.append(chars[i])
+        if (j - i > 1) {
+            sb.append(j - i)
+        }
+        i = j
+    }
+    return sb.toString()
+}
+
+/**
+ * 1448. Count Good Nodes in Binary Tree
+ * Alternative Solution
+ */
+
+fun goodNodesAltSolution(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var goodNodesCount = 0
+    val queue: Queue<Pair<TreeNode, Int>> = LinkedList()
+    queue.offer(Pair(root, root.`val`)) // Initial max value is root's value
+
+    while (queue.isNotEmpty()) {
+        val (node, maxSoFar) = queue.poll()
+
+        if (node.`val` >= maxSoFar) {
+            goodNodesCount++
+        }
+
+        if (node.left != null) {
+            queue.offer(Pair(node.left!!, maxOf(maxSoFar, node.left!!.`val`)))
+        }
+
+        if (node.right != null) {
+            queue.offer(Pair(node.right!!, maxOf(maxSoFar, node.right!!.`val`)))
+        }
+    }
+
+    return goodNodesCount
+}
+
+/**
+ * 515. Find Largest Value in Each Tree Row
+ * dfs - approach
+ */
+
+fun largestValueAltSolution(root: TreeNode?): List<Int> {
+    val result = mutableListOf<Int>()
+    dfs(root, result, 0)
+    return result
+}
+
+private fun dfs(node: TreeNode?, result: MutableList<Int>, level: Int) {
+    if (node == null) return
+
+    if (level == result.size) {
+        result.add(node.`val`)
+    } else {
+        result[level] = maxOf(result[level], node.`val`)
+    }
+
+    dfs(node.left, result, level + 1)
+    dfs(node.right, result, level + 1)
+}
+
+/**
+ * 513. Find Bottom Left Tree Value
+ * dfs - approach
+ */
+
+fun findBottomLeftValueAltSolution(root: TreeNode?): Int {
+    var maxDepth = -1
+    var value = 0
+
+    fun dfs(root: TreeNode?, depth: Int) {
+        if (root == null) return
+
+        if (depth > maxDepth) {
+            maxDepth = depth
+            value = root?.`val` ?: 0
+        }
+
+        dfs(root?.left, depth + 1)
+        dfs(root?.right, depth + 1)
+    }
+    dfs(root, 0)
+    return value
 }
 
 

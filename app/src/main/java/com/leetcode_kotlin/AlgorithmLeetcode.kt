@@ -597,7 +597,7 @@ fun setZeroes(matrix: Array<IntArray>) {
                 forCols[j] = true
             }
         }
-    } //we marked the rows and cols with true
+    }
 
 
     for (i in 0 until m) {
@@ -1445,8 +1445,8 @@ fun dfsGoodNodes(root: TreeNode?, max: Int): Int {
     var value = root?.`val`
     if (value!! >= max) temp++
     var new = max(max, value!!)
-    val l = dfs(root?.left, new) + temp
-    val r = dfs(root?.right, new)
+    val l = dfsGoodNodes(root?.left, new) + temp
+    val r = dfsGoodNodes(root?.right, new)
     return l + r
 }
 
@@ -2298,6 +2298,7 @@ fun numMatchingSubSequence(s: String, words: Array<String>): Int {
 
 
 fun rotateString(s: String, goal: String): Boolean {
+    if (s.isEmpty()) return true
     var temp = s
     val len = s.length
     for (i in 0 until len) {
@@ -2697,6 +2698,1172 @@ fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
     dfs(root, 0L) // Start DFS with initial currentSum as Long
     return count
 }
+
+/**
+ * 264. Ugly Number II
+ */
+
+fun nthUglyNumber(n: Int): Int {
+    val uglyNumbers = IntArray(n)
+    uglyNumbers[0] = 1
+
+    var p2 = 0
+    var p3 = 0
+    var p5 = 0
+
+    for (i in 1 until n) {
+        val nextUgly = minOf(uglyNumbers[p2] * 2, uglyNumbers[p3] * 3, uglyNumbers[p5] * 5)
+        uglyNumbers[i] = nextUgly
+
+        if (nextUgly == uglyNumbers[p2] * 2) p2++
+        if (nextUgly == uglyNumbers[p3] * 3) p3++
+        if (nextUgly == uglyNumbers[p5] * 5) p5++
+    }
+
+    return uglyNumbers[n - 1]
+}
+
+/**
+ * 263. Ugly Number
+ */
+
+fun isUgly(n: Int): Boolean {
+    if (n == 0) return false
+    var n = n
+    while (n != 1) {
+        if (n % 2 == 0) {
+            n /= 2
+            continue
+        }
+        if (n % 3 == 0) {
+            n /= 3
+            continue
+        }
+        if (n % 5 == 0) {
+            n /= 5
+            continue
+        }
+        return false
+    }
+    return true
+}
+
+/**
+ * 3254. Find the Power of K-Size Subarrays I
+ */
+
+fun resultsArray(nums: IntArray, k: Int): IntArray {
+    val len = nums.size
+    val res = IntArray(len - k + 1)
+    var max = 0
+    var left = 0
+    for (i in 0 until len) {
+        var isSorted = true
+        if (i - left == (k - 1)) {
+            var j = i
+            while (j > left) {
+                if (nums[j] <= nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                if (nums[j] - 1 != nums[j - 1]) {
+                    isSorted = false
+                    break
+                }
+                max = maxOf(max, nums[j])
+                j--
+            }
+            max = maxOf(max, nums[j])
+            if (isSorted) res[left] = max
+            else res[left] = -1
+            max = 0
+            left++
+        }
+    }
+    return res
+}
+
+/**
+ * 114. Flatten Binary Tree to Linked List
+ */
+
+
+fun flatten(root: TreeNode?): Unit {
+    if (root == null) return
+
+    flatten(root.left)
+    flatten(root.right)
+
+    if (root.left != null) {
+        var tail = root.left
+        while (tail?.right != null) {
+            tail = tail?.right
+        }
+        tail?.right = root.right
+        root.right = root.left
+        root.left = null
+    }
+    return
+}
+
+/**
+ * 49. Group Anagrams
+ */
+
+fun groupAnagrams(strs: Array<String>): List<List<String>> {
+    val ans: MutableMap<String, MutableList<String>> = HashMap()
+
+    for (s in strs) {
+        val chars = s.toCharArray()
+        chars.sort()
+        val key = String(chars)
+        if (!ans.containsKey(key)) {
+            ans[key] = ArrayList()
+        }
+        ans[key]!!.add(s)
+    }
+    val res = mutableListOf<List<String>>()
+    res.addAll(ans.values)
+    return res
+}
+
+/**
+ * 110. Balanced Binary Tree
+ */
+
+
+fun isBalanced(root: TreeNode?): Boolean {
+    if (root == null) return true
+
+    val leftHeight = height(root.left)
+    val rightHeight = height(root.right)
+
+    return abs(leftHeight - rightHeight) <= 1 && isBalanced(root.left) && isBalanced(root.right)
+}
+
+fun height(node: TreeNode?): Int {
+    if (node == null) return 0
+    return 1 + maxOf(height(node.left), height(node.right))
+}
+
+/**
+ * 2461. Maximum Sum of Distinct Subarrays With Length K
+ */
+
+
+fun maximumSubarraySum(nums: IntArray, k: Int): Long {
+    var sum = 0L
+    val map = mutableMapOf<Int, Int>()
+    val len = nums.size
+    var left = 0
+    var local = 0L
+    for (i in 0 until len) {
+        local += nums[i].toLong()
+        map[nums[i]] = map.getOrDefault(nums[i], 0) + 1
+        if (i - left == (k - 1)) {
+            if (map.size == k) sum = maxOf(sum, local)
+            map[nums[i - (k - 1)]] = map.getOrDefault(nums[i - (k - 1)], 0) - 1
+            val value = map.getOrDefault(nums[i - (k - 1)], 0)
+            if (value == 0) map.remove(nums[i - (k - 1)])
+            local -= nums[i - (k - 1)].toLong()
+            left++
+        }
+    }
+    return sum
+}
+
+
+/**
+ * 144. Binary Tree Preorder Traversal
+ */
+
+fun preorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    preorder(root, res)
+    return res
+}
+
+fun preorder(root: TreeNode?, res: MutableList<Int>) {
+    root ?: return
+    res.add(root.`val` ?: 0)
+    preorder(root?.left, res)
+    preorder(root?.right, res)
+    return
+}
+
+/**
+ * 145. Binary Tree Postorder Traversal
+ */
+
+
+fun postorderTraversal(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    postorder(root, res)
+    return res
+}
+
+fun postorder(root: TreeNode?, res: MutableList<Int>) {
+    root ?: return
+    postorder(root?.left, res)
+    postorder(root?.right, res)
+    res.add(root.`val` ?: 0)
+}
+
+/**
+ * 129. Sum Root to Leaf Numbers
+ */
+
+fun sumNumbers(root: TreeNode?): Int {
+    return dfs(root, 0, 0)
+}
+
+fun dfs(root: TreeNode?, local: Int, sum: Int): Int {
+    var local = local
+    var sum = sum
+    if (root == null) return sum
+    if (root?.left == null && root?.right == null) {
+        local += root?.`val` ?: 0
+        sum += local
+        return sum
+    }
+    local += root?.`val` ?: 0
+    local *= 10
+    sum = dfs(root?.left, local, sum)
+    sum = dfs(root?.right, local, sum)
+    return sum
+}
+
+
+/**
+ * 139. Word Break
+ */
+
+
+fun wordBreak(s: String, wordDict: List<String>): Boolean {
+    val dp = BooleanArray(s.length + 1)
+    dp[0] = true
+
+    for (i in 1 until dp.size) {
+        for (j in 0 until i) {
+            if (dp[j] && wordDict.contains(s.substring(j, i))) {
+                dp[i] = true
+                break
+            }
+        }
+    }
+
+    return dp[s.length]
+}
+
+/**
+ * 173. Binary Search Tree Iterator
+ */
+
+
+class BSTIterator(root: TreeNode?) {
+    private val stack = ArrayDeque<TreeNode>()
+
+    init {
+        pushLeftNodes(root)
+    }
+
+    fun hasNext(): Boolean {
+        return stack.isNotEmpty()
+    }
+
+    fun next(): Int {
+        val node = stack.removeLast()
+        pushLeftNodes(node.right)
+        return node.`val`
+    }
+
+    private fun pushLeftNodes(node: TreeNode?) {
+        var current = node
+        while (current != null) {
+            stack.addLast(current)
+            current = current.left
+        }
+    }
+}
+
+/**
+ * 222. Count Complete Tree Nodes
+ */
+
+fun countNodes(root: TreeNode?): Int {
+    root ?: return 0
+    return bfsCountNodes(root)
+}
+
+fun bfsCountNodes(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    var count = 0
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        count += size
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+    return count
+}
+
+/**
+ * 199. Binary Tree Right Side View
+ */
+
+fun rightSideView(root: TreeNode?): List<Int> {
+    return if (root == null) listOf() else bfsRightSideView(root)
+}
+
+fun bfsRightSideView(root: TreeNode?): List<Int> {
+    val res = mutableListOf<Int>()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (i == size - 1) res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    return res
+}
+
+/**
+ * 230. Kth Smallest Element in a BST
+ */
+
+fun kthSmallest(root: TreeNode?, k: Int): Int {
+    val res = mutableListOf<Int>()
+    inorder(root, res)
+    return res[k - 1]
+}
+
+fun inorder(root: TreeNode?, res: MutableList<Int>) {
+    when (root) {
+        null -> return
+        else -> {
+            inorder(root?.left, res)
+            res.add(root.`val`)
+            inorder(root?.right, res)
+        }
+    }
+}
+
+
+/**
+ * 124. Binary Tree Maximum Path Sum
+ */
+
+
+fun maxPathSum(root: TreeNode?): Int {
+    val maxSumHolder = IntHolder(Int.MIN_VALUE)
+    maxPathSumRecursive(root, maxSumHolder)
+    return maxSumHolder.value
+}
+
+fun maxPathSumRecursive(node: TreeNode?, maxSumHolder: IntHolder): Int {
+    if (node == null) {
+        return 0
+    }
+
+    val leftSum = maxOf(maxPathSumRecursive(node.left, maxSumHolder), 0)
+    val rightSum = maxOf(maxPathSumRecursive(node.right, maxSumHolder), 0)
+
+
+    maxSumHolder.value = maxOf(maxSumHolder.value, node.`val` + leftSum + rightSum)
+
+
+    return node.`val` + maxOf(leftSum, rightSum)
+}
+
+
+class IntHolder(var value: Int)
+
+
+/**
+ * 297. Serialize and Deserialize Binary Tree
+ */
+
+
+class Codec() {
+    // Encodes a tree to a single string.
+    fun serialize(root: TreeNode?): String {
+        if (root == null) return ""
+
+        val result = StringBuilder()
+        val queue = ArrayDeque<TreeNode?>()
+        queue.add(root)
+
+        while (queue.isNotEmpty()) {
+            val node = queue.removeFirst()
+
+            if (node == null) {
+                result.append("null,")
+            } else {
+                result.append("${node.`val`},")
+                queue.add(node.left)
+                queue.add(node.right)
+            }
+        }
+
+        return result.toString().dropLast(1) // Remove trailing comma
+    }
+
+    // Decodes your encoded data to tree.
+    fun deserialize(data: String): TreeNode? {
+        if (data.isEmpty()) return null
+
+        val values = data.split(",").toTypedArray()
+        val root = TreeNode(values[0].toInt())
+        val queue = ArrayDeque<TreeNode?>()
+        queue.add(root)
+        var i = 1
+
+        while (queue.isNotEmpty() && i < values.size) {
+            val node = queue.removeFirst()
+
+            if (values[i] != "null") {
+                node?.left = TreeNode(values[i].toInt())
+                queue.add(node?.left)
+            }
+            i++
+
+            if (i < values.size && values[i] != "null") {
+                node?.right = TreeNode(values[i].toInt())
+                queue.add(node?.right)
+            }
+            i++
+        }
+
+        return root
+    }
+}
+
+/**
+ * 449. Serialize and Deserialize BST
+ */
+
+
+@Suppress("UNREACHABLE_CODE")
+class Codec449() {
+
+    fun serialize(root: TreeNode?): String {
+        if (root == null) return ""
+        val sb = StringBuilder()
+        val queue: Queue<TreeNode?> = LinkedList()
+        queue.offer(root)
+
+        while (queue.isNotEmpty()) {
+            val node = queue.poll()
+            if (node == null) {
+                sb.append("null,")
+            } else {
+                sb.append(node.`val`).append(",")
+                queue.offer(node.left)
+                queue.offer(node.right)
+            }
+        }
+
+        return sb.toString().substring(0, sb.length - 1)
+
+
+        fun deserialize(data: String): TreeNode? {
+            if (data.isEmpty()) return null
+
+            val values = data.split(",").toTypedArray()
+            val queue: Queue<TreeNode?> = LinkedList()
+            val root = TreeNode(values[0].toInt())
+            queue.offer(root)
+            var i = 1
+
+            while (queue.isNotEmpty() && i < values.size) {
+                val node = queue.poll()
+                if (node != null) {
+                    if (values[i] != "null") {
+                        node.left = TreeNode(values[i].toInt())
+                        queue.offer(node.left)
+                    }
+                    i++
+                    if (i < values.size && values[i] != "null") {
+                        node.right = TreeNode(values[i].toInt())
+                        queue.offer(node.right)
+                    }
+                    i++
+                }
+            }
+
+            return root
+        }
+    }
+}
+
+/**
+ * 450. Delete Node in a BST
+ */
+
+
+fun deleteNode(root: TreeNode?, key: Int): TreeNode? {
+    if (root == null) return null
+
+    if (key < root.`val`) {
+        root.left = deleteNode(root.left, key)
+    } else if (key > root.`val`) {
+        root.right = deleteNode(root.right, key)
+    } else {
+
+        if (root.left == null) return root.right
+        if (root.right == null) return root.left
+
+
+        var successor = root.right
+        while (successor!!.left != null) {
+            successor = successor.left
+        }
+
+        root.`val` = successor.`val`
+
+
+        root.right = deleteNode(root.right, successor.`val`)
+    }
+
+    return root
+}
+
+/**
+ * 508. Most Frequent Subtree Sum
+ */
+
+fun findFrequentTreeSum(root: TreeNode?): IntArray {
+    val sumFrequencyMap = mutableMapOf<Int, Int>()
+    calculateSubtreeSums(root, sumFrequencyMap)
+
+    val maxFrequency = sumFrequencyMap.values.maxOrNull() ?: 0
+    val mostFrequentSums = sumFrequencyMap.filterValues { it == maxFrequency }.keys.toIntArray()
+
+    return mostFrequentSums
+}
+
+private fun calculateSubtreeSums(node: TreeNode?, sumFrequencyMap: MutableMap<Int, Int>): Int {
+    if (node == null) return 0
+
+    val leftSum = calculateSubtreeSums(node.left, sumFrequencyMap)
+    val rightSum = calculateSubtreeSums(node.right, sumFrequencyMap)
+
+    val subtreeSum = node.`val` + leftSum + rightSum
+    sumFrequencyMap[subtreeSum] = sumFrequencyMap.getOrDefault(subtreeSum, 0) + 1
+
+    return subtreeSum
+}
+
+/**
+ * 654. Maximum Binary Tree
+ */
+
+fun constructMaximumBinaryTree(nums: IntArray): TreeNode? {
+    if (nums.isEmpty()) return null
+
+    val maxIndex = findMaxIndex(nums)
+    val root = TreeNode(nums[maxIndex])
+
+    root.left = constructMaximumBinaryTree(nums.copyOfRange(0, maxIndex))
+    root.right = constructMaximumBinaryTree(nums.copyOfRange(maxIndex + 1, nums.size))
+
+    return root
+}
+
+private fun findMaxIndex(nums: IntArray): Int {
+    var maxIndex = 0
+    for (i in 1 until nums.size) {
+        if (nums[i] > nums[maxIndex]) {
+            maxIndex = i
+        }
+    }
+    return maxIndex
+}
+
+/**
+ * 662. Maximum Width of Binary Tree
+ */
+
+
+fun widthOfBinaryTree(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var maxWidth = 0
+    val queue: Queue<Pair<TreeNode, Int>> = LinkedList()
+    queue.offer(Pair(root, 0)) // Initial index of root is 0
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+        var leftmostIndex = -1
+        var rightmostIndex = -1
+
+        for (i in 0 until levelSize) {
+            val (node, index) = queue.poll()
+
+            if (leftmostIndex == -1) {
+                leftmostIndex = index
+            }
+            rightmostIndex = index
+
+            if (node.left != null) {
+                queue.offer(Pair(node.left!!, 2 * index + 1)) // Left child index
+            }
+            if (node.right != null) {
+                queue.offer(Pair(node.right!!, 2 * index + 2)) // Right child index
+            }
+        }
+
+        maxWidth = maxOf(maxWidth, rightmostIndex - leftmostIndex + 1)
+    }
+
+    return maxWidth
+}
+
+/**
+ * 105. Construct Binary Tree from Preorder and Inorder Traversal
+ */
+
+fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
+    if (preorder.isEmpty() || inorder.isEmpty()) {
+        return null
+    }
+
+    val rootValue = preorder[0]
+    val root = TreeNode(rootValue)
+
+    val rootIndexInInorder = inorder.indexOf(rootValue)
+
+    root.left = buildTree(
+        preorder.copyOfRange(1, rootIndexInInorder + 1),
+        inorder.copyOfRange(0, rootIndexInInorder)
+    )
+    root.right = buildTree(
+        preorder.copyOfRange(rootIndexInInorder + 1, preorder.size),
+        inorder.copyOfRange(rootIndexInInorder + 1, inorder.size)
+    )
+
+    return root
+}
+
+/**
+ * 451. Sort Characters By Frequency
+ */
+
+fun frequencySort(s: String): String {
+    val pq = PriorityQueue<Pair<Int, Char>> { a, b -> b.first - a.first }
+    val map = mutableMapOf<Char, Int>()
+    val len = s.length
+    for (i in 0 until len) {
+        map[s[i]] = map.getOrDefault(s[i], 0) + 1
+    }
+    for (i in 0 until len) {
+        val obj = Pair(map.getOrDefault(s[i], 0), s[i])
+        pq.offer(obj)
+        map.remove(s[i])
+    }
+    var res = ""
+    while (pq.isNotEmpty()) {
+        val obj = pq.poll()
+        repeat(obj.first) { res += obj.second }
+    }
+    return res
+}
+
+/**
+ * 116. Populating Next Right Pointers in Each Node
+ */
+
+fun connect(root: Node?): Node? {
+    if (root == null) return null
+    bfs(root)
+    return root
+}
+
+fun bfs(root: Node) {
+    val q = LinkedList<Node>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var prev: Node? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (size % 2 == 0) {
+                if (prev == null) prev = node
+                else {
+                    prev?.next = node
+                    prev = node
+                }
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+}
+
+/**
+ * 373. Find K Pairs with Smallest Sums
+ */
+
+fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
+    val result = mutableListOf<List<Int>>()
+    if (nums1.isEmpty() || nums2.isEmpty() || k == 0) {
+        return result
+    }
+
+    val priorityQueue = PriorityQueue<Triple<Int, Int, Int>>(
+        compareBy { nums1[it.first] + nums2[it.second] }
+    )
+
+    for (i in 0 until minOf(nums1.size, k)) {
+        priorityQueue.offer(Triple(i, 0, nums1[i] + nums2[0]))
+    }
+
+    while (priorityQueue.isNotEmpty() && result.size < k) {
+        val (i, j, _) = priorityQueue.poll()
+        result.add(listOf(nums1[i], nums2[j]))
+
+        if (j + 1 < nums2.size) {
+            priorityQueue.offer(Triple(i, j + 1, nums1[i] + nums2[j + 1]))
+        }
+    }
+
+    return result
+}
+
+/**
+ * 658. Find K Closest Elements
+ */
+
+fun findClosestElements(arr: IntArray, k: Int, x: Int): List<Int> {
+    val priorityQueue = PriorityQueue<Pair<Int, Int>>(compareBy { (num, index) ->
+        Math.abs(num - x) * 10000 + index // Custom comparator
+    })
+
+    for (index in arr.indices) {
+        priorityQueue.offer(arr[index] to index)
+    }
+
+    val result = mutableListOf<Int>()
+    for (i in 0 until k) {
+        result.add(priorityQueue.poll().first)
+    }
+
+    result.sortWith(compareBy { arr.indexOf(it) }) //Sort by original index
+
+    return result
+}
+
+/**
+ * 239. Sliding Window Maximum
+ */
+
+
+fun maxSlidingWindow(nums: IntArray, k: Int): IntArray {
+    val result = IntArray(nums.size - k + 1)
+    val deque = LinkedList<Int>()
+
+    for (i in nums.indices) {
+
+        while (deque.isNotEmpty() && deque.first() <= i - k) {
+            deque.removeFirst()
+        }
+
+
+        while (deque.isNotEmpty() && nums[deque.last()] <= nums[i]) {
+            deque.removeLast()
+        }
+
+        deque.addLast(i)
+
+
+        if (i >= k - 1) {
+            result[i - k + 1] = nums[deque.first()]
+        }
+    }
+
+    return result
+}
+
+/**
+ * 295. Find Median from Data Stream
+ */
+
+class MedianFinder() {
+    private val maxHeap = PriorityQueue<Int>(Collections.reverseOrder()) // Stores smaller half
+    private val minHeap = PriorityQueue<Int>() // Stores larger half
+
+    fun addNum(num: Int) {
+        if (maxHeap.isEmpty() || num <= maxHeap.peek()) {
+            maxHeap.offer(num)
+        } else {
+            minHeap.offer(num)
+        }
+
+        // Balance the heaps to maintain median property
+        if (maxHeap.size > minHeap.size + 1) {
+            minHeap.offer(maxHeap.poll())
+        } else if (minHeap.size > maxHeap.size) {
+            maxHeap.offer(minHeap.poll())
+        }
+    }
+
+    fun findMedian(): Double {
+        return if (maxHeap.size == minHeap.size) {
+            (maxHeap.peek() + minHeap.peek()).toDouble() / 2
+        } else {
+            maxHeap.peek().toDouble() // Max heap has one more element for odd size
+        }
+    }
+}
+
+/**
+ * 1346. Check If N and Its Double Exist
+ */
+
+fun checkIfExist(arr: IntArray): Boolean {
+    val map = mutableMapOf<Int, Int>()
+    for (i in 0 until arr.size) {
+        if (!map.contains(arr[i])) map[arr[i]] = i
+        else if (arr[i] == 0) return true
+    }
+    for (i in 0 until arr.size) {
+        if (arr[i] != 0 && map.contains(arr[i] * 2)) return true
+    }
+    return false
+}
+
+/**
+ * 2109. Adding Spaces to a String
+ */
+
+fun addSpaces(s: String, spaces: IntArray): String {
+    val result = StringBuilder()
+    var spacesIndex = 0
+
+    for (i in s.indices) {
+        if (spacesIndex < spaces.size && i == spaces[spacesIndex]) {
+            result.append(" ")
+            spacesIndex++
+        }
+        result.append(s[i])
+    }
+
+    return result.toString()
+}
+
+/**
+ * 117. Populating Next Right Pointers in Each Node II
+ */
+
+fun connectII(root: Node?): Node? {
+    val q = LinkedList<Node>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var prev: Node? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (prev == null) {
+                prev = node
+            } else {
+                prev?.next = node
+                prev = node
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+    }
+    return root
+}
+
+
+/**
+ * 331. Verify Preorder Serialization of a Binary Tree
+ */
+
+
+fun isValidSerialization(preorder: String): Boolean {
+    val nodes = preorder.split(",")
+    var diff = 1
+
+    for (node in nodes) {
+        diff--
+
+        if (diff < 0) {
+            return false
+        }
+
+        if (node != "#") {
+            diff += 2
+        }
+    }
+
+    return diff == 0
+}
+
+/**
+ * 404. Sum of Left Leaves
+ */
+
+fun sumOfLeftLeaves(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    var sum = 0
+    val queue = LinkedList<Pair<TreeNode, Boolean>>()
+    queue.offer(root to false)
+
+    while (queue.isNotEmpty()) {
+        val (node, isLeft) = queue.poll()
+
+        if (node.left == null && node.right == null && isLeft) {
+            sum += node.`val`
+        }
+
+        if (node.left != null) {
+            queue.offer(node.left!! to true)
+        }
+        if (node.right != null) {
+            queue.offer(node.right!! to false)
+        }
+    }
+
+    return sum
+}
+
+/**
+ * 111. Minimum Depth of Binary Tree
+ */
+
+fun minDepth(root: TreeNode?): Int {
+    if (root == null) return 0
+
+    val queue = LinkedList<TreeNode>()
+    queue.offer(root)
+    var depth = 1
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+
+        for (i in 0 until levelSize) {
+            val node = queue.poll()
+
+            if (node.left == null && node.right == null) {
+                return depth // Found a leaf node, return depth
+            }
+
+            if (node.left != null) {
+                queue.offer(node.left!!)
+            }
+            if (node.right != null) {
+                queue.offer(node.right!!)
+            }
+        }
+
+        depth++
+    }
+    return depth
+}
+
+/**
+ * 513. Find Bottom Left Tree Value
+ */
+
+fun findBottomLeftValue(root: TreeNode?): Int = bfsFindBottomLeftValue(root)
+
+fun bfsFindBottomLeftValue(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    var value = 0
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var leftMost = true
+        for (i in 0 until size) {
+            val node = q.poll()
+            if (node?.left == null && node?.right == null && leftMost) {
+                value = node.`val`
+                leftMost = false
+            }
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        if (q.isEmpty()) return value
+    }
+    return value
+}
+
+/**
+ * 515. Find Largest Value in Each Tree Row
+ */
+
+fun largestValues(root: TreeNode?): List<Int> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    val res = mutableListOf<Int>()
+    q.offer(root)
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var max = Int.MIN_VALUE
+        for (i in 0 until size) {
+            val node = q.poll()
+            max = maxOf(max, node.`val`)
+            if (node?.left != null) q.offer(node?.left)
+            if (node?.right != null) q.offer(node?.right)
+        }
+        res.add(max)
+    }
+    return res
+}
+
+/**
+ * 530. Minimum Absolute Difference in BST
+ */
+
+fun getMinimumDifference(root: TreeNode?): Int {
+    var minDiff = Int.MAX_VALUE
+    var prev: Int? = null
+
+    fun inorder(root: TreeNode?) {
+        if (root == null) return
+
+        inorder(root.left)
+
+        prev?.let {
+            minDiff = minOf(minDiff, root.`val` - it)
+        }
+        prev = root.`val`
+
+        inorder(root.right)
+    }
+
+    inorder(root)
+    return minDiff
+}
+
+/**
+ * 852. Peak Index in a Mountain Array
+ */
+
+
+fun peakIndexInMountainArray(A: IntArray): Int {
+    var l = 0
+    var r = A.size - 1
+    var m: Int
+    while (l < r) {
+        m = (l + r) / 2
+        if (A[m] < A[m + 1]) l = m + 1
+        else r = m
+    }
+    return l
+}
+
+/**
+ * 162. Find Peak Element
+ */
+
+fun findPeakElement(nums: IntArray): Int {
+    var l = 0
+    var r = nums.size - 1
+    while (l < r) {
+        var m = (l + r) / 2
+        if (nums[m] < nums[m + 1]) l = m + 1
+        else r = m
+    }
+    return l
+}
+
+/**
+ * 240. Search a 2D Matrix II
+ */
+
+fun searchMatrix(matrix: Array<IntArray>, target: Int): Boolean {
+    val len = matrix.size
+    for (i in 0 until len) {
+        val arr = matrix[i]
+        val ans = local(arr, target)
+        if (ans) return true
+    }
+    return false
+}
+
+fun local(nums: IntArray, target: Int): Boolean {
+    if (nums.size == 1 && nums[0] == target) return true
+    var l = 0
+    var r = nums.size - 1
+    while (l < r) {
+        var m = (l + r) / 2
+        if (nums[m] == target) return true
+        if (nums[m] > target) r = m
+        else l = m + 1
+    }
+    return if (nums[l] == target) true else false
+}
+
+/**
+ * 34. Find First and Last Position of Element in Sorted Array
+ */
+
+fun searchRange(nums: IntArray, target: Int): IntArray {
+    val firstPosition = findFirstPosition(nums, target)
+    val lastPosition = findLastPosition(nums, target)
+
+    return intArrayOf(firstPosition, lastPosition)
+}
+
+private fun findFirstPosition(nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var firstPosition = -1
+
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+
+        if (nums[mid] == target) {
+            firstPosition = mid
+            high = mid - 1
+        } else if (nums[mid] < target) {
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+
+    return firstPosition
+}
+
+private fun findLastPosition(nums: IntArray, target: Int): Int {
+    var low = 0
+    var high = nums.size - 1
+    var lastPosition = -1
+
+    while (low <= high) {
+        val mid = low + (high - low) / 2
+
+        if (nums[mid] == target) {
+            lastPosition = mid
+            low = mid + 1
+        } else if (nums[mid] < target) {
+            low = mid + 1
+        } else {
+            high = mid - 1
+        }
+    }
+
+    return lastPosition
+}
+
+
+
+
+
+
 
 
 

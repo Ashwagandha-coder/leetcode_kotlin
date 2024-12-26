@@ -1,6 +1,8 @@
 package com.leetcode_kotlin
 
+import java.util.Collections
 import java.util.LinkedList
+import java.util.Queue
 import kotlin.math.abs
 import kotlin.math.max
 
@@ -1167,4 +1169,76 @@ fun reverseListRepeat(head: ListNode?): ListNode? {
         curr = next
     }
     return prev
+}
+
+/**
+ * Repeat Max Consecutive Ones
+ */
+
+fun maxConsecutiveOnesRepeatProdVariant(nums: IntArray): Int {
+    return nums.fold(0 to 0) { (maxCount, currentCount), num ->
+        if (num == 1) {
+            val update = currentCount + 1
+            maxOf(maxCount, update) to update
+        } else {
+            maxCount to 0
+        }
+    }.first
+}
+
+/**
+ * 2583. Kth Largest Sum in a Binary Tree
+ * Repeat problem
+ */
+
+
+fun Repeat.kthLargestLevelSum(root: TreeNode?, k: Int): Long {
+    val res: MutableList<Long> = ArrayList() // To store sum of each level
+    val q: Queue<TreeNode?> = LinkedList() // Queue for level-order traversal
+    q.add(root) // Start BFS from the root node
+
+    while (!q.isEmpty()) {
+        val n = q.size // Number of nodes at the current level
+        var sum: Long = 0 // Sum of node values at the current level
+
+        for (i in 0 until n) {
+            val node = q.poll()
+            sum += node!!.`val`.toLong()
+
+            if (node!!.left != null) q.add(node!!.left)
+            if (node!!.right != null) q.add(node!!.right)
+        }
+        res.add(sum) // Store the sum of the current level
+    }
+
+    if (k > res.size) return -1
+
+    res.sortWith(Collections.reverseOrder()) // Sort level sums in descending order
+
+    return res[k - 1] // Return the k-th largest sum
+
+}
+
+/**
+ * Largest Value Repeat
+ */
+
+
+fun largestValuesRepeat(root: TreeNode?): List<Int> {
+    if (root == null) return listOf()
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    val list = mutableListOf<Int>()
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var max = Int.MIN_VALUE
+        for (i in 0 until size) {
+            val node = q.poll()
+            max = maxOf(max, node.`val` ?: 0)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+        list.add(max)
+    }
+    return list
 }

@@ -503,11 +503,7 @@ fun backtrackProdVariant(
 
     for (i in start until candidates.size) {
         backtrackProdVariant(
-            candidates,
-            (combination + candidates[i]),
-            remaining - candidates[i],
-            i,
-            res
+            candidates, (combination + candidates[i]), remaining - candidates[i], i, res
         )
     }
     return
@@ -527,3 +523,203 @@ fun topKFrequentProdVariant(nums: IntArray, k: Int): IntArray {
         .map { it.key } // Extract the keys (elements)
         .toIntArray() // Convert to IntArray
 }
+
+/**
+ * 2490. Circular Sentence
+ * Prod Variant
+ */
+
+fun isCircularSentenceProdVariant(sentence: String): Boolean {
+    val words = sentence.split(" ")
+
+    if (words.size == 1) {
+        return words[0].first() == words[0].last()
+    }
+
+    return words.zipWithNext { current, next -> current.last() == next.first() }
+        .all { it } && words.last().last() == words.first().first()
+}
+
+/**
+ * 264. Ugly Number II
+ * Prod Variant
+ */
+
+fun nthUglyNumberProdVariant(n: Int): Int {
+    val uglyNumbers = mutableListOf(1)
+    var (p2, p3, p5) = arrayOf(0, 0, 0) // Destructuring declaration
+    repeat(n - 1) {
+        val nextUgly = listOf(uglyNumbers[p2] * 2, uglyNumbers[p3] * 3, uglyNumbers[p5] * 5).min()
+        uglyNumbers.add(nextUgly)
+
+        if (nextUgly == uglyNumbers[p2] * 2) p2++
+        if (nextUgly == uglyNumbers[p3] * 3) p3++
+        if (nextUgly == uglyNumbers[p5] * 5) p5++
+
+    }
+    return uglyNumbers.last()
+}
+
+/**
+ * 110. Balanced Binary Tree
+ * Prod Variant
+ */
+
+
+fun isBalancedProdVariant(root: TreeNode?): Boolean {
+    return when {
+        root == null -> true
+        else -> abs(
+            heightProdVariant(root?.left) - heightProdVariant(root?.right)
+        ) <= 1 && isBalancedProdVariant(root?.left) && isBalancedProdVariant(root?.right)
+    }
+}
+
+fun heightProdVariant(root: TreeNode?): Int = when {
+    root == null -> 0
+    else -> 1 + maxOf(heightProdVariant(root?.left), heightProdVariant(root?.right))
+}
+
+/**
+ * 73. Set Matrix Zeroes
+ * Prod Variant
+ */
+
+fun setZeroesProdVariant(matrix: Array<IntArray>) {
+    val m = matrix.size
+    val n = matrix[0].size
+    var firstRowZero = false
+    var firstColZero = false
+
+
+    matrix.forEachIndexed { i, row ->
+        row.forEachIndexed { j, value ->
+            if (value == 0) {
+                if (i == 0) firstRowZero = true
+                if (j == 0) firstColZero = true
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+            }
+        }
+    }
+
+
+    for (i in 1 until m) {
+        for (j in 1 until n) {
+            if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                matrix[i][j] = 0
+            }
+        }
+    }
+
+
+    if (firstRowZero) matrix[0].fill(0)
+    if (firstColZero) for (i in 0 until m) matrix[i][0] = 0
+}
+
+/**
+ * 287. Find the Duplicate Number
+ * Prod Variant
+ */
+
+fun findDuplicateProdVariant(nums: IntArray): Int {
+    nums.forEach {
+        val ind = abs(nums[it])
+        if (nums[ind] < 0) return ind
+        nums[ind] *= -1
+    }
+    return 0
+}
+
+/**
+ * 101. Symmetric Tree
+ * Prod Variant
+ */
+
+fun isSymmetricProdVariant(root: TreeNode?): Boolean =
+    dfsIsSymmetricProdVariant(root?.left, root?.right)
+
+fun dfsIsSymmetricProdVariant(left: TreeNode?, right: TreeNode?): Boolean {
+    return when {
+        left == null && right == null -> true
+        left == null || right == null -> false
+        left?.`val` != right?.`val` -> false
+        else -> dfsIsSymmetricProdVariant(left?.left, right?.right) &&
+                dfsIsSymmetricProdVariant(
+                    left?.right,
+                    right?.left
+                )
+    }
+}
+
+/**
+ * 136. Single Number
+ * Prod Variant
+ */
+
+fun singleNumberProdVariant(nums: IntArray): Int = nums.reduce { acc, i -> acc xor i }
+
+/**
+ * 98. Validate Binary Search Tree
+ * Prod Variant
+ */
+
+fun isValidBSTProdVariant(root: TreeNode?): Boolean =
+    isValidBSTDFSProdVariant(root, Long.MIN_VALUE, Long.MAX_VALUE)
+
+fun isValidBSTDFSProdVariant(root: TreeNode?, min: Long, max: Long): Boolean {
+    return when {
+        root == null -> true
+        !(root.`val` < max && root.`val` > min) -> false
+        else -> isValidBSTDFSProdVariant(
+            root?.left,
+            min,
+            root.`val`.toLong()
+        ) && isValidBSTDFSProdVariant(
+            root?.right,
+            root.`val`.toLong(),
+            max
+        )
+    }
+}
+
+/**
+ * 307. Range Sum Query - Mutable
+ * Prod Variant
+ */
+
+class NumArrayProdVariant(nums: IntArray) {
+
+    private val prefixSum = IntArray(nums.size + 1) { 0 }
+
+    init {
+        for (i in nums.indices) {
+            prefixSum[i + 1] = prefixSum[i] + nums[i]
+        }
+    }
+
+    fun update(index: Int, `val`: Int) {
+        val diff = `val` - (prefixSum[index + 1] - prefixSum[index])
+        for (i in index + 1..prefixSum.lastIndex) {
+            prefixSum[i] += diff
+        }
+    }
+
+    fun sumRange(left: Int, right: Int): Int = prefixSum[right + 1] - prefixSum[left]
+}
+
+/**
+ * 852. Peak Index in a Mountain Array
+ */
+
+fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
+    var (low, high) = 0 to arr.size - 1
+
+    while (low < high) {
+        val mid = low + (high - low) / 2
+        if (arr[mid] < arr[mid + 1]) low = mid + 1
+        else high = mid
+    }
+    return low
+}
+

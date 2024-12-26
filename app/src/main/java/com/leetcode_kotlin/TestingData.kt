@@ -12,6 +12,12 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+class Node(var `val`: Int) {
+    var left: Node? = null
+    var right: Node? = null
+    var next: Node? = null
+}
+
 fun TreeNode.printTreeNodes(): List<Int?> {
     val root = this
     val q = LinkedList<TreeNode>()
@@ -25,6 +31,30 @@ fun TreeNode.printTreeNodes(): List<Int?> {
         else q.offer(null)
     }
     return res
+}
+
+fun List<String>.toTreeNode(): TreeNode? {
+    if (this.isEmpty()) return null
+    val root = TreeNode(this[0].toInt())
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    var i = 1
+    while (q.isNotEmpty() && i < this.size) {
+        val node = q.poll()
+        if (this[i] != "null") {
+            val new = TreeNode(this[i].toInt())
+            node?.left = new
+            q.offer(new)
+        }
+        i++
+        if (i < this.size && this[i] != "null") {
+            val new = TreeNode(this[i].toInt())
+            node?.right = new
+            q.offer(new)
+        }
+        i++
+    }
+    return root
 }
 
 fun ListNode.printListNode() {
@@ -85,19 +115,8 @@ fun ListNode.toList(): List<Int> {
     return res
 }
 
-fun IntArray.toListNode(): ListNode {
-    if (this.isEmpty()) return ListNode(0)
-    var stub = ListNode(this[0])
-    val head = stub
-    for (i in 1 until this.size) {
-        val temp = ListNode(this[i])
-        stub.next = temp
-        stub = stub.next!!
-    }
-    return head
-}
 
-object Node {
+object NodeForTree {
 
     fun node(): TreeNode {
         val node = TreeNode(1)
@@ -223,6 +242,69 @@ object Matrix {
         intArrayOf(4, 1, 0, 1, 7),
         intArrayOf(1, 0, 3, 0, 5)
     )
+}
+
+
+fun bstIteratorData(): BSTIterator {
+    val root = TreeNode(7)
+    root.left = TreeNode(3)
+    root.right = TreeNode(15)
+    root.right?.left = TreeNode(9)
+    root.right?.right = TreeNode(20)
+
+    return BSTIterator(root)
+}
+
+
+fun flattenData(): TreeNode? {
+    val root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(5)
+    root.left?.left = TreeNode(3)
+    root.left?.right = TreeNode(4)
+    root.right?.right = TreeNode(6)
+    return root
+}
+
+fun test() {
+    val num = listOf(4, 5, 6, 67, 8)
+    val res = num.maxByOrNull { it == 68 }
+    println(res)
+}
+
+fun createTreeNodeForBFS(): TreeNode {
+    val root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+    root.left!!.left = TreeNode(4)
+    root.left!!.right = TreeNode(5)
+    root.right!!.left = TreeNode(6)
+    root.right!!.right = TreeNode(7)
+    return root
+}
+
+fun createTreeNodeForPathSumIII(): TreeNode {
+    val root = TreeNode(10)
+    root.left = TreeNode(5)
+    root.right = TreeNode(-3)
+    root.left!!.left = TreeNode(3)
+    root.left!!.right = TreeNode(2)
+    root.right!!.right = TreeNode(11)
+    root?.left?.left?.left = TreeNode(3)
+    root?.left?.left?.right = TreeNode(-2)
+    root?.left?.right?.right = TreeNode(1)
+    return root
+}
+
+fun workTree() {
+    val root = TreeNode(1)
+    root.left = TreeNode(3)
+    root.right = TreeNode(2)
+    root.left!!.left = TreeNode(5)
+    root.left!!.right = TreeNode(3)
+    root.right!!.right = TreeNode(9)
+
+    widthOfBinaryTree(root).also { println(it) }
 }
 
 
