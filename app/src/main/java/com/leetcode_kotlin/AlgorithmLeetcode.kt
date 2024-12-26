@@ -3779,6 +3779,33 @@ fun findPeakElement(nums: IntArray): Int {
     return l
 }
 
+/**
+ * 240. Search a 2D Matrix II
+ */
+
+fun searchMatrix(matrix: Array<IntArray>, target: Int): Boolean {
+    val len = matrix.size
+    for (i in 0 until len) {
+        val arr = matrix[i]
+        val ans = local(arr, target)
+        if (ans) return true
+    }
+    return false
+}
+
+fun local(nums: IntArray, target: Int): Boolean {
+    if (nums.size == 1 && nums[0] == target) return true
+    var l = 0
+    var r = nums.size - 1
+    while (l < r) {
+        var m = (l + r) / 2
+        if (nums[m] == target) return true
+        if (nums[m] > target) r = m
+        else l = m + 1
+    }
+    return if (nums[l] == target) true else false
+}
+
 
 
 
