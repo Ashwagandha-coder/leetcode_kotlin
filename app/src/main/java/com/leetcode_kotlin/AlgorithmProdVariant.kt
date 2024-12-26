@@ -708,3 +708,18 @@ class NumArrayProdVariant(nums: IntArray) {
     fun sumRange(left: Int, right: Int): Int = prefixSum[right + 1] - prefixSum[left]
 }
 
+/**
+ * 852. Peak Index in a Mountain Array
+ */
+
+fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
+    var (low, high) = 0 to arr.size - 1
+
+    while (low < high) {
+        val mid = low + (high - low) / 2
+        if (arr[mid] < arr[mid + 1]) low = mid + 1
+        else high = mid
+    }
+    return low
+}
+
