@@ -3827,7 +3827,7 @@ private fun findFirstPosition(nums: IntArray, target: Int): Int {
 
         if (nums[mid] == target) {
             firstPosition = mid
-            high = mid - 1 // Search for the first occurrence
+            high = mid - 1
         } else if (nums[mid] < target) {
             low = mid + 1
         } else {
@@ -3848,7 +3848,7 @@ private fun findLastPosition(nums: IntArray, target: Int): Int {
 
         if (nums[mid] == target) {
             lastPosition = mid
-            low = mid + 1 // Search for the last occurrence
+            low = mid + 1
         } else if (nums[mid] < target) {
             low = mid + 1
         } else {
