@@ -8,9 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(2, 2)
+    val arr = intArrayOf(1, 2, 3, 4, 5, 8, 9)
 
-    searchRange(arr, 2).also { it.forEach { elem -> println(elem) } }
+    hIndex(arr).also { println(it) }
 
 }
 
