@@ -3859,6 +3859,42 @@ private fun findLastPosition(nums: IntArray, target: Int): Int {
     return lastPosition
 }
 
+/**
+ * 278. First Bad Version
+ */
+
+open class VersionControl() {
+
+    open fun firstBadVersion(n: Int): Int {
+        return 0
+    }
+}
+
+fun isBadVersion(n: Int): Boolean = true
+
+class SolutionOth : VersionControl() {
+
+    override fun firstBadVersion(n: Int): Int {
+        // 1 2
+        if (n == 1) return 1
+        var l = 0L
+        var r = (n - 1).toLong()
+        var elem = -1L
+        while (l <= r) {
+            var m = (l + r) / 2
+            var res = isBadVersion((m + 1).toInt())
+            if (res) {
+                elem = m + 1
+                r = m
+            } else l = m + 1
+            if (l == r && l == m && r == m) break
+        }
+        return elem.toInt()
+    }
+}
+
+
+
 
 
 
