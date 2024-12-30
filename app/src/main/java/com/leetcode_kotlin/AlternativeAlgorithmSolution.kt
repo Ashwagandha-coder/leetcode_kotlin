@@ -1211,6 +1211,52 @@ fun findBottomLeftValueAltSolution(root: TreeNode?): Int {
     return value
 }
 
+/**
+ * 378. Kth Smallest Element in a Sorted Matrix
+ * Alternative Solution
+ * Time - O(n * log n)
+ * Space - O(1)
+ */
+
+
+fun kthSmallestAltSolution(matrix: Array<IntArray>, k: Int): Int {
+    val n = matrix.size
+    var low = matrix[0][0]
+    var high = matrix[n - 1][n - 1]
+
+    while (low < high) {
+        val mid = low + (high - low) / 2
+        val count = countLessOrEqual(matrix, mid)
+
+        if (count < k) {
+            low = mid + 1
+        } else {
+            high = mid
+        }
+    }
+
+    return low
+}
+
+private fun countLessOrEqual(matrix: Array<IntArray>, target: Int): Int {
+    val n = matrix.size
+    var count = 0
+    var row = n - 1
+    var col = 0
+
+    while (row >= 0 && col < n) {
+        if (matrix[row][col] <= target) {
+            count += row + 1
+            col++
+        } else {
+            row--
+        }
+    }
+
+    return count
+}
+
+
 
 
 
