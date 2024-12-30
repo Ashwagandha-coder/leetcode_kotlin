@@ -8,10 +8,16 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-    hIndex(arr).also { println(it) }
+    val matrix = arrayOf(
+        intArrayOf(1, 5, 9),
+        intArrayOf(10, 11, 13),
+        intArrayOf(12, 13, 15)
+    )
+    val k = 8
 
+
+    kthSmallestAltSolution(matrix, k).also { println(it) }
 }
 
 
