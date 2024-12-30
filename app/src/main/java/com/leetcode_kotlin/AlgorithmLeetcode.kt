@@ -3893,6 +3893,61 @@ class SolutionOth : VersionControl() {
     }
 }
 
+/**
+ * 275. H-Index II
+ */
+
+fun hIndex(citations: IntArray): Int {
+    val n = citations.size
+    var left = 0
+    var right = n - 1
+
+    while (left <= right) {
+        val mid = left + (right - left) / 2
+        if (citations[mid] >= n - mid) {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+    }
+
+    return n - left
+}
+
+/**
+ * 378. Kth Smallest Element in a Sorted Matrix
+ */
+
+fun kthSmallest(matrix: Array<IntArray>, k: Int): Int {
+    val pq = PriorityQueue<Int>()
+    val len = matrix.size
+    for (i in 0 until len) {
+        for (j in 0 until len) {
+            pq.offer(matrix[i][j])
+        }
+    }
+    var res = 0
+    for (i in 0 until k) {
+        res = pq.poll()
+    }
+    return res
+}
+
+/**
+ * 74. Search a 2D Matrix
+ */
+
+fun searchMatrix2D(matrix: Array<IntArray>, target: Int): Boolean {
+    var row = 0
+    var col = matrix[0].size - 1
+    while (row < matrix.size && col >= 0) {
+        if (matrix[row][col] == target) return true
+        else if (matrix[row][col] < target) row++
+        else col--
+    }
+    return false
+}
+
 
 
 
