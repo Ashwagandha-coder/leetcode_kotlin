@@ -1256,6 +1256,31 @@ private fun countLessOrEqual(matrix: Array<IntArray>, target: Int): Int {
     return count
 }
 
+/**
+ * 240. Search a 2D Matrix II
+ * Alternative Solution
+ * Time - O(m + n)
+ * Space - O(1)
+ */
+
+fun searchMatrix(matrix: Array<IntArray>?, target: Int): Boolean {
+    if (matrix.isNullOrEmpty() || matrix[0].isEmpty()) {
+        return false
+    }
+    var col = matrix[0].size - 1
+    var row = 0
+    while (col >= 0 && row <= matrix.size - 1) {
+        if (target == matrix[row][col]) {
+            return true
+        } else if (target < matrix[row][col]) {
+            col--
+        } else if (target > matrix[row][col]) {
+            row++
+        }
+    }
+    return false
+}
+
 
 
 

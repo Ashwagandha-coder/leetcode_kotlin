@@ -3933,6 +3933,21 @@ fun kthSmallest(matrix: Array<IntArray>, k: Int): Int {
     return res
 }
 
+/**
+ * 74. Search a 2D Matrix
+ */
+
+fun searchMatrix2D(matrix: Array<IntArray>, target: Int): Boolean {
+    var row = 0
+    var col = matrix[0].size - 1
+    while (row < matrix.size && col >= 0) {
+        if (matrix[row][col] == target) return true
+        else if (matrix[row][col] < target) row++
+        else col--
+    }
+    return false
+}
+
 
 
 
