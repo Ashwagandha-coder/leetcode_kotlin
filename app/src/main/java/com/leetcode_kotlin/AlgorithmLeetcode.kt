@@ -3914,6 +3914,25 @@ fun hIndex(citations: IntArray): Int {
     return n - left
 }
 
+/**
+ * 378. Kth Smallest Element in a Sorted Matrix
+ */
+
+fun kthSmallest(matrix: Array<IntArray>, k: Int): Int {
+    val pq = PriorityQueue<Int>()
+    val len = matrix.size
+    for (i in 0 until len) {
+        for (j in 0 until len) {
+            pq.offer(matrix[i][j])
+        }
+    }
+    var res = 0
+    for (i in 0 until k) {
+        res = pq.poll()
+    }
+    return res
+}
+
 
 
 
