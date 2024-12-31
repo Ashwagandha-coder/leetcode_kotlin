@@ -710,6 +710,7 @@ class NumArrayProdVariant(nums: IntArray) {
 
 /**
  * 852. Peak Index in a Mountain Array
+ * Prod Variant
  */
 
 fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
@@ -721,5 +722,18 @@ fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
         else high = mid
     }
     return low
+}
+
+/**
+ * 278. First Bad Version
+ * Prod Variant
+ */
+
+
+fun firstBadVersionProdVariant(n: Int): Int {
+    val result = (1..n).toList().binarySearch {
+        if (isBadVersion(it)) -1 else 1 // Custom comparison logic
+    }
+    return if (result < 0) -result - 1 else result // Handle insertion point
 }
 
