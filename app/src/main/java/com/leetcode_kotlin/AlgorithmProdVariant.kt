@@ -732,8 +732,8 @@ fun peakIndexInMountainArrayProdVariant(arr: IntArray): Int {
 
 fun firstBadVersionProdVariant(n: Int): Int {
     val result = (1..n).toList().binarySearch {
-        if (isBadVersion(it)) -1 else 1 // Custom comparison logic
+        if (isBadVersion(it)) -1 else 1
     }
-    return if (result < 0) -result - 1 else result // Handle insertion point
+    return if (result < 0) -result - 1 else result
 }
 
