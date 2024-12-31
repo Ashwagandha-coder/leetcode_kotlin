@@ -737,3 +737,18 @@ fun firstBadVersionProdVariant(n: Int): Int {
     return if (result < 0) -result - 1 else result
 }
 
+/**
+ * 34. Find First and Last Position of Element in Sorted Array
+ * Prod Variant
+ */
+
+fun findFirstAndLastPosition(nums: IntArray, target: Int): IntArray {
+    val first = nums.binarySearch(target)
+    if (first < 0) return intArrayOf(-1, -1)
+
+    val last = nums.toList().binarySearch {
+        if (it == target) 0 else if (it < target) 1 else -1
+    }
+    return intArrayOf(first, if (last < 0) -last - 2 else last)
+}
+
