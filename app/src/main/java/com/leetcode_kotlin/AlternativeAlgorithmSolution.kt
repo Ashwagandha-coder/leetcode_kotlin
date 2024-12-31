@@ -1211,6 +1211,77 @@ fun findBottomLeftValueAltSolution(root: TreeNode?): Int {
     return value
 }
 
+/**
+ * 378. Kth Smallest Element in a Sorted Matrix
+ * Alternative Solution
+ * Time - O(n * log n)
+ * Space - O(1)
+ */
+
+
+fun kthSmallestAltSolution(matrix: Array<IntArray>, k: Int): Int {
+    val n = matrix.size
+    var low = matrix[0][0]
+    var high = matrix[n - 1][n - 1]
+
+    while (low < high) {
+        val mid = low + (high - low) / 2
+        val count = countLessOrEqual(matrix, mid)
+
+        if (count < k) {
+            low = mid + 1
+        } else {
+            high = mid
+        }
+    }
+
+    return low
+}
+
+private fun countLessOrEqual(matrix: Array<IntArray>, target: Int): Int {
+    val n = matrix.size
+    var count = 0
+    var row = n - 1
+    var col = 0
+
+    while (row >= 0 && col < n) {
+        if (matrix[row][col] <= target) {
+            count += row + 1
+            col++
+        } else {
+            row--
+        }
+    }
+
+    return count
+}
+
+/**
+ * 240. Search a 2D Matrix II
+ * Alternative Solution
+ * Time - O(m + n)
+ * Space - O(1)
+ */
+
+fun searchMatrix(matrix: Array<IntArray>?, target: Int): Boolean {
+    if (matrix.isNullOrEmpty() || matrix[0].isEmpty()) {
+        return false
+    }
+    var col = matrix[0].size - 1
+    var row = 0
+    while (col >= 0 && row <= matrix.size - 1) {
+        if (target == matrix[row][col]) {
+            return true
+        } else if (target < matrix[row][col]) {
+            col--
+        } else if (target > matrix[row][col]) {
+            row++
+        }
+    }
+    return false
+}
+
+
 
 
 

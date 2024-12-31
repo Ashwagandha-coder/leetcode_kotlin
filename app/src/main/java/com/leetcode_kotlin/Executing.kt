@@ -8,10 +8,22 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(2, 2)
 
-    searchRange(arr, 2).also { it.forEach { elem -> println(elem) } }
+    val matrix = arrayOf(
+        intArrayOf(1, 5, 9),
+        intArrayOf(10, 11, 13),
+        intArrayOf(12, 13, 15)
+    )
+    val k = 8
 
+
+    val arr = intArrayOf(1, 0, 1, 1, 1)
+
+    val target = 0
+
+    searchII(arr, target).also { println(it) }
+
+    //kthSmallestAltSolution(matrix, k).also { println(it) }
 }
 
 

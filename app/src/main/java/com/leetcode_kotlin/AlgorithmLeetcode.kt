@@ -3893,6 +3893,120 @@ class SolutionOth : VersionControl() {
     }
 }
 
+/**
+ * 275. H-Index II
+ */
+
+fun hIndex(citations: IntArray): Int {
+    val n = citations.size
+    var left = 0
+    var right = n - 1
+
+    while (left <= right) {
+        val mid = left + (right - left) / 2
+        if (citations[mid] >= n - mid) {
+            right = mid - 1
+        } else {
+            left = mid + 1
+        }
+    }
+
+    return n - left
+}
+
+/**
+ * 378. Kth Smallest Element in a Sorted Matrix
+ */
+
+fun kthSmallest(matrix: Array<IntArray>, k: Int): Int {
+    val pq = PriorityQueue<Int>()
+    val len = matrix.size
+    for (i in 0 until len) {
+        for (j in 0 until len) {
+            pq.offer(matrix[i][j])
+        }
+    }
+    var res = 0
+    for (i in 0 until k) {
+        res = pq.poll()
+    }
+    return res
+}
+
+/**
+ * 74. Search a 2D Matrix
+ */
+
+fun searchMatrix2D(matrix: Array<IntArray>, target: Int): Boolean {
+    var row = 0
+    var col = matrix[0].size - 1
+    while (row < matrix.size && col >= 0) {
+        if (matrix[row][col] == target) return true
+        else if (matrix[row][col] < target) row++
+        else col--
+    }
+    return false
+}
+
+/**
+ * 33. Search in Rotated Sorted Array
+ */
+
+
+fun search(nums: IntArray, target: Int): Int {
+    var left = 0
+    var right = nums.size - 1
+
+    while (left <= right) {
+        val mid = left + (right - left) / 2
+
+        if (nums[mid] == target) {
+            return mid
+        }
+
+        if (nums[left] <= nums[mid]) {
+            if (target >= nums[left] && target < nums[mid]) {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        } else {
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+    }
+
+    return -1
+}
+
+/**
+ * 81. Search in Rotated Sorted Array II
+ */
+
+
+fun searchII(nums: IntArray, target: Int): Boolean {
+    var l = 0
+    var r = nums.size - 1
+    while (l <= r) {
+        var m = l + (r - l) / 2
+        if (nums[m] == target) return true
+        if (nums[l] == nums[m] && nums[m] == nums[r]) {
+            l++
+            r--
+        } else if (nums[l] <= nums[m]) {
+            if (nums[l] <= target && nums[m] >= target) r = m - 1
+            else l = m + 1
+        } else {
+            if (target > nums[m] && target <= nums[r]) l = m + 1
+            else r = m - 1
+        }
+    }
+    return false
+}
+
 
 
 
