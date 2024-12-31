@@ -3948,6 +3948,65 @@ fun searchMatrix2D(matrix: Array<IntArray>, target: Int): Boolean {
     return false
 }
 
+/**
+ * 33. Search in Rotated Sorted Array
+ */
+
+
+fun search(nums: IntArray, target: Int): Int {
+    var left = 0
+    var right = nums.size - 1
+
+    while (left <= right) {
+        val mid = left + (right - left) / 2
+
+        if (nums[mid] == target) {
+            return mid
+        }
+
+        if (nums[left] <= nums[mid]) {
+            if (target >= nums[left] && target < nums[mid]) {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+        } else {
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1
+            } else {
+                right = mid - 1
+            }
+        }
+    }
+
+    return -1
+}
+
+/**
+ * 81. Search in Rotated Sorted Array II
+ */
+
+
+fun searchII(nums: IntArray, target: Int): Boolean {
+    var l = 0
+    var r = nums.size - 1
+    while (l <= r) {
+        var m = l + (r - l) / 2
+        if (nums[m] == target) return true
+        if (nums[l] == nums[m] && nums[m] == nums[r]) {
+            l++
+            r--
+        } else if (nums[l] <= nums[m]) {
+            if (nums[l] <= target && nums[m] >= target) r = m - 1
+            else l = m + 1
+        } else {
+            if (target > nums[m] && target <= nums[r]) l = m + 1
+            else r = m - 1
+        }
+    }
+    return false
+}
+
 
 
 

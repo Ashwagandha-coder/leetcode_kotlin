@@ -17,7 +17,13 @@ fun main() {
     val k = 8
 
 
-    kthSmallestAltSolution(matrix, k).also { println(it) }
+    val arr = intArrayOf(1, 0, 1, 1, 1)
+
+    val target = 0
+
+    searchII(arr, target).also { println(it) }
+
+    //kthSmallestAltSolution(matrix, k).also { println(it) }
 }
 
 
