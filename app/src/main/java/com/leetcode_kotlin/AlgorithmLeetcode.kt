@@ -4007,6 +4007,34 @@ fun searchII(nums: IntArray, target: Int): Boolean {
     return false
 }
 
+/**
+ * 1422. Maximum Score After Splitting a String
+ */
+
+fun maxScore(s: String): Int {
+    var maxScore = 0
+    var zeros = 0
+    var ones = 0
+
+
+    for (char in s) {
+        if (char == '1') {
+            ones++
+        }
+    }
+
+    for (i in 0 until s.length - 1) {
+        if (s[i] == '0') {
+            zeros++
+        } else {
+            ones--
+        }
+        maxScore = maxOf(maxScore, zeros + ones)
+    }
+
+    return maxScore
+}
+
 
 
 
