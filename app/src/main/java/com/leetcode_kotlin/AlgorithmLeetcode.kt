@@ -748,10 +748,7 @@ fun subsets(nums: IntArray): List<List<Int>> {
 }
 
 private fun createSubset(
-    nums: IntArray,
-    index: Int,
-    res: MutableList<List<Int>>,
-    subset: MutableList<Int>
+    nums: IntArray, index: Int, res: MutableList<List<Int>>, subset: MutableList<Int>
 ) {
     if (index == nums.size) {
         res.add(ArrayList(subset))
@@ -805,11 +802,7 @@ fun combine(n: Int, k: Int): List<List<Int>> {
 }
 
 private fun backtrack(
-    result: MutableList<List<Int>>,
-    tempList: MutableList<Int>,
-    start: Int,
-    n: Int,
-    k: Int
+    result: MutableList<List<Int>>, tempList: MutableList<Int>, start: Int, n: Int, k: Int
 ) {
     // If the combination is done (i.e., we've picked k numbers)
     if (tempList.size == k) {
@@ -911,11 +904,7 @@ fun subsetsWithDup(nums: IntArray): List<List<Int>> {
 }
 
 private fun backtrack(
-    nums: IntArray,
-    n: Int,
-    ans: MutableList<List<Int>>,
-    set: MutableList<Int>,
-    idx: Int
+    nums: IntArray, n: Int, ans: MutableList<List<Int>>, set: MutableList<Int>, idx: Int
 ) {
     var index = idx
     if (index == nums.size) {
@@ -1121,9 +1110,7 @@ fun helper(nums: IntArray, subset: MutableList<Int>, indexList: MutableList<Int?
             subset.add(nums[i]) // Add the element to current list
             indexList.add(i) // Mark the index as consumed
             helper(
-                nums,
-                subset,
-                indexList
+                nums, subset, indexList
             ) // Recursively call helper to explore further permutations
             subset.removeAt(subset.size - 1) // Backtrack by removing the last added element
             indexList.removeAt(indexList.size - 1) // Remove the index from consumed list
@@ -1196,10 +1183,7 @@ fun pathSumII(root: TreeNode?, targetSum: Int): List<List<Int>> {
 }
 
 private fun dfs(
-    node: TreeNode?,
-    targetSum: Int,
-    currentPath: MutableList<Int>,
-    result: MutableList<List<Int>>
+    node: TreeNode?, targetSum: Int, currentPath: MutableList<Int>, result: MutableList<List<Int>>
 ) {
     if (node == null) {
         return
@@ -1404,10 +1388,7 @@ fun String.isPalindrome(start: Int, end: Int): Boolean {
 
 
 fun partitionHelper(
-    start: Int,
-    s: String,
-    list: MutableList<List<String>?>,
-    current: MutableList<String>
+    start: Int, s: String, list: MutableList<List<String>?>, current: MutableList<String>
 ) {
     if (start == s.length) {
         list.add(ArrayList(current))
@@ -1464,11 +1445,7 @@ fun combinationSum3(k: Int, n: Int): List<List<Int>> {
 }
 
 fun backtrack(
-    k: Int,
-    n: Int,
-    index: Int,
-    subset: MutableList<Int>,
-    res: MutableList<MutableList<Int>>
+    k: Int, n: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>
 ) {
     if (n < 0) return
     if (subset.size == k && n == 0) {
@@ -1480,8 +1457,7 @@ fun backtrack(
             subset.add(i)
             backtrack(k, n - i, index + 1, subset, res)
             subset.removeAt(subset.size - 1)
-        } else
-            return
+        } else return
     }
     return
 }
@@ -1547,10 +1523,7 @@ fun solveNQueens(n: Int): List<List<String>> {
 
 
 fun backtracking(
-    row: Int,
-    n: Int,
-    solutions: MutableList<MutableList<String>>,
-    board: Array<CharArray>
+    row: Int, n: Int, solutions: MutableList<MutableList<String>>, board: Array<CharArray>
 ) {
     if (row == n) {
         solutions.add(board.map { it.joinToString("") } as MutableList<String>)
@@ -1604,9 +1577,7 @@ fun totalNQueens(n: Int): Int {
 }
 
 fun backtracking(
-    row: Int,
-    n: Int,
-    board: Array<CharArray>
+    row: Int, n: Int, board: Array<CharArray>
 ): Int {
     if (row == n) {
         return 1
@@ -1962,9 +1933,7 @@ fun generateTrees(n: Int): List<TreeNode?> {
 }
 
 private fun generateTreesHelper(
-    start: Int,
-    end: Int,
-    memo: MutableMap<String, List<TreeNode?>>
+    start: Int, end: Int, memo: MutableMap<String, List<TreeNode?>>
 ): List<TreeNode?> {
     val key = "$start-$end"
     if (memo.containsKey(key)) {
@@ -2010,9 +1979,7 @@ private fun valid(node: TreeNode?, minimum: Long, maximum: Long): Boolean {
     if (!(node.`val` > minimum && node.`val` < maximum)) return false
 
     return valid(node.left, minimum, node.`val`.toLong()) && valid(
-        node.right,
-        node.`val`.toLong(),
-        maximum
+        node.right, node.`val`.toLong(), maximum
     )
 }
 
@@ -2684,8 +2651,7 @@ fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
 
         val newSum = currentSum + node.`val`
         count += prefixSumMap.getOrDefault(
-            newSum - targetSum.toLong(),
-            0
+            newSum - targetSum.toLong(), 0
         ) // Convert targetSum to Long
         prefixSumMap[newSum] = prefixSumMap.getOrDefault(newSum, 0) + 1
 
@@ -3342,8 +3308,7 @@ fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     val rootIndexInInorder = inorder.indexOf(rootValue)
 
     root.left = buildTree(
-        preorder.copyOfRange(1, rootIndexInInorder + 1),
-        inorder.copyOfRange(0, rootIndexInInorder)
+        preorder.copyOfRange(1, rootIndexInInorder + 1), inorder.copyOfRange(0, rootIndexInInorder)
     )
     root.right = buildTree(
         preorder.copyOfRange(rootIndexInInorder + 1, preorder.size),
@@ -3418,9 +3383,8 @@ fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
         return result
     }
 
-    val priorityQueue = PriorityQueue<Triple<Int, Int, Int>>(
-        compareBy { nums1[it.first] + nums2[it.second] }
-    )
+    val priorityQueue =
+        PriorityQueue<Triple<Int, Int, Int>>(compareBy { nums1[it.first] + nums2[it.second] })
 
     for (i in 0 until minOf(nums1.size, k)) {
         priorityQueue.offer(Triple(i, 0, nums1[i] + nums2[0]))
@@ -4033,6 +3997,24 @@ fun maxScore(s: String): Int {
     }
 
     return maxScore
+}
+
+/**
+ * 538. Convert BST to Greater Tree
+ */
+
+
+fun convertBST(root: TreeNode?): TreeNode? {
+    var sum = 0
+    fun dfs(root: TreeNode?) {
+        if (root == null) return
+        dfs(root?.right)
+        sum += root.`val`
+        root.`val` = sum
+        dfs(root?.left)
+    }
+    dfs(root)
+    return root
 }
 
 
