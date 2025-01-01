@@ -1281,6 +1281,28 @@ fun searchMatrix(matrix: Array<IntArray>?, target: Int): Boolean {
     return false
 }
 
+/**
+ * 538. Convert BST to Greater Tree
+ * Alternative Solution
+ * Using Pair
+ */
+
+fun convertBSTAltSolution(root: TreeNode?): TreeNode? {
+    return convertBSTRecursive(root, 0).first
+}
+
+fun convertBSTRecursive(root: TreeNode?, sum: Int): Pair<TreeNode?, Int> {
+    if (root == null) return null to sum
+
+    // Reverse inorder traversal (right, root, left)
+    val (right, updatedSum) = convertBSTRecursive(root.right, sum)
+    val newSum = updatedSum + root.`val`
+    root.`val` = newSum
+    val (left, finalSum) = convertBSTRecursive(root.left, newSum)
+
+    return root to finalSum
+}
+
 
 
 
