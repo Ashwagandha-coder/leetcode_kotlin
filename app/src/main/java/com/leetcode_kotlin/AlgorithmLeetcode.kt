@@ -4047,6 +4047,29 @@ private fun isVowel(char: Char): Boolean {
     return char in "aeiou"
 }
 
+/**
+ * 543. Diameter of Binary Tree
+ */
+
+fun diameterOfBinaryTree(root: TreeNode?): Int {
+    var diameter = 0
+
+    fun dfs(node: TreeNode?): Int {
+        if (node == null) {
+            return 0
+        }
+
+        val leftDepth = dfs(node.left)
+        val rightDepth = dfs(node.right)
+
+        diameter = maxOf(diameter, leftDepth + rightDepth)
+
+        return maxOf(leftDepth, rightDepth) + 1
+    }
+
+    dfs(root)return diameter
+}
+
 
 
 
