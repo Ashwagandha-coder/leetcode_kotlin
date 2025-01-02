@@ -4067,7 +4067,8 @@ fun diameterOfBinaryTree(root: TreeNode?): Int {
         return maxOf(leftDepth, rightDepth) + 1
     }
 
-    dfs(root)return diameter
+    dfs(root)
+    return diameter
 }
 
 
