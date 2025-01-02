@@ -4017,6 +4017,36 @@ fun convertBST(root: TreeNode?): TreeNode? {
     return root
 }
 
+/**
+ * 2559. Count Vowel Strings in Ranges
+ */
+
+fun vowelStrings(words: Array<String>, queries: Array<IntArray>): IntArray {
+    val n = words.size
+    val prefixSum = IntArray(n + 1) { 0 }
+
+
+    for (i in 1..n) {
+        prefixSum[i] =
+            prefixSum[i - 1] + if (isVowel(words[i - 1][0]) && isVowel(words[i - 1].last())) 1 else 0
+    }
+
+
+    val result = IntArray(queries.size)
+    for (i in queries.indices) {
+        val start = queries[i][0]
+        val end = queries[i][1]
+        result[i] = prefixSum[end + 1] - prefixSum[start]
+    }
+
+    return result
+}
+
+
+private fun isVowel(char: Char): Boolean {
+    return char in "aeiou"
+}
+
 
 
 
