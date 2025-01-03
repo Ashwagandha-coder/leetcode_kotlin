@@ -4071,6 +4071,62 @@ fun diameterOfBinaryTree(root: TreeNode?): Int {
     return diameter
 }
 
+/**
+ *
+ */
+
+fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
+    val rootQ = LinkedList<TreeNode>()
+    val subRootQ = LinkedList<TreeNode>()
+    rootQ.offer(root)
+    subRootQ.offer(subRoot)
+    while (rootQ.isNotEmpty()) {
+        val size = rootQ.size
+        for (i in 0 until size) {
+            val node = rootQ.poll()
+            val check = subRootQ.peek()
+            if (node.`val` == check.`val`) {
+                val sub = subRootQ.poll()
+                sub?.left?.let { subRootQ.offer(it) }
+                sub?.right?.let { subRootQ.offer(it) }
+            }
+            node?.left?.let { rootQ.offer(it) }
+            node?.right?.let { rootQ.offer(it) }
+        }
+        if (subRootQ.isEmpty() && rootQ.isNotEmpty()) return false
+        if (rootQ.isEmpty() && subRootQ.isNotEmpty()) return false
+    }
+    return true
+}
+
+/**
+ *
+ */
+
+class NodeCopy(var `val`: Int) {
+    var next: NodeCopy? = null
+    var random: NodeCopy? = null
+}
+
+fun copyRandomList(node: NodeCopy?): NodeCopy? {
+    node ?: return null
+    val head = NodeCopy(0)
+    var stub = head
+    var node = node
+    while (node != null) {
+        val value = node.`val`
+        val r = node.random
+        val n = node.next
+        val new = NodeCopy(value)
+        new.next = n
+        new.random = r
+        stub?.next = new
+        stub = stub?.next!!
+        node = node.next
+    }
+    return head?.next
+}
+
 
 
 
