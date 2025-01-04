@@ -4084,14 +4084,14 @@ fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
     var next: ListNode? = null
     var count = 0
 
-    // Check if there are at least k nodes starting from current
+
     var temp = current
     for (i in 0 until k) {
-        if (temp == null) return head // Not enough nodes, return original list
+        if (temp == null) return head
         temp = temp.next
     }
 
-    // Reverse first k nodes
+
     while (count < k && current != null) {
         next = current.next
         current.next = prev
@@ -4100,7 +4100,7 @@ fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
         count++
     }
 
-    // Recursively reverse remaining nodes in k-groups
+
     if (next != null) {
         head.next = reverseKGroup(next, k)
     }
