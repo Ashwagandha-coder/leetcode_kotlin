@@ -9,10 +9,9 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    val root = listOf("1", "1").toTreeNode()
-    val sub = listOf("1").toTreeNode()
-
-    isSubtree(root, sub).also { println(it) }
+    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
+    val k = 2
+    reverseKGroup(head, k).also { it?.printListNode() }
 }
 
 

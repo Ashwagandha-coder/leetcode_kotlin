@@ -4072,60 +4072,44 @@ fun diameterOfBinaryTree(root: TreeNode?): Int {
 }
 
 /**
- *
+ * 25. Reverse Nodes in k-Group
  */
 
-fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
-    val rootQ = LinkedList<TreeNode>()
-    val subRootQ = LinkedList<TreeNode>()
-    rootQ.offer(root)
-    subRootQ.offer(subRoot)
-    while (rootQ.isNotEmpty()) {
-        val size = rootQ.size
-        for (i in 0 until size) {
-            val node = rootQ.poll()
-            val check = subRootQ.peek()
-            if (node.`val` == check.`val`) {
-                val sub = subRootQ.poll()
-                sub?.left?.let { subRootQ.offer(it) }
-                sub?.right?.let { subRootQ.offer(it) }
-            }
-            node?.left?.let { rootQ.offer(it) }
-            node?.right?.let { rootQ.offer(it) }
-        }
-        if (subRootQ.isEmpty() && rootQ.isNotEmpty()) return false
-        if (rootQ.isEmpty() && subRootQ.isNotEmpty()) return false
+
+fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
+    if (head == null || k == 1) return head
+
+    var current = head
+    var prev: ListNode? = null
+    var next: ListNode? = null
+    var count = 0
+
+    // Check if there are at least k nodes starting from current
+    var temp = current
+    for (i in 0 until k) {
+        if (temp == null) return head // Not enough nodes, return original list
+        temp = temp.next
     }
-    return true
-}
 
-/**
- *
- */
-
-class NodeCopy(var `val`: Int) {
-    var next: NodeCopy? = null
-    var random: NodeCopy? = null
-}
-
-fun copyRandomList(node: NodeCopy?): NodeCopy? {
-    node ?: return null
-    val head = NodeCopy(0)
-    var stub = head
-    var node = node
-    while (node != null) {
-        val value = node.`val`
-        val r = node.random
-        val n = node.next
-        val new = NodeCopy(value)
-        new.next = n
-        new.random = r
-        stub?.next = new
-        stub = stub?.next!!
-        node = node.next
+    // Reverse first k nodes
+    while (count < k && current != null) {
+        next = current.next
+        current.next = prev
+        prev = current
+        current = next
+        count++
     }
-    return head?.next
+
+    // Recursively reverse remaining nodes in k-groups
+    if (next != null) {
+        head.next = reverseKGroup(next, k)
+    }
+
+    return prev
 }
+
+
+
 
 
 
