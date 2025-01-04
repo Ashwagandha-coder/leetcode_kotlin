@@ -4108,6 +4108,38 @@ fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
     return prev
 }
 
+/**
+ * 138. Copy List with Random Pointer
+ */
+
+class NodeCopy(var `val`: Int) {
+    var next: NodeCopy? = null
+    var random: NodeCopy? = null
+}
+
+fun copyRandomList(head: NodeCopy?): NodeCopy? {
+    if (head == null) return null
+
+    val map = mutableMapOf<NodeCopy, NodeCopy>()
+
+
+    var current = head
+    while (current != null) {
+        map[current] = NodeCopy(current.`val`)
+        current = current.next
+    }
+
+
+    current = head
+    while (current != null) {
+        val copy = map[current]!!
+        copy.next = map[current.next]
+        copy.random = map[current.random]
+        current = current.next
+    }
+
+    return map[head]
+}
 
 
 
