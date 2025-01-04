@@ -737,4 +737,30 @@ fun firstBadVersionProdVariant(n: Int): Int {
     return if (result < 0) -result - 1 else result
 }
 
+/**
+ * 513. Find Bottom Left Tree Value
+ * Prod Variant
+ */
+
+fun findBottomLeftValueProdVariant(root: TreeNode?): Int {
+    return findBottomLeftValueRecursive(root, 0, Int.MIN_VALUE to 0).first
+}
+
+private tailrec fun findBottomLeftValueRecursive(
+    node: TreeNode?,
+    depth: Int,
+    currentResult: Pair<Int, Int>
+): Pair<Int, Int> {
+    if (node == null) return currentResult
+
+    val (currentValue, currentDepth) = currentResult
+    val newResult = if (depth > currentDepth) node.`val` to depth else currentResult
+
+    return findBottomLeftValueRecursive(
+        node.left,
+        depth + 1,
+        findBottomLeftValueRecursive(node.right, depth + 1, newResult)
+    )
+}
+
 
