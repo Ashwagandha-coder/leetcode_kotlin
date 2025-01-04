@@ -4071,6 +4071,94 @@ fun diameterOfBinaryTree(root: TreeNode?): Int {
     return diameter
 }
 
+/**
+ * 25. Reverse Nodes in k-Group
+ */
+
+
+fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
+    if (head == null || k == 1) return head
+
+    var current = head
+    var prev: ListNode? = null
+    var next: ListNode? = null
+    var count = 0
+
+
+    var temp = current
+    for (i in 0 until k) {
+        if (temp == null) return head
+        temp = temp.next
+    }
+
+
+    while (count < k && current != null) {
+        next = current.next
+        current.next = prev
+        prev = current
+        current = next
+        count++
+    }
+
+
+    if (next != null) {
+        head.next = reverseKGroup(next, k)
+    }
+
+    return prev
+}
+
+/**
+ * 138. Copy List with Random Pointer
+ */
+
+class NodeCopy(var `val`: Int) {
+    var next: NodeCopy? = null
+    var random: NodeCopy? = null
+}
+
+fun copyRandomList(head: NodeCopy?): NodeCopy? {
+    if (head == null) return null
+
+    val map = mutableMapOf<NodeCopy, NodeCopy>()
+
+
+    var current = head
+    while (current != null) {
+        map[current] = NodeCopy(current.`val`)
+        current = current.next
+    }
+
+
+    current = head
+    while (current != null) {
+        val copy = map[current]!!
+        copy.next = map[current.next]
+        copy.random = map[current.random]
+        current = current.next
+    }
+
+    return map[head]
+}
+
+/**
+ * 383. Ransom Note
+ */
+
+
+fun canConstruct(ransomNote: String, magazine: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    var len = magazine.length
+    for (i in 0 until len) map[magazine[i]] = map.getOrDefault(magazine[i], 0) + 1
+    len = ransomNote.length
+    for (i in 0 until len) {
+        if (!map.contains(ransomNote[i])) return false
+        map[ransomNote[i]] = map.getOrDefault(ransomNote[i], 0) - 1
+        if (map[ransomNote[i]] == 0) map.remove(ransomNote[i])
+    }
+    return true
+}
+
 
 
 
