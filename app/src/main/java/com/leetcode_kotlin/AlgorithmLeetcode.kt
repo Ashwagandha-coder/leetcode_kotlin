@@ -4141,7 +4141,23 @@ fun copyRandomList(head: NodeCopy?): NodeCopy? {
     return map[head]
 }
 
+/**
+ * 383. Ransom Note
+ */
 
+
+fun canConstruct(ransomNote: String, magazine: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    var len = magazine.length
+    for (i in 0 until len) map[magazine[i]] = map.getOrDefault(magazine[i], 0) + 1
+    len = ransomNote.length
+    for (i in 0 until len) {
+        if (!map.contains(ransomNote[i])) return false
+        map[ransomNote[i]] = map.getOrDefault(ransomNote[i], 0) - 1
+        if (map[ransomNote[i]] == 0) map.remove(ransomNote[i])
+    }
+    return true
+}
 
 
 
