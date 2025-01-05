@@ -4159,6 +4159,37 @@ fun canConstruct(ransomNote: String, magazine: String): Boolean {
     return true
 }
 
+/**
+ * 19. Remove Nth Node From End of List
+ */
+
+fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
+    if (head?.next == null && n == 1) return null
+    var curr = head
+    var size = 0
+    while (curr != null) {
+        size++
+        curr = curr?.next
+    }
+    curr = head
+    var prev: ListNode? = null
+    var index = size - n
+    if (index == 0) return head?.next
+    while (curr != null) {
+        if (index == 0) {
+            val temp = curr?.next
+            curr?.next = null
+            prev?.next = null
+            prev?.next = temp
+            break
+        }
+        index--
+        prev = curr
+        curr = curr?.next
+    }
+    return head
+}
+
 
 
 
