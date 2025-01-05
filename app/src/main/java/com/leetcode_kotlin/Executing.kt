@@ -8,10 +8,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-
-    val head = intArrayOf(1, 2, 3, 4, 5).toListNode()
-    val k = 2
-    reverseKGroup(head, k).also { it?.printListNode() }
+    val head = intArrayOf(1, 2, 3, 3, 4, 4, 5).toListNode()
+    deleteDuplicatesII(head).also { it?.printListNode() }
 }
 
 

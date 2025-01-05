@@ -4159,6 +4159,63 @@ fun canConstruct(ransomNote: String, magazine: String): Boolean {
     return true
 }
 
+/**
+ * 19. Remove Nth Node From End of List
+ */
+
+fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
+    if (head?.next == null && n == 1) return null
+    var curr = head
+    var size = 0
+    while (curr != null) {
+        size++
+        curr = curr?.next
+    }
+    curr = head
+    var prev: ListNode? = null
+    var index = size - n
+    if (index == 0) return head?.next
+    while (curr != null) {
+        if (index == 0) {
+            val temp = curr?.next
+            curr?.next = null
+            prev?.next = null
+            prev?.next = temp
+            break
+        }
+        index--
+        prev = curr
+        curr = curr?.next
+    }
+    return head
+}
+
+/**
+ * 82. Remove Duplicates from Sorted List II
+ */
+
+fun deleteDuplicatesII(head: ListNode?): ListNode? {
+    head ?: return null
+    var prev: ListNode? = null
+    var curr: ListNode? = ListNode(-101)
+    val ans = curr
+    curr?.next = head
+    while (curr != null) {
+        if (curr?.`val` == curr?.next?.`val` ?: -101) {
+            var temp = curr?.next
+            while (temp?.`val` == curr?.`val`) temp = temp?.next
+            curr?.next?.next = null
+            curr?.next = null
+            prev?.next = temp
+            curr = temp
+        } else {
+            prev = curr
+            curr = curr?.next
+        }
+    }
+    return ans?.next
+}
+
 
 
 
