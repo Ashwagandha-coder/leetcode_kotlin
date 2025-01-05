@@ -4190,6 +4190,32 @@ fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
     return head
 }
 
+/**
+ * 82. Remove Duplicates from Sorted List II
+ */
+
+fun deleteDuplicatesII(head: ListNode?): ListNode? {
+    head ?: return null
+    var prev: ListNode? = null
+    var curr: ListNode? = ListNode(-101)
+    val ans = curr
+    curr?.next = head
+    while (curr != null) {
+        if (curr?.`val` == curr?.next?.`val` ?: -101) {
+            var temp = curr?.next
+            while (temp?.`val` == curr?.`val`) temp = temp?.next
+            curr?.next?.next = null
+            curr?.next = null
+            prev?.next = temp
+            curr = temp
+        } else {
+            prev = curr
+            curr = curr?.next
+        }
+    }
+    return ans?.next
+}
+
 
 
 
