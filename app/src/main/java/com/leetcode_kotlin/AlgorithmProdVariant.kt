@@ -763,4 +763,19 @@ private tailrec fun findBottomLeftValueRecursive(
     )
 }
 
+/**
+ * 404. Sum of Left Leaves
+ * Prod Variant
+ */
+
+fun sumOfLeftLeavesProdVariant(root: TreeNode?): Int {
+    fun dfs(node: TreeNode?, isLeft: Boolean): Int = when {
+        node == null -> 0
+        node.left == null && node.right == null && isLeft -> node.`val`
+        else -> dfs(node.left, true) + dfs(node.right, false)
+    }
+
+    return dfs(root, false)
+}
+
 
