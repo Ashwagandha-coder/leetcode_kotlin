@@ -1303,6 +1303,19 @@ fun convertBSTRecursive(root: TreeNode?, sum: Int): Pair<TreeNode?, Int> {
     return root to finalSum
 }
 
+/**
+ * 404. Sum of Left Leaves
+ * Alternative Solution
+ * DFS Approach
+ */
+
+fun sumOfLeftLeavesAltSolution(root: TreeNode?): Int = dfs(root, false)
+tailrec fun dfs(root: TreeNode?, isLeft: Boolean): Int {
+    root ?: return 0
+    if (root?.left == null && root?.right == null && isLeft) return root.`val`
+    return dfs(root?.left, true) + dfs(root?.right, false)
+}
+
 
 
 
