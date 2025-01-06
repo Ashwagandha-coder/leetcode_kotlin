@@ -1294,7 +1294,6 @@ fun convertBSTAltSolution(root: TreeNode?): TreeNode? {
 fun convertBSTRecursive(root: TreeNode?, sum: Int): Pair<TreeNode?, Int> {
     if (root == null) return null to sum
 
-    // Reverse inorder traversal (right, root, left)
     val (right, updatedSum) = convertBSTRecursive(root.right, sum)
     val newSum = updatedSum + root.`val`
     root.`val` = newSum
