@@ -4216,6 +4216,41 @@ fun deleteDuplicatesII(head: ListNode?): ListNode? {
     return ans?.next
 }
 
+/**
+ * 86. Partition List
+ */
+
+
+fun partition(head: ListNode?, x: Int): ListNode? {
+    var head = head
+    val smallList = ListNode(101)
+    val bigList = ListNode(101)
+    var small: ListNode? = smallList
+    var big: ListNode? = bigList
+
+    while (head != null) {
+        if (head.`val` < x) {
+            small!!.next = head
+            small = small!!.next
+        } else {
+            big!!.next = head
+            big = big!!.next
+        }
+
+        head = head.next
+    }
+
+    small!!.next = bigList.next
+    big!!.next = null
+
+    return smallList.next
+}
+
+/**
+ *
+ */
+
+
 
 
 
