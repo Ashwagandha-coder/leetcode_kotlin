@@ -8,8 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val head = intArrayOf(1, 2, 3, 3, 4, 4, 5).toListNode()
-    deleteDuplicatesII(head).also { it?.printListNode() }
+    val head = intArrayOf(1, 4, 3, 2, 5, 2).toListNode()
+    val x = 3
+    partition(head, x).also { it?.printListNode() }
 }
 
 

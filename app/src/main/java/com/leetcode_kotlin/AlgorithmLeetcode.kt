@@ -4216,7 +4216,71 @@ fun deleteDuplicatesII(head: ListNode?): ListNode? {
     return ans?.next
 }
 
+/**
+ * 86. Partition List
+ */
 
+
+fun partition(head: ListNode?, x: Int): ListNode? {
+    var head = head
+    val smallList = ListNode(101)
+    val bigList = ListNode(101)
+    var small: ListNode? = smallList
+    var big: ListNode? = bigList
+
+    while (head != null) {
+        if (head.`val` < x) {
+            small!!.next = head
+            small = small!!.next
+        } else {
+            big!!.next = head
+            big = big!!.next
+        }
+
+        head = head.next
+    }
+
+    small!!.next = bigList.next
+    big!!.next = null
+
+    return smallList.next
+}
+
+/**
+ * 61. Rotate List
+ */
+
+
+fun rotateRight(head: ListNode?, k: Int): ListNode? {
+    var k = k
+    if (head?.next == null || k == 0) return head
+
+
+    var length = 1
+    var tail = head
+    while (tail!!.next != null) {
+        length++
+        tail = tail!!.next
+    }
+
+
+    k %= length
+    if (k == 0) return head
+
+
+    val breakPoint = length - k
+    var current = head
+    for (i in 1 until breakPoint) {
+        current = current!!.next
+    }
+
+
+    val newHead = current!!.next
+    current!!.next = null
+    tail!!.next = head
+
+    return newHead
+}
 
 
 
