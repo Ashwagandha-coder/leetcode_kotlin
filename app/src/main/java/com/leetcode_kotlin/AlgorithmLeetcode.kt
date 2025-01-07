@@ -4282,7 +4282,29 @@ fun rotateRight(head: ListNode?, k: Int): ListNode? {
     return newHead
 }
 
+/**
+ * 24. Swap Nodes in Pairs
+ */
 
+fun swapPairs(head: ListNode?): ListNode? {
+    if (head == null || head?.next == null) return head
+    var curr = head
+    var dummy = ListNode(101)
+    dummy?.next = head
+    var prev = dummy
+    while (curr != null && curr?.next != null) {
+        val temp = curr?.next?.next
+        val second = curr?.next
+
+        second?.next = curr
+        curr?.next = temp
+        prev?.next = second
+
+        prev = curr
+        curr = temp
+    }
+    return dummy?.next
+}
 
 
 
