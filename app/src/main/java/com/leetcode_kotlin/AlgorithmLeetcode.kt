@@ -4306,6 +4306,40 @@ fun swapPairs(head: ListNode?): ListNode? {
     return dummy?.next
 }
 
+/**
+ * 328. Odd Even Linked List
+ */
+
+fun oddEvenList(head: ListNode?): ListNode? {
+    if (head?.next == null) return head
+    var oddList: ListNode? = ListNode(101)
+    var evenList: ListNode? = ListNode(101)
+    var odd = oddList
+    var even = evenList
+    var curr: ListNode? = ListNode(101)
+    curr?.next = head
+    var index = 0
+    while (curr != null) {
+        if (index % 2 == 0) {
+            val temp = curr?.next
+            evenList?.next = temp
+            evenList = evenList?.next
+        } else {
+            val temp = curr?.next
+            oddList?.next = temp
+            oddList = oddList?.next
+        }
+        curr = curr?.next
+        index++
+    }
+    evenList?.next = odd?.next
+    var ans = even
+    val q = ans
+    while (ans?.next != null) ans = ans?.next
+    ans?.next = odd?.next
+    return q?.next
+}
+
 
 
 
