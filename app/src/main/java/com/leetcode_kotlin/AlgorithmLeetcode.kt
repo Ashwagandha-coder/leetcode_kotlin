@@ -4340,6 +4340,41 @@ fun oddEvenList(head: ListNode?): ListNode? {
     return q?.next
 }
 
+/**
+ * 143. Reorder List
+ */
+
+
+fun reorderList(head: ListNode?): Unit {
+    var curr = head
+    val res = mutableListOf<ListNode>()
+    while (curr != null) {
+        res.add(curr)
+        curr = curr?.next
+    }
+    var ans: ListNode? = ListNode(10001)
+    var i = 0
+    var j = res.size - 1
+    while (i < j) {
+        val one = res[i]
+        one?.next = null
+        ans?.next = one
+        ans = ans?.next
+        val second = res[j]
+        second?.next = null
+        ans?.next = second
+        ans = ans?.next
+        i++
+        j--
+    }
+    if (i == j) {
+        val node = res[i]
+        node?.next = null
+        ans?.next = node
+    }
+
+}
+
 
 
 
