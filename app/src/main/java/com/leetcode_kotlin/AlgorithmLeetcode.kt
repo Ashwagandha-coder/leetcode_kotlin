@@ -4375,6 +4375,20 @@ fun reorderList(head: ListNode?): Unit {
 
 }
 
+/**
+ * 700. Search in a Binary Search Tree
+ */
+
+fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
+    if (root == null) return null
+
+    if (`val` == root.`val`) return root
+
+    return if (root.`val` > `val`) searchBST(root?.left, `val`) else searchBST(root?.right, `val`)
+}
+
+
+
 
 
 
