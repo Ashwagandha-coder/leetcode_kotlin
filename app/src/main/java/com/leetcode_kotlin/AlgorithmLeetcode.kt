@@ -4387,6 +4387,24 @@ fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
     return if (root.`val` > `val`) searchBST(root?.left, `val`) else searchBST(root?.right, `val`)
 }
 
+/**
+ * 701. Insert into a Binary Search Tree
+ */
+
+fun insertIntoBST(root: TreeNode?, `val`: Int): TreeNode? {
+    if (root == null) {
+        return TreeNode(`val`) // If tree is empty, create new node as root
+    }
+
+    if (`val` < root.`val`) {
+        root.left = insertIntoBST(root.left, `val`) // Insert into left subtree
+    } else {
+        root.right = insertIntoBST(root.right, `val`) // Insert into right subtree
+    }
+
+    return root // Return the (modified) root of the tree
+}
+
 
 
 
