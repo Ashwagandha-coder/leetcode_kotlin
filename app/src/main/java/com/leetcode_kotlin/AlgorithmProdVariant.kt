@@ -778,4 +778,22 @@ fun sumOfLeftLeavesProdVariant(root: TreeNode?): Int {
     return dfs(root, false)
 }
 
+/**
+ * 701. Insert into a Binary Search Tree
+ * Prod Variant
+ */
+
+fun insertIntoBSTProdVariant(root: TreeNode?, `val`: Int): TreeNode? =
+    when {
+        root == null -> TreeNode(`val`)
+        `val` < root.`val` -> {
+            root.left = insertIntoBST(root.left, `val`)
+            root
+        }
+        else -> {
+            root.right = insertIntoBST(root.right, `val`)
+            root
+        }
+    }
+
 
