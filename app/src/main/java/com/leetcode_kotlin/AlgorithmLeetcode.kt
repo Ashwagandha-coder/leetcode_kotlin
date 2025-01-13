@@ -4393,16 +4393,16 @@ fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
 
 fun insertIntoBST(root: TreeNode?, `val`: Int): TreeNode? {
     if (root == null) {
-        return TreeNode(`val`) // If tree is empty, create new node as root
+        return TreeNode(`val`)
     }
 
     if (`val` < root.`val`) {
-        root.left = insertIntoBST(root.left, `val`) // Insert into left subtree
+        root.left = insertIntoBST(root.left, `val`)
     } else {
-        root.right = insertIntoBST(root.right, `val`) // Insert into right subtree
+        root.right = insertIntoBST(root.right, `val`)
     }
 
-    return root // Return the (modified) root of the tree
+    return root
 }
 
 
