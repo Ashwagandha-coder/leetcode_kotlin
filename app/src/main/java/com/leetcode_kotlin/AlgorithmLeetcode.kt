@@ -4405,6 +4405,44 @@ fun insertIntoBST(root: TreeNode?, `val`: Int): TreeNode? {
     return root
 }
 
+/**
+ * 106. Construct Binary Tree from Inorder and Postorder Traversal
+ */
+
+fun buildTreeFromInorderAndPostOrder(inorder: IntArray, postorder: IntArray): TreeNode? {
+    return buildTreeRecursive(inorder, postorder, 0, inorder.size - 1, postorder.size - 1)
+}
+
+private fun buildTreeRecursive(
+    inorder: IntArray,
+    postorder: IntArray,
+    inorderStart: Int,
+    inorderEnd: Int,
+    postorderIndex: Int
+): TreeNode? {
+    if (inorderStart > inorderEnd) {
+        return null
+    }
+
+    val rootVal = postorder[postorderIndex]
+    val root = TreeNode(rootVal)
+
+
+    val inorderIndex = inorder.indexOf(rootVal)
+
+
+    root.right =
+        buildTreeRecursive(inorder, postorder, inorderIndex + 1, inorderEnd, postorderIndex - 1)
+
+    val nextPostorderIndex = postorderIndex - (inorderEnd - inorderIndex) - 1
+    root.left =
+        buildTreeRecursive(inorder, postorder, inorderStart, inorderIndex - 1, nextPostorderIndex)
+
+
+    return root
+}
+
+
 
 
 
