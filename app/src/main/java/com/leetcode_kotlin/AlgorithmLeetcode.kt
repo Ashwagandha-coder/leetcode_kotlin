@@ -4387,6 +4387,62 @@ fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
     return if (root.`val` > `val`) searchBST(root?.left, `val`) else searchBST(root?.right, `val`)
 }
 
+/**
+ * 701. Insert into a Binary Search Tree
+ */
+
+fun insertIntoBST(root: TreeNode?, `val`: Int): TreeNode? {
+    if (root == null) {
+        return TreeNode(`val`)
+    }
+
+    if (`val` < root.`val`) {
+        root.left = insertIntoBST(root.left, `val`)
+    } else {
+        root.right = insertIntoBST(root.right, `val`)
+    }
+
+    return root
+}
+
+/**
+ * 106. Construct Binary Tree from Inorder and Postorder Traversal
+ */
+
+fun buildTreeFromInorderAndPostOrder(inorder: IntArray, postorder: IntArray): TreeNode? {
+    return buildTreeRecursive(inorder, postorder, 0, inorder.size - 1, postorder.size - 1)
+}
+
+private fun buildTreeRecursive(
+    inorder: IntArray,
+    postorder: IntArray,
+    inorderStart: Int,
+    inorderEnd: Int,
+    postorderIndex: Int
+): TreeNode? {
+    if (inorderStart > inorderEnd) {
+        return null
+    }
+
+    val rootVal = postorder[postorderIndex]
+    val root = TreeNode(rootVal)
+
+
+    val inorderIndex = inorder.indexOf(rootVal)
+
+
+    root.right =
+        buildTreeRecursive(inorder, postorder, inorderIndex + 1, inorderEnd, postorderIndex - 1)
+
+    val nextPostorderIndex = postorderIndex - (inorderEnd - inorderIndex) - 1
+    root.left =
+        buildTreeRecursive(inorder, postorder, inorderStart, inorderIndex - 1, nextPostorderIndex)
+
+
+    return root
+}
+
+
 
 
 
