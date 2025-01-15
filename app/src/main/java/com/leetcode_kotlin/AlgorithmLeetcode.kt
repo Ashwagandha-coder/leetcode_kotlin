@@ -4442,6 +4442,51 @@ private fun buildTreeRecursive(
     return root
 }
 
+/**
+ * 623. Add One Row to Tree
+ */
+
+
+fun addOneRow(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
+    if (depth == 1) {
+        return TreeNode(`val`).apply { left = root }
+    }
+
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(root!!)
+
+    var currentDepth = 1
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+
+        if (currentDepth == depth - 1) {
+
+            for (i in 0 until levelSize) {
+                val node = queue.removeFirst()
+
+                val tempLeft = node.left
+                val tempRight = node.right
+
+                node.left = TreeNode(`val`).apply { left = tempLeft }
+                node.right = TreeNode(`val`).apply { right = tempRight }
+            }
+            break
+        } else {
+
+            for (i in 0 until levelSize) {
+                val node = queue.removeFirst()
+                node.left?.let { queue.add(it) }
+                node.right?.let { queue.add(it) }
+            }
+        }
+
+        currentDepth++
+    }
+
+    return root
+}
+
+
 
 
 
