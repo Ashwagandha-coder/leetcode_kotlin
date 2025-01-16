@@ -1315,6 +1315,36 @@ tailrec fun dfs(root: TreeNode?, isLeft: Boolean): Int {
     return dfs(root?.left, true) + dfs(root?.right, false)
 }
 
+/**
+ * 623. Add One Row to Tree
+ * Alternative Solution
+ * DFS Approach
+ */
+
+fun addOneRowAltSolution(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
+    if (depth == 1) {
+        val new = TreeNode(`val`)
+        new?.left = root
+        return new
+    }
+    dfs(root, `val`, depth = depth, calc = 1)
+    return root
+}
+fun dfs(root: TreeNode?, `val`: Int, depth: Int, calc: Int) {
+    if (root == null) return
+
+    if (depth - 1 == calc) {
+        val l = root?.left
+        val r = root?.right
+        root?.left = TreeNode(`val`)
+        root?.right = TreeNode(`val`)
+        root?.left?.left = l
+        root?.right?.right = r
+    }
+    dfs(root?.left, `val`, depth, calc + 1)
+    dfs(root?.right, `val`, depth, calc + 1)
+}
+
 
 
 

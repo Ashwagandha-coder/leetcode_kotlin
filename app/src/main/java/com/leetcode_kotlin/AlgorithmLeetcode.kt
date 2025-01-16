@@ -7,6 +7,7 @@ import java.util.Collections
 import java.util.LinkedList
 import java.util.PriorityQueue
 import java.util.Queue
+import java.util.Stack
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -4485,6 +4486,60 @@ fun addOneRow(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
 
     return root
 }
+
+/**
+ * 671. Second Minimum Node In a Binary Tree
+ */
+
+fun findSecondMinimumValue(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    val res = mutableListOf<Int>()
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    var first = Int.MAX_VALUE
+    var second = Long.MAX_VALUE
+    for (i in 0 until res.size) {
+        first = minOf(first, res[i])
+    }
+    for (i in 0 until res.size) {
+        if (res[i] != first) second = minOf(second, res[i].toLong())
+    }
+    return if (second == Long.MAX_VALUE) -1 else second.toInt()
+}
+
+/**
+ * 235. Lowest Common Ancestor of a Binary Search Tree
+ */
+
+fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
+    var current = root
+
+    while (current != null) {
+        when {
+            p == null || q == null -> return null
+            p.`val` < current.`val` && q.`val` < current.`val` -> current =
+                current.left
+
+            p.`val` > current.`val` && q.`val` > current.`val` -> current =
+                current.right
+
+            else -> return current
+        }
+    }
+
+    return null
+}
+
+
+
 
 
 
