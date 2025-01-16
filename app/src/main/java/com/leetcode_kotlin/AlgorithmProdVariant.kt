@@ -790,6 +790,7 @@ fun insertIntoBSTProdVariant(root: TreeNode?, `val`: Int): TreeNode? =
             root.left = insertIntoBST(root.left, `val`)
             root
         }
+
         else -> {
             root.right = insertIntoBST(root.right, `val`)
             root

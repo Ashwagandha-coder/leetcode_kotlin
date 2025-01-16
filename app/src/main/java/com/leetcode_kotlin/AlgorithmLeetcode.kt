@@ -4525,8 +4525,10 @@ fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode?
         when {
             p!!.`val` < current.`val` && q!!.`val` < current.`val` -> current =
                 current.left
+
             p!!.`val` > current.`val` && q!!.`val` > current.`val` -> current =
                 current.right
+
             else -> return current
         }
     }
