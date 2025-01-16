@@ -1330,6 +1330,7 @@ fun addOneRowAltSolution(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
     dfs(root, `val`, depth = depth, calc = 1)
     return root
 }
+
 fun dfs(root: TreeNode?, `val`: Int, depth: Int, calc: Int) {
     if (root == null) return
 
