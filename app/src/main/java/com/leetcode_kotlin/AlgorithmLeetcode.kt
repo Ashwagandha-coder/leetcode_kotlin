@@ -4524,14 +4524,14 @@ fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode?
     while (current != null) {
         when {
             p!!.`val` < current.`val` && q!!.`val` < current.`val` -> current =
-                current.left // Both nodes are in the left subtree
+                current.left
             p!!.`val` > current.`val` && q!!.`val` > current.`val` -> current =
-                current.right // Both nodes are in the right subtree
-            else -> return current // Current node is the LCA
+                current.right
+            else -> return current
         }
     }
 
-    return null // LCA not found (shouldn't happen in a valid BST)
+    return null
 }
 
 
