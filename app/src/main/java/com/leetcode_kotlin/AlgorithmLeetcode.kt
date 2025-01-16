@@ -4514,6 +4514,26 @@ fun findSecondMinimumValue(root: TreeNode?): Int {
     return if (second == Long.MAX_VALUE) -1 else second.toInt()
 }
 
+/**
+ * 235. Lowest Common Ancestor of a Binary Search Tree
+ */
+
+fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
+    var current = root
+
+    while (current != null) {
+        when {
+            p!!.`val` < current.`val` && q!!.`val` < current.`val` -> current =
+                current.left // Both nodes are in the left subtree
+            p!!.`val` > current.`val` && q!!.`val` > current.`val` -> current =
+                current.right // Both nodes are in the right subtree
+            else -> return current // Current node is the LCA
+        }
+    }
+
+    return null // LCA not found (shouldn't happen in a valid BST)
+}
+
 
 
 
