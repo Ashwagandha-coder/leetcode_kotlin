@@ -1346,6 +1346,26 @@ fun dfs(root: TreeNode?, `val`: Int, depth: Int, calc: Int) {
     dfs(root?.right, `val`, depth, calc + 1)
 }
 
+/**
+ * 515. Find Largest Value in Each Tree Row
+ * Alternative Solution
+ * DFS Approach
+ */
+
+
+fun largestValuesAltSolution(root: TreeNode?): List<Int> {
+    root ?: return listOf()
+    val res = mutableListOf<Int>()
+    fun dfs(root: TreeNode?, level: Int) {
+        root ?: return
+        if (res.size <= level) res.add(root.`val`)
+        else res[level] = maxOf(res[level], root.`val`)
+        dfs(root?.left, level + 1)
+        dfs(root?.right, level + 1)
+    }
+    dfs(root, 0)
+    return res
+}
 
 
 
