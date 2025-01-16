@@ -4523,10 +4523,11 @@ fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode?
 
     while (current != null) {
         when {
-            p!!.`val` < current.`val` && q!!.`val` < current.`val` -> current =
+            p == null || q == null -> return null
+            p.`val` < current.`val` && q.`val` < current.`val` -> current =
                 current.left
 
-            p!!.`val` > current.`val` && q!!.`val` > current.`val` -> current =
+            p.`val` > current.`val` && q.`val` > current.`val` -> current =
                 current.right
 
             else -> return current
