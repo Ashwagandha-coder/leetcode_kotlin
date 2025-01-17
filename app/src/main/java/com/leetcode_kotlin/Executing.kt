@@ -8,10 +8,11 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val inorder = intArrayOf(9, 3, 15, 20, 7)
-    val postorder = intArrayOf(9, 15, 7, 20, 3)
+    val root = listOf(3, 5, 1, 6, 2, 0, 8, null, null, 7, 4).map { it.toString() }.toTreeNode()
+    val p = TreeNode(5)
+    val q = TreeNode(1)
 
-    buildTreeFromInorderAndPostOrder(inorder, postorder)
+    lowestCommonAncestorBinaryTree(root, p, q).also { println(it) }
 
 
 }
