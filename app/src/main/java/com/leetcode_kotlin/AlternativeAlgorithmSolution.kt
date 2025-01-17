@@ -1367,6 +1367,44 @@ fun largestValuesAltSolution(root: TreeNode?): List<Int> {
     return res
 }
 
+/**
+ * 671. Second Minimum Node In a Binary Tree
+ * Alternative Solution
+ */
+
+
+fun findSecondMinimumValueAltSolution(root: TreeNode?): Int {
+    if (root == null) {
+        return -1 // Handle empty tree
+    }
+
+    // If root has no children, there's no second minimum
+    if (root.left == null && root.right == null) {
+        return -1
+    }
+
+    var leftVal = root.left!!.`val`
+    var rightVal = root.right!!.`val`
+
+    // If left child is same as root, find 2nd min inleft subtree
+    if (leftVal == root.`val`) {
+        leftVal = findSecondMinimumValue(root.left)
+    }
+
+    // If right child is same as root, find 2nd min in right subtree
+    if (rightVal == root.`val`) {
+        rightVal = findSecondMinimumValue(root.right)
+    }
+
+    // If both children have 2nd min, return the smaller one
+    if (leftVal != -1 && rightVal != -1) {
+        return Math.min(leftVal, rightVal)
+    }
+
+    // If only one child has 2nd min, return that one
+    return if (leftVal != -1) leftVal else rightVal
+}
+
 
 
 
