@@ -4537,11 +4537,20 @@ fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode?
     return null
 }
 
+/**
+ * 236. Lowest Common Ancestor of a Binary Tree
+ */
 
+fun lowestCommonAncestorBinaryTree(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
+    if (root == null || root == p || root == q) {
+        return root // Base cases: root is null, p, or q
+    }
 
+    val left = lowestCommonAncestorBinaryTree(root.left, p, q) // Search in left subtree
+    val right = lowestCommonAncestorBinaryTree(root.right, p, q) // Search in right subtree
 
-
-
+    return if (left != null && right != null) root else left ?: right // Determine LCA
+}
 
 
 
