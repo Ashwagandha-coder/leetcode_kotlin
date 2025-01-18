@@ -4553,6 +4553,169 @@ fun lowestCommonAncestorBinaryTree(root: TreeNode?, p: TreeNode?, q: TreeNode?):
 }
 
 
+/**
+ * 155. Min Stack
+ */
+
+
+class MinStack() {
+
+    private val stack: MutableList<Int> = mutableListOf()
+    private val minStack: MutableList<Int> = mutableListOf()
+
+    fun push(`val`: Int) {
+        stack.add(`val`)
+        if (minStack.isEmpty() || `val` <= minStack.last()) {
+            minStack.add(`val`)
+        }
+    }
+
+    fun pop() {
+        if (stack.isNotEmpty()) {
+            val top = stack.removeLast()
+            if (minStack.isNotEmpty() && top == minStack.last()) {
+                minStack.removeLast()
+            }
+        }
+    }
+
+    fun top(): Int {
+        return stack.lastOrNull() ?: -1
+    }
+
+    fun getMin(): Int {
+        return minStack.lastOrNull() ?: -1
+    }
+}
+
+
+/**
+ * 71. Simplify Path
+ */
+
+
+fun simplifyPath(path: String): String {
+    val stack = ArrayDeque<String>()
+    val components = path.split("/")
+
+    for (component in components) {
+        when (component) {
+            "", "." -> continue // Ignore empty or "." components
+            ".." -> {
+                if (stack.isNotEmpty()) {
+                    stack.removeLast() // Go up one level
+                }
+            }
+
+            else -> stack.addLast(component) // Add valid component to stack
+        }
+    }
+
+    // Build the simplified path
+    val result = StringBuilder()
+    while (stack.isNotEmpty()) {
+        result.append("/").append(stack.removeFirst())
+    }
+
+    return if (result.isEmpty()) "/" else result.toString()
+}
+
+
+/**
+ * 863. All Nodes Distance K in Binary Tree
+ */
+
+fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    val parentMap = HashMap<TreeNode, TreeNode?>()
+
+    // 1. Build parent map using DFS
+    fun dfs(node: TreeNode?, parent: TreeNode?) {
+        if (node == null) return
+        parentMap[node] = parent
+        dfs(node.left, node)
+        dfs(node.right, node)
+    }
+    dfs(root, null)
+
+    // 2. Perform BFS from target node
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(target!!)
+    val visited = HashSet<TreeNode>()
+    visited.add(target)
+    var distance = 0
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+        for (i in 0 until levelSize) {
+            val currentNode = queue.removeFirst()
+
+            if (distance == k) {
+                result.add(currentNode.`val`)
+            }
+
+            // Explore neighbors (parent, left, right)
+            val neighbors = listOfNotNull(
+                parentMap[currentNode],
+                currentNode.left,
+                currentNode.right
+            )
+
+            for (neighbor in neighbors) {
+                if (neighbor != null && neighbor !in visited) {
+                    visited.add(neighbor)
+                    queue.add(neighbor)
+                }
+            }
+        }
+        distance++
+    }
+
+    return result
+}
+
+/**
+ * 1609. Even Odd Tree
+ */
+
+fun isEvenOddTree(root: TreeNode?): Boolean {
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    var level = 0
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var evenTemp: TreeNode? = null
+        var oddTemp: TreeNode? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+
+            if (level % 2 == 0) {
+                if (node.`val` % 2 == 0) return false
+                evenTemp = if (evenTemp == null) {
+                    node
+                } else {
+                    if (evenTemp.`val` >= node.`val`) return false
+                    else node
+                }
+            } else {
+                if (node.`val` % 2 != 0) return false
+                oddTemp = if (oddTemp == null) {
+                    node
+                } else {
+                    if (oddTemp.`val` <= node.`val`) return false
+                    else node
+                }
+            }
+            node?.left?.let {q.offer(it)}
+            node?.right?.let {q.offer(it)}
+        }
+        level++
+    }
+    return true
+}
+
+
+
 
 
 
