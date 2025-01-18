@@ -1398,7 +1398,7 @@ fun findSecondMinimumValueAltSolution(root: TreeNode?): Int {
 
     // If both children have 2nd min, return the smaller one
     if (leftVal != -1 && rightVal != -1) {
-        return Math.min(leftVal, rightVal)
+        return minOf(leftVal, rightVal)
     }
 
     // If only one child has 2nd min, return that one

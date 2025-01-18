@@ -4553,6 +4553,92 @@ fun lowestCommonAncestorBinaryTree(root: TreeNode?, p: TreeNode?, q: TreeNode?):
 }
 
 
+/**
+ * 155. Min Stack
+ */
+
+
+class MinStack() {
+
+    private val stack: MutableList<Int> = mutableListOf()
+    private val minStack: MutableList<Int> = mutableListOf()
+
+    fun push(`val`: Int) {
+        stack.add(`val`)
+        if (minStack.isEmpty() || `val` <= minStack.last()) {
+            minStack.add(`val`)
+        }
+    }
+
+    fun pop() {
+        if (stack.isNotEmpty()) {
+            val top = stack.removeLast()
+            if (minStack.isNotEmpty() && top == minStack.last()) {
+                minStack.removeLast()
+            }
+        }
+    }
+
+    fun top(): Int {
+        return stack.lastOrNull() ?: -1
+    }
+
+    fun getMin(): Int {
+        return minStack.lastOrNull() ?: -1
+    }
+}
+
+
+fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    val parentMap = HashMap<TreeNode, TreeNode?>()
+
+
+    fun dfs(node: TreeNode?, parent: TreeNode?) {
+        if (node == null) return
+        parentMap[node] = parent
+        dfs(node.left, node)
+        dfs(node.right, node)
+    }
+    dfs(root, null)
+
+
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(target!!)
+    val visited = HashSet<TreeNode>()
+    visited.add(target)
+    var dist = 0
+
+    while (queue.isNotEmpty() && dist <= k) {
+        val levelSize = queue.size
+
+        for (i in 0 until levelSize) {
+            val currNode = queue.removeFirst()
+
+            if (dist == k) {
+                result.add(currNode.`val`)
+                continue
+            }
+
+
+            for (neighbor in listOfNotNull(parentMap[currNode], currNode.left, currNode.right)) {
+                if (neighbor !in visited) {
+                    visited.add(neighbor)
+                    queue.add(neighbor)
+                }
+            }
+        }
+
+        dist++
+    }
+
+    return result
+}
+
+
+
+
+
 
 
 
