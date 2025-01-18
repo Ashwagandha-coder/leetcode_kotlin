@@ -8,9 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val path = "/home/"
 
-    simplifyPath(path).also { println(it) }
 
 
 }
