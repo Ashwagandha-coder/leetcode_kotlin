@@ -4621,11 +4621,15 @@ fun simplifyPath(path: String): String {
 }
 
 
+/**
+ * 863. All Nodes Distance K in Binary Tree
+ */
+
 fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
     val result = mutableListOf<Int>()
     val parentMap = HashMap<TreeNode, TreeNode?>()
 
-
+    // 1. Build parent map using DFS
     fun dfs(node: TreeNode?, parent: TreeNode?) {
         if (node == null) return
         parentMap[node] = parent
@@ -4634,38 +4638,42 @@ fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
     }
     dfs(root, null)
 
-
+    // 2. Perform BFS from target node
     val queue = ArrayDeque<TreeNode>()
     queue.add(target!!)
     val visited = HashSet<TreeNode>()
     visited.add(target)
-    var dist = 0
+    var distance = 0
 
-    while (queue.isNotEmpty() && dist <= k) {
+    while (queue.isNotEmpty()) {
         val levelSize = queue.size
-
         for (i in 0 until levelSize) {
-            val currNode = queue.removeFirst()
+            val currentNode = queue.removeFirst()
 
-            if (dist == k) {
-                result.add(currNode.`val`)
-                continue
+            if (distance == k) {
+                result.add(currentNode.`val`)
             }
 
+            // Explore neighbors (parent, left, right)
+            val neighbors = listOfNotNull(
+                parentMap[currentNode],
+                currentNode.left,
+                currentNode.right
+            )
 
-            for (neighbor in listOfNotNull(parentMap[currNode], currNode.left, currNode.right)) {
-                if (neighbor !in visited) {
+            for (neighbor in neighbors) {
+                if (neighbor != null && neighbor !in visited) {
                     visited.add(neighbor)
                     queue.add(neighbor)
                 }
             }
         }
-
-        dist++
+        distance++
     }
 
     return result
 }
+
 
 
 
