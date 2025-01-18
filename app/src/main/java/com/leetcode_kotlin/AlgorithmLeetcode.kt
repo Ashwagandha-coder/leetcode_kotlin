@@ -4674,8 +4674,47 @@ fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
     return result
 }
 
+/**
+ * 1609. Even Odd Tree
+ */
 
+fun isEvenOddTree(root: TreeNode?): Boolean {
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    var level = 0
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var evenTemp: TreeNode? = null
+        var oddTemp: TreeNode? = null
+        for (i in 0 until size) {
+            val node = q.poll()
 
+            if (level % 2 == 0) {
+                if (node.`val` % 2 == 0) return false
+                if (evenTemp == null) {
+                    evenTemp = node
+                }
+                else {
+                    if (evenTemp.`val` >= node.`val`) return false
+                    else evenTemp = node
+                }
+            } else {
+                if (node.`val` % 2 != 0) return false
+                if (oddTemp == null) {
+                    oddTemp = node
+                }
+                else {
+                    if (oddTemp.`val` <= node.`val`) return false
+                    else oddTemp = node
+                }
+            }
+            node?.left?.let {q.offer(it)}
+            node?.right?.let {q.offer(it)}
+        }
+        level++
+    }
+    return true
+}
 
 
 
