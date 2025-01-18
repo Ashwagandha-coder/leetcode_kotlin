@@ -4691,21 +4691,19 @@ fun isEvenOddTree(root: TreeNode?): Boolean {
 
             if (level % 2 == 0) {
                 if (node.`val` % 2 == 0) return false
-                if (evenTemp == null) {
-                    evenTemp = node
-                }
-                else {
+                evenTemp = if (evenTemp == null) {
+                    node
+                } else {
                     if (evenTemp.`val` >= node.`val`) return false
-                    else evenTemp = node
+                    else node
                 }
             } else {
                 if (node.`val` % 2 != 0) return false
-                if (oddTemp == null) {
-                    oddTemp = node
-                }
-                else {
+                oddTemp = if (oddTemp == null) {
+                    node
+                } else {
                     if (oddTemp.`val` <= node.`val`) return false
-                    else oddTemp = node
+                    else node
                 }
             }
             node?.left?.let {q.offer(it)}
