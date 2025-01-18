@@ -4589,6 +4589,38 @@ class MinStack() {
 }
 
 
+/**
+ * 71. Simplify Path
+ */
+
+
+fun simplifyPath(path: String): String {
+    val stack = ArrayDeque<String>()
+    val components = path.split("/")
+
+    for (component in components) {
+        when (component) {
+            "", "." -> continue // Ignore empty or "." components
+            ".." -> {
+                if (stack.isNotEmpty()) {
+                    stack.removeLast() // Go up one level
+                }
+            }
+
+            else -> stack.addLast(component) // Add valid component to stack
+        }
+    }
+
+    // Build the simplified path
+    val result = StringBuilder()
+    while (stack.isNotEmpty()) {
+        result.append("/").append(stack.removeFirst())
+    }
+
+    return if (result.isEmpty()) "/" else result.toString()
+}
+
+
 fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
     val result = mutableListOf<Int>()
     val parentMap = HashMap<TreeNode, TreeNode?>()
