@@ -4742,6 +4742,39 @@ fun isDigit(s: Char): Boolean {
     return s in "0123456789"
 }
 
+/**
+ * 680. Valid Palindrome II
+ */
+
+
+fun validPalindrome(s: String): Boolean {
+    var left = 0
+    var right = s.length - 1
+
+    while (left < right) {
+        if (s[left] != s[right]) {
+            return isPalindromeValid(s, left + 1, right) || isPalindromeValid(s, left, right - 1)
+        }
+        left++
+        right--
+    }
+
+    return true
+}
+
+private fun isPalindromeValid(s: String, left: Int, right: Int): Boolean {
+    var l = left
+    var r = right
+    while (l < r) {
+        if (s[l] != s[r]) {
+            return false
+        }
+        l++
+        r--
+    }
+    return true
+}
+
 
 
 
