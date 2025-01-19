@@ -4706,16 +4706,101 @@ fun isEvenOddTree(root: TreeNode?): Boolean {
                     else node
                 }
             }
-            node?.left?.let {q.offer(it)}
-            node?.right?.let {q.offer(it)}
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
         }
         level++
     }
     return true
 }
 
+/**
+ * 125. Valid Palindrome
+ */
+
+fun isPalindrome(s: String): Boolean {
+    var res = ""
+    var s = s.lowercase()
+    for (symbol in s) {
+        if (isWord(symbol) || isDigit(symbol)) res += symbol
+    }
+    var i = 0
+    var j = res.length - 1
+    while (i < j) {
+        if (res[i] != res[j]) return false
+        i++
+        j--
+    }
+    return true
+}
+
+fun isWord(s: Char): Boolean {
+    return s in "abcdefghijklmnopqrstuvwxyz"
+}
+
+fun isDigit(s: Char): Boolean {
+    return s in "0123456789"
+}
+
+/**
+ * 680. Valid Palindrome II
+ */
 
 
+fun validPalindrome(s: String): Boolean {
+    var left = 0
+    var right = s.length - 1
+
+    while (left < right) {
+        if (s[left] != s[right]) {
+            return isPalindromeValid(s, left + 1, right) || isPalindromeValid(s, left, right - 1)
+        }
+        left++
+        right--
+    }
+
+    return true
+}
+
+private fun isPalindromeValid(s: String, left: Int, right: Int): Boolean {
+    var l = left
+    var r = right
+    while (l < r) {
+        if (s[l] != s[r]) {
+            return false
+        }
+        l++
+        r--
+    }
+    return true
+}
+
+/**
+ * 150. Evaluate Reverse Polish Notation
+ */
+
+fun evalRPN(tokens: Array<String>): Int {
+    val stack = ArrayDeque<Int>()
+    for (token in tokens) {
+        when (token) {
+            "+", "-", "*", "/" -> {
+                val operand2 = stack.removeLast()
+                val operand1 = stack.removeLast()
+                val result = when (token) {
+                    "+" -> operand1 + operand2
+                    "-" -> operand1 - operand2
+                    "*" -> operand1 * operand2
+                    "/" -> operand1 / operand2
+                    else -> 0
+                }
+                stack.addLast(result)
+            }
+
+            else -> stack.addLast(token.toInt())
+        }
+    }
+    return stack.removeLast()
+}
 
 
 
