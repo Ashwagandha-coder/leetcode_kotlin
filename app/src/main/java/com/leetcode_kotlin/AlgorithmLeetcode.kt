@@ -4775,6 +4775,32 @@ private fun isPalindromeValid(s: String, left: Int, right: Int): Boolean {
     return true
 }
 
+/**
+ * 150. Evaluate Reverse Polish Notation
+ */
+
+fun evalRPN(tokens: Array<String>): Int {
+    val stack = ArrayDeque<Int>()
+    for (token in tokens) {
+        when (token) {
+            "+", "-", "*", "/" -> {
+                val operand2 = stack.removeLast()
+                val operand1 = stack.removeLast()
+                val result = when (token) {
+                    "+" -> operand1 + operand2
+                    "-" -> operand1 - operand2
+                    "*" -> operand1 * operand2
+                    "/" -> operand1 / operand2
+                    else -> 0
+                }
+                stack.addLast(result)
+            }
+
+            else -> stack.addLast(token.toInt())
+        }
+    }
+    return stack.removeLast()
+}
 
 
 
