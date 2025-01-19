@@ -4803,6 +4803,33 @@ fun evalRPN(tokens: Array<String>): Int {
 }
 
 
+/**
+ * 783. Minimum Distance Between BST Nodes
+ */
+
+fun minDiffInBST(root: TreeNode?): Int {
+    if (root == null) return Int.MAX_VALUE
+
+    val values = mutableListOf<Int>()
+    inorderTraversal(root, values)
+
+    var minDiff = Int.MAX_VALUE
+    for (i in 1 until values.size) {
+        minDiff = minOf(minDiff, values[i] - values[i - 1])
+    }
+    return minDiff
+}
+
+private fun inorderTraversal(root: TreeNode?, values: MutableList<Int>): List<Int> {
+    if (root == null) return values
+
+    inorderTraversal(root?.left, values)
+    values.add(root.`val`)
+    inorderTraversal(root?.right, values)
+    return values
+}
+
+
 
 
 
