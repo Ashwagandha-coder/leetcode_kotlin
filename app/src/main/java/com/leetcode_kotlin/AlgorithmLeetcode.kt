@@ -4706,15 +4706,41 @@ fun isEvenOddTree(root: TreeNode?): Boolean {
                     else node
                 }
             }
-            node?.left?.let {q.offer(it)}
-            node?.right?.let {q.offer(it)}
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
         }
         level++
     }
     return true
 }
 
+/**
+ * 125. Valid Palindrome
+ */
 
+fun isPalindrome(s: String): Boolean {
+    var res = ""
+    var s = s.lowercase()
+    for (symbol in s) {
+        if (isWord(symbol) || isDigit(symbol)) res += symbol
+    }
+    var i = 0
+    var j = res.length - 1
+    while (i < j) {
+        if (res[i] != res[j]) return false
+        i++
+        j--
+    }
+    return true
+}
+
+fun isWord(s: Char): Boolean {
+    return s in "abcdefghijklmnopqrstuvwxyz"
+}
+
+fun isDigit(s: Char): Boolean {
+    return s in "0123456789"
+}
 
 
 
