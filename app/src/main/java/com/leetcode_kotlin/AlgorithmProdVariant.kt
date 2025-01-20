@@ -798,3 +798,25 @@ fun insertIntoBSTProdVariant(root: TreeNode?, `val`: Int): TreeNode? =
     }
 
 
+/**
+ * 71. Simplify Path
+ * Prod Variant
+ */
+
+fun simplifyPathProdVariant(path: String): String {
+    val stack = ArrayDeque<String>()
+    val components = path.split("/")
+    for (component in components) {
+        when (component) {
+            "", "." -> continue
+            ".." -> if (stack.isNotEmpty()) stack.removeLast()
+            else -> stack.addLast(component)
+        }
+    }
+    return buildString {
+        stack.forEach {
+            append("/").append(it)
+        }
+    }.ifEmpty { "/" }
+}
+

@@ -4803,6 +4803,113 @@ fun evalRPN(tokens: Array<String>): Int {
 }
 
 
+/**
+ * 783. Minimum Distance Between BST Nodes
+ */
+
+fun minDiffInBST(root: TreeNode?): Int {
+    if (root == null) return Int.MAX_VALUE
+
+    val values = mutableListOf<Int>()
+    inorderTraversal(root, values)
+
+    var minDiff = Int.MAX_VALUE
+    for (i in 1 until values.size) {
+        minDiff = minOf(minDiff, values[i] - values[i - 1])
+    }
+    return minDiff
+}
+
+private fun inorderTraversal(root: TreeNode?, values: MutableList<Int>): List<Int> {
+    if (root == null) return values
+
+    inorderTraversal(root?.left, values)
+    values.add(root.`val`)
+    inorderTraversal(root?.right, values)
+    return values
+}
+
+/**
+ * 290. Word Pattern
+ */
+
+
+fun wordPattern(pattern: String, s: String): Boolean {
+    val patternToWord = mutableMapOf<Char, String>()
+    val wordToPattern = mutableMapOf<String, Char>()
+
+    val words = s.split(" ")
+
+    if (pattern.length != words.size) {
+        return false
+    }
+
+    for (i in pattern.indices) {
+        val char = pattern[i]
+        val word = words[i]
+
+        if (patternToWord.containsKey(char)) {
+            if (patternToWord[char] != word) {
+                return false
+            }
+        } else if (wordToPattern.containsKey(word)) {
+            if (wordToPattern[word] != char) {
+                return false
+            }
+        } else {
+            patternToWord[char] = word
+            wordToPattern[word] = char
+        }
+    }
+
+    return true
+}
+
+/**
+ * 1022. Sum of Root To Leaf Binary Numbers
+ */
+
+fun sumRootToLeaf(root: TreeNode?): Int {
+    return dfsSumRootToLeaf(root, 0)
+}
+
+private fun dfsSumRootToLeaf(node: TreeNode?, currentSum: Int): Int {
+    if (node == null) {
+        return 0
+    }
+
+    val newSum = (currentSum shl 1) + node.`val`
+
+    if (node.left == null && node.right == null) {
+        return newSum
+    }
+
+    return dfsSumRootToLeaf(node.left, newSum) + dfsSumRootToLeaf(node.right, newSum)
+}
+
+
+fun pruneTree(root: TreeNode?): TreeNode? {
+    if (root == null || root.`val` == 0) return null
+    dfs(root)
+    return root
+}
+
+private tailrec fun dfs(root: TreeNode?) {
+    if (root == null) return
+    if (root?.left?.`val` == 0 && root?.left?.left == null && root?.left?.right == null) {
+        root?.left = null
+    }
+    if (root?.right?.`val` == 0 && root?.right?.left == null && root?.right?.right == null) {
+        root?.right = null
+    }
+    if (root?.left?.`val` == 0 && root?.left?.left?.`val` == 0 && root?.left?.right?.`val` == 0) {
+        root?.left = null
+    }
+    dfs(root?.left)
+    dfs(root?.right)
+}
+
+
 
 
 
