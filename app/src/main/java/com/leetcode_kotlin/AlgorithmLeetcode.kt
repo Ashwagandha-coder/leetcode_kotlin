@@ -4865,6 +4865,28 @@ fun wordPattern(pattern: String, s: String): Boolean {
     return true
 }
 
+/**
+ * 1022. Sum of Root To Leaf Binary Numbers
+ */
+
+fun sumRootToLeaf(root: TreeNode?): Int {
+    return dfsSumRootToLeaf(root, 0)
+}
+
+private fun dfsSumRootToLeaf(node: TreeNode?, currentSum: Int): Int {
+    if (node == null) {
+        return 0
+    }
+
+    val newSum = (currentSum shl 1) + node.`val`
+
+    if (node.left == null && node.right == null) {
+        return newSum
+    }
+
+    return dfsSumRootToLeaf(node.left, newSum) + dfsSumRootToLeaf(node.right, newSum)
+}
+
 
 fun pruneTree(root: TreeNode?): TreeNode? {
     if (root == null || root.`val` == 0) return null
