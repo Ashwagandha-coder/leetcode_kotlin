@@ -4829,6 +4829,32 @@ private fun inorderTraversal(root: TreeNode?, values: MutableList<Int>): List<In
     return values
 }
 
+/**
+ *
+ */
+
+
+fun pruneTree(root: TreeNode?): TreeNode? {
+    if (root == null || root.`val` == 0) return null
+    dfs(root)
+    return root
+}
+
+private tailrec fun dfs(root: TreeNode?) {
+    if (root == null) return
+    if (root?.left?.`val` == 0 && root?.left?.left == null && root?.left?.right == null) {
+        root?.left = null
+    }
+    if (root?.right?.`val` == 0 && root?.right?.left == null && root?.right?.right == null) {
+        root?.right = null
+    }
+    if (root?.left?.`val` == 0 && root?.left?.left?.`val` == 0 && root?.left?.right?.`val` == 0) {
+        root?.left = null
+    }
+    dfs(root?.left)
+    dfs(root?.right)
+}
+
 
 
 

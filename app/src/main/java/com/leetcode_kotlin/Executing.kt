@@ -8,9 +8,16 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    validPalindrome("abca").also { println(it) }
+    binaryTreePruning().also { println(it) }
 
 
+}
+
+fun binaryTreePruning() {
+
+    val root = listOf(1, 0, 1, 0, 0, 0, 1).map { it.toString() }.toTreeNode()
+
+    pruneTree(root)
 }
 
 fun isOddEvenTreeLaunch() {
