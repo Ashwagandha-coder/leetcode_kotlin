@@ -4830,8 +4830,40 @@ private fun inorderTraversal(root: TreeNode?, values: MutableList<Int>): List<In
 }
 
 /**
- *
+ * 290. Word Pattern
  */
+
+
+fun wordPattern(pattern: String, s: String): Boolean {
+    val patternToWord = mutableMapOf<Char, String>()
+    val wordToPattern = mutableMapOf<String, Char>()
+
+    val words = s.split(" ")
+
+    if (pattern.length != words.size) {
+        return false
+    }
+
+    for (i in pattern.indices) {
+        val char = pattern[i]
+        val word = words[i]
+
+        if (patternToWord.containsKey(char)) {
+            if (patternToWord[char] != word) {
+                return false
+            }
+        } else if (wordToPattern.containsKey(word)) {
+            if (wordToPattern[word] != char) {
+                return false
+            }
+        } else {
+            patternToWord[char] = word
+            wordToPattern[word] = char
+        }
+    }
+
+    return true
+}
 
 
 fun pruneTree(root: TreeNode?): TreeNode? {
