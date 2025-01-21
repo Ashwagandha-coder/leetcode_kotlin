@@ -4888,6 +4888,30 @@ private fun dfsSumRootToLeaf(node: TreeNode?, currentSum: Int): Int {
 }
 
 
+/**
+ * 703. Kth Largest Element in a Stream
+ */
+
+
+class KthLargest(private val k: Int, nums: IntArray) {
+    private val minHeap: PriorityQueue<Int> = PriorityQueue() // Use min-heap
+
+    init {
+        nums.forEach { add(it) }
+        while (minHeap.size > k) {
+            minHeap.poll()
+        }
+    }
+
+    fun add(`val`: Int): Int {
+        minHeap.offer(`val`)
+        if (minHeap.size > k) {
+            minHeap.poll()
+        }
+        return minHeap.peek()
+    }
+}
+
 fun pruneTree(root: TreeNode?): TreeNode? {
     if (root == null || root.`val` == 0) return null
     dfs(root)
@@ -4908,7 +4932,6 @@ private tailrec fun dfs(root: TreeNode?) {
     dfs(root?.left)
     dfs(root?.right)
 }
-
 
 
 
