@@ -4942,8 +4942,8 @@ private tailrec fun dfs(root: TreeNode?) {
 fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
     val list1 = mutableListOf<Int>()
     val list2 = mutableListOf<Int>()
-    dfs(root1, list1)
-    dfs(root2, list2)
+    dfsleafSimillar(root1, list1)
+    dfsleafSimillar(root2, list2)
     if (list1.size != list2.size) return false
     for (i in 0 until list1.size) {
         if (list1[i] != list2[i]) return false
@@ -4951,7 +4951,7 @@ fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
     return true
 }
 
-fun dfs(root: TreeNode?, list: MutableList<Int>) {
+fun dfsleafSimillar(root: TreeNode?, list: MutableList<Int>) {
     if (root == null) return
     if (root?.left == null && root?.right == null) list.add(root.`val`)
     dfs(root?.left, list)
