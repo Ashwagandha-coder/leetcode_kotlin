@@ -8,8 +8,12 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    binaryTreePruning().also { println(it) }
+    val root1 = listOf(3, 5, 1, 6, 2, 9, 8, null, null, 7, 4).map { it.toString() }.toTreeNode()
+    val root2 =
+        listOf(3, 5, 1, 6, 7, 4, 2, null, null, null, null, null, null, 9, 8).map { it.toString() }
+            .toTreeNode()
 
+    leafSimilar(root1, root2).also { println(it) }
 
 }
 
