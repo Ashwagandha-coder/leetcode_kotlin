@@ -4888,6 +4888,30 @@ private fun dfsSumRootToLeaf(node: TreeNode?, currentSum: Int): Int {
 }
 
 
+/**
+ * 703. Kth Largest Element in a Stream
+ */
+
+
+class KthLargest(private val k: Int, nums: IntArray) {
+    private val minHeap: PriorityQueue<Int> = PriorityQueue() // Use min-heap
+
+    init {
+        nums.forEach { add(it) }
+        while (minHeap.size > k) {
+            minHeap.poll()
+        }
+    }
+
+    fun add(`val`: Int): Int {
+        minHeap.offer(`val`)
+        if (minHeap.size > k) {
+            minHeap.poll()
+        }
+        return minHeap.peek()
+    }
+}
+
 fun pruneTree(root: TreeNode?): TreeNode? {
     if (root == null || root.`val` == 0) return null
     dfs(root)
@@ -4910,7 +4934,29 @@ private tailrec fun dfs(root: TreeNode?) {
 }
 
 
+/**
+ * 872. Leaf-Similar Trees
+ */
 
+
+fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
+    val list1 = mutableListOf<Int>()
+    val list2 = mutableListOf<Int>()
+    dfsleafSimillar(root1, list1)
+    dfsleafSimillar(root2, list2)
+    if (list1.size != list2.size) return false
+    for (i in 0 until list1.size) {
+        if (list1[i] != list2[i]) return false
+    }
+    return true
+}
+
+fun dfsleafSimillar(root: TreeNode?, list: MutableList<Int>) {
+    if (root == null) return
+    if (root?.left == null && root?.right == null) list.add(root.`val`)
+    dfs(root?.left, list)
+    dfs(root?.right, list)
+}
 
 
 
