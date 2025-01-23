@@ -4959,7 +4959,34 @@ fun dfsleafSimillar(root: TreeNode?, list: MutableList<Int>) {
 }
 
 
+/**
+ * 502. IPO
+ */
 
+fun findMaximizedCapital(k: Int, w: Int, profits: IntArray, capital: IntArray): Int {
+    val n = profits.size
+    val projects = Array(n) { i -> Pair(capital[i], profits[i]) }
+    projects.sortBy { it.first }
+
+    val pq = PriorityQueue<Int> { a, b -> b - a }
+
+    var i = 0
+    var currentCapital = w
+
+    for (j in 0 until k) {
+        while (i < n && projects[i].first <= currentCapital) {
+            pq.offer(projects[i].second)
+            i++
+        }
+
+        if (pq.isEmpty()) {
+            break
+        }
+        currentCapital += pq.poll()
+    }
+
+    return currentCapital
+}
 
 
 
