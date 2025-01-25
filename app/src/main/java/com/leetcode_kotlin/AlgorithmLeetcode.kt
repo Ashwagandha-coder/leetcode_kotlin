@@ -4959,10 +4959,87 @@ fun dfsleafSimillar(root: TreeNode?, list: MutableList<Int>) {
 }
 
 
+/**
+ * 502. IPO
+ */
+
+fun findMaximizedCapital(k: Int, w: Int, profits: IntArray, capital: IntArray): Int {
+    val n = profits.size
+    val projects = Array(n) { i -> Pair(capital[i], profits[i]) }
+    projects.sortBy { it.first }
+
+    val pq = PriorityQueue<Int> { a, b -> b - a }
+
+    var i = 0
+    var currentCapital = w
+
+    for (j in 0 until k) {
+        while (i < n && projects[i].first <= currentCapital) {
+            pq.offer(projects[i].second)
+            i++
+        }
+
+        if (pq.isEmpty()) {
+            break
+        }
+        currentCapital += pq.poll()
+    }
+
+    return currentCapital
+}
 
 
+/**
+ * 225. Implement Stack using Queues
+ */
 
+class MyStack() {
 
+    private val stack = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        stack.add(x)
+    }
+
+    fun pop(): Int {
+        return stack.removeLast()
+    }
+
+    fun top(): Int {
+        return stack.last()
+    }
+
+    fun empty(): Boolean {
+        return stack.isEmpty()
+    }
+
+}
+
+/**
+ * 232. Implement Queue using Stacks
+ */
+
+class MyQueue() {
+
+    private val queue = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        queue.add(x)
+    }
+
+    fun pop(): Int {
+        return queue.removeFirst()
+    }
+
+    fun peek(): Int {
+        return queue.first()
+    }
+
+    fun empty(): Boolean {
+        return queue.isEmpty()
+    }
+
+}
 
 
 
