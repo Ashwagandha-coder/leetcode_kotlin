@@ -4989,6 +4989,31 @@ fun findMaximizedCapital(k: Int, w: Int, profits: IntArray, capital: IntArray): 
 }
 
 
+/**
+ * 225. Implement Stack using Queues
+ */
+
+class MyStack() {
+
+    private val stack = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        stack.add(x)
+    }
+
+    fun pop(): Int {
+        return stack.removeLast()
+    }
+
+    fun top(): Int {
+        return stack.last()
+    }
+
+    fun empty(): Boolean {
+        return stack.isEmpty()
+    }
+
+}
 
 
 
