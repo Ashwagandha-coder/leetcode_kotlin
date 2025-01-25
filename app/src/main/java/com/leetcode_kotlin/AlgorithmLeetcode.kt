@@ -5015,6 +5015,31 @@ class MyStack() {
 
 }
 
+/**
+ * 232. Implement Queue using Stacks
+ */
+
+class MyQueue() {
+
+    private val queue = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        queue.add(x)
+    }
+
+    fun pop(): Int {
+        return queue.removeFirst()
+    }
+
+    fun peek(): Int {
+        return queue.first()
+    }
+
+    fun empty(): Boolean {
+        return queue.isEmpty()
+    }
+
+}
 
 
 
