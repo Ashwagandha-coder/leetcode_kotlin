@@ -5042,6 +5042,33 @@ class MyQueue() {
 }
 
 
+/**
+ * 67. Add Binary
+ */
+
+
+fun addBinary(a: String, b: String): String {
+    var i = a.length - 1
+    var j = b.length - 1
+    var carry = 0
+    val result = StringBuilder()
+
+    while (i >= 0 || j >= 0 || carry > 0) {
+        val digitA = if (i >= 0) a[i] - '0' else 0
+        val digitB = if (j >= 0) b[j] - '0' else 0
+
+        val sum = digitA + digitB + carry
+        result.insert(0, sum % 2) // Insert at the beginning
+        carry = sum / 2
+
+        i--
+        j--
+    }
+
+    return result.toString()
+}
+
+
 
 
 
