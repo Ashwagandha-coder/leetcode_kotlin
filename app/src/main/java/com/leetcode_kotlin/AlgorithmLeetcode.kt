@@ -5140,7 +5140,35 @@ private tailrec fun power(n: Int, k: Int): Boolean {
     return power(n / k, k)
 }
 
+/**
+ * 60. Permutation Sequence
+ */
 
+fun getPermutation(n: Int, k: Int): String {
+    val subset = mutableListOf<Int>()
+    val res = mutableListOf<MutableList<Int>>()
+    val base = mutableListOf<Int>()
+    for (i in 0 until n) base.add(i + 1)
+    backtrack(base, subset, res)
+    var ans = ""
+    val arr = res[k - 1]
+    for (i in 0 until  arr.size) ans += arr[i].toString()
+    return ans
+}
+
+fun backtrack(base: List<Int>, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == base.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in 0 until base.size) {
+        if (!subset.contains(base[i])) {
+            subset.add(base[i])
+            backtrack(base, subset, res)
+            subset.removeAt(subset.size - 1)
+        }
+    }
+}
 
 
 

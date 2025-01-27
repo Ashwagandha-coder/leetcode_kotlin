@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    countGoodNumbers(50).also { println(it) }
+    getPermutation(3, 3)
 }
 
 fun leaf() {
