@@ -8,13 +8,56 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val head = intArrayOf(1, 2, 2, 1).toListNode()
+    isPalindromeL(head)
+
+}
+
+fun leaf() {
     val root1 = listOf(3, 5, 1, 6, 2, 9, 8, null, null, 7, 4).map { it.toString() }.toTreeNode()
     val root2 =
         listOf(3, 5, 1, 6, 7, 4, 2, null, null, null, null, null, null, 9, 8).map { it.toString() }
             .toTreeNode()
 
     leafSimilar(root1, root2).also { println(it) }
+}
 
+
+fun isPalindromeL(head: ListNode?): Boolean {
+    var size = 0
+    var curr = head
+    while (curr != null) {
+        size++
+        curr = curr?.next
+    }
+    var ans = size / 2
+    curr = head
+    while (ans != 0) {
+        ans--
+        curr = curr?.next
+    }
+    var new = if (size % 2 == 0) reverseL(curr) else reverseL(curr?.next)
+    curr = head
+    while (curr != null && new != null) {
+        if (curr?.`val` != new?.`val`) return false
+        curr = curr?.next
+        new = new?.next
+    }
+    return true
+}
+
+fun reverseL(head: ListNode?): ListNode? {
+    head ?: return head
+    var curr = head
+    var prev: ListNode? = null
+    var next: ListNode? = null
+    while (curr != null) {
+        next = curr?.next
+        curr?.next = prev
+        prev = curr
+        curr = next
+    }
+    return prev
 }
 
 fun binaryTreePruning() {
