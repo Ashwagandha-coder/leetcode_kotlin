@@ -5109,7 +5109,36 @@ private fun power(base: Long, exp: Long, MOD: Int): Long {
     return res
 }
 
+/**
+ *
+ */
 
+
+fun findKthBit(n: Int, k: Int): Char {
+    if (n == 1) return '0'
+    val length = (1 shl n) - 1 // Lengthof S(n)
+
+    if (k == (length + 1) / 2) {
+        return '1' // Middle bit is always 1
+    } else if (k < (length + 1) / 2) {
+        return findKthBit(n - 1, k) // Search in the first half
+    } else {
+        val invertedIndex = length + 1 - k // Inverted index in the second half
+        return if (findKthBit(n - 1, invertedIndex) == '0') '1' else '0' // Invert the bit
+    }
+}
+
+/**
+ * 231. Power of Two
+ */
+
+fun isPowerOfTwo(n: Int): Boolean = power(n, 2)
+
+private tailrec fun power(n: Int, k: Int): Boolean {
+    if (n == 1) return true
+    if (n % k != 0 || n == 0) return false
+    return power(n / k, k)
+}
 
 
 
