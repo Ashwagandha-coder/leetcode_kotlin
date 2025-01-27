@@ -8,9 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val head = intArrayOf(1, 2, 2, 1).toListNode()
-    isPalindromeL(head)
-
+    countGoodNumbers(50).also { println(it) }
 }
 
 fun leaf() {

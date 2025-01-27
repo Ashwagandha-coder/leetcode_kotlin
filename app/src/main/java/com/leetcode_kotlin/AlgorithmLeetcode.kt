@@ -5081,6 +5081,34 @@ fun reverseBits(n: Int): Int {
     return result
 }
 
+/**
+ * 1922. Count Good Numbers
+ */
+
+
+fun countGoodNumbers(n: Long): Int {
+    val evenDigits = (n + 1) / 2 // Number of positions for even digits
+    val oddDigits = n / 2 // Number of positions for odd digits
+    val MOD = 1000000007
+    return (power(5, evenDigits, MOD) * power(4, oddDigits, MOD) % MOD).toInt()
+}
+
+private fun power(base: Long, exp: Long, MOD: Int): Long {
+    var res = 1L
+    var base = base
+    var exp = exp
+
+    while (exp > 0) {
+        if (exp % 2 == 1L) {
+            res = (res * base) % MOD
+        }
+        base = (base * base) % MOD
+        exp /= 2
+    }
+
+    return res
+}
+
 
 
 
