@@ -820,3 +820,39 @@ fun simplifyPathProdVariant(path: String): String {
     }.ifEmpty { "/" }
 }
 
+/**
+ * 138. Copy List with Random Pointer
+ * Prod Variant
+ */
+
+fun copyRandomListProdVariant(node: Node?): Node? {
+    var temp: Node? = null
+    val map = mutableMapOf<Node, Node>()
+    node.forEachNode {
+        if (temp != null) {
+            val new = Node(it.`val`)
+            temp?.next = new
+            temp = temp?.next
+            map[it] = new
+        } else {
+            val new = Node(it.`val`)
+            map[it] = new
+            temp = new
+        }
+    }
+    node?.forEachNode {
+        val value = map.getOrDefault(it, null)
+        val random = map.getOrDefault(it.random, null)
+        value?.random = random
+    }
+    return map[node]
+}
+
+fun Node?.forEachNode(block: (Node) -> Unit) {
+    var current = this
+    while (current != null) {
+        block(current)
+        current = current.next
+    }
+}
+

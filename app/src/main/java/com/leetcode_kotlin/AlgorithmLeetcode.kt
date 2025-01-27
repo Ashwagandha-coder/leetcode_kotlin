@@ -5042,12 +5042,133 @@ class MyQueue() {
 }
 
 
+/**
+ * 67. Add Binary
+ */
 
 
+fun addBinary(a: String, b: String): String {
+    var i = a.length - 1
+    var j = b.length - 1
+    var carry = 0
+    val result = StringBuilder()
+
+    while (i >= 0 || j >= 0 || carry > 0) {
+        val digitA = if (i >= 0) a[i] - '0' else 0
+        val digitB = if (j >= 0) b[j] - '0' else 0
+
+        val sum = digitA + digitB + carry
+        result.insert(0, sum % 2) // Insert at the beginning
+        carry = sum / 2
+
+        i--
+        j--
+    }
+
+    return result.toString()
+}
 
 
+/**
+ * 190. Reverse Bits
+ */
+
+fun reverseBits(n: Int): Int {
+    var result = 0
+    for (i in 0..31) {
+        result = (result shl 1) or (n ushr i and 1)
+    }
+    return result
+}
+
+/**
+ * 1922. Count Good Numbers
+ */
 
 
+fun countGoodNumbers(n: Long): Int {
+    val evenDigits = (n + 1) / 2 // Number of positions for even digits
+    val oddDigits = n / 2 // Number of positions for odd digits
+    val MOD = 1000000007
+    return (power(5, evenDigits, MOD) * power(4, oddDigits, MOD) % MOD).toInt()
+}
+
+private fun power(base: Long, exp: Long, MOD: Int): Long {
+    var res = 1L
+    var base = base
+    var exp = exp
+
+    while (exp > 0) {
+        if (exp % 2 == 1L) {
+            res = (res * base) % MOD
+        }
+        base = (base * base) % MOD
+        exp /= 2
+    }
+
+    return res
+}
+
+/**
+ *
+ */
+
+
+fun findKthBit(n: Int, k: Int): Char {
+    if (n == 1) return '0'
+    val length = (1 shl n) - 1 // Lengthof S(n)
+
+    if (k == (length + 1) / 2) {
+        return '1' // Middle bit is always 1
+    } else if (k < (length + 1) / 2) {
+        return findKthBit(n - 1, k) // Search in the first half
+    } else {
+        val invertedIndex = length + 1 - k // Inverted index in the second half
+        return if (findKthBit(n - 1, invertedIndex) == '0') '1' else '0' // Invert the bit
+    }
+}
+
+/**
+ * 231. Power of Two
+ */
+
+fun isPowerOfTwo(n: Int): Boolean = power(n, 2)
+
+private tailrec fun power(n: Int, k: Int): Boolean {
+    if (n == 1) return true
+    if (n % k != 0 || n == 0) return false
+    return power(n / k, k)
+}
+
+/**
+ * 60. Permutation Sequence
+ */
+
+fun getPermutation(n: Int, k: Int): String {
+    val subset = mutableListOf<Int>()
+    val res = mutableListOf<MutableList<Int>>()
+    val base = mutableListOf<Int>()
+    for (i in 0 until n) base.add(i + 1)
+    backtrack(base, subset, res)
+    var ans = ""
+    val arr = res[k - 1]
+    for (i in 0 until  arr.size) ans += arr[i].toString()
+    return ans
+}
+
+fun backtrack(base: List<Int>, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == base.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in 0 until base.size) {
+        if (!subset.contains(base[i])) {
+            subset.add(base[i])
+            backtrack(base, subset, res)
+            subset.removeAt(subset.size - 1)
+        }
+    }
+}
 
 
 
