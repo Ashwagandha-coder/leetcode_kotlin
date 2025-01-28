@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    getPermutation(3, 3)
+    numberToWords(123).also { println(it) }
 }
 
 fun leaf() {

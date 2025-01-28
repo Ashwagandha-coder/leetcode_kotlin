@@ -5152,7 +5152,7 @@ fun getPermutation(n: Int, k: Int): String {
     backtrack(base, subset, res)
     var ans = ""
     val arr = res[k - 1]
-    for (i in 0 until  arr.size) ans += arr[i].toString()
+    for (i in 0 until arr.size) ans += arr[i].toString()
     return ans
 }
 
@@ -5168,6 +5168,96 @@ fun backtrack(base: List<Int>, subset: MutableList<Int>, res: MutableList<Mutabl
             subset.removeAt(subset.size - 1)
         }
     }
+}
+
+/**
+ * 44. Wildcard Matching
+ */
+
+
+fun isMatch(s: String, p: String): Boolean {
+    val n = s.length
+    val m = p.length
+    val dp = Array(n + 1) { BooleanArray(m + 1) }
+
+    dp[0][0] = true
+
+
+    for (j in 1 until m + 1) {
+        if (p[j - 1] == '*') {
+            dp[0][j] = dp[0][j - 1]
+        }
+    }
+
+
+    for (i in 1 until n + 1) {
+        for (j in 1 until m + 1) {
+            if (p[j - 1] == '*') {
+                dp[i][j] = dp[i][j - 1] || dp[i - 1][j]
+            } else if (p[j - 1] == '?' || s[i - 1] == p[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1]
+            }
+        }
+    }
+
+    return dp[n][m]
+}
+
+
+/**
+ * 273. Integer to English Words
+ */
+
+
+private val belowTwenty = arrayOf(
+    "",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Twelve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen"
+)
+private val belowHundred =
+    arrayOf("", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
+private val thousands = arrayOf("", "Thousand", "Million", "Billion")
+
+fun numberToWords(num: Int): String {
+    if (num == 0) return "Zero"
+
+    var i = 0
+    var words = ""
+    var num = num
+
+    while (num > 0) {
+        if (num % 1000 != 0) {
+            words = helper(num % 1000) + " " + thousands[i] + " " + words
+        }
+        num /= 1000
+        i++
+    }
+
+    return words.trim()
+}
+
+private fun helper(num: Int): String {
+    if (num == 0) return ""
+    if (num < 20) return belowTwenty[num]
+    if (num < 100) return belowHundred[num / 10] + (if (num % 10 != 0) " " + belowTwenty[num % 10] else "")
+    return belowTwenty[num / 100] + " Hundred" + (if (num % 100 != 0) " " + helper(num % 100) else "")
 }
 
 
