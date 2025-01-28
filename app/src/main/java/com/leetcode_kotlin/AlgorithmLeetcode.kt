@@ -5152,7 +5152,7 @@ fun getPermutation(n: Int, k: Int): String {
     backtrack(base, subset, res)
     var ans = ""
     val arr = res[k - 1]
-    for (i in 0 until  arr.size) ans += arr[i].toString()
+    for (i in 0 until arr.size) ans += arr[i].toString()
     return ans
 }
 
@@ -5168,6 +5168,39 @@ fun backtrack(base: List<Int>, subset: MutableList<Int>, res: MutableList<Mutabl
             subset.removeAt(subset.size - 1)
         }
     }
+}
+
+/**
+ * 44. Wildcard Matching
+ */
+
+
+fun isMatch(s: String, p: String): Boolean {
+    val n = s.length
+    val m = p.length
+    val dp = Array(n + 1) { BooleanArray(m + 1) }
+
+    dp[0][0] = true
+
+
+    for (j in 1 until m + 1) {
+        if (p[j - 1] == '*') {
+            dp[0][j] = dp[0][j - 1]
+        }
+    }
+
+
+    for (i in 1 until n + 1) {
+        for (j in 1 until m + 1) {
+            if (p[j - 1] == '*') {
+                dp[i][j] = dp[i][j - 1] || dp[i - 1][j]
+            } else if (p[j - 1] == '?' || s[i - 1] == p[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1]
+            }
+        }
+    }
+
+    return dp[n][m]
 }
 
 

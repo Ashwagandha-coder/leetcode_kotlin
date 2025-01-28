@@ -8,7 +8,9 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    getPermutation(3, 3)
+    val s = "aa"
+    val p = "a"
+    isMatch(s, p)
 }
 
 fun leaf() {
