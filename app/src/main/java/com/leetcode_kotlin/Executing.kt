@@ -8,9 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val s = "aa"
-    val p = "a"
-    isMatch(s, p)
+    numberToWords(123).also { println(it) }
 }
 
 fun leaf() {

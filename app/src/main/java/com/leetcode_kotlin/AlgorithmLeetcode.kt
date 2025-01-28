@@ -5204,6 +5204,63 @@ fun isMatch(s: String, p: String): Boolean {
 }
 
 
+/**
+ * 273. Integer to English Words
+ */
+
+
+private val belowTwenty = arrayOf(
+    "",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Twelve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen"
+)
+private val belowHundred =
+    arrayOf("", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
+private val thousands = arrayOf("", "Thousand", "Million", "Billion")
+
+fun numberToWords(num: Int): String {
+    if (num == 0) return "Zero"
+
+    var i = 0
+    var words = ""
+    var num = num
+
+    while (num > 0) {
+        if (num % 1000 != 0) {
+            words = helper(num % 1000) + " " + thousands[i] + " " + words
+        }
+        num /= 1000
+        i++
+    }
+
+    return words.trim()
+}
+
+private fun helper(num: Int): String {
+    if (num == 0) return ""
+    if (num < 20) return belowTwenty[num]
+    if (num < 100) return belowHundred[num / 10] + (if (num % 10 != 0) " " + belowTwenty[num % 10] else "")
+    return belowTwenty[num / 100] + " Hundred" + (if (num % 100 != 0) " " + helper(num % 100) else "")
+}
+
+
 
 
 
