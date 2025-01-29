@@ -5235,6 +5235,7 @@ private val belowHundred =
     arrayOf("", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
 private val thousands = arrayOf("", "Thousand", "Million", "Billion")
 
+
 fun numberToWords(num: Int): String {
     if (num == 0) return "Zero"
 
@@ -5261,6 +5262,27 @@ private fun helper(num: Int): String {
 }
 
 
+fun kthGrammar(n: Int, k: Int): Int {
+    var res = rec(n, 0, "")
+    val ans = res[k - 1]
+    return ans.digitToInt()
+}
+
+private tailrec fun rec(n: Int, index: Int, str: String): String {
+    if (index == n) return str
+    var res = str
+    when (index) {
+        0 -> res += "0"
+        1 -> res += "1"
+        else -> for (s in str) res += symbol(s)
+    }
+    return rec(n, index + 1, res)
+}
+
+
+private fun symbol(char: Char): String {
+    return if (char == '0') "1" else "0"
+}
 
 
 

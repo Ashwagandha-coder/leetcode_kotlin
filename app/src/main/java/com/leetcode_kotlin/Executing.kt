@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    numberToWords(123).also { println(it) }
+    kthGrammar(1, 1).also { println(it) }
 }
 
 fun leaf() {
