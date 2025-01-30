@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    substringMatchingPattern("leetcode", "ee*e")
+    findKthBit(4, 11)
 }
 
 fun leaf() {

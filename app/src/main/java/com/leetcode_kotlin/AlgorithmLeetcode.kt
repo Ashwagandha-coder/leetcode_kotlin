@@ -5109,24 +5109,6 @@ private fun power(base: Long, exp: Long, MOD: Int): Long {
     return res
 }
 
-/**
- *
- */
-
-
-fun findKthBit(n: Int, k: Int): Char {
-    if (n == 1) return '0'
-    val length = (1 shl n) - 1 // Lengthof S(n)
-
-    if (k == (length + 1) / 2) {
-        return '1' // Middle bit is always 1
-    } else if (k < (length + 1) / 2) {
-        return findKthBit(n - 1, k) // Search in the first half
-    } else {
-        val invertedIndex = length + 1 - k // Inverted index in the second half
-        return if (findKthBit(n - 1, invertedIndex) == '0') '1' else '0' // Invert the bit
-    }
-}
 
 /**
  * 231. Power of Two
@@ -5331,28 +5313,31 @@ private fun isMatch(s: String, p: String, start: Int): Boolean {
     return pIdx == p.length
 }
 
+/**
+ * 1545. Find Kth Bit in Nth Binary String
+ */
 
-fun kthGrammar(n: Int, k: Int): Int {
-    var res = rec(n, 0, "")
-    val ans = res[k - 1]
-    return ans.digitToInt()
-}
-
-private tailrec fun rec(n: Int, index: Int, str: String): String {
-    if (index == n) return str
-    var res = str
-    when (index) {
-        0 -> res += "0"
-        1 -> res += "1"
-        else -> for (s in str) res += symbol(s)
+fun findKthBit(n: Int, k: Int): Char {
+    if (n == 1) {
+        return '0'
     }
-    return rec(n, index + 1, res)
+
+    val length = (1 shl n) - 1 // 2^n - 1
+    val mid = length / 2 + 1
+
+    return if (k == mid) {
+        '1'
+    } else if (k < mid) {
+        findKthBit(n - 1, k)
+    } else {
+        invert(findKthBit(n - 1, length - k + 1))
+    }
 }
 
-
-private fun symbol(char: Char): String {
-    return if (char == '0') "1" else "0"
+private fun invert(bit: Char): Char {
+    return if (bit == '0') '1' else '0'
 }
+
 
 
 
