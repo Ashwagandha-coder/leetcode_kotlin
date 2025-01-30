@@ -5287,6 +5287,50 @@ fun nextLetter(s: Char): Char {
     } else return 'a'
 }
 
+/**
+ * 3407. Substring Matching Pattern
+ */
+
+
+fun substringMatchingPattern(s: String, p: String): Boolean {
+    for (i in s.indices) {
+        if (isMatch(s, p, i)) {
+            return true
+        }
+    }
+    return false
+}
+
+private fun isMatch(s: String, p: String, start: Int): Boolean {
+    var sIdx = start
+    var pIdx = 0
+    var starIdx = -1
+    var sTmpIdx = -1
+
+    while (sIdx < s.length) {
+        if (pIdx < p.length && (p[pIdx] == s[sIdx])) {
+            sIdx++
+            pIdx++
+        } else if (pIdx < p.length && p[pIdx] == '*') {
+            starIdx = pIdx
+            sTmpIdx = sIdx
+            pIdx++
+        } else if (starIdx == -1) {
+            return false
+        } else {
+            pIdx = starIdx + 1
+            sTmpIdx++
+            sIdx = sTmpIdx
+        }
+    }
+
+    while (pIdx < p.length && p[pIdx] == '*') {
+        pIdx++
+    }
+
+    return pIdx == p.length
+}
+
 
 fun kthGrammar(n: Int, k: Int): Int {
     var res = rec(n, 0, "")

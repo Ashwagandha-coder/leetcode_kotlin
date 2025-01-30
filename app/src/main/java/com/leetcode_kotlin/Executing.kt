@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    isMatch("aa", "a")
+    substringMatchingPattern("leetcode", "ee*e")
 }
 
 fun leaf() {
