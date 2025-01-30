@@ -8,8 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    val arr = intArrayOf(2, 3, 5, 7)
-    constructMinimumBitwiseArray(arr)
+
 }
 
 fun leaf() {
