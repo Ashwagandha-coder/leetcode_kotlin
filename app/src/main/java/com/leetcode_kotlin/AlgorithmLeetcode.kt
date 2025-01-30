@@ -5262,6 +5262,32 @@ private fun helper(num: Int): String {
 }
 
 
+/**
+ * 3304. Find the K-th Character in String Game I
+ */
+
+fun kthCharacter(k: Int): Char {
+    val res = rec(k, "a")
+    return res[k - 1]
+}
+
+tailrec fun rec(k: Int, word: String): String {
+    if (word.length >= k) return word
+    var res = word
+    for (char in word) res += nextLetter(char)
+    val ans = rec(k, res)
+    return ans
+}
+
+fun nextLetter(s: Char): Char {
+    val alp = "abcdefghijklmnopqrstuvwxyz"
+    if (s != 'z') {
+        val i = alp.indexOf(s)
+        return alp[i + 1]
+    } else return 'a'
+}
+
+
 fun kthGrammar(n: Int, k: Int): Int {
     var res = rec(n, 0, "")
     val ans = res[k - 1]

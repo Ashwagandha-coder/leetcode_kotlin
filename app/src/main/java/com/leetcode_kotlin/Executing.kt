@@ -8,7 +8,7 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    kthGrammar(1, 1).also { println(it) }
+    isMatch("aa", "a")
 }
 
 fun leaf() {
