@@ -5338,6 +5338,24 @@ private fun invert(bit: Char): Char {
     return if (bit == '0') '1' else '0'
 }
 
+/**
+ *
+ */
+
+
+fun minBitwiseArray(nums: List<Int>): IntArray? {
+    val n = nums.size
+    val res = IntArray(n)
+    for (i in 0 until n) {
+        val a = nums[i]
+        if (nums[i] % 2 == 0) {
+            res[i] = -1
+        } else {
+            res[i] = a - ((a + 1) and (-a - 1)) / 2
+        }
+    }
+    return res
+}
 
 
 
