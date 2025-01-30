@@ -5109,24 +5109,6 @@ private fun power(base: Long, exp: Long, MOD: Int): Long {
     return res
 }
 
-/**
- *
- */
-
-
-fun findKthBit(n: Int, k: Int): Char {
-    if (n == 1) return '0'
-    val length = (1 shl n) - 1 // Lengthof S(n)
-
-    if (k == (length + 1) / 2) {
-        return '1' // Middle bit is always 1
-    } else if (k < (length + 1) / 2) {
-        return findKthBit(n - 1, k) // Search in the first half
-    } else {
-        val invertedIndex = length + 1 - k // Inverted index in the second half
-        return if (findKthBit(n - 1, invertedIndex) == '0') '1' else '0' // Invert the bit
-    }
-}
 
 /**
  * 231. Power of Two
@@ -5235,6 +5217,7 @@ private val belowHundred =
     arrayOf("", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
 private val thousands = arrayOf("", "Thousand", "Million", "Billion")
 
+
 fun numberToWords(num: Int): String {
     if (num == 0) return "Zero"
 
@@ -5261,6 +5244,118 @@ private fun helper(num: Int): String {
 }
 
 
+/**
+ * 3304. Find the K-th Character in String Game I
+ */
+
+fun kthCharacter(k: Int): Char {
+    val res = rec(k, "a")
+    return res[k - 1]
+}
+
+private fun rec(k: Int, word: String): String {
+    if (word.length >= k) return word
+    var res = word
+    for (char in word) res += nextLetter(char)
+    val ans = rec(k, res)
+    return ans
+}
+
+fun nextLetter(s: Char): Char {
+    val alp = "abcdefghijklmnopqrstuvwxyz"
+    if (s != 'z') {
+        val i = alp.indexOf(s)
+        return alp[i + 1]
+    } else return 'a'
+}
+
+/**
+ * 3407. Substring Matching Pattern
+ */
+
+
+fun substringMatchingPattern(s: String, p: String): Boolean {
+    for (i in s.indices) {
+        if (isMatch(s, p, i)) {
+            return true
+        }
+    }
+    return false
+}
+
+private fun isMatch(s: String, p: String, start: Int): Boolean {
+    var sIdx = start
+    var pIdx = 0
+    var starIdx = -1
+    var sTmpIdx = -1
+
+    while (sIdx < s.length) {
+        if (pIdx < p.length && (p[pIdx] == s[sIdx])) {
+            sIdx++
+            pIdx++
+        } else if (pIdx < p.length && p[pIdx] == '*') {
+            starIdx = pIdx
+            sTmpIdx = sIdx
+            pIdx++
+        } else if (starIdx == -1) {
+            return false
+        } else {
+            pIdx = starIdx + 1
+            sTmpIdx++
+            sIdx = sTmpIdx
+        }
+    }
+
+    while (pIdx < p.length && p[pIdx] == '*') {
+        pIdx++
+    }
+
+    return pIdx == p.length
+}
+
+/**
+ * 1545. Find Kth Bit in Nth Binary String
+ */
+
+fun findKthBit(n: Int, k: Int): Char {
+    if (n == 1) {
+        return '0'
+    }
+
+    val length = (1 shl n) - 1 // 2^n - 1
+    val mid = length / 2 + 1
+
+    return if (k == mid) {
+        '1'
+    } else if (k < mid) {
+        findKthBit(n - 1, k)
+    } else {
+        invert(findKthBit(n - 1, length - k + 1))
+    }
+}
+
+private fun invert(bit: Char): Char {
+    return if (bit == '0') '1' else '0'
+}
+
+/**
+ *
+ */
+
+
+fun minBitwiseArray(nums: List<Int>): IntArray? {
+    val n = nums.size
+    val res = IntArray(n)
+    for (i in 0 until n) {
+        val a = nums[i]
+        if (nums[i] % 2 == 0) {
+            res[i] = -1
+        } else {
+            res[i] = a - ((a + 1) and (-a - 1)) / 2
+        }
+    }
+    return res
+}
 
 
 
