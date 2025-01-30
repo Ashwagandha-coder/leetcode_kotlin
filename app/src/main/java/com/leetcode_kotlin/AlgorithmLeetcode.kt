@@ -5271,7 +5271,7 @@ fun kthCharacter(k: Int): Char {
     return res[k - 1]
 }
 
-tailrec fun rec(k: Int, word: String): String {
+private fun rec(k: Int, word: String): String {
     if (word.length >= k) return word
     var res = word
     for (char in word) res += nextLetter(char)
