@@ -5419,6 +5419,29 @@ fun isPrefixString(s: String, words: Array<String>): Boolean {
     return false
 }
 
+/**
+ * 459. Repeated Substring Pattern
+ */
+
+
+fun repeatedSubstringPattern(s: String): Boolean {
+    val n = s.length
+    for (len in 1..n / 2) {
+        if (n % len == 0) {
+            val sub = s.substring(0, len)
+            val repeated = buildString {
+                repeat(n / len) {
+                    append(sub)
+                }
+            }
+            if (repeated == s) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
 
 
 
