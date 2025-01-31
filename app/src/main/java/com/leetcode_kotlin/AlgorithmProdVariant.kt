@@ -874,3 +874,11 @@ fun isPrefixOfWordProdVariant(sentence: String, searchWord: String): Int {
     }
     return -1
 }
+
+/**
+ * 459. Repeated Substring Pattern
+ */
+
+fun repeatedSubstringPatternProdVariant(s: String): Boolean {
+    return (s + s).substring(1, 2 * s.length- 1).contains(s)
+}
