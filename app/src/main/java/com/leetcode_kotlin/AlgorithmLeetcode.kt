@@ -5380,6 +5380,28 @@ private fun checkPrefix(str: String, prefix: String): Boolean {
     return true
 }
 
+/**
+ * 2255. Count Prefixes of a Given String
+ */
+
+
+fun countPrefixes(words: Array<String>, s: String): Int {
+    var count = 0
+    for (word in words) if (isPrefix(s, word)) count++
+    return count
+}
+
+private fun isPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
+
 
 
 
