@@ -5358,7 +5358,7 @@ fun strStr(haystack: String, needle: String): Int {
 fun isPrefixOfWord(sentence: String, searchWord: String): Int {
     var counter = 1
     var str = ""
-    var sentence = sentence + " "
+    var sentence = "$sentence "
     for (s in sentence) {
         if (s != ' ') str += s
         else {
