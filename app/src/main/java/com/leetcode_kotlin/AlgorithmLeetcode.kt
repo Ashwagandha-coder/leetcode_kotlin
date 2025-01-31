@@ -5274,43 +5274,42 @@ fun nextLetter(s: Char): Char {
  */
 
 
-fun substringMatchingPattern(s: String, p: String): Boolean {
+fun hasMatch(s: String, p: String): Boolean {
+    val starIndex = p.indexOf('*')
+    val prefix = p.substring(0, starIndex)
+    val suffix = p.substring(starIndex + 1)
+
+    if (prefix.isEmpty() && suffix.isEmpty()) {
+        return true
+    }
+
     for (i in s.indices) {
-        if (isMatch(s, p, i)) {
-            return true
+        for (j in i..s.length) {
+            val sub = s.substring(i, j)
+            if (checkMatch(sub, prefix, suffix)) {
+                return true
+            }
         }
     }
+
     return false
 }
 
-private fun isMatch(s: String, p: String, start: Int): Boolean {
-    var sIdx = start
-    var pIdx = 0
-    var starIdx = -1
-    var sTmpIdx = -1
 
-    while (sIdx < s.length) {
-        if (pIdx < p.length && (p[pIdx] == s[sIdx])) {
-            sIdx++
-            pIdx++
-        } else if (pIdx < p.length && p[pIdx] == '*') {
-            starIdx = pIdx
-            sTmpIdx = sIdx
-            pIdx++
-        } else if (starIdx == -1) {
-            return false
-        } else {
-            pIdx = starIdx + 1
-            sTmpIdx++
-            sIdx = sTmpIdx
-        }
+private fun checkMatch(sub: String, prefix: String, suffix: String): Boolean {
+    if (sub.length < prefix.length + suffix.length) {
+        return false
     }
 
-    while (pIdx < p.length && p[pIdx] == '*') {
-        pIdx++
+    if (!sub.startsWith(prefix)) {
+        return false
     }
 
-    return pIdx == p.length
+    if (!sub.endsWith(suffix)) {
+        return false
+    }
+
+    return true
 }
 
 /**
@@ -5339,22 +5338,17 @@ private fun invert(bit: Char): Char {
 }
 
 /**
- *
+ * 28. Find the Index of the First Occurrence in a String
  */
 
 
-fun minBitwiseArray(nums: List<Int>): IntArray? {
-    val n = nums.size
-    val res = IntArray(n)
-    for (i in 0 until n) {
-        val a = nums[i]
-        if (nums[i] % 2 == 0) {
-            res[i] = -1
-        } else {
-            res[i] = a - ((a + 1) and (-a - 1)) / 2
-        }
+fun strStr(haystack: String, needle: String): Int {
+    val k = needle.length
+    for (i in 0 until (haystack.length - k) + 1) {
+        val temp = haystack.substring(i, k + i)
+        if (temp == needle) return i
     }
-    return res
+    return -1
 }
 
 
