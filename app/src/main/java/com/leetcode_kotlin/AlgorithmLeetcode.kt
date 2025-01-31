@@ -5351,6 +5351,35 @@ fun strStr(haystack: String, needle: String): Int {
     return -1
 }
 
+/**
+ * 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+ */
+
+fun isPrefixOfWord(sentence: String, searchWord: String): Int {
+    var counter = 1
+    var str = ""
+    var sentence = sentence + " "
+    for (s in sentence) {
+        if (s != ' ') str += s
+        else {
+            if (checkPrefix(str, searchWord)) return counter
+            counter++
+            str = ""
+        }
+    }
+    return -1
+}
+
+private fun checkPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
 
 
 
