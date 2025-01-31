@@ -856,3 +856,21 @@ fun Node?.forEachNode(block: (Node) -> Unit) {
     }
 }
 
+/**
+ * 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+ * Prod Variant
+ */
+
+
+fun isPrefixOfWordProdVariant(sentence: String, searchWord: String): Int {
+    val words = sentence.split(" ")
+    var counter = 1
+    for (word in words) {
+        when {
+            word.isEmpty() -> continue
+            word.length < searchWord.length -> counter++
+            else -> if (word.startsWith(searchWord)) return counter else counter++
+        }
+    }
+    return -1
+}
