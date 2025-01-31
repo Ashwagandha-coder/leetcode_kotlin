@@ -5274,43 +5274,42 @@ fun nextLetter(s: Char): Char {
  */
 
 
-fun substringMatchingPattern(s: String, p: String): Boolean {
+fun hasMatch(s: String, p: String): Boolean {
+    val starIndex = p.indexOf('*')
+    val prefix = p.substring(0, starIndex)
+    val suffix = p.substring(starIndex + 1)
+
+    if (prefix.isEmpty() && suffix.isEmpty()) {
+        return true
+    }
+
     for (i in s.indices) {
-        if (isMatch(s, p, i)) {
-            return true
+        for (j in i..s.length) {
+            val sub = s.substring(i, j)
+            if (checkMatch(sub, prefix, suffix)) {
+                return true
+            }
         }
     }
+
     return false
 }
 
-private fun isMatch(s: String, p: String, start: Int): Boolean {
-    var sIdx = start
-    var pIdx = 0
-    var starIdx = -1
-    var sTmpIdx = -1
 
-    while (sIdx < s.length) {
-        if (pIdx < p.length && (p[pIdx] == s[sIdx])) {
-            sIdx++
-            pIdx++
-        } else if (pIdx < p.length && p[pIdx] == '*') {
-            starIdx = pIdx
-            sTmpIdx = sIdx
-            pIdx++
-        } else if (starIdx == -1) {
-            return false
-        } else {
-            pIdx = starIdx + 1
-            sTmpIdx++
-            sIdx = sTmpIdx
-        }
+private fun checkMatch(sub: String, prefix: String, suffix: String): Boolean {
+    if (sub.length < prefix.length + suffix.length) {
+        return false
     }
 
-    while (pIdx < p.length && p[pIdx] == '*') {
-        pIdx++
+    if (!sub.startsWith(prefix)) {
+        return false
     }
 
-    return pIdx == p.length
+    if (!sub.endsWith(suffix)) {
+        return false
+    }
+
+    return true
 }
 
 /**
@@ -5339,24 +5338,174 @@ private fun invert(bit: Char): Char {
 }
 
 /**
- *
+ * 28. Find the Index of the First Occurrence in a String
  */
 
 
-fun minBitwiseArray(nums: List<Int>): IntArray? {
-    val n = nums.size
-    val res = IntArray(n)
-    for (i in 0 until n) {
-        val a = nums[i]
-        if (nums[i] % 2 == 0) {
-            res[i] = -1
-        } else {
-            res[i] = a - ((a + 1) and (-a - 1)) / 2
-        }
+fun strStr(haystack: String, needle: String): Int {
+    val k = needle.length
+    for (i in 0 until (haystack.length - k) + 1) {
+        val temp = haystack.substring(i, k + i)
+        if (temp == needle) return i
     }
-    return res
+    return -1
 }
 
+/**
+ * 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+ */
+
+fun isPrefixOfWord(sentence: String, searchWord: String): Int {
+    var counter = 1
+    var str = ""
+    var sentence = "$sentence "
+    for (s in sentence) {
+        if (s != ' ') str += s
+        else {
+            if (checkPrefix(str, searchWord)) return counter
+            counter++
+            str = ""
+        }
+    }
+    return -1
+}
+
+private fun checkPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
+/**
+ * 2255. Count Prefixes of a Given String
+ */
+
+
+fun countPrefixes(words: Array<String>, s: String): Int {
+    var count = 0
+    for (word in words) if (isPrefix(s, word)) count++
+    return count
+}
+
+private fun isPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
+/**
+ * 1961. Check If String Is a Prefix of Array
+ */
+
+fun isPrefixString(s: String, words: Array<String>): Boolean {
+    var concatenated = ""
+    for (word in words) {
+        concatenated += word
+        if (concatenated == s) {
+            return true
+        }
+        if (concatenated.length > s.length) {
+            return false
+        }
+    }
+    return false
+}
+
+/**
+ * 459. Repeated Substring Pattern
+ */
+
+
+fun repeatedSubstringPattern(s: String): Boolean {
+    val n = s.length
+    for (len in 1..n / 2) {
+        if (n % len == 0) {
+            val sub = s.substring(0, len)
+            val repeated = buildString {
+                repeat(n / len) {
+                    append(sub)
+                }
+            }
+            if (repeated == s) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+
+/**
+ * 1408. String Matching in an Array
+ */
+
+
+fun stringMatching(words: Array<String>): List<String> {
+    var set = mutableSetOf<String>()
+    for (i in 0 until words.size) {
+        for (j in 0 until words.size) {
+            if (words[i] == words[j]) continue
+            else {
+                if (words[i].isSubString(words[j])) set.add(words[i])
+            }
+        }
+    }
+    return set.toList()
+}
+
+private fun String.isSubString(str: String): Boolean {
+    if (this.length > str.length) return false
+    var j = 0
+    for (i in 0 until (str.length - this.length) + 1) {
+        val temp = str.substring(i, this.length + i)
+        if (temp == this) return true
+    }
+    return false
+}
+
+/**
+ * 434. Number of Segments in a String
+ */
+
+fun countSegments(s: String): Int {
+    var counter = 0
+    var temp = ""
+    var s = s + " "
+    for (char in s) {
+        if (char != ' ') temp += char
+        else {
+            if (temp.isNotEmpty()) counter++
+            temp = ""
+        }
+    }
+    return counter
+}
+
+/**
+ * 1941. Check if All Characters Have Equal Number of Occurrences
+ */
+
+
+fun areOccurrencesEqual(s: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    for (char in s) map[char] = map.getOrDefault(char, 0) + 1
+    var temp = 0
+    for (char in s) {
+        if (temp == 0) {
+            temp = map.getOrDefault(char, 0)
+        }
+        if (temp != map.getOrDefault(char, 0)) return false
+    }
+    return true
+}
 
 
 
