@@ -5401,6 +5401,24 @@ private fun isPrefix(str: String, prefix: String): Boolean {
     return true
 }
 
+/**
+ * 1961. Check If String Is a Prefix of Array
+ */
+
+fun isPrefixString(s: String, words: Array<String>): Boolean {
+    var concatenated = ""
+    for (word in words) {
+        concatenated += word
+        if (concatenated == s) {
+            return true
+        }
+        if (concatenated.length > s.length) {
+            return false
+        }
+    }
+    return false
+}
+
 
 
 
