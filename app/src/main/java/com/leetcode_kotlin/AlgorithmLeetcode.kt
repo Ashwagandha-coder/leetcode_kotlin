@@ -5489,6 +5489,23 @@ fun countSegments(s: String): Int {
     return counter
 }
 
+/**
+ * 1941. Check if All Characters Have Equal Number of Occurrences
+ */
+
+
+fun areOccurrencesEqual(s: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    for (char in s) map[char] = map.getOrDefault(char, 0) + 1
+    var temp = 0
+    for (char in s) {
+        if (temp == 0) {
+            temp = map.getOrDefault(char, 0)
+        }
+        if (temp != map.getOrDefault(char, 0)) return false
+    }
+    return true
+}
 
 
 

@@ -9,8 +9,6 @@ package com.leetcode_kotlin
 fun main() {
 
 
-    addStrings("11","123")
-
 
 
 }
