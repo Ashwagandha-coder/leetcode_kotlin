@@ -5471,6 +5471,24 @@ private fun String.isSubString(str: String): Boolean {
     return false
 }
 
+/**
+ * 434. Number of Segments in a String
+ */
+
+fun countSegments(s: String): Int {
+    var counter = 0
+    var temp = ""
+    var s = s + " "
+    for (char in s) {
+        if (char != ' ') temp += char
+        else {
+            if (temp.isNotEmpty()) counter++
+            temp = ""
+        }
+    }
+    return counter
+}
+
 
 
 

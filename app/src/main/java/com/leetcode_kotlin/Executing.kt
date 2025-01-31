@@ -8,7 +8,8 @@ package com.leetcode_kotlin
 
 fun main() {
 
-    repeatedSubstringPattern("abcabcabcabc")
+
+    addStrings("11","123")
 
 
 
