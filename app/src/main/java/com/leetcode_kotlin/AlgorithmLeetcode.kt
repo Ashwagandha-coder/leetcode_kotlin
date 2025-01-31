@@ -5443,6 +5443,34 @@ fun repeatedSubstringPattern(s: String): Boolean {
 }
 
 
+/**
+ * 1408. String Matching in an Array
+ */
+
+
+fun stringMatching(words: Array<String>): List<String> {
+    var set = mutableSetOf<String>()
+    for (i in 0 until words.size) {
+        for (j in 0 until words.size) {
+            if (words[i] == words[j]) continue
+            else {
+                if (words[i].isSubString(words[j])) set.add(words[i])
+            }
+        }
+    }
+    return set.toList()
+}
+
+private fun String.isSubString(str: String): Boolean {
+    if (this.length > str.length) return false
+    var j = 0
+    for (i in 0 until (str.length - this.length) + 1) {
+        val temp = str.substring(i, this.length + i)
+        if (temp == this) return true
+    }
+    return false
+}
+
 
 
 

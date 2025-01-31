@@ -10,6 +10,8 @@ fun main() {
 
     repeatedSubstringPattern("abcabcabcabc")
 
+
+
 }
 
 fun leaf() {
