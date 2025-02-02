@@ -5507,7 +5507,105 @@ fun areOccurrencesEqual(s: String): Boolean {
     return true
 }
 
+/**
+ * 6. Zigzag Conversion
+ */
+
+fun convert(s: String, numRows: Int): String {
+    if (numRows == 1 || numRows >= s.length) {
+        return s
+    }
+
+    val rows = List(numRows) { StringBuilder() }
+    var currentRow = 0
+    var goingDown = false
+
+    for (c in s) {
+        rows[currentRow].append(c)
+        if (currentRow == 0 || currentRow == numRows - 1) {
+            goingDown = !goingDown
+        }
+        currentRow += if (goingDown) 1 else -1
+    }
+
+    val result = StringBuilder()
+    for (row in rows) {
+        result.append(row)
+    }
+
+    return result.toString()
+}
 
 
+/**
+ * 1161. Maximum Level Sum of a Binary Tree
+ */
+
+fun maxLevelSum(root: TreeNode?): Int {
+    val queue = LinkedList<TreeNode>()
+    var maximum = Pair(Int.MIN_VALUE, 0)
+    var level = 1
+    queue.offer(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        var levelSum = 0
+        for (i in 0 until size) {
+            val node = queue.poll()
+            levelSum += node.`val`
+            node?.left?.let { queue.offer(it) }
+            node?.right?.let { queue.offer(it) }
+        }
+        if (levelSum > maximum.first) {
+            maximum = Pair(levelSum, level)
+        }
+        level++
+    }
+    return maximum.second
+}
+
+
+/**
+ * 374. Guess Number Higher or Lower
+ */
+
+fun guess(num: Int): Int {
+    return 0
+}
+
+abstract class GuessGame {
+
+    open abstract fun guessNumber(n: Int): Int
+}
+
+class GuessNumber : GuessGame() {
+    override fun guessNumber(n: Int): Int {
+        if (n == 1) return n
+        var low = 0L
+        var high = (n - 1).toLong()
+        while (low <= high) {
+            val mid = (low + high) / 2L
+            val call = guess((mid + 1).toInt())
+            if (call == 0) return mid.toInt() + 1
+            if (call == 1) low = mid + 1L
+            else high = mid
+        }
+        return 0
+    }
+}
+
+/**
+ * 3151. Special Array I
+ */
+
+fun isArraySpecial(nums: IntArray): Boolean {
+    if (nums.size == 1) return true
+    var j = 1
+    for (i in 0 until nums.size - 1) {
+        if (nums[i] % 2 == 0 && nums[j] % 2 == 0) return false
+        if (nums[i] % 2 != 0 && nums[j] % 2 != 0) return false
+        j++
+    }
+    return true
+}
 
 
