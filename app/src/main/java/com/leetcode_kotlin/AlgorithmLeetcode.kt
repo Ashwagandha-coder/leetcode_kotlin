@@ -5593,6 +5593,19 @@ class GuessNumber : GuessGame() {
     }
 }
 
+/**
+ * 3151. Special Array I
+ */
 
+fun isArraySpecial(nums: IntArray): Boolean {
+    if (nums.size == 1) return true
+    var j = 1
+    for (i in 0 until nums.size - 1) {
+        if (nums[i] % 2 == 0 && nums[j] % 2 == 0) return false
+        if (nums[i] % 2 != 0 && nums[j] % 2 != 0) return false
+        j++
+    }
+    return true
+}
 
 
