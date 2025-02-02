@@ -5537,6 +5537,33 @@ fun convert(s: String, numRows: Int): String {
 }
 
 
+/**
+ * 1161. Maximum Level Sum of a Binary Tree
+ */
+
+fun maxLevelSum(root: TreeNode?): Int {
+    val queue = LinkedList<TreeNode>()
+    var maximum = Pair(Int.MIN_VALUE, 0)
+    var level = 1
+    queue.offer(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        var levelSum = 0
+        for (i in 0 until size) {
+            val node = queue.poll()
+            levelSum += node.`val`
+            node?.left?.let { queue.offer(it) }
+            node?.right?.let { queue.offer(it) }
+        }
+        if (levelSum > maximum.first) {
+            maximum = Pair(levelSum, level)
+        }
+        level++
+    }
+    return maximum.second
+}
+
+
 
 
 
