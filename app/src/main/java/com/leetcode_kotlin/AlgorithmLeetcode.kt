@@ -5564,6 +5564,35 @@ fun maxLevelSum(root: TreeNode?): Int {
 }
 
 
+/**
+ * 374. Guess Number Higher or Lower
+ */
+
+fun guess(num: Int): Int {
+    return 0
+}
+
+abstract class GuessGame {
+
+    open abstract fun guessNumber(n: Int): Int
+}
+
+class GuessNumber : GuessGame() {
+    override fun guessNumber(n: Int): Int {
+        if (n == 1) return n
+        var low = 0L
+        var high = (n - 1).toLong()
+        while (low <= high) {
+            val mid = (low + high) / 2L
+            val call = guess((mid + 1).toInt())
+            if (call == 0) return mid.toInt() + 1
+            if (call == 1) low = mid + 1L
+            else high = mid
+        }
+        return 0
+    }
+}
+
 
 
 
