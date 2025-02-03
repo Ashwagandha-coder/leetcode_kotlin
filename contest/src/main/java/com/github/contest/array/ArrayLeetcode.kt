@@ -1,5 +1,7 @@
 package com.github.contest.array
 
+import com.github.contest.removeIfEmptyBucket
+
 /**
  * 2540. Minimum Common Value
  */
@@ -27,8 +29,7 @@ fun intersect(nums1: IntArray, nums2: IntArray): IntArray {
     for (num in nums2) {
         if (map.contains(num)) {
             res.add(num)
-            map[num] = map.getOrDefault(num, 0) - 1
-            if (map.getOrDefault(num, 0) == 0) map.remove(num)
+            map.removeIfEmptyBucket(num)
         }
     }
     return res.toIntArray()
