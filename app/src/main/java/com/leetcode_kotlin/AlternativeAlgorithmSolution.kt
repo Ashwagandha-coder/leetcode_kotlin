@@ -1406,6 +1406,40 @@ fun findSecondMinimumValueAltSolution(root: TreeNode?): Int {
 }
 
 
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ * Alternative Solution
+ */
+
+fun longestSubArray(nums: IntArray): Int {
+    if (nums.singleElement()) return 1
+
+    var maxLength = 1
+    var increasingLength = 1
+    var decreasingLength = 1
+
+    for (i in 1 until nums.size) {
+        if (nums[i] > nums[i - 1]) {
+            increasingLength++
+            decreasingLength = 1
+        } else if (nums[i] < nums[i - 1]) {
+            decreasingLength++
+            increasingLength = 1
+        } else {
+            increasingLength = 1
+            decreasingLength = 1
+        }
+        maxLength = maxOf(maxLength, increasingLength, decreasingLength)
+    }
+
+    return maxLength
+}
+
+fun IntArray.singleElement(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}
+
 
 
 

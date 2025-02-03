@@ -877,8 +877,49 @@ fun isPrefixOfWordProdVariant(sentence: String, searchWord: String): Int {
 
 /**
  * 459. Repeated Substring Pattern
+ * Prod Variant
  */
 
 fun repeatedSubstringPatternProdVariant(s: String): Boolean {
-    return (s + s).substring(1, 2 * s.length- 1).contains(s)
+    return (s + s).substring(1, 2 * s.length - 1).contains(s)
+}
+
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ * Prod Variant
+ */
+
+fun longestMonotonicSubArrayProdVariant(nums: IntArray): Int {
+    if (nums.singleElementProdVariant()) return 1
+
+    var maxLength = 1
+    var increasingLength = 1
+    var decreasingLength = 1
+
+    nums.drop(1).forEachIndexed { index, num ->
+        when {
+            num > nums[index] -> {
+                increasingLength++
+                decreasingLength = 1
+            }
+
+            num < nums[index] -> {
+                decreasingLength++
+                increasingLength = 1
+            }
+
+            else -> {
+                increasingLength = 1
+                decreasingLength = 1
+            }
+        }
+        maxLength = maxOf(maxLength, increasingLength, decreasingLength)
+    }
+
+    return maxLength
+}
+
+private fun IntArray.singleElementProdVariant(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
 }
