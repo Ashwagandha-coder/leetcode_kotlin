@@ -3,6 +3,8 @@ package com.github.contest.array
 /**
  * 2540. Minimum Common Value
  * Alternative Solution
+ * Time - O(n)
+ * Space - O(1)
  */
 
 fun getCommonAlternativeSolution(nums1: IntArray, nums2: IntArray): Int {
