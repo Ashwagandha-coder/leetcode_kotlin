@@ -15,3 +15,21 @@ fun getCommon(nums1: IntArray, nums2: IntArray): Int {
     if (i < nums2.size && set.contains(nums2[i])) minCommonValue = nums2[i]
     return if (minCommonValue == Int.MAX_VALUE) -1 else minCommonValue
 }
+
+/**
+ * 350. Intersection of Two Arrays II
+ */
+
+fun intersect(nums1: IntArray, nums2: IntArray): IntArray {
+    val res = mutableListOf<Int>()
+    val map = mutableMapOf<Int, Int>()
+    for (num in nums1) map[num] = map.getOrDefault(num, 0) + 1
+    for (num in nums2) {
+        if (map.contains(num)) {
+            res.add(num)
+            map[num] = map.getOrDefault(num, 0) - 1
+            if (map.getOrDefault(num, 0) == 0) map.remove(num)
+        }
+    }
+    return res.toIntArray()
+}
