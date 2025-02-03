@@ -5608,4 +5608,54 @@ fun isArraySpecial(nums: IntArray): Boolean {
     return true
 }
 
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ */
+
+fun longestMonotonicSubarray(nums: IntArray): Int {
+    val longestIncreasing = lengthOfLongestIncreasing(nums)
+    val longestDecreasing = lengthOfLongestDecreasing(nums)
+    return maxOf(longestIncreasing, longestDecreasing)
+}
+
+fun lengthOfLongestIncreasing(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+    var len = 0
+    var i = 0
+    var j = 1
+    var local = 1
+    while (j < nums.size) {
+        if (nums[i] < nums[j]) {
+            local++
+        } else {
+            len = maxOf(len, local)
+            local = 1
+        }
+        i++
+        j++
+    }
+    len = maxOf(len, local)
+    return len
+}
+
+fun lengthOfLongestDecreasing(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+    var len = 0
+    var i = 0
+    var j = 1
+    var local = 1
+    while (j < nums.size) {
+        if (nums[i] > nums[j]) {
+            local++
+        } else {
+            len = maxOf(len, local)
+            local = 1
+        }
+        i++
+        j++
+    }
+    len = maxOf(len, local)
+    return len
+}
+
 
