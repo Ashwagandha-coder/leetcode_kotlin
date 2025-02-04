@@ -3,6 +3,7 @@ package com.github.contest.array
 /**
  * 2540. Minimum Common Value
  * Prod Variant
+ * Could down with TLE
  */
 
 fun getCommonProdVariant(nums1: IntArray, nums2: IntArray): Int {
