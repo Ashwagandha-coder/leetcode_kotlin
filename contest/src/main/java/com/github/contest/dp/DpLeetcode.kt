@@ -16,3 +16,13 @@ fun tribonacci(n: Int): Int {
     }
     return dp[n]
 }
+
+/**
+ * 1668. Maximum Repeating Substring
+ */
+
+fun maxRepeating(sequence: String, word: String): Int {
+    var ans = 1
+    while (sequence.contains(word.repeat(ans))) ans++
+    return ans - 1
+}
