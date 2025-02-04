@@ -29,7 +29,7 @@ private fun IntArray.hasSingle(): Boolean = when {
  */
 
 fun candy(ratings: IntArray): Int {
-    val candies = IntArray(ratings.size) {1}
+    val candies = IntArray(ratings.size) { 1 }
     for (i in 1 until ratings.size) {
         if (ratings[i] > ratings[i - 1]) {
             candies[i] = candies[i - 1] + 1
@@ -41,4 +41,31 @@ fun candy(ratings: IntArray): Int {
         }
     }
     return candies.sum()
+}
+
+/**
+ *
+ */
+
+fun firstMissingPositive(nums: IntArray): Int {
+    val n = nums.size
+
+    // In-place rearrangement
+    for (i in 0 until n) {
+        while (nums[i] in 1..n && nums[nums[i] - 1] != nums[i]) {
+            val temp = nums[i]
+            nums[i] = nums[temp - 1]
+            nums[temp - 1] = temp
+        }
+    }
+
+    // Find the missing positive
+    for (i in 0 until n) {
+        if (nums[i] != i + 1) {
+            return i + 1
+        }
+    }
+
+    // All positives from 1 to n are present
+    return n + 1
 }
