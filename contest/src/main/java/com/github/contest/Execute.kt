@@ -1,6 +1,7 @@
 package com.github.contest
 
-import com.github.contest.hashTable.areAlmostEqual
+import com.github.contest.dp.longestPalindromeSubseq
+
 
 /**
  * Stand
@@ -8,6 +9,5 @@ import com.github.contest.hashTable.areAlmostEqual
 
 fun main() {
 
-    areAlmostEqual("bank","kanb")
-
+    longestPalindromeSubseq("bbbab").also { println(it) }
 }
