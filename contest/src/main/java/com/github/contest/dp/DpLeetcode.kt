@@ -62,3 +62,27 @@ private fun fill(rows: Int): List<MutableList<Int>> {
     }
     return res
 }
+
+/**
+ * 119. Pascal's Triangle II
+ */
+
+fun getRow(rowIndex: Int): List<Int> {
+    if (rowIndex == 0) return listOf(1)
+    if (rowIndex == 1) return listOf(1, 1)
+    var row = 1
+    var prev = mutableListOf(1, 1)
+    var curr = mutableListOf<Int>()
+    for (i in 2 until rowIndex + 1) {
+        curr = mutableListOf()
+        repeat(i + 1) {
+            curr.add(1)
+        }
+        repeat(row) {
+            curr[it + 1] = prev[it] + prev[it + 1]
+        }
+        prev = curr
+        row++
+    }
+    return curr
+}
