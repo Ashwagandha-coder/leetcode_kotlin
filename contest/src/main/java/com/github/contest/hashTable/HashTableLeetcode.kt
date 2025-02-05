@@ -63,3 +63,35 @@ fun commonChars(words: Array<String>): List<String> {
 
     return result
 }
+
+/**
+ * 1790. Check if One String Swap Can Make Strings Equal
+ */
+
+fun areAlmostEqual(s1: String, s2: String): Boolean {
+    if (s1 == s2) return true
+
+    for (i in s1.indices) {
+        for (j in i + 1 until s1.length) {
+            var temp = s2.swap(i, j)
+            if (temp == s1) return true
+        }
+    }
+
+    for (i in s2.indices) {
+        for (j in i + 1 until s2.length) {
+            var temp = s2.swap(i, j)
+            if (temp == s1) return true
+        }
+    }
+
+    return false
+}
+
+private fun String.swap(from: Int, to: Int): String {
+    var arr = this.toCharArray()
+    var temp = arr[from]
+    arr[from] = arr[to]
+    arr[to] = temp
+    return String(arr)
+}

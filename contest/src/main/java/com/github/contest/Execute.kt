@@ -1,5 +1,13 @@
 package com.github.contest
 
+import com.github.contest.dp.longestPalindromeSubseq
+
+
+/**
+ * Stand
+ */
+
 fun main() {
-    println("Hello World!")
+
+    longestPalindromeSubseq("bbbab").also { println(it) }
 }

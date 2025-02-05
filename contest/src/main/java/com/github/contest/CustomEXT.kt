@@ -4,3 +4,8 @@ fun MutableMap<Int, Int>.removeIfEmptyBucket(key: Int) {
     this[key] = this.getOrDefault(key, 0) - 1
     if (this[key] == 0) this.remove(key)
 }
+
+
+fun Any.printData(label: String) {
+    println("$label $this")
+}
