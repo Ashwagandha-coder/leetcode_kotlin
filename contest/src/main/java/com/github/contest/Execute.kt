@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.array.getCommonProdVariant
+import com.github.contest.hashTable.areAlmostEqual
 
 /**
  * Stand
@@ -8,6 +8,6 @@ import com.github.contest.array.getCommonProdVariant
 
 fun main() {
 
-    getCommonProdVariant(intArrayOf(1, 2, 3), intArrayOf(2, 4))
+    areAlmostEqual("bank","kanb")
 
 }
