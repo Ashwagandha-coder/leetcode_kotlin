@@ -26,3 +26,39 @@ fun maxRepeating(sequence: String, word: String): Int {
     while (sequence.contains(word.repeat(ans))) ans++
     return ans - 1
 }
+
+
+/**
+ * 118. Pascal's Triangle
+ */
+
+fun generate(numRows: Int): List<List<Int>> {
+    if (numRows == 1) return listOf(listOf(1))
+    if (numRows == 2) return listOf(listOf(1), listOf(1, 1))
+    val dp = fill(numRows)
+    var cells = 1
+    for (i in 2 until numRows) {
+        var prev = 0
+        var curr = 1
+        repeat(cells) {
+            dp[i][it + 1] = dp[i - 1][prev] + dp[i - 1][curr]
+            prev++
+            curr++
+        }
+        cells++
+    }
+    return dp
+}
+
+
+private fun fill(rows: Int): List<MutableList<Int>> {
+    val res = mutableListOf<MutableList<Int>>()
+    for (i in 0 until rows) {
+        val new = mutableListOf<Int>()
+        repeat(i + 1) {
+            new.add(1)
+        }
+        res.add(new)
+    }
+    return res
+}
