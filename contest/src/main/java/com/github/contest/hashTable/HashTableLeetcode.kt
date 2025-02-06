@@ -95,3 +95,25 @@ private fun String.swap(from: Int, to: Int): String {
     arr[to] = temp
     return String(arr)
 }
+
+/**
+ * 1726. Tuple with Same Product
+ */
+
+fun tupleSameProduct(nums: IntArray): Int {
+    if (nums.size < 4) return 0
+    val productCounts = mutableMapOf<Int, Int>()
+
+    for (i in 0 until nums.size) {
+        for (j in i + 1 until nums.size) {
+            val product = nums[i] * nums[j]
+            productCounts[product] = productCounts.getOrDefault(product, 0) + 1
+        }
+    }
+
+    var tuples = 0
+    for (count in productCounts.values) {
+        if (count > 1) tuples += count * (count - 1) * 4
+    }
+    return tuples
+}

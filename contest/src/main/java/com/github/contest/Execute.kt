@@ -1,6 +1,5 @@
 package com.github.contest
 
-import com.github.contest.dp.longestPalindromeSubseq
 
 
 /**
@@ -9,5 +8,6 @@ import com.github.contest.dp.longestPalindromeSubseq
 
 fun main() {
 
-    longestPalindromeSubseq("bbbab").also { println(it) }
+
+
 }
