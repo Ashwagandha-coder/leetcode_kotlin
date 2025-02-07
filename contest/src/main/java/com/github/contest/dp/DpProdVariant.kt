@@ -59,7 +59,7 @@ private fun String.hasSingle(): Boolean = when {
  */
 
 
-fun longestIdealSubSequenceProdVariant(s: String, k: Int): Int {
+fun longestIdealStringProdVariant(s: String, k: Int): Int {
     val dp = IntArray(26) { 0 }
 
     s.forEach {
@@ -73,3 +73,15 @@ fun longestIdealSubSequenceProdVariant(s: String, k: Int): Int {
 
     return dp.max()
 }
+
+
+fun longestIdealStringProdVariantII(s: String, k: Int): Int =
+    s.fold(IntArray(26)) { dp, c ->
+        val currIndex = c - 'a'
+        dp.apply {
+            this[currIndex] = maxOf(this[currIndex], (0..25).maxOf { prevIndex ->
+                if (abs(currIndex - prevIndex) <= k) this[prevIndex] else 0
+            } + 1)
+        }
+    }.max()
+

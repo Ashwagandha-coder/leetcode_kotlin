@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.dp.longestIdealString
+import com.github.contest.dp.longestIdealStringProdVariantII
 
 
 /**
@@ -9,6 +9,6 @@ import com.github.contest.dp.longestIdealString
 
 fun main() {
 
-    longestIdealString("abxyzcd", 2)
+    longestIdealStringProdVariantII("abxyzcd", 2).also { println(it) }
 
 }
