@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.testing
+
 
 
 /**
@@ -10,6 +10,6 @@ import com.github.contest.hashTable.testing
 
 fun main() {
 
-    testing("bank", "kanb")
+
 
 }
