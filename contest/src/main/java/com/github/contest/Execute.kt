@@ -1,9 +1,6 @@
 package com.github.contest
 
 
-
-
-
 /**
  * Stand
  */
