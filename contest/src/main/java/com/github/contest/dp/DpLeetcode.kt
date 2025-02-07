@@ -1,5 +1,8 @@
 package com.github.contest.dp
 
+import com.github.contest.abs
+
+
 /**
  * 1137. N-th Tribonacci Number
  */
@@ -127,4 +130,25 @@ fun longestPalindromeSubseq(s: String): Int {
 private fun String.hasSingle(): Boolean = when {
     this.length == 1 -> true
     else -> false
+}
+
+/**
+ * 2370. Longest Ideal Subsequence
+ */
+
+fun longestIdealString(s: String, k: Int): Int {
+    val dp = IntArray(26) { 0 }
+
+    for (c in s) {
+        val currIndex = c - 'a'
+        var maxLength = 0
+        for (prevIndex in 0..25) {
+            if (abs(currIndex - prevIndex) <= k) {
+                maxLength = maxOf(maxLength, dp[prevIndex])
+            }
+        }
+        dp[currIndex] = maxOf(dp[currIndex], maxLength + 1)
+    }
+
+    return dp.maxOrNull() ?: 0
 }
