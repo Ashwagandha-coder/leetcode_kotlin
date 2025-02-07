@@ -117,3 +117,34 @@ fun tupleSameProduct(nums: IntArray): Int {
     }
     return tuples
 }
+
+/**
+ * 1796. Second Largest Digit in a String
+ */
+
+fun secondHighest(s: String): Int {
+    if (s.hasSingle()) return -1
+    val map = mutableMapOf<Int, Int>()
+    for (char in s) {
+        if (isDigit(char)) {
+            val value = char.digitToInt()
+            map[value] = map.getOrDefault(value, 0) + 1
+        }
+    }
+    var keyMax = 0
+    for (key in map.keys) {
+        keyMax = maxOf(keyMax, key)
+    }
+    if (map.contains(keyMax)) map.remove(keyMax)
+
+    return map.keys.maxOrNull() ?: -1
+}
+
+private fun String.hasSingle(): Boolean = when {
+    this.length == 1 -> true
+    else -> false
+}
+
+private fun isDigit(s: Char): Boolean {
+    return s in "0123456789"
+}
