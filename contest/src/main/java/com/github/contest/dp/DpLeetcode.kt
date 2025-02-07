@@ -188,3 +188,25 @@ fun longestIdealString(s: String, k: Int): Int {
 
     return dp.maxOrNull() ?: 0
 }
+
+/**
+ * 1025. Divisor Game
+ * Dp Approach
+ */
+
+fun divisorGameDp(n: Int): Boolean {
+    if (n <= 1) return false
+    val dp = BooleanArray(n + 1)
+    dp[1] = false // Base case: If n is 1, the current player loses
+
+    for (i in 2..n) {
+        for (x in 1 until i) {
+            if (i % x == 0 && !dp[i - x]) {
+                dp[i] = true
+                break // If we find a winning move, we can stop checking
+            }
+        }
+    }
+
+    return dp[n]
+}
