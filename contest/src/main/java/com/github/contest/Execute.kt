@@ -1,6 +1,7 @@
 package com.github.contest
 
-import com.github.contest.dp.longestIdealStringProdVariantII
+
+import com.github.contest.hashTable.testing
 
 
 /**
@@ -9,6 +10,6 @@ import com.github.contest.dp.longestIdealStringProdVariantII
 
 fun main() {
 
-    longestIdealStringProdVariantII("abxyzcd", 2).also { println(it) }
+    testing("bank", "kanb")
 
 }
