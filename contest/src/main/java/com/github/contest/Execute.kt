@@ -1,6 +1,8 @@
 package com.github.contest
 
 
+import com.github.contest.dp.divisorGameDp
+
 
 /**
  * Stand
@@ -8,6 +10,6 @@ package com.github.contest
 
 fun main() {
 
-
+    divisorGameDp(6)
 
 }

@@ -16,3 +16,4 @@ fun areAlmostEqualProdVariant(s1: String, s2: String): Boolean =
                 diff.size == 2 && s1[diff[0]] == s2[diff[1]] && s1[diff[1]] == s2[diff[0]]
             }
     }
+

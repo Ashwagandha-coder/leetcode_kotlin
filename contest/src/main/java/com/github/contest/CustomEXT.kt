@@ -9,3 +9,9 @@ fun MutableMap<Int, Int>.removeIfEmptyBucket(key: Int) {
 fun Any.printData(label: String) {
     println("$label $this")
 }
+
+
+inline fun abs(number: Int): Int = when {
+    number < 0 -> number * -1
+    else -> number
+}
