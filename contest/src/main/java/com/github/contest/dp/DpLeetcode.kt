@@ -133,6 +133,42 @@ private fun String.hasSingle(): Boolean = when {
 }
 
 /**
+ * 647. Palindromic Substrings
+ */
+
+
+fun countSubstrings(s: String): Int {
+    if (s.hasSingle()) return 1
+    val n = s.length
+    var counter = s.length
+    val dp = Array(n) { BooleanArray(n) }
+    for (i in 0 until n) dp[i][i] = true
+
+    for (len in 2..n) {
+        for (i in 0..n - len) {
+            val j = i + len - 1
+            when {
+                len == 2 -> {
+                    if (s[i] == s[j]) {
+                        counter++
+                        dp[i][j] = true
+                    }
+                }
+
+                else -> {
+                    if (s[i] == s[j] && dp[i + 1][j - 1]) {
+                        counter++
+                        dp[i][j] = true
+                    }
+                }
+            }
+        }
+    }
+
+    return counter
+}
+
+/**
  * 2370. Longest Ideal Subsequence
  */
 

@@ -1,5 +1,7 @@
 package com.github.contest.dp
 
+import com.github.contest.abs
+
 
 /**
  * 70. Climbing Stairs
@@ -52,36 +54,22 @@ private fun String.hasSingle(): Boolean = when {
 }
 
 /**
- * 647. Palindromic Substrings
+ * 2370. Longest Ideal Subsequence
+ * Prod Variant
  */
 
 
-fun countSubstrings(s: String): Int {
-    if (s.hasSingle()) return 1
-    val n = s.length
-    var counter = s.length
-    val dp = Array(n) { BooleanArray(n) }
-    for (i in 0 until n) dp[i][i] = true
+fun longestIdealSubSequenceProdVariant(s: String, k: Int): Int {
+    val dp = IntArray(26) { 0 }
 
-    for (len in 2..n) {
-        for (i in 0..n - len) {
-            val j = i + len - 1
-            when {
-                len == 2 -> {
-                    if (s[i] == s[j]) {
-                        counter++
-                        dp[i][j] = true
-                    }
-                }
-                else -> {
-                    if (s[i] == s[j] && dp[i + 1][j - 1]) {
-                        counter++
-                        dp[i][j] = true
-                    }
-                }
-            }
+    s.forEach {
+        val index = it - 'a'
+        var len = 0
+        (0..25).forEach { prev ->
+            if (abs(prev - index) <= k) len = maxOf(len, dp[prev])
         }
+        dp[index] = maxOf(dp[index], len + 1)
     }
 
-    return counter
+    return dp.max()
 }
