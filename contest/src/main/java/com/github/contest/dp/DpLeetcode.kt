@@ -197,16 +197,38 @@ fun longestIdealString(s: String, k: Int): Int {
 fun divisorGameDp(n: Int): Boolean {
     if (n <= 1) return false
     val dp = BooleanArray(n + 1)
-    dp[1] = false // Base case: If n is 1, the current player loses
+    dp[1] = false
 
     for (i in 2..n) {
         for (x in 1 until i) {
             if (i % x == 0 && !dp[i - x]) {
                 dp[i] = true
-                break // If we find a winning move, we can stop checking
+                break
             }
         }
     }
 
     return dp[n]
+}
+
+/**
+ * 2900. Longest Unequal Adjacent Groups Subsequence I
+ */
+
+fun getLongestSubsequence(words: Array<String>, groups: IntArray): List<String> {
+    val dp = BooleanArray(words.size) { false }
+    dp[0] = true
+    var j = 0
+    for (i in 1 until groups.size) {
+        if (groups[i] != groups[j]) {
+            dp[i] = true
+            j = i
+        }
+    }
+    var res = mutableListOf<String>()
+    for (i in words.indices) {
+        if (dp[i]) res.add(words[i])
+    }
+
+    return res
 }
