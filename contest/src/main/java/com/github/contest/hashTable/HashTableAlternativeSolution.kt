@@ -20,3 +20,29 @@ fun areAlmostEqualAltSolution(s1: String, s2: String): Boolean {
         else -> false
     }
 }
+
+/**
+ *
+ */
+
+fun countBadPairsAltSolution(nums: IntArray): Long {
+    val allPairs = nums.size.toLong() * (nums.size - 1)
+    val allOrderedPairs = allPairs / 2
+
+    val map = HashMap<Int, Counter>()
+    nums.forEachIndexed { i, value ->
+        map.getOrPut(value - i) { Counter() }.count++
+    }
+
+    var goodOrderedPairs = 0L
+    for (c in map.values) {
+        val goodPairs = c.count.toLong() * (c.count - 1)
+        goodOrderedPairs += goodPairs / 2
+    }
+
+    return allOrderedPairs - goodOrderedPairs
+}
+
+class Counter {
+    var count: Int = 0
+}
