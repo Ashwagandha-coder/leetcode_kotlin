@@ -148,3 +148,23 @@ private fun String.hasSingle(): Boolean = when {
 private fun isDigit(s: Char): Boolean {
     return s in "0123456789"
 }
+
+/**
+ * 2364. Count Number of Bad Pairs
+ */
+
+
+fun countBadPairs(nums: IntArray): Long {
+    val n = nums.size
+    val diffCounts = mutableMapOf<Int, Long>()
+    var goodPairs = 0L
+
+    for (j in 0 until n) {
+        val diff = nums[j] - j
+        goodPairs += diffCounts.getOrDefault(diff, 0L)
+        diffCounts[diff] = diffCounts.getOrDefault(diff, 0L) + 1
+    }
+
+    val totalPairs = n.toLong() * (n - 1) / 2
+    return totalPairs - goodPairs
+}
