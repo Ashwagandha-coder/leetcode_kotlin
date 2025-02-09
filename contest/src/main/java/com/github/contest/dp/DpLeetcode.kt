@@ -264,3 +264,34 @@ fun minPathSum(grid: Array<IntArray>): Int {
 
     return dp[m - 1][n - 1]
 }
+
+/**
+ * 1981. Minimize the Difference Between Target and Chosen Elements
+ */
+
+fun minimizeTheDifference(mat: Array<IntArray>, target: Int): Int {
+    val m = mat.size
+    val n = mat[0].size
+
+    var possibleSums = mutableSetOf<Int>()
+    for (num in mat[0]) {
+        possibleSums.add(num)
+    }
+
+    for (i in 1 until m) {
+        val nextPossibleSums = mutableSetOf<Int>()
+        for (sum in possibleSums) {
+            for (num in mat[i]) {
+                nextPossibleSums.add(sum + num)
+            }
+        }
+        possibleSums = nextPossibleSums
+    }
+
+    var minDiff = Int.MAX_VALUE
+    for (sum in possibleSums) {
+        minDiff = minOf(minDiff, abs(sum - target))
+    }
+
+    return minDiff
+}

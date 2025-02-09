@@ -168,3 +168,29 @@ fun countBadPairs(nums: IntArray): Long {
     val totalPairs = n.toLong() * (n - 1) / 2
     return totalPairs - goodPairs
 }
+
+/**
+ *
+ */
+
+fun findPairs(nums: IntArray, k: Int): Int {
+    if (k < 0) return 0
+
+    val numCounts = mutableMapOf<Int, Int>()
+    for (num in nums) {
+        numCounts[num] = numCounts.getOrDefault(num, 0) + 1
+    }
+
+    if (k == 0) {
+        return numCounts.count { it.value >= 2 }
+    }
+
+    val uniquePairs = mutableSetOf<Pair<Int, Int>>()
+    for (num in nums) {
+        if (numCounts.containsKey(num + k)) {
+            uniquePairs.add(Pair(minOf(num, num + k), maxOf(num, num + k)))
+        }
+    }
+
+    return uniquePairs.size
+}
