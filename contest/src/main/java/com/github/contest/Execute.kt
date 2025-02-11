@@ -1,7 +1,6 @@
 package com.github.contest
 
-import com.github.contest.hashTable.countBadPairs
-import com.github.contest.hashTable.countBadPairsAltSolution
+import com.github.contest.stack.removeOccurrencesProdVariant
 
 
 /**
@@ -10,6 +9,6 @@ import com.github.contest.hashTable.countBadPairsAltSolution
 
 fun main() {
 
-    countBadPairsAltSolution(intArrayOf(4, 1, 3, 3, 4)).also { println(it) }
+    removeOccurrencesProdVariant("daabcbaabcbc", "abc").also { println(it) }
 
 }
