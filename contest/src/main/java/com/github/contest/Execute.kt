@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.stack.removeOccurrencesProdVariant
+
 
 
 /**
@@ -9,6 +9,6 @@ import com.github.contest.stack.removeOccurrencesProdVariant
 
 fun main() {
 
-    removeOccurrencesProdVariant("daabcbaabcbc", "abc").also { println(it) }
+
 
 }
