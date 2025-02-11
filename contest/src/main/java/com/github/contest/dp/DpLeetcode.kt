@@ -295,3 +295,30 @@ fun minimizeTheDifference(mat: Array<IntArray>, target: Int): Int {
 
     return minDiff
 }
+
+/**
+ * 2063. Vowels of All Substrings
+ */
+
+fun countVowels(word: String): Long {
+    val n = word.length
+    val dp = LongArray(n)
+    val vowels = setOf('a', 'e', 'i', 'o', 'u')
+    var totalVowels = 0L
+
+    if (word[0] in vowels) {
+        dp[0] = 1
+    }
+
+    totalVowels += dp[0]
+
+    for (i in 1 until n) {
+        dp[i] = dp[i - 1]
+        if (word[i] in vowels) {
+            dp[i] += (i + 1).toLong()
+        }
+        totalVowels += dp[i]
+    }
+
+    return totalVowels
+}

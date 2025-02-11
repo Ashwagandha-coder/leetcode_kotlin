@@ -1,6 +1,6 @@
 package com.github.contest
 
-
+import com.github.contest.dp.countVowels
 
 
 /**
@@ -9,6 +9,7 @@ package com.github.contest
 
 fun main() {
 
+    countVowels("aba")
 
 
 }
