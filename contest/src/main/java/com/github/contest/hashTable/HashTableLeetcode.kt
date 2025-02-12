@@ -194,3 +194,37 @@ fun findPairs(nums: IntArray, k: Int): Int {
 
     return uniquePairs.size
 }
+
+/**
+ * 2342. Max Sum of a Pair With Equal Sum of Digits
+ */
+
+fun maximumSum(nums: IntArray): Int {
+    var maxSum = -1
+    val map = mutableMapOf<Int, Int>()
+
+    for (i in 0 until nums.size) {
+        val sum = sumOfDigit(nums[i])
+        if (map.contains(sum)) {
+            val first = map.getOrDefault(sum, -1)
+            maxSum = maxOf(maxSum, nums[first] + nums[i])
+            map[sum] = when {
+                nums[i] > nums[first] -> i
+                else -> first
+            }
+        } else map[sum] = map.getOrDefault(sum, i)
+    }
+
+    return maxSum
+}
+
+private fun sumOfDigit(num: Int): Int {
+    var num = num
+    var res = 0
+    while (num != 0) {
+        res += num % 10
+        num /= 10
+    }
+
+    return res
+}
