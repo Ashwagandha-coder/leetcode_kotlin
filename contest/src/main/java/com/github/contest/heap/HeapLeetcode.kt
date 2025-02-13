@@ -21,3 +21,28 @@ fun minOperations(nums: IntArray, k: Int): Int {
 
     return operation
 }
+
+/**
+ * 2208. Minimum Operations to Halve Array Sum
+ */
+
+fun halveArray(nums: IntArray): Int {
+    val pq = PriorityQueue<Double>(reverseOrder())
+    var sum = 0.0
+    for (num in nums) {
+        pq.offer(num.toDouble())
+        sum += num
+    }
+
+    var operations = 0
+    var halvedSum = 0.0
+    while (halvedSum < (sum / 2)) {
+        val largest = pq.poll()
+        val halved = largest / 2
+        halvedSum += halved
+        pq.offer(halved)
+        operations++
+    }
+
+    return operations
+}

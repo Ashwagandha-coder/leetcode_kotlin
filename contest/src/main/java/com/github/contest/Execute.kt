@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.hashTable.maximumSum
+import com.github.contest.heap.halveArray
 
 
 /**
@@ -9,31 +9,7 @@ import com.github.contest.hashTable.maximumSum
 
 fun main() {
 
-    maximumSum(
-        intArrayOf(
-            229,
-            398,
-            269,
-            317,
-            420,
-            464,
-            491,
-            218,
-            439,
-            153,
-            482,
-            169,
-            411,
-            93,
-            147,
-            50,
-            347,
-            210,
-            251,
-            366,
-            401
-        )
-    ).also { println(it) }
+    halveArray(intArrayOf(7, 7, 7, 31, 2)).also { println(it) }
 
 
 }
