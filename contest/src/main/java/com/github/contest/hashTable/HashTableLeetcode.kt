@@ -148,3 +148,83 @@ private fun String.hasSingle(): Boolean = when {
 private fun isDigit(s: Char): Boolean {
     return s in "0123456789"
 }
+
+/**
+ * 2364. Count Number of Bad Pairs
+ */
+
+
+fun countBadPairs(nums: IntArray): Long {
+    val n = nums.size
+    val diffCounts = mutableMapOf<Int, Long>()
+    var goodPairs = 0L
+
+    for (j in 0 until n) {
+        val diff = nums[j] - j
+        goodPairs += diffCounts.getOrDefault(diff, 0L)
+        diffCounts[diff] = diffCounts.getOrDefault(diff, 0L) + 1
+    }
+
+    val totalPairs = n.toLong() * (n - 1) / 2
+    return totalPairs - goodPairs
+}
+
+/**
+ *
+ */
+
+fun findPairs(nums: IntArray, k: Int): Int {
+    if (k < 0) return 0
+
+    val numCounts = mutableMapOf<Int, Int>()
+    for (num in nums) {
+        numCounts[num] = numCounts.getOrDefault(num, 0) + 1
+    }
+
+    if (k == 0) {
+        return numCounts.count { it.value >= 2 }
+    }
+
+    val uniquePairs = mutableSetOf<Pair<Int, Int>>()
+    for (num in nums) {
+        if (numCounts.containsKey(num + k)) {
+            uniquePairs.add(Pair(minOf(num, num + k), maxOf(num, num + k)))
+        }
+    }
+
+    return uniquePairs.size
+}
+
+/**
+ * 2342. Max Sum of a Pair With Equal Sum of Digits
+ */
+
+fun maximumSum(nums: IntArray): Int {
+    var maxSum = -1
+    val map = mutableMapOf<Int, Int>()
+
+    for (i in 0 until nums.size) {
+        val sum = sumOfDigit(nums[i])
+        if (map.contains(sum)) {
+            val first = map.getOrDefault(sum, -1)
+            maxSum = maxOf(maxSum, nums[first] + nums[i])
+            map[sum] = when {
+                nums[i] > nums[first] -> i
+                else -> first
+            }
+        } else map[sum] = map.getOrDefault(sum, i)
+    }
+
+    return maxSum
+}
+
+private fun sumOfDigit(num: Int): Int {
+    var num = num
+    var res = 0
+    while (num != 0) {
+        res += num % 10
+        num /= 10
+    }
+
+    return res
+}

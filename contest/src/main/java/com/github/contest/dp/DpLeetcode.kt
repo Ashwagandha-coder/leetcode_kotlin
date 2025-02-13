@@ -197,16 +197,128 @@ fun longestIdealString(s: String, k: Int): Int {
 fun divisorGameDp(n: Int): Boolean {
     if (n <= 1) return false
     val dp = BooleanArray(n + 1)
-    dp[1] = false // Base case: If n is 1, the current player loses
+    dp[1] = false
 
     for (i in 2..n) {
         for (x in 1 until i) {
             if (i % x == 0 && !dp[i - x]) {
                 dp[i] = true
-                break // If we find a winning move, we can stop checking
+                break
             }
         }
     }
 
     return dp[n]
+}
+
+/**
+ * 2900. Longest Unequal Adjacent Groups Subsequence I
+ */
+
+fun getLongestSubsequence(words: Array<String>, groups: IntArray): List<String> {
+    val dp = BooleanArray(words.size) { false }
+    dp[0] = true
+    var j = 0
+    for (i in 1 until groups.size) {
+        if (groups[i] != groups[j]) {
+            dp[i] = true
+            j = i
+        }
+    }
+    var res = mutableListOf<String>()
+    for (i in words.indices) {
+        if (dp[i]) res.add(words[i])
+    }
+
+    return res
+}
+
+/**
+ * 64. Minimum Path Sum
+ */
+
+fun minPathSum(grid: Array<IntArray>): Int {
+    val m = grid.size
+    val n = grid[0].size
+    val dp = Array(m) { IntArray(n) }
+
+
+    dp[0][0] = grid[0][0]
+
+
+    for (j in 1 until n) {
+        dp[0][j] = dp[0][j - 1] + grid[0][j]
+    }
+
+
+    for (i in 1 until m) {
+        dp[i][0] = dp[i - 1][0] + grid[i][0]
+    }
+
+
+    for (i in 1 until m) {
+        for (j in 1 until n) {
+            dp[i][j] = minOf(dp[i - 1][j], dp[i][j - 1]) + grid[i][j]
+        }
+    }
+
+    return dp[m - 1][n - 1]
+}
+
+/**
+ * 1981. Minimize the Difference Between Target and Chosen Elements
+ */
+
+fun minimizeTheDifference(mat: Array<IntArray>, target: Int): Int {
+    val m = mat.size
+    val n = mat[0].size
+
+    var possibleSums = mutableSetOf<Int>()
+    for (num in mat[0]) {
+        possibleSums.add(num)
+    }
+
+    for (i in 1 until m) {
+        val nextPossibleSums = mutableSetOf<Int>()
+        for (sum in possibleSums) {
+            for (num in mat[i]) {
+                nextPossibleSums.add(sum + num)
+            }
+        }
+        possibleSums = nextPossibleSums
+    }
+
+    var minDiff = Int.MAX_VALUE
+    for (sum in possibleSums) {
+        minDiff = minOf(minDiff, abs(sum - target))
+    }
+
+    return minDiff
+}
+
+/**
+ * 2063. Vowels of All Substrings
+ */
+
+fun countVowels(word: String): Long {
+    val n = word.length
+    val dp = LongArray(n)
+    val vowels = setOf('a', 'e', 'i', 'o', 'u')
+    var totalVowels = 0L
+
+    if (word[0] in vowels) {
+        dp[0] = 1
+    }
+
+    totalVowels += dp[0]
+
+    for (i in 1 until n) {
+        dp[i] = dp[i - 1]
+        if (word[i] in vowels) {
+            dp[i] += (i + 1).toLong()
+        }
+        totalVowels += dp[i]
+    }
+
+    return totalVowels
 }

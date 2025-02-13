@@ -1,7 +1,6 @@
 package com.github.contest
 
-
-import com.github.contest.dp.divisorGameDp
+import com.github.contest.heap.halveArray
 
 
 /**
@@ -10,6 +9,7 @@ import com.github.contest.dp.divisorGameDp
 
 fun main() {
 
-    divisorGameDp(6)
+    halveArray(intArrayOf(7, 7, 7, 31, 2)).also { println(it) }
+
 
 }
