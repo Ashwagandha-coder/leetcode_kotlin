@@ -1,7 +1,8 @@
 package com.github.contest
 
+import com.github.contest.dp.countVowels
+import com.github.contest.graph.findJudge
 import com.github.contest.heap.customStructure.MinHeap
-import java.util.PriorityQueue
 
 
 /**
@@ -9,6 +10,38 @@ import java.util.PriorityQueue
  */
 
 fun main() {
+
+    findJudge(
+        5,
+        arrayOf(
+            intArrayOf(1, 3),
+            intArrayOf(2, 3),
+            intArrayOf(4, 3),
+            intArrayOf(4, 1),
+            intArrayOf(5, 3),
+            intArrayOf(5, 1),
+            intArrayOf(5, 4)
+        )
+    )
+
+}
+
+fun vowels() {
+
+    /**
+     * a a a
+     * aa
+     * aa
+     * aaa
+     * count - 10
+     */
+
+    countVowels("aaa")
+
+}
+
+
+fun heapWork() {
 
     val heap = MinHeap<Int>()
     heap.offer(3)
@@ -19,26 +52,4 @@ fun main() {
 
     println(heap.poll())
 
-
-//    halveArrayTest(intArrayOf(3, 8, 20))
-
-}
-
-
-fun halveArrayTest(nums: IntArray): Int {
-    val heap = PriorityQueue<Double>(reverseOrder())
-    nums.forEach { heap.offer(it.toDouble()) }
-    val sum = nums.sum().toDouble()
-
-    val halve = sum / 2
-    var halvest = 0.0
-    var operations = 0
-    while (halvest < halve) {
-        val element = heap.poll() / 2
-        heap.offer(element)
-        halvest += element
-        operations++
-    }
-
-    return operations
 }
