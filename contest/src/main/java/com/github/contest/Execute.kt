@@ -1,6 +1,7 @@
 package com.github.contest
 
-import com.github.contest.design.ProductOfNumbersProdVariant
+import com.github.contest.heap.customStructure.MinHeap
+import java.util.PriorityQueue
 
 
 /**
@@ -9,25 +10,35 @@ import com.github.contest.design.ProductOfNumbersProdVariant
 
 fun main() {
 
-    val productOfNumbers = ProductOfNumbersProdVariant()
-    productOfNumbers.add(3)
-    productOfNumbers.add(0)
-    productOfNumbers.add(2)
-    productOfNumbers.add(5)
-    productOfNumbers.add(4)
-    println(productOfNumbers.getProduct(2)) // Output: 20
-    println(productOfNumbers.getProduct(3)) // Output: 40
-    println(productOfNumbers.getProduct(4)) // Output: 0
-    productOfNumbers.add(0)
-    println(productOfNumbers.getProduct(2)) // Output: 0
-    productOfNumbers.add(3)
-    productOfNumbers.add(2)
-    productOfNumbers.add(5)
-    productOfNumbers.add(4)
-    println(productOfNumbers.getProduct(2)) // Output: 20
-    println(productOfNumbers.getProduct(3)) // Output: 40
-    println(productOfNumbers.getProduct(4)) // Output: 120
-    println(productOfNumbers.getProduct(5))
+    val heap = MinHeap<Int>()
+    heap.offer(3)
+    heap.offer(1)
+    heap.offer(2)
+    heap.offer(5)
 
 
+    println(heap.poll())
+
+
+//    halveArrayTest(intArrayOf(3, 8, 20))
+
+}
+
+
+fun halveArrayTest(nums: IntArray): Int {
+    val heap = PriorityQueue<Double>(reverseOrder())
+    nums.forEach { heap.offer(it.toDouble()) }
+    val sum = nums.sum().toDouble()
+
+    val halve = sum / 2
+    var halvest = 0.0
+    var operations = 0
+    while (halvest < halve) {
+        val element = heap.poll() / 2
+        heap.offer(element)
+        halvest += element
+        operations++
+    }
+
+    return operations
 }
