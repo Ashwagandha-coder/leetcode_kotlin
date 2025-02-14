@@ -322,3 +322,42 @@ fun countVowels(word: String): Long {
 
     return totalVowels
 }
+
+/**
+ *
+ */
+
+fun maxTwoEvents(events: Array<IntArray>): Int {
+    val n = events.size
+    events.sortBy { it[0] } // Sort by start time
+    val dp = IntArray(n)
+    var maxVal = 0
+    for (i in n - 1 downTo 0) {
+        maxVal = maxOf(maxVal, events[i][2])
+        dp[i] = maxVal
+    }
+    var res = 0
+    for (i in 0 until n) {
+        val start = events[i][0]
+        val end = events[i][1]
+        val value = events[i][2]
+        val nextIndex = findNextNonOverlapping(events, end)
+        val nextValue = if (nextIndex == n) 0 else dp[nextIndex]
+        res = maxOf(res, value + nextValue)
+    }
+    return res
+}
+
+private fun findNextNonOverlapping(events: Array<IntArray>, end: Int): Int {
+    var left = 0
+    var right = events.size
+    while (left < right) {
+        val mid = left + (right - left) / 2
+        if (events[mid][0] <= end) {
+            left = mid + 1
+        } else {
+            right = mid
+        }
+    }
+    return left
+}
