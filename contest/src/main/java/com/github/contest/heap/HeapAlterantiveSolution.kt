@@ -29,3 +29,31 @@ private fun PriorityQueue<Long>.addNums(nums: IntArray) {
     nums.forEach { list.add(it.toLong()) }
     this.addAll(list)
 }
+
+/**
+ * 2500. Delete Greatest Value in Each Row
+ * Alternative Solution
+ */
+
+
+fun deleteGreatestValueAltSolution(grid: Array<IntArray>): Int {
+    val pqRows = Array(grid.size) { PriorityQueue<Int>(reverseOrder()) }
+
+    for (i in 0 until grid.size) {
+        for (num in grid[i]) {
+            pqRows[i].offer(num)
+        }
+    }
+
+    var sum = 0
+
+    while (pqRows[0].isNotEmpty()) {
+        var maxVal = 0
+        for (pq in pqRows) {
+            maxVal = maxOf(maxVal, pq.poll())
+        }
+        sum += maxVal
+    }
+
+    return sum
+}
