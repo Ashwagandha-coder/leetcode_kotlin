@@ -46,3 +46,26 @@ fun halveArray(nums: IntArray): Int {
 
     return operations
 }
+
+
+/**
+ * 2500. Delete Greatest Value in Each Row
+ */
+
+
+fun deleteGreatestValue(grid: Array<IntArray>): Int {
+    for (row in grid) row.sort()
+
+    var sum = 0
+
+    for (j in 0 until grid[0].size) {
+        var maxVal = 0
+        for (i in 0 until grid.size) {
+            maxVal = maxOf(maxVal, grid[i][j])
+        }
+
+        sum += maxVal
+    }
+
+    return sum
+}
