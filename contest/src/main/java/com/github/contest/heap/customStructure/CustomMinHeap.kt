@@ -14,21 +14,41 @@ class CustomMinHeap<T : Comparable<T>> {
 
 
     fun offer(element: T) {
-
+        heap.add(element)
+        siftUp(heap.size - 1)
     }
 
 
-//    fun poll(): T? {
-//
-//    }
+    fun poll(): T? {
+        if (isEmpty()) throw NoSuchElementException("No Element's")
+        swap(0, heap.size - 1)
+        val element = heap.removeLast()
+        siftDown(0)
+        return element
+    }
 
-    private fun heapifyUp(index: Int) {
-
+    private fun siftUp(index: Int) {
+        var currentIndex = index
+        var parentIndex = getIndexParent(currentIndex)
+        while (currentIndex > 0 && heap[parentIndex] > heap[currentIndex]) {
+            swap(currentIndex, parentIndex)
+            currentIndex = parentIndex
+            parentIndex = getIndexParent(currentIndex)
+        }
     }
 
 
-    private fun heapifyDown(index: Int) {
-
+    private fun siftDown(index: Int) {
+        var currentIndex = index
+        while (hasLeftChild(currentIndex)) {
+            var smallestIndex = getIndexLeftChild(currentIndex)
+            if (hasRightChild(currentIndex) && heap[getIndexRightChild(currentIndex)] < heap[smallestIndex]) {
+                smallestIndex = getIndexRightChild(currentIndex)
+            }
+            if (heap[currentIndex] < heap[smallestIndex]) break
+            else swap(currentIndex, smallestIndex)
+            currentIndex = smallestIndex
+        }
     }
 
     private fun getIndexParent(index: Int) = (index - 1) / 2
@@ -40,6 +60,13 @@ class CustomMinHeap<T : Comparable<T>> {
     private fun hasLeftChild(index: Int) = getIndexLeftChild(index) < heap.size
 
     private fun hasRightChild(index: Int) = getIndexRightChild(index) < heap.size
+
+
+    private fun swap(from: Int, to: Int) {
+        val temp = heap[from]
+        heap[from] = heap[to]
+        heap[to] = temp
+    }
 
 
 }

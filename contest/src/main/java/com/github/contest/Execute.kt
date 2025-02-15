@@ -2,7 +2,7 @@ package com.github.contest
 
 import com.github.contest.dp.countVowels
 import com.github.contest.graph.findJudge
-import com.github.contest.heap.customStructure.MinHeap
+import com.github.contest.heap.customStructure.CustomMinHeap
 
 
 /**
@@ -11,7 +11,7 @@ import com.github.contest.heap.customStructure.MinHeap
 
 fun main() {
 
-
+    heapWork()
 }
 
 fun findJudgeData() {
@@ -46,7 +46,7 @@ fun vowels() {
 
 fun heapWork() {
 
-    val heap = MinHeap<Int>()
+    val heap = CustomMinHeap<Int>()
     heap.offer(3)
     heap.offer(1)
     heap.offer(2)
