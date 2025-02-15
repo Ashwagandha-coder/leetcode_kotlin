@@ -11,6 +11,10 @@ import com.github.contest.heap.customStructure.MinHeap
 
 fun main() {
 
+
+}
+
+fun findJudgeData() {
     findJudge(
         5,
         arrayOf(
@@ -23,7 +27,6 @@ fun main() {
             intArrayOf(5, 4)
         )
     )
-
 }
 
 fun vowels() {
