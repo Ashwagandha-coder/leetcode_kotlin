@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.backtracking.constructDistancedSequence
+import com.github.contest.backtracking.punishmentNumberProdVariant
 import com.github.contest.dp.countVowels
 import com.github.contest.graph.findJudge
 import com.github.contest.heap.customStructure.CustomMinHeap
@@ -12,7 +12,7 @@ import com.github.contest.heap.customStructure.CustomMinHeap
 
 fun main() {
 
-    constructDistancedSequence(5).apply { this.printArray() }
+    punishmentNumberProdVariant(10).apply { println(this) }
 
 }
 
