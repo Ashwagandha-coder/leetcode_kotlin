@@ -3,6 +3,7 @@ package com.github.contest
 import com.github.contest.dp.countVowels
 import com.github.contest.graph.findJudge
 import com.github.contest.heap.customStructure.CustomMinHeap
+import com.github.contest.heap.findXSum
 
 
 /**
@@ -11,7 +12,7 @@ import com.github.contest.heap.customStructure.CustomMinHeap
 
 fun main() {
 
-    heapWork()
+    findXSum(intArrayOf(1, 2, 3, 4, 5, 6), 6, 1)
 }
 
 fun findJudgeData() {

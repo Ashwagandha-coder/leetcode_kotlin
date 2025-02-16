@@ -69,3 +69,52 @@ fun deleteGreatestValue(grid: Array<IntArray>): Int {
 
     return sum
 }
+
+/**
+ * 3318. Find X-Sum of All K-Long Subarrays I
+ */
+
+
+fun findXSum(nums: IntArray, k: Int, x: Int): IntArray {
+    if (nums.hasSingle()) return intArrayOf(nums[0])
+    val n = nums.size
+    val res = IntArray(n - k + 1)
+
+    for (i in 0 until res.size) {
+        res[i] = nums.calculateXSum(i, k + i - 1, k, x)
+    }
+
+    return res
+}
+
+private fun IntArray.hasSingle(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}
+
+
+private fun IntArray.calculateXSum(startIndex: Int, endIndex: Int, k: Int, x: Int): Int {
+    when {
+        startIndex > endIndex -> throw IndexOutOfBoundsException("$startIndex")
+        endIndex > this.size -> throw IndexOutOfBoundsException("$endIndex")
+    }
+    val counts = mutableMapOf<Int, Int>()
+    for (i in startIndex..endIndex) counts[this[i]] = counts.getOrDefault(this[i], 0) + 1
+
+    val pq = PriorityQueue<Pair<Int, Int>> {a: Pair<Int, Int>, b: Pair<Int, Int> ->
+        if (a.second != b.second) b.second - a.second
+        else b.first - a.first
+    }
+
+    for ((num, count) in counts) pq.offer(Pair(num, count))
+
+    var x = x
+    var sum = 0
+    while (pq.isNotEmpty() && x != 0) {
+        val (num, count) = pq.poll()
+        sum += (num * count)
+        x--
+    }
+
+    return sum
+}
