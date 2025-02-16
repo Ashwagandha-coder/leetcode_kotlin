@@ -2,6 +2,7 @@ package com.github.contest.heap
 
 import com.github.contest.abs
 import java.util.PriorityQueue
+import kotlin.math.sqrt
 
 /**
  * 3066. Minimum Operations to Exceed Threshold Value II
@@ -146,4 +147,33 @@ private fun <T> PriorityQueue<T>.hasSingle(): Boolean = when {
 
 private fun PriorityQueue<Int>.addAllOfIntArray(nums: IntArray) {
     nums.forEach { this.offer(it) }
+}
+
+/**
+ * 2558. Take Gifts From the Richest Pile
+ */
+
+
+fun pickGifts(gifts: IntArray, k: Int): Long {
+    val pq = PriorityQueue<Long>(reverseOrder())
+    pq.addAllNums(gifts)
+
+    repeat(k) {
+        val num = pq.poll()
+        val changed = sqrt(num.toDouble()).toLong()
+        pq.offer(changed)
+    }
+
+    return pq.sum()
+
+}
+
+private fun PriorityQueue<Long>.sum(): Long {
+    var sum = 0L
+    while (this.isNotEmpty()) sum += this.poll()
+    return sum
+}
+
+private fun PriorityQueue<Long>.addAllNums(nums: IntArray) {
+    nums.forEach { this.offer(it.toLong()) }
 }
