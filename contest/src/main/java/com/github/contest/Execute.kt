@@ -3,7 +3,7 @@ package com.github.contest
 import com.github.contest.dp.countVowels
 import com.github.contest.graph.findJudge
 import com.github.contest.heap.customStructure.CustomMinHeap
-import com.github.contest.heap.findXSum
+import kotlin.math.floor
 
 
 /**
@@ -12,7 +12,10 @@ import com.github.contest.heap.findXSum
 
 fun main() {
 
-    findXSum(intArrayOf(1, 2, 3, 4, 5, 6), 6, 1)
+    val num = 4.5
+
+    println(floor(num))
+
 }
 
 fun findJudgeData() {
