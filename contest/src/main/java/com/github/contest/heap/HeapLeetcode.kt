@@ -157,7 +157,8 @@ private fun PriorityQueue<Int>.addAllOfIntArray(nums: IntArray) {
 
 fun pickGifts(gifts: IntArray, k: Int): Long {
     val pq = PriorityQueue<Long>(reverseOrder())
-    pq.addAllNums(gifts)
+
+    for (gift in gifts) pq.offer(gift.toLong())
 
     repeat(k) {
         val num = pq.poll()
@@ -175,10 +176,6 @@ private fun PriorityQueue<Long>.sum(): Long {
     return sum
 }
 
-private fun PriorityQueue<Long>.addAllNums(nums: IntArray) {
-    nums.forEach { this.offer(it.toLong()) }
-}
-
 
 /**
  * 1962. Remove Stones to Minimize the Total
@@ -186,7 +183,7 @@ private fun PriorityQueue<Long>.addAllNums(nums: IntArray) {
 
 fun minStoneSum(piles: IntArray, k: Int): Int {
     val pq = PriorityQueue<Int>(reverseOrder())
-    pq.addAllNums(piles)
+    pq.addAll(piles.toList())
     repeat(k) {
         val num = pq.poll()
         val changed = num - floor(num / 2.0).toInt()
@@ -200,8 +197,4 @@ private fun PriorityQueue<Int>.sum(): Int {
     var sum = 0
     while (this.isNotEmpty()) sum += this.poll()
     return sum
-}
-
-private fun PriorityQueue<Int>.addAllNums(nums: IntArray) {
-    nums.forEach { this.offer(it) }
 }

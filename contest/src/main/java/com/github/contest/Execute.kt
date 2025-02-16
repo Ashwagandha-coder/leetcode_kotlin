@@ -1,9 +1,9 @@
 package com.github.contest
 
+import com.github.contest.backtracking.constructDistancedSequence
 import com.github.contest.dp.countVowels
 import com.github.contest.graph.findJudge
 import com.github.contest.heap.customStructure.CustomMinHeap
-import kotlin.math.floor
 
 
 /**
@@ -12,10 +12,15 @@ import kotlin.math.floor
 
 fun main() {
 
-    val num = 4.5
+    constructDistancedSequence(5).apply { this.printArray() }
 
-    println(floor(num))
+}
 
+private fun IntArray.printArray() {
+    var s = "["
+    this.forEach { s += "$it, " }
+    s += "]"
+    println(s)
 }
 
 fun findJudgeData() {

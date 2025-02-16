@@ -37,3 +37,50 @@ private fun canSplit(squareStr: String, index: Int, target: Int, currentSum: Int
     }
     return false
 }
+
+/**
+ * 1718. Construct the Lexicographically Largest Valid Sequence
+ */
+
+
+fun constructDistancedSequence(n: Int): IntArray {
+    val result = IntArray(2 * n - 1)
+    val used = BooleanArray(n + 1)
+
+    fun backtrack(index: Int): Boolean {
+        if (index == result.size) {
+            return true
+        }
+        if (result[index] != 0) {
+            return backtrack(index + 1)
+        }
+
+        for (num in n downTo 1) {
+            if (!used[num]) {
+                if (num == 1) {
+                    result[index] = num
+                    used[num] = true
+                    if (backtrack(index + 1)) {
+                        return true
+                    }
+                    used[num] = false
+                    result[index] = 0
+                } else if (index + num < result.size && result[index + num] == 0) {
+                    result[index] = num
+                    result[index + num] = num
+                    used[num] = true
+                    if (backtrack(index + 1)) {
+                        return true
+                    }
+                    used[num] = false
+                    result[index] = 0
+                    result[index + num] = 0
+                }
+            }
+        }
+        return false
+    }
+
+    backtrack(0)
+    return result
+}
