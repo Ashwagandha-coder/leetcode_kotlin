@@ -1,5 +1,6 @@
 package com.github.contest.heap
 
+import com.github.contest.abs
 import java.util.PriorityQueue
 
 /**
@@ -101,7 +102,7 @@ private fun IntArray.calculateXSum(startIndex: Int, endIndex: Int, k: Int, x: In
     val counts = mutableMapOf<Int, Int>()
     for (i in startIndex..endIndex) counts[this[i]] = counts.getOrDefault(this[i], 0) + 1
 
-    val pq = PriorityQueue<Pair<Int, Int>> {a: Pair<Int, Int>, b: Pair<Int, Int> ->
+    val pq = PriorityQueue<Pair<Int, Int>> { a: Pair<Int, Int>, b: Pair<Int, Int> ->
         if (a.second != b.second) b.second - a.second
         else b.first - a.first
     }
@@ -117,4 +118,32 @@ private fun IntArray.calculateXSum(startIndex: Int, endIndex: Int, k: Int, x: In
     }
 
     return sum
+}
+
+/**
+ * 1046. Last Stone Weight
+ */
+
+
+fun lastStoneWeight(stones: IntArray): Int {
+    if (stones.size == 1) return stones[0]
+    val pq = PriorityQueue<Int>(reverseOrder())
+    pq.addAllOfIntArray(stones)
+
+    while (pq.isNotEmpty() && pq.size != 1) {
+        val x = pq.poll()
+        val y = pq.poll()
+        if (x != y) pq.offer(abs(x - y))
+    }
+
+    return if (pq.hasSingle()) pq.poll() else 0
+}
+
+private fun <T> PriorityQueue<T>.hasSingle(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}
+
+private fun PriorityQueue<Int>.addAllOfIntArray(nums: IntArray) {
+    nums.forEach { this.offer(it) }
 }
