@@ -1,5 +1,7 @@
 package com.leetcode_kotlin
 
+import java.util.concurrent.ConcurrentHashMap
+
 
 /**
  * Executing
@@ -8,11 +10,10 @@ package com.leetcode_kotlin
 
 fun main() {
 
+    val concurrentHashMap = ConcurrentHashMap<Int, Int>()
 
-    val arr = intArrayOf(1, 4, 6, 7, 3, 7, 7)
-    arr.drop(1).forEachIndexed { index, num ->
-        println("$index $num")
-    }
+    concurrentHashMap.put(1, 5)
+
 
 }
 
