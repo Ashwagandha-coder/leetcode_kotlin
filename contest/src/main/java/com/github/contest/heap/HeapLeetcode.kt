@@ -217,3 +217,27 @@ fun numberGame(nums: IntArray): IntArray {
 
     return nums
 }
+
+/**
+ * 2335. Minimum Amount of Time to Fill Cups
+ */
+
+fun fillCups(amount: IntArray): Int {
+    val heap = PriorityQueue<Int> { a, b -> b - a }
+    var counter = 0
+    for (water in amount) if (water != 0) heap.offer(water)
+    while (heap.isNotEmpty()) {
+        if (heap.size >= 2) {
+            val one = heap.poll()
+            val two = heap.poll()
+            if (one - 1 != 0) heap.offer(one - 1)
+            if (two - 1 != 0) heap.offer(two - 1)
+        } else {
+            val single = heap.poll()
+            if (single - 1 != 0) heap.offer(single - 1)
+        }
+        counter++
+    }
+
+    return counter
+}
