@@ -198,3 +198,22 @@ private fun PriorityQueue<Int>.sum(): Int {
     while (this.isNotEmpty()) sum += this.poll()
     return sum
 }
+
+/**
+ * 2974. Minimum Number Game
+ */
+
+fun numberGame(nums: IntArray): IntArray {
+    val heap = PriorityQueue<Int> { a, b -> a - b }
+    for (num in nums) heap.offer(num)
+    var i = 0
+    while (heap.isNotEmpty()) {
+        val a = heap.poll()
+        val b = heap.poll()
+        nums[i] = b
+        nums[i + 1] = a
+        i += 2
+    }
+
+    return nums
+}

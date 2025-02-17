@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.backtracking.constructDistancedSequenceIterativeSolution
+import com.github.contest.heap.numberGame
 
 
 /**
@@ -9,7 +9,7 @@ import com.github.contest.backtracking.constructDistancedSequenceIterativeSoluti
 
 fun main() {
 
-    constructDistancedSequenceIterativeSolution(4).also { it.printArray() }
+    numberGame(intArrayOf(5, 4, 2, 3))
 
 
 }
