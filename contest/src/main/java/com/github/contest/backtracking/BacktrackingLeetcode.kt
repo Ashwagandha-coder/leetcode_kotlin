@@ -84,3 +84,27 @@ fun constructDistancedSequence(n: Int): IntArray {
     backtrack(0)
     return result
 }
+
+/**
+ * 1079. Letter Tile Possibilities
+ */
+
+fun numTilePossibilities(tiles: String): Int {
+    val count = IntArray(26)
+    for (c in tiles) {
+        count[c - 'A']++
+    }
+    return dfs(count)
+}
+
+private fun dfs(count: IntArray): Int {
+    var sum = 0
+    for (i in 0 until 26) {
+        if (count[i] == 0) continue
+        sum++
+        count[i]--
+        sum += dfs(count)
+        count[i]++
+    }
+    return sum
+}

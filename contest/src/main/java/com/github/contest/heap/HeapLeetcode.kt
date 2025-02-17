@@ -198,3 +198,46 @@ private fun PriorityQueue<Int>.sum(): Int {
     while (this.isNotEmpty()) sum += this.poll()
     return sum
 }
+
+/**
+ * 2974. Minimum Number Game
+ */
+
+fun numberGame(nums: IntArray): IntArray {
+    val heap = PriorityQueue<Int> { a, b -> a - b }
+    for (num in nums) heap.offer(num)
+    var i = 0
+    while (heap.isNotEmpty()) {
+        val a = heap.poll()
+        val b = heap.poll()
+        nums[i] = b
+        nums[i + 1] = a
+        i += 2
+    }
+
+    return nums
+}
+
+/**
+ * 2335. Minimum Amount of Time to Fill Cups
+ */
+
+fun fillCups(amount: IntArray): Int {
+    val heap = PriorityQueue<Int> { a, b -> b - a }
+    var counter = 0
+    for (water in amount) if (water != 0) heap.offer(water)
+    while (heap.isNotEmpty()) {
+        if (heap.size >= 2) {
+            val one = heap.poll()
+            val two = heap.poll()
+            if (one - 1 != 0) heap.offer(one - 1)
+            if (two - 1 != 0) heap.offer(two - 1)
+        } else {
+            val single = heap.poll()
+            if (single - 1 != 0) heap.offer(single - 1)
+        }
+        counter++
+    }
+
+    return counter
+}
