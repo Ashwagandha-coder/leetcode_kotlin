@@ -59,3 +59,37 @@ private fun isValid(num: Int, pos: Int, arr: IntArray): Boolean {
     if (arr[pos + num + 1] != 0) return false
     return true
 }
+
+/**
+ * 1415. The k-th Lexicographical String of All Happy Strings of Length n
+ * Alternative Solution
+ */
+
+fun getHappyStringAltSolution(n: Int, k: Int): String {
+    val count = intArrayOf(0)
+    val result = StringBuilder()
+    val chars = charArrayOf('a', 'b', 'c')
+
+    fun backtrack(current: StringBuilder) {
+        if (current.length == n) {
+            count[0]++
+            if (count[0] == k) {
+                result.append(current.toString())
+            }
+            return
+        }
+
+        if (count[0] >= k) return
+
+        for (char in chars) {
+            if (current.isEmpty() || current.last() != char) {
+                current.append(char)
+                backtrack(current)
+                current.deleteCharAt(current.length - 1)
+            }
+        }
+    }
+
+    backtrack(StringBuilder())
+    return result.toString()
+}
