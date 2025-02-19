@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.backtracking.getHappyString
+import com.github.contest.backtracking.getHappyStringProdVariant
 
 
 /**
@@ -9,7 +9,7 @@ import com.github.contest.backtracking.getHappyString
 
 fun main() {
 
-    getHappyString(3, 9).also { println(it) }
+    getHappyStringProdVariant(3, 9).also { println(it) }
 
 
 }
