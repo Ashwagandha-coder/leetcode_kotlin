@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.heap.numberGame
+import com.github.contest.backtracking.getHappyString
 
 
 /**
@@ -9,7 +9,7 @@ import com.github.contest.heap.numberGame
 
 fun main() {
 
-    numberGame(intArrayOf(5, 4, 2, 3))
+    getHappyString(3, 9).also { println(it) }
 
 
 }

@@ -108,3 +108,37 @@ private fun dfs(count: IntArray): Int {
     }
     return sum
 }
+
+/**
+ * 1415. The k-th Lexicographical String of All Happy Strings of Length n
+ */
+
+
+fun getHappyString(n: Int, k: Int): String {
+    val res = mutableListOf<String>()
+    val set = "abc"
+    val subset = StringBuilder()
+    generateHappyString(0, n, set, subset, res)
+    return if (k > res.size) "" else res[k - 1]
+}
+
+private fun generateHappyString(
+    index: Int,
+    n: Int,
+    set: String,
+    subset: StringBuilder,
+    res: MutableList<String>
+) {
+    if (index == n) {
+        res.add(subset.toString())
+        return
+    }
+
+    for (s in set) {
+        if (subset.isEmpty() || subset[subset.length - 1] != s) {
+            subset.append(s)
+            generateHappyString(index + 1, n, set, subset, res)
+            subset.deleteCharAt(subset.length - 1)
+        }
+    }
+}
