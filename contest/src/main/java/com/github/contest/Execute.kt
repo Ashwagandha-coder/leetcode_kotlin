@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.heap.numberGame
+import com.github.contest.heap.customStructure.MaxHeap
 
 
 /**
@@ -9,7 +9,13 @@ import com.github.contest.heap.numberGame
 
 fun main() {
 
-    numberGame(intArrayOf(5, 4, 2, 3))
+    val maxheap = MaxHeap<Int>()
+
+    for (i in 1..39) maxheap.offer(i)
+
+    while (maxheap.isNotEmpty()) {
+        println(maxheap.poll())
+    }
 
 
 }

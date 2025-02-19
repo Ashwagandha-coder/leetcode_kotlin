@@ -23,3 +23,37 @@ private fun isPunishment(num: Int): Boolean {
 
     return backtrack(0, 0)
 }
+
+/**
+ * 1415. The k-th Lexicographical String of All Happy Strings of Length n
+ * Prod Variant
+ */
+
+
+fun getHappyStringProdVariant(n: Int, k: Int): String {
+    val result = StringBuilder()
+    val chars = setOf('a', 'b', 'c')
+    var count = 0
+    fun generateHappyString(current: StringBuilder) {
+        if (current.length == n) {
+            count++
+            if (count == k) result.append(current.toString())
+            return
+        }
+
+        if (count >= k) return
+
+        chars.filter { current.isEmpty() || current.last() != it }.forEach {
+            current.append(it)
+            generateHappyString(current)
+            current.deleteLast()
+        }
+    }
+
+    generateHappyString(StringBuilder())
+    return result.toString()
+}
+
+private fun StringBuilder.deleteLast() {
+    if (isNotEmpty()) deleteCharAt(this.length - 1)
+}
