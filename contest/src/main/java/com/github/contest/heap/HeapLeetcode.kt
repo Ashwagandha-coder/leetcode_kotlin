@@ -241,3 +241,23 @@ fun fillCups(amount: IntArray): Int {
 
     return counter
 }
+
+/**
+ * 3264. Final Array State After K Multiplication Operations I
+ */
+
+fun getFinalState(nums: IntArray, k: Int, multiplier: Int): IntArray {
+    val minHeap = PriorityQueue { a: Pair<Int, Int>, b: Pair<Int, Int> ->
+        if (a.second == b.second) a.first - b.first
+        else a.second - b.second
+    }
+    for (i in 0 until nums.size) minHeap.offer(Pair(i, nums[i]))
+    repeat(k) {
+        val (index, value) = minHeap.poll()
+        val new = value * multiplier
+        nums[index] = new
+        minHeap.offer(Pair(index, new))
+    }
+
+    return nums
+}

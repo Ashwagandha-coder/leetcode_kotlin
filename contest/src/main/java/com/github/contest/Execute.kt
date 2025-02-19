@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.heap.customStructure.MaxHeap
+
 
 
 /**
@@ -8,14 +8,6 @@ import com.github.contest.heap.customStructure.MaxHeap
  */
 
 fun main() {
-
-    val maxheap = MaxHeap<Int>()
-
-    for (i in 1..39) maxheap.offer(i)
-
-    while (maxheap.isNotEmpty()) {
-        println(maxheap.poll())
-    }
 
 
 }
