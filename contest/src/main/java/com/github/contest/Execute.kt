@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.heap.findDiagonalOrderAlternativeSolution
+import com.github.contest.heap.findDiagonalOrderProdVariant
 
 
 /**
@@ -10,7 +10,7 @@ import com.github.contest.heap.findDiagonalOrderAlternativeSolution
 
 fun main() {
 
-    findDiagonalOrderAlternativeSolution(
+    findDiagonalOrderProdVariant(
         listOf(
             listOf(1, 2, 3, 4, 5),
             listOf(6, 7),
