@@ -1,6 +1,8 @@
 package com.github.contest
 
-import com.github.contest.heap.customStructure.MaxHeap
+
+import com.github.contest.backtracking.findDifferentBinaryString
+import java.util.TreeMap
 
 
 /**
@@ -9,15 +11,19 @@ import com.github.contest.heap.customStructure.MaxHeap
 
 fun main() {
 
-    val maxheap = MaxHeap<Int>()
+    findDifferentBinaryString(arrayOf("00", "01"))
 
-    for (i in 1..39) maxheap.offer(i)
-
-    while (maxheap.isNotEmpty()) {
-        println(maxheap.poll())
-    }
+}
 
 
+fun workWithTreeMap() {
+    val treeMapOne = TreeMap<String, Int>()
+    treeMapOne["apple"] = 1
+    treeMapOne["banana"] = 2
+    treeMapOne["cherry"] = 3
+
+    println("TreeMap with natural ordering:")
+    treeMapOne.forEach { (key, value) -> println("$key: $value") }
 }
 
 

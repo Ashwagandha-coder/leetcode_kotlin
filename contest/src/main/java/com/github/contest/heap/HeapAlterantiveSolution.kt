@@ -57,3 +57,33 @@ fun deleteGreatestValueAltSolution(grid: Array<IntArray>): Int {
 
     return sum
 }
+
+/**
+ * 1424. Diagonal Traverse II
+ * Alternative Solution
+ */
+
+
+fun findDiagonalOrderAlternativeSolution(nums: List<List<Int>>): IntArray {
+    if (nums.hasSingle()) nums[0].toIntArray()
+    val map = mutableMapOf<Int, MutableList<Int>>()
+    for (i in nums.indices) {
+        for (j in 0 until nums[i].size) {
+            map.getOrPut(i + j) { mutableListOf() }.let { it.add(nums[i][j]) }
+        }
+    }
+    var diagonal = 0
+    val result = mutableListOf<Int>()
+    while (map.contains(diagonal)) {
+        val values = map.getOrDefault(diagonal, mutableListOf())
+        for (i in values.size - 1 downTo 0) result.add(values[i])
+        diagonal++
+    }
+
+    return result.toIntArray()
+}
+
+private fun <T> List<T>.hasSingle(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}

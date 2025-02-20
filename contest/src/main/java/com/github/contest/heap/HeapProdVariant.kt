@@ -20,5 +20,26 @@ fun minOperationProdVariant(nums: IntArray, k: Int): Int {
     return operation
 }
 
+/**
+ * 1424. Diagonal Traverse II
+ * Prod Variant
+ */
+
+fun findDiagonalOrderProdVariant(nums: List<List<Int>>): IntArray {
+    val diagonals = mutableMapOf<Int, MutableList<Int>>()
+
+    nums.forEachIndexed { row, _ ->
+        nums[row].forEachIndexed { col, num ->
+            diagonals.getOrPut(row + col) { mutableListOf() }.let { it.add(num) }
+        }
+    }
+
+    return generateSequence(0) { it + 1 }
+        .takeWhile { diagonals.containsKey(it) }
+        .flatMap { diagonals[it]!!.reversed() }
+        .let { it.toList().toIntArray() }
+}
+
+
 
 

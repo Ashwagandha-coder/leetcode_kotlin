@@ -142,3 +142,31 @@ private fun generateHappyString(
         }
     }
 }
+
+/**
+ * 1980. Find Unique Binary String
+ */
+
+
+fun findDifferentBinaryString(nums: Array<String>): String {
+    val set = mutableSetOf<String>()
+    for (num in nums) set.add(num)
+    return generateBinaryString(set, 0, nums[0].length, StringBuilder())
+}
+
+private fun generateBinaryString(set: Set<String>, index: Int, n: Int, str: StringBuilder): String {
+    if (index == n) {
+        return if (!set.contains(str.toString())) str.toString() else ""
+    }
+    repeat(2) {
+        str.append(it.toString())
+        val ans = generateBinaryString(set, index + 1, n, str)
+        if (ans.isNotEmpty()) return ans
+        str.deleteLast()
+    }
+    return ""
+}
+
+private fun StringBuilder.deleteLast() {
+    if (isNotEmpty()) this.deleteCharAt(this.length - 1)
+}
