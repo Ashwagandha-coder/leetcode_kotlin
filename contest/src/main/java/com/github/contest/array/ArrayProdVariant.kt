@@ -16,3 +16,11 @@ fun getCommonProdVariant(nums1: IntArray, nums2: IntArray): Int {
         .filterNotNull()
         .firstOrNull() ?: -1
 }
+
+/**
+ * 3151. Special Array I
+ * Prod Variant
+ */
+
+fun isArraySpecialProdVariant(nums: IntArray): Boolean =
+    nums.isEmpty() || nums.toList().windowed(2).all { (a, b) -> a % 2 != b % 2 }
