@@ -261,3 +261,29 @@ fun getFinalState(nums: IntArray, k: Int, multiplier: Int): IntArray {
 
     return nums
 }
+
+
+/**
+ * 1424. Diagonal Traverse II
+ */
+
+fun findDiagonalOrder(nums: List<List<Int>>): IntArray {
+    val heap = PriorityQueue { a: Pair<Int, Pair<Int, Int>>, b: Pair<Int, Pair<Int, Int>> ->
+        if (a.second.first != b.second.first) a.second.first - b.second.first
+        else b.first - a.first
+    }
+    for (i in nums.indices) {
+        for (j in 0 until nums[i].size) {
+            val pair = Pair(i, Pair(i + j, nums[i][j]))
+            heap.offer(pair)
+        }
+    }
+    val result = IntArray(heap.size)
+    var i = 0
+    while (heap.isNotEmpty()) {
+        result[i] = heap.poll().second.second
+        i++
+    }
+
+    return result
+}

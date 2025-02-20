@@ -1,6 +1,6 @@
 package com.github.contest
 
-
+import com.github.contest.hashTable.findDiagonalOrder
 
 
 /**
@@ -9,6 +9,7 @@ package com.github.contest
 
 fun main() {
 
+    findDiagonalOrder(listOf(listOf(1, 2, 3, 4, 5), listOf(6, 7), listOf(8))).also { println(it.printArray()) }
 
 }
 
