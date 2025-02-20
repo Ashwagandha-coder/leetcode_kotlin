@@ -1,7 +1,8 @@
 package com.github.contest
 
 
-import com.github.contest.heap.findDiagonalOrderProdVariant
+import com.github.contest.backtracking.findDifferentBinaryString
+import java.util.TreeMap
 
 
 /**
@@ -10,14 +11,19 @@ import com.github.contest.heap.findDiagonalOrderProdVariant
 
 fun main() {
 
-    findDiagonalOrderProdVariant(
-        listOf(
-            listOf(1, 2, 3, 4, 5),
-            listOf(6, 7),
-            listOf(8)
-        )
-    ).also { println(it.printArray()) }
+    findDifferentBinaryString(arrayOf("00", "01"))
 
+}
+
+
+fun workWithTreeMap() {
+    val treeMapOne = TreeMap<String, Int>()
+    treeMapOne["apple"] = 1
+    treeMapOne["banana"] = 2
+    treeMapOne["cherry"] = 3
+
+    println("TreeMap with natural ordering:")
+    treeMapOne.forEach { (key, value) -> println("$key: $value") }
 }
 
 
