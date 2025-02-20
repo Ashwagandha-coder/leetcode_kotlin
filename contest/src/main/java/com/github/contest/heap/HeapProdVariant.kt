@@ -40,16 +40,6 @@ fun findDiagonalOrderProdVariant(nums: List<List<Int>>): IntArray {
         .let { it.toList().toIntArray() }
 }
 
-fun doing() {
-    val str = buildList<Int> { }
-}
-
-
-fun <T> MutableList<T>.forEachReversed(block: (T) -> Unit) {
-    for (i in this.size - 1 downTo 0) {
-        block(this[i])
-    }
-}
 
 
 
