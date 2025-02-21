@@ -58,5 +58,25 @@ fun findDiagonalOrderProdVariantII(nums: List<List<Int>>): IntArray {
     }
 }
 
+/**
+ * 2099. Find Subsequence of Length K With the Largest Sum
+ * Prod Variant
+ */
+
+fun maxSubsequenceProdVariant(nums: IntArray, k: Int): IntArray {
+    val heap = PriorityQueue<Pair<Int, Int>>(compareBy { it.first })
+
+    nums.forEachIndexed { index, num ->
+        heap.offer(index to num)
+        if (heap.size > k) heap.poll()
+    }
+
+    return mutableListOf<Pair<Int, Int>>()
+        .apply { heap.forEach { add(it) } }
+        .sortedBy { it.second }
+        .map { it.first }
+        .toIntArray()
+}
+
 
 
