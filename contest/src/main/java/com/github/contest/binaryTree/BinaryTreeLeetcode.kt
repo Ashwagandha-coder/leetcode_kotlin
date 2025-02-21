@@ -6,7 +6,7 @@ import java.util.LinkedList
  * 1261. Find Elements in a Contaminated Binary Tree
  */
 
-class TreeNode(`val`: Int) {
+class TreeNode(var `val`: Int) {
     var left: TreeNode? = null
     var right: TreeNode? = null
 }
@@ -18,7 +18,6 @@ class FindElements(private val root: TreeNode?) {
     private fun bfs(target: Int): Boolean {
         if (target == 0 && root != null) return true
         val queue = LinkedList<Pair<Int, TreeNode?>>()
-        var counter = 0
         queue.offer(0 to root)
         while (queue.isNotEmpty()) {
             val size = queue.size
