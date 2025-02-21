@@ -287,3 +287,26 @@ fun findDiagonalOrder(nums: List<List<Int>>): IntArray {
 
     return result
 }
+
+/**
+ * 2099. Find Subsequence of Length K With the Largest Sum
+ */
+
+fun maxSubsequence(nums: IntArray, k: Int): IntArray {
+    val heap = PriorityQueue<Pair<Int, Int>>(compareBy { it.first })
+    for (i in nums.indices) {
+        heap.offer(Pair(nums[i], i))
+        if (heap.size > k) {
+            heap.poll()
+        }
+    }
+
+    val indices = mutableListOf<Pair<Int, Int>>()
+    while (heap.isNotEmpty()) {
+        indices.add(heap.poll())
+    }
+
+    indices.sortBy { it.second }
+
+    return indices.map { it.first }.toIntArray()
+}

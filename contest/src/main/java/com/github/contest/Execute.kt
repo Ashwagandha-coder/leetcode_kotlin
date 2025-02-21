@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.backtracking.findDifferentBinaryString
+import com.github.contest.heap.maxSubsequence
 import java.util.TreeMap
 
 
@@ -11,8 +11,39 @@ import java.util.TreeMap
 
 fun main() {
 
-    findDifferentBinaryString(arrayOf("00", "01"))
+    maxSubsequence(intArrayOf(-1, -2, 3, 4), 3).apply { this.printArray() }
+}
 
+fun generateTesting() {
+    val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
+    sequence.map { it * 2 }
+        .filter { it > 3 }
+        .filter { it > 2 }
+        .constrainOnce()
+
+
+}
+
+fun generateSequence() {
+    var counter = 0
+    val numbers = generateSequence {
+        if (counter < 5) {
+            counter++
+            counter
+        } else null
+    }
+
+    println(numbers.toList())
+}
+
+fun doing() {
+    val collection = mutableListOf(listOf(5), listOf(2), listOf(4))
+    val other = mutableListOf(3, 5, 10)
+    val res = collection.flatMap {
+        it.asReversed()
+    }
+
+    println(res)
 }
 
 
