@@ -41,5 +41,22 @@ fun findDiagonalOrderProdVariant(nums: List<List<Int>>): IntArray {
 }
 
 
+fun findDiagonalOrderProdVariantII(nums: List<List<Int>>): IntArray {
+    PriorityQueue { a: Pair<Int, Pair<Int, Int>>, b: Pair<Int, Pair<Int, Int>> ->
+        if (a.second.first != b.second.first) a.second.first - b.second.first
+        else b.first - a.first
+    }.apply {
+        nums.forEachIndexed { row, _ ->
+            nums[row].forEachIndexed { col, num ->
+                offer(row to (row + col to num))
+            }
+        }
+    }.apply {
+        return mutableListOf<Int>().also {
+            while (this.isNotEmpty()) it.add(this.poll().second.second)
+        }.toIntArray()
+    }
+}
+
 
 
