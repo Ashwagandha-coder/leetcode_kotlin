@@ -78,5 +78,26 @@ fun maxSubsequenceProdVariant(nums: IntArray, k: Int): IntArray {
         .toIntArray()
 }
 
+fun maxSubsequenceProdVariantII(nums: IntArray, k: Int): IntArray =
+    nums.mapIndexed { index, num -> num to index }
+        .let { pairs ->
+            PriorityQueue<Pair<Int, Int>>(compareBy { it.first })
+                .apply {
+                    pairs.forEach {
+                        offer(it)
+                        if (size > k) poll()
+                    }
+                }.let { heap ->
+                    List(heap.size) { heap.poll() }
+                        .sortedBy { it.second }
+                        .map { it.first }
+                        .toIntArray()
+                }
+        }
+
+
+
+
+
 
 
