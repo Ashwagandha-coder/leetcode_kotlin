@@ -14,6 +14,7 @@ class FindElementsAlternativeSolution(root: TreeNode?) {
         recover(root, 0)
     }
 
+
     private fun recover(node: TreeNode?, value: Int) {
         if (node == null) return
 
