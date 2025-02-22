@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.heap.maxSubsequence
+import com.github.contest.binaryTree.recoverPreorderTraversal
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    maxSubsequence(intArrayOf(-1, -2, 3, 4), 3).apply { this.printArray() }
+    recoverPreorderTraversal("1-2--3--4-5--6--7")
 }
 
 fun generateTesting() {
