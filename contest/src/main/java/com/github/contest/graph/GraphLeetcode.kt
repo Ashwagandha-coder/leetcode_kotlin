@@ -51,3 +51,17 @@ fun validPath(n: Int, edges: Array<IntArray>, source: Int, destination: Int): Bo
 
     return false
 }
+
+/**
+ * 1791. Find Center of Star Graph
+ */
+
+fun findCenter(edges: Array<IntArray>): Int {
+    val (a, b) = edges[0]
+    val (c, d) = edges[1]
+
+    return when {
+        a == c || a == d -> a
+        else -> b
+    }
+}
