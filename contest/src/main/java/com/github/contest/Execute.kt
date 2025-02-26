@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.recoverPreorderTraversal
+import com.github.contest.dp.maxAbsoluteSum
 import java.util.TreeMap
 
 
@@ -11,7 +11,8 @@ import java.util.TreeMap
 
 fun main() {
 
-    recoverPreorderTraversal("1-2--3--4-5--6--7")
+    maxAbsoluteSum(intArrayOf(1, -3, 2, 3, -4)).also { println(it) }
+
 }
 
 fun generateTesting() {
