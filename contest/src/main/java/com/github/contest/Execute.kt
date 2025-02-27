@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.maxAbsoluteSum
+import com.github.contest.heap.largestInteger
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    maxAbsoluteSum(intArrayOf(1, -3, 2, 3, -4)).also { println(it) }
+    largestInteger(1234)
 
 }
 

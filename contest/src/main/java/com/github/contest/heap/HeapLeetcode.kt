@@ -310,3 +310,46 @@ fun maxSubsequence(nums: IntArray, k: Int): IntArray {
 
     return indices.map { it.first }.toIntArray()
 }
+
+/**
+ * 2231. Largest Number After Digit Swaps by Parity
+ */
+
+
+fun largestInteger(num: Int): Int {
+    val s = num.toString()
+    val n = s.length
+    val odd = mutableListOf<Int>()
+    val even = mutableListOf<Int>()
+    val oddIndices = mutableListOf<Int>()
+    val evenIndices = mutableListOf<Int>()
+
+    for (i in 0 until n) {
+        val digit = s[i] - '0'
+        if (digit % 2 == 0) {
+            even.add(digit)
+            evenIndices.add(i)
+        } else {
+            odd.add(digit)
+            oddIndices.add(i)
+        }
+    }
+
+    odd.sortDescending()
+    even.sortDescending()
+
+    val result = CharArray(n)
+    var oddIndex = 0
+    var evenIndex = 0
+
+    for (i in 0 until n) {
+        if (s[i].toInt() % 2 == 0) {
+            result[i] = (even[evenIndex++]).toChar() + '0'.toInt()
+        } else {
+            result[i] = (odd[oddIndex++]).toChar() + '0'.toInt()
+        }
+    }
+
+    return String(result).toInt()
+}
+
