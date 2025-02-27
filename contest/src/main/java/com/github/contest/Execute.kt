@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.recoverPreorderTraversal
+import com.github.contest.heap.largestInteger
 import java.util.TreeMap
 
 
@@ -11,7 +11,8 @@ import java.util.TreeMap
 
 fun main() {
 
-    recoverPreorderTraversal("1-2--3--4-5--6--7")
+    largestInteger(1234)
+
 }
 
 fun generateTesting() {

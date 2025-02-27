@@ -323,41 +323,31 @@ fun countVowels(word: String): Long {
     return totalVowels
 }
 
+
 /**
- *
+ * 1749. Maximum Absolute Sum of Any Subarray
  */
 
-fun maxTwoEvents(events: Array<IntArray>): Int {
-    val n = events.size
-    events.sortBy { it[0] } // Sort by start time
-    val dp = IntArray(n)
-    var maxVal = 0
-    for (i in n - 1 downTo 0) {
-        maxVal = maxOf(maxVal, events[i][2])
-        dp[i] = maxVal
-    }
-    var res = 0
-    for (i in 0 until n) {
-        val start = events[i][0]
-        val end = events[i][1]
-        val value = events[i][2]
-        val nextIndex = findNextNonOverlapping(events, end)
-        val nextValue = if (nextIndex == n) 0 else dp[nextIndex]
-        res = maxOf(res, value + nextValue)
-    }
-    return res
-}
+fun maxAbsoluteSum(nums: IntArray): Int {
+    var maxSoFar = 0
+    var minSoFar = 0
+    var currentMax = 0
+    var currentMin = 0
 
-private fun findNextNonOverlapping(events: Array<IntArray>, end: Int): Int {
-    var left = 0
-    var right = events.size
-    while (left < right) {
-        val mid = left + (right - left) / 2
-        if (events[mid][0] <= end) {
-            left = mid + 1
-        } else {
-            right = mid
+    for (num in nums) {
+        currentMax += num
+        currentMin += num
+
+        maxSoFar = maxOf(maxSoFar, currentMax)
+        minSoFar = minOf(minSoFar, currentMin)
+
+        if (currentMax < 0) {
+            currentMax = 0
+        }
+        if (currentMin > 0) {
+            currentMin = 0
         }
     }
-    return left
+
+    return maxOf(maxSoFar, abs(minSoFar))
 }
