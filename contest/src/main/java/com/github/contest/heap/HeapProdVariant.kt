@@ -133,6 +133,32 @@ fun largestIntegerProdVariant(num: Int): Int = when {
     }
 }
 
+fun largestIntegerProdVariantII(num: Int): Int {
+    val even = PriorityQueue<Int>(reverseOrder())
+    val odd = PriorityQueue<Int>(reverseOrder())
+
+
+    val parityMap = num.toString().map { it.digitToInt() }.map {
+        if (it % 2 == 0) {
+            even.offer(it)
+            true
+        } else {
+            odd.offer(it)
+            false
+        }
+    }
+
+    return buildString {
+        parityMap.forEach {
+            val number = when {
+                it -> even.poll()
+                else -> odd.poll()
+            }
+            append(number)
+        }
+    }.toInt()
+}
+
 
 
 
