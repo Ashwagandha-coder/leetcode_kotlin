@@ -96,6 +96,68 @@ fun maxSubsequenceProdVariantII(nums: IntArray, k: Int): IntArray =
         }
 
 
+/**
+ * 2231. Largest Number After Digit Swaps by Parity
+ * Prod Variant
+ */
+
+fun largestIntegerProdVariant(num: Int): Int = when {
+    num <= 99 -> num
+    else -> {
+        val odd = PriorityQueue<Int>(reverseOrder())
+        val even = PriorityQueue<Int>(reverseOrder())
+        val str = num.toString()
+        str.forEach {
+            when {
+                it.digitToInt() % 2 == 0 -> even.offer(it.digitToInt())
+                else -> odd.offer(it.digitToInt())
+            }
+        }
+        var res = 0
+        str.forEach {
+            when {
+                it.digitToInt() % 2 == 0 -> {
+                    val value = even.poll()
+                    if (value != 0) res += value
+                }
+
+                else -> {
+                    val value = odd.poll()
+                    if (value != 0) res += value
+                }
+            }
+            if (even.isNotEmpty() && odd.isNotEmpty()) res *= 10
+        }
+
+        res
+    }
+}
+
+fun largestIntegerProdVariantII(num: Int): Int {
+    val even = PriorityQueue<Int>(reverseOrder())
+    val odd = PriorityQueue<Int>(reverseOrder())
+
+
+    val parityMap = num.toString().map { it.digitToInt() }.map {
+        if (it % 2 == 0) {
+            even.offer(it)
+            true
+        } else {
+            odd.offer(it)
+            false
+        }
+    }
+
+    return buildString {
+        parityMap.forEach {
+            val number = when {
+                it -> even.poll()
+                else -> odd.poll()
+            }
+            append(number)
+        }
+    }.toInt()
+}
 
 
 

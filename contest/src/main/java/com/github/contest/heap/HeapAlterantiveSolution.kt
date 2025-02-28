@@ -87,3 +87,39 @@ private fun <T> List<T>.hasSingle(): Boolean = when {
     this.size == 1 -> true
     else -> false
 }
+
+/**
+ * 2231. Largest Number After Digit Swaps by Parity
+ * Alternative Solution
+ */
+
+
+fun largestIntegerAltSolution(num: Int): Int {
+    if (num <= 99) return num
+    val odd = PriorityQueue<Int>(reverseOrder())
+    val even = PriorityQueue<Int>(reverseOrder())
+    val str = num.toString()
+    val len = str.length
+
+    for (i in 0 until len) {
+        if (str[i].digitToInt() % 2 == 0) {
+            even.offer(str[i].digitToInt())
+        } else odd.offer(str[i].digitToInt())
+    }
+
+    var res = 0
+    for (i in 0 until len) {
+        if (str[i].digitToInt() % 2 == 0) {
+            val value = even.poll()
+            if (value != 0) res += value
+
+        } else {
+            val value = odd.poll()
+            if (value != 0) res += value
+
+        }
+        if (even.isNotEmpty() || odd.isNotEmpty()) res *= 10
+    }
+
+    return res
+}

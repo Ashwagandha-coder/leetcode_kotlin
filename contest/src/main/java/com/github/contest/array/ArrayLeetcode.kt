@@ -44,28 +44,22 @@ fun candy(ratings: IntArray): Int {
 }
 
 /**
- *
+ * 922. Sort Array By Parity II
  */
 
-fun firstMissingPositive(nums: IntArray): Int {
-    val n = nums.size
-
-    // In-place rearrangement
-    for (i in 0 until n) {
-        while (nums[i] in 1..n && nums[nums[i] - 1] != nums[i]) {
-            val temp = nums[i]
-            nums[i] = nums[temp - 1]
-            nums[temp - 1] = temp
-        }
+fun sortArrayByParityII(nums: IntArray): IntArray {
+    val even = mutableListOf<Int>()
+    val odd = mutableListOf<Int>()
+    for (num in nums) {
+        if (num % 2 == 0) even.add(num)
+        else odd.add(num)
     }
 
-    // Find the missing positive
-    for (i in 0 until n) {
-        if (nums[i] != i + 1) {
-            return i + 1
-        }
+    for (i in nums.indices) {
+        nums[i] = if (i % 2 == 0) even.removeLast() else odd.removeLast()
     }
 
-    // All positives from 1 to n are present
-    return n + 1
+    return nums
 }
+
+
