@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.heap.largestInteger
+import com.github.contest.heap.largestIntegerAltSolution
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    largestInteger(1234)
+    largestIntegerAltSolution(1234).also { println(it) }
 
 }
 
