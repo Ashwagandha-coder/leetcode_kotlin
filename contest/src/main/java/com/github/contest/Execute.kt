@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.heap.largestIntegerAltSolution
+import com.github.contest.array.sortArrayByParityIIAlternativeSolution
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    largestIntegerAltSolution(1234).also { println(it) }
+    sortArrayByParityIIAlternativeSolution(intArrayOf(4, 2, 5, 7)).also { it.printArray() }
 
 }
 
