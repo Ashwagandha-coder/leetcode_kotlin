@@ -373,3 +373,25 @@ fun longestCommonSubsequence(text1: String, text2: String): Int {
 
     return dp[n][m]
 }
+
+/**
+ * 1048. Longest String Chain
+ */
+
+fun longestStrChain(words: Array<String>): Int {
+    val sortedWords = words.sortedBy { it.length }
+    val dp = mutableMapOf<String, Int>()
+    var longestChain = 0
+
+    for (word in sortedWords) {
+        var currentChain = 1
+        for (i in word.indices) {
+            val predecessor = word.removeRange(i, i + 1)
+            currentChain = maxOf(currentChain, dp.getOrDefault(predecessor, 0) + 1)
+        }
+        dp[word] = currentChain
+        longestChain = maxOf(longestChain, currentChain)
+    }
+
+    return longestChain
+}
