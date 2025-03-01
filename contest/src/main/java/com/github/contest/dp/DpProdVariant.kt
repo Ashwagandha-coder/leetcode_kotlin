@@ -85,3 +85,27 @@ fun longestIdealStringProdVariantII(s: String, k: Int): Int =
         }
     }.max()
 
+
+/**
+ * 1143. Longest Common Subsequence
+ * Prod Variant
+ */
+
+fun longestCommonSubsequenceProdVariant(text1: String, text2: String): Int {
+    val n = text1.length
+    val m = text2.length
+    val dp = Array(n + 1) { IntArray(m + 1) }
+
+    (1..n).forEach { row ->
+        (1..m).forEach { col ->
+            dp[row][col] = when {
+                text1[row - 1] == text2[col - 1] -> dp[row - 1][col - 1] + 1
+                else -> maxOf(dp[row - 1][col], dp[row][col - 1])
+            }
+        }
+    }
+
+    return dp.lastElement()
+}
+
+private fun Array<IntArray>.lastElement(): Int = this.last().last()
