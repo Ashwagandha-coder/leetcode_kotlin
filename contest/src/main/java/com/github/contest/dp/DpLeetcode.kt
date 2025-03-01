@@ -395,3 +395,25 @@ fun longestStrChain(words: Array<String>): Int {
 
     return longestChain
 }
+
+/**
+ * 1027. Longest Arithmetic Subsequence
+ */
+
+fun longestArithSeqLength(nums: IntArray): Int {
+    val n = nums.size
+
+    val dp = Array(n) { mutableMapOf<Int, Int>() }
+    var longest = 2
+
+    for (i in 1 until n) {
+        for (j in 0 until i) {
+            val diff = nums[i] - nums[j]
+            val length = dp[j].getOrDefault(diff, 1) + 1
+            dp[i][diff] = length
+            longest = maxOf(longest, length)
+        }
+    }
+
+    return longest
+}

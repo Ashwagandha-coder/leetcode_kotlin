@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestStrChain
+import com.github.contest.dp.longestArithSeqLength
 import java.util.TreeMap
 
 
@@ -11,8 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestStrChain(arrayOf("a", "b", "ba", "bca", "bda", "bdca")).also { println(it) }
-
+    longestArithSeqLength(intArrayOf(3, 6, 9, 12))
 }
 
 fun generateTesting() {
