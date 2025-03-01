@@ -62,4 +62,37 @@ fun sortArrayByParityII(nums: IntArray): IntArray {
     return nums
 }
 
+/**
+ * 2460. Apply Operations to an Array
+ */
+
+fun applyOperations(nums: IntArray): IntArray {
+    for (i in 0 until nums.size - 1) {
+        if (nums[i] == nums[i + 1]) {
+            nums[i] *= 2
+            nums[i + 1] = 0
+        }
+    }
+    var i = 0
+    var j = 1
+    while (i < nums.size && j < nums.size) {
+        while (i < nums.size && nums[i] != 0) i++
+        j = i
+        while (j < nums.size && nums[j] == 0) j++
+        if (i < nums.size && j < nums.size) {
+            nums.swap(i, j)
+            i++
+            j++
+        }
+    }
+
+    return nums
+}
+
+private fun IntArray.swap(from: Int, to: Int) {
+    val temp = this[from]
+    this[from] = this[to]
+    this[to] = temp
+}
+
 
