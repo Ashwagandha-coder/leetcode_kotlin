@@ -1281,7 +1281,164 @@ fun searchMatrix(matrix: Array<IntArray>?, target: Int): Boolean {
     return false
 }
 
+/**
+ * 538. Convert BST to Greater Tree
+ * Alternative Solution
+ * Using Pair
+ */
 
+fun convertBSTAltSolution(root: TreeNode?): TreeNode? {
+    return convertBSTRecursive(root, 0).first
+}
+
+fun convertBSTRecursive(root: TreeNode?, sum: Int): Pair<TreeNode?, Int> {
+    if (root == null) return null to sum
+
+    val (right, updatedSum) = convertBSTRecursive(root.right, sum)
+    val newSum = updatedSum + root.`val`
+    root.`val` = newSum
+    val (left, finalSum) = convertBSTRecursive(root.left, newSum)
+
+    return root to finalSum
+}
+
+/**
+ * 404. Sum of Left Leaves
+ * Alternative Solution
+ * DFS Approach
+ */
+
+fun sumOfLeftLeavesAltSolution(root: TreeNode?): Int = dfs(root, false)
+tailrec fun dfs(root: TreeNode?, isLeft: Boolean): Int {
+    root ?: return 0
+    if (root?.left == null && root?.right == null && isLeft) return root.`val`
+    return dfs(root?.left, true) + dfs(root?.right, false)
+}
+
+/**
+ * 623. Add One Row to Tree
+ * Alternative Solution
+ * DFS Approach
+ */
+
+fun addOneRowAltSolution(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
+    if (depth == 1) {
+        val new = TreeNode(`val`)
+        new?.left = root
+        return new
+    }
+    dfs(root, `val`, depth = depth, calc = 1)
+    return root
+}
+
+fun dfs(root: TreeNode?, `val`: Int, depth: Int, calc: Int) {
+    if (root == null) return
+
+    if (depth - 1 == calc) {
+        val l = root?.left
+        val r = root?.right
+        root?.left = TreeNode(`val`)
+        root?.right = TreeNode(`val`)
+        root?.left?.left = l
+        root?.right?.right = r
+    }
+    dfs(root?.left, `val`, depth, calc + 1)
+    dfs(root?.right, `val`, depth, calc + 1)
+}
+
+/**
+ * 515. Find Largest Value in Each Tree Row
+ * Alternative Solution
+ * DFS Approach
+ */
+
+
+fun largestValuesAltSolution(root: TreeNode?): List<Int> {
+    root ?: return listOf()
+    val res = mutableListOf<Int>()
+    fun dfs(root: TreeNode?, level: Int) {
+        root ?: return
+        if (res.size <= level) res.add(root.`val`)
+        else res[level] = maxOf(res[level], root.`val`)
+        dfs(root?.left, level + 1)
+        dfs(root?.right, level + 1)
+    }
+    dfs(root, 0)
+    return res
+}
+
+/**
+ * 671. Second Minimum Node In a Binary Tree
+ * Alternative Solution
+ */
+
+
+fun findSecondMinimumValueAltSolution(root: TreeNode?): Int {
+    if (root == null) {
+        return -1 // Handle empty tree
+    }
+
+    // If root has no children, there's no second minimum
+    if (root.left == null && root.right == null) {
+        return -1
+    }
+
+    var leftVal = root.left!!.`val`
+    var rightVal = root.right!!.`val`
+
+    // If left child is same as root, find 2nd min inleft subtree
+    if (leftVal == root.`val`) {
+        leftVal = findSecondMinimumValue(root.left)
+    }
+
+    // If right child is same as root, find 2nd min in right subtree
+    if (rightVal == root.`val`) {
+        rightVal = findSecondMinimumValue(root.right)
+    }
+
+    // If both children have 2nd min, return the smaller one
+    if (leftVal != -1 && rightVal != -1) {
+        return minOf(leftVal, rightVal)
+    }
+
+    // If only one child has 2nd min, return that one
+    return if (leftVal != -1) leftVal else rightVal
+}
+
+
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ * Alternative Solution
+ */
+
+fun longestSubArray(nums: IntArray): Int {
+    if (nums.singleElement()) return 1
+
+    var maxLength = 1
+    var increasingLength = 1
+    var decreasingLength = 1
+
+    for (i in 1 until nums.size) {
+        if (nums[i] > nums[i - 1]) {
+            increasingLength++
+            decreasingLength = 1
+        } else if (nums[i] < nums[i - 1]) {
+            decreasingLength++
+            increasingLength = 1
+        } else {
+            increasingLength = 1
+            decreasingLength = 1
+        }
+        maxLength = maxOf(maxLength, increasingLength, decreasingLength)
+    }
+
+    return maxLength
+}
+
+fun IntArray.singleElement(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}
 
 
 

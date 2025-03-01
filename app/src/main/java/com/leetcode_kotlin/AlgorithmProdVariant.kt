@@ -737,3 +737,189 @@ fun firstBadVersionProdVariant(n: Int): Int {
     return if (result < 0) -result - 1 else result
 }
 
+/**
+ * 513. Find Bottom Left Tree Value
+ * Prod Variant
+ */
+
+fun findBottomLeftValueProdVariant(root: TreeNode?): Int {
+    return findBottomLeftValueRecursive(root, 0, Int.MIN_VALUE to 0).first
+}
+
+private tailrec fun findBottomLeftValueRecursive(
+    node: TreeNode?,
+    depth: Int,
+    currentResult: Pair<Int, Int>
+): Pair<Int, Int> {
+    if (node == null) return currentResult
+
+    val (currentValue, currentDepth) = currentResult
+    val newResult = if (depth > currentDepth) node.`val` to depth else currentResult
+
+    return findBottomLeftValueRecursive(
+        node.left,
+        depth + 1,
+        findBottomLeftValueRecursive(node.right, depth + 1, newResult)
+    )
+}
+
+/**
+ * 404. Sum of Left Leaves
+ * Prod Variant
+ */
+
+fun sumOfLeftLeavesProdVariant(root: TreeNode?): Int {
+    fun dfs(node: TreeNode?, isLeft: Boolean): Int = when {
+        node == null -> 0
+        node.left == null && node.right == null && isLeft -> node.`val`
+        else -> dfs(node.left, true) + dfs(node.right, false)
+    }
+
+    return dfs(root, false)
+}
+
+/**
+ * 701. Insert into a Binary Search Tree
+ * Prod Variant
+ */
+
+fun insertIntoBSTProdVariant(root: TreeNode?, `val`: Int): TreeNode? =
+    when {
+        root == null -> TreeNode(`val`)
+        `val` < root.`val` -> {
+            root.left = insertIntoBST(root.left, `val`)
+            root
+        }
+
+        else -> {
+            root.right = insertIntoBST(root.right, `val`)
+            root
+        }
+    }
+
+
+/**
+ * 71. Simplify Path
+ * Prod Variant
+ */
+
+fun simplifyPathProdVariant(path: String): String {
+    val stack = ArrayDeque<String>()
+    val components = path.split("/")
+    for (component in components) {
+        when (component) {
+            "", "." -> continue
+            ".." -> if (stack.isNotEmpty()) stack.removeLast()
+            else -> stack.addLast(component)
+        }
+    }
+    return buildString {
+        stack.forEach {
+            append("/").append(it)
+        }
+    }.ifEmpty { "/" }
+}
+
+/**
+ * 138. Copy List with Random Pointer
+ * Prod Variant
+ */
+
+fun copyRandomListProdVariant(node: Node?): Node? {
+    var temp: Node? = null
+    val map = mutableMapOf<Node, Node>()
+    node.forEachNode {
+        if (temp != null) {
+            val new = Node(it.`val`)
+            temp?.next = new
+            temp = temp?.next
+            map[it] = new
+        } else {
+            val new = Node(it.`val`)
+            map[it] = new
+            temp = new
+        }
+    }
+    node?.forEachNode {
+        val value = map.getOrDefault(it, null)
+        val random = map.getOrDefault(it.random, null)
+        value?.random = random
+    }
+    return map[node]
+}
+
+fun Node?.forEachNode(block: (Node) -> Unit) {
+    var current = this
+    while (current != null) {
+        block(current)
+        current = current.next
+    }
+}
+
+/**
+ * 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+ * Prod Variant
+ */
+
+
+fun isPrefixOfWordProdVariant(sentence: String, searchWord: String): Int {
+    val words = sentence.split(" ")
+    var counter = 1
+    for (word in words) {
+        when {
+            word.isEmpty() -> continue
+            word.length < searchWord.length -> counter++
+            else -> if (word.startsWith(searchWord)) return counter else counter++
+        }
+    }
+    return -1
+}
+
+/**
+ * 459. Repeated Substring Pattern
+ * Prod Variant
+ */
+
+fun repeatedSubstringPatternProdVariant(s: String): Boolean {
+    return (s + s).substring(1, 2 * s.length - 1).contains(s)
+}
+
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ * Prod Variant
+ */
+
+fun longestMonotonicSubArrayProdVariant(nums: IntArray): Int {
+    if (nums.singleElementProdVariant()) return 1
+
+    var maxLength = 1
+    var increasingLength = 1
+    var decreasingLength = 1
+
+    nums.drop(1).forEachIndexed { index, num ->
+        when {
+            num > nums[index] -> {
+                increasingLength++
+                decreasingLength = 1
+            }
+
+            num < nums[index] -> {
+                decreasingLength++
+                increasingLength = 1
+            }
+
+            else -> {
+                increasingLength = 1
+                decreasingLength = 1
+            }
+        }
+        maxLength = maxOf(maxLength, increasingLength, decreasingLength)
+    }
+
+    return maxLength
+}
+
+private fun IntArray.singleElementProdVariant(): Boolean = when {
+    this.size == 1 -> true
+    else -> false
+}

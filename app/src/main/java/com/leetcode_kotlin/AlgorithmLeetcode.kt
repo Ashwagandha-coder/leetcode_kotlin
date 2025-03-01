@@ -748,10 +748,7 @@ fun subsets(nums: IntArray): List<List<Int>> {
 }
 
 private fun createSubset(
-    nums: IntArray,
-    index: Int,
-    res: MutableList<List<Int>>,
-    subset: MutableList<Int>
+    nums: IntArray, index: Int, res: MutableList<List<Int>>, subset: MutableList<Int>
 ) {
     if (index == nums.size) {
         res.add(ArrayList(subset))
@@ -805,11 +802,7 @@ fun combine(n: Int, k: Int): List<List<Int>> {
 }
 
 private fun backtrack(
-    result: MutableList<List<Int>>,
-    tempList: MutableList<Int>,
-    start: Int,
-    n: Int,
-    k: Int
+    result: MutableList<List<Int>>, tempList: MutableList<Int>, start: Int, n: Int, k: Int
 ) {
     // If the combination is done (i.e., we've picked k numbers)
     if (tempList.size == k) {
@@ -911,11 +904,7 @@ fun subsetsWithDup(nums: IntArray): List<List<Int>> {
 }
 
 private fun backtrack(
-    nums: IntArray,
-    n: Int,
-    ans: MutableList<List<Int>>,
-    set: MutableList<Int>,
-    idx: Int
+    nums: IntArray, n: Int, ans: MutableList<List<Int>>, set: MutableList<Int>, idx: Int
 ) {
     var index = idx
     if (index == nums.size) {
@@ -1121,9 +1110,7 @@ fun helper(nums: IntArray, subset: MutableList<Int>, indexList: MutableList<Int?
             subset.add(nums[i]) // Add the element to current list
             indexList.add(i) // Mark the index as consumed
             helper(
-                nums,
-                subset,
-                indexList
+                nums, subset, indexList
             ) // Recursively call helper to explore further permutations
             subset.removeAt(subset.size - 1) // Backtrack by removing the last added element
             indexList.removeAt(indexList.size - 1) // Remove the index from consumed list
@@ -1196,10 +1183,7 @@ fun pathSumII(root: TreeNode?, targetSum: Int): List<List<Int>> {
 }
 
 private fun dfs(
-    node: TreeNode?,
-    targetSum: Int,
-    currentPath: MutableList<Int>,
-    result: MutableList<List<Int>>
+    node: TreeNode?, targetSum: Int, currentPath: MutableList<Int>, result: MutableList<List<Int>>
 ) {
     if (node == null) {
         return
@@ -1404,10 +1388,7 @@ fun String.isPalindrome(start: Int, end: Int): Boolean {
 
 
 fun partitionHelper(
-    start: Int,
-    s: String,
-    list: MutableList<List<String>?>,
-    current: MutableList<String>
+    start: Int, s: String, list: MutableList<List<String>?>, current: MutableList<String>
 ) {
     if (start == s.length) {
         list.add(ArrayList(current))
@@ -1464,11 +1445,7 @@ fun combinationSum3(k: Int, n: Int): List<List<Int>> {
 }
 
 fun backtrack(
-    k: Int,
-    n: Int,
-    index: Int,
-    subset: MutableList<Int>,
-    res: MutableList<MutableList<Int>>
+    k: Int, n: Int, index: Int, subset: MutableList<Int>, res: MutableList<MutableList<Int>>
 ) {
     if (n < 0) return
     if (subset.size == k && n == 0) {
@@ -1480,8 +1457,7 @@ fun backtrack(
             subset.add(i)
             backtrack(k, n - i, index + 1, subset, res)
             subset.removeAt(subset.size - 1)
-        } else
-            return
+        } else return
     }
     return
 }
@@ -1547,10 +1523,7 @@ fun solveNQueens(n: Int): List<List<String>> {
 
 
 fun backtracking(
-    row: Int,
-    n: Int,
-    solutions: MutableList<MutableList<String>>,
-    board: Array<CharArray>
+    row: Int, n: Int, solutions: MutableList<MutableList<String>>, board: Array<CharArray>
 ) {
     if (row == n) {
         solutions.add(board.map { it.joinToString("") } as MutableList<String>)
@@ -1604,9 +1577,7 @@ fun totalNQueens(n: Int): Int {
 }
 
 fun backtracking(
-    row: Int,
-    n: Int,
-    board: Array<CharArray>
+    row: Int, n: Int, board: Array<CharArray>
 ): Int {
     if (row == n) {
         return 1
@@ -1962,9 +1933,7 @@ fun generateTrees(n: Int): List<TreeNode?> {
 }
 
 private fun generateTreesHelper(
-    start: Int,
-    end: Int,
-    memo: MutableMap<String, List<TreeNode?>>
+    start: Int, end: Int, memo: MutableMap<String, List<TreeNode?>>
 ): List<TreeNode?> {
     val key = "$start-$end"
     if (memo.containsKey(key)) {
@@ -2010,9 +1979,7 @@ private fun valid(node: TreeNode?, minimum: Long, maximum: Long): Boolean {
     if (!(node.`val` > minimum && node.`val` < maximum)) return false
 
     return valid(node.left, minimum, node.`val`.toLong()) && valid(
-        node.right,
-        node.`val`.toLong(),
-        maximum
+        node.right, node.`val`.toLong(), maximum
     )
 }
 
@@ -2684,8 +2651,7 @@ fun pathSumIII(root: TreeNode?, targetSum: Int): Int {
 
         val newSum = currentSum + node.`val`
         count += prefixSumMap.getOrDefault(
-            newSum - targetSum.toLong(),
-            0
+            newSum - targetSum.toLong(), 0
         ) // Convert targetSum to Long
         prefixSumMap[newSum] = prefixSumMap.getOrDefault(newSum, 0) + 1
 
@@ -3342,8 +3308,7 @@ fun buildTree(preorder: IntArray, inorder: IntArray): TreeNode? {
     val rootIndexInInorder = inorder.indexOf(rootValue)
 
     root.left = buildTree(
-        preorder.copyOfRange(1, rootIndexInInorder + 1),
-        inorder.copyOfRange(0, rootIndexInInorder)
+        preorder.copyOfRange(1, rootIndexInInorder + 1), inorder.copyOfRange(0, rootIndexInInorder)
     )
     root.right = buildTree(
         preorder.copyOfRange(rootIndexInInorder + 1, preorder.size),
@@ -3418,9 +3383,8 @@ fun kSmallestPairs(nums1: IntArray, nums2: IntArray, k: Int): List<List<Int>> {
         return result
     }
 
-    val priorityQueue = PriorityQueue<Triple<Int, Int, Int>>(
-        compareBy { nums1[it.first] + nums2[it.second] }
-    )
+    val priorityQueue =
+        PriorityQueue<Triple<Int, Int, Int>>(compareBy { nums1[it.first] + nums2[it.second] })
 
     for (i in 0 until minOf(nums1.size, k)) {
         priorityQueue.offer(Triple(i, 0, nums1[i] + nums2[0]))
@@ -4007,32 +3971,1691 @@ fun searchII(nums: IntArray, target: Int): Boolean {
     return false
 }
 
+/**
+ * 1422. Maximum Score After Splitting a String
+ */
+
+fun maxScore(s: String): Int {
+    var maxScore = 0
+    var zeros = 0
+    var ones = 0
 
 
+    for (char in s) {
+        if (char == '1') {
+            ones++
+        }
+    }
+
+    for (i in 0 until s.length - 1) {
+        if (s[i] == '0') {
+            zeros++
+        } else {
+            ones--
+        }
+        maxScore = maxOf(maxScore, zeros + ones)
+    }
+
+    return maxScore
+}
+
+/**
+ * 538. Convert BST to Greater Tree
+ */
 
 
+fun convertBST(root: TreeNode?): TreeNode? {
+    var sum = 0
+    fun dfs(root: TreeNode?) {
+        if (root == null) return
+        dfs(root?.right)
+        sum += root.`val`
+        root.`val` = sum
+        dfs(root?.left)
+    }
+    dfs(root)
+    return root
+}
+
+/**
+ * 2559. Count Vowel Strings in Ranges
+ */
+
+fun vowelStrings(words: Array<String>, queries: Array<IntArray>): IntArray {
+    val n = words.size
+    val prefixSum = IntArray(n + 1) { 0 }
 
 
+    for (i in 1..n) {
+        prefixSum[i] =
+            prefixSum[i - 1] + if (isVowel(words[i - 1][0]) && isVowel(words[i - 1].last())) 1 else 0
+    }
 
 
+    val result = IntArray(queries.size)
+    for (i in queries.indices) {
+        val start = queries[i][0]
+        val end = queries[i][1]
+        result[i] = prefixSum[end + 1] - prefixSum[start]
+    }
+
+    return result
+}
 
 
+private fun isVowel(char: Char): Boolean {
+    return char in "aeiou"
+}
+
+/**
+ * 543. Diameter of Binary Tree
+ */
+
+fun diameterOfBinaryTree(root: TreeNode?): Int {
+    var diameter = 0
+
+    fun dfs(node: TreeNode?): Int {
+        if (node == null) {
+            return 0
+        }
+
+        val leftDepth = dfs(node.left)
+        val rightDepth = dfs(node.right)
+
+        diameter = maxOf(diameter, leftDepth + rightDepth)
+
+        return maxOf(leftDepth, rightDepth) + 1
+    }
+
+    dfs(root)
+    return diameter
+}
+
+/**
+ * 25. Reverse Nodes in k-Group
+ */
 
 
+fun reverseKGroup(head: ListNode?, k: Int): ListNode? {
+    if (head == null || k == 1) return head
+
+    var current = head
+    var prev: ListNode? = null
+    var next: ListNode? = null
+    var count = 0
 
 
+    var temp = current
+    for (i in 0 until k) {
+        if (temp == null) return head
+        temp = temp.next
+    }
 
 
+    while (count < k && current != null) {
+        next = current.next
+        current.next = prev
+        prev = current
+        current = next
+        count++
+    }
 
 
+    if (next != null) {
+        head.next = reverseKGroup(next, k)
+    }
+
+    return prev
+}
+
+/**
+ * 138. Copy List with Random Pointer
+ */
+
+class NodeCopy(var `val`: Int) {
+    var next: NodeCopy? = null
+    var random: NodeCopy? = null
+}
+
+fun copyRandomList(head: NodeCopy?): NodeCopy? {
+    if (head == null) return null
+
+    val map = mutableMapOf<NodeCopy, NodeCopy>()
 
 
+    var current = head
+    while (current != null) {
+        map[current] = NodeCopy(current.`val`)
+        current = current.next
+    }
 
 
+    current = head
+    while (current != null) {
+        val copy = map[current]!!
+        copy.next = map[current.next]
+        copy.random = map[current.random]
+        current = current.next
+    }
+
+    return map[head]
+}
+
+/**
+ * 383. Ransom Note
+ */
 
 
+fun canConstruct(ransomNote: String, magazine: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    var len = magazine.length
+    for (i in 0 until len) map[magazine[i]] = map.getOrDefault(magazine[i], 0) + 1
+    len = ransomNote.length
+    for (i in 0 until len) {
+        if (!map.contains(ransomNote[i])) return false
+        map[ransomNote[i]] = map.getOrDefault(ransomNote[i], 0) - 1
+        if (map[ransomNote[i]] == 0) map.remove(ransomNote[i])
+    }
+    return true
+}
+
+/**
+ * 19. Remove Nth Node From End of List
+ */
+
+fun removeNthFromEnd(head: ListNode?, n: Int): ListNode? {
+    if (head?.next == null && n == 1) return null
+    var curr = head
+    var size = 0
+    while (curr != null) {
+        size++
+        curr = curr?.next
+    }
+    curr = head
+    var prev: ListNode? = null
+    var index = size - n
+    if (index == 0) return head?.next
+    while (curr != null) {
+        if (index == 0) {
+            val temp = curr?.next
+            curr?.next = null
+            prev?.next = null
+            prev?.next = temp
+            break
+        }
+        index--
+        prev = curr
+        curr = curr?.next
+    }
+    return head
+}
+
+/**
+ * 82. Remove Duplicates from Sorted List II
+ */
+
+fun deleteDuplicatesII(head: ListNode?): ListNode? {
+    head ?: return null
+    var prev: ListNode? = null
+    var curr: ListNode? = ListNode(-101)
+    val ans = curr
+    curr?.next = head
+    while (curr != null) {
+        if (curr?.`val` == curr?.next?.`val` ?: -101) {
+            var temp = curr?.next
+            while (temp?.`val` == curr?.`val`) temp = temp?.next
+            curr?.next?.next = null
+            curr?.next = null
+            prev?.next = temp
+            curr = temp
+        } else {
+            prev = curr
+            curr = curr?.next
+        }
+    }
+    return ans?.next
+}
+
+/**
+ * 86. Partition List
+ */
 
 
+fun partition(head: ListNode?, x: Int): ListNode? {
+    var head = head
+    val smallList = ListNode(101)
+    val bigList = ListNode(101)
+    var small: ListNode? = smallList
+    var big: ListNode? = bigList
 
+    while (head != null) {
+        if (head.`val` < x) {
+            small!!.next = head
+            small = small!!.next
+        } else {
+            big!!.next = head
+            big = big!!.next
+        }
+
+        head = head.next
+    }
+
+    small!!.next = bigList.next
+    big!!.next = null
+
+    return smallList.next
+}
+
+/**
+ * 61. Rotate List
+ */
+
+
+fun rotateRight(head: ListNode?, k: Int): ListNode? {
+    var k = k
+    if (head?.next == null || k == 0) return head
+
+
+    var length = 1
+    var tail = head
+    while (tail!!.next != null) {
+        length++
+        tail = tail!!.next
+    }
+
+
+    k %= length
+    if (k == 0) return head
+
+
+    val breakPoint = length - k
+    var current = head
+    for (i in 1 until breakPoint) {
+        current = current!!.next
+    }
+
+
+    val newHead = current!!.next
+    current!!.next = null
+    tail!!.next = head
+
+    return newHead
+}
+
+/**
+ * 24. Swap Nodes in Pairs
+ */
+
+fun swapPairs(head: ListNode?): ListNode? {
+    if (head == null || head?.next == null) return head
+    var curr = head
+    var dummy = ListNode(101)
+    dummy?.next = head
+    var prev = dummy
+    while (curr != null && curr?.next != null) {
+        val temp = curr?.next?.next
+        val second = curr?.next
+
+        second?.next = curr
+        curr?.next = temp
+        prev?.next = second
+
+        prev = curr
+        curr = temp
+    }
+    return dummy?.next
+}
+
+/**
+ * 328. Odd Even Linked List
+ */
+
+fun oddEvenList(head: ListNode?): ListNode? {
+    if (head?.next == null) return head
+    var oddList: ListNode? = ListNode(101)
+    var evenList: ListNode? = ListNode(101)
+    var odd = oddList
+    var even = evenList
+    var curr: ListNode? = ListNode(101)
+    curr?.next = head
+    var index = 0
+    while (curr != null) {
+        if (index % 2 == 0) {
+            val temp = curr?.next
+            evenList?.next = temp
+            evenList = evenList?.next
+        } else {
+            val temp = curr?.next
+            oddList?.next = temp
+            oddList = oddList?.next
+        }
+        curr = curr?.next
+        index++
+    }
+    evenList?.next = odd?.next
+    var ans = even
+    val q = ans
+    while (ans?.next != null) ans = ans?.next
+    ans?.next = odd?.next
+    return q?.next
+}
+
+/**
+ * 143. Reorder List
+ */
+
+
+fun reorderList(head: ListNode?): Unit {
+    var curr = head
+    val res = mutableListOf<ListNode>()
+    while (curr != null) {
+        res.add(curr)
+        curr = curr?.next
+    }
+    var ans: ListNode? = ListNode(10001)
+    var i = 0
+    var j = res.size - 1
+    while (i < j) {
+        val one = res[i]
+        one?.next = null
+        ans?.next = one
+        ans = ans?.next
+        val second = res[j]
+        second?.next = null
+        ans?.next = second
+        ans = ans?.next
+        i++
+        j--
+    }
+    if (i == j) {
+        val node = res[i]
+        node?.next = null
+        ans?.next = node
+    }
+
+}
+
+/**
+ * 700. Search in a Binary Search Tree
+ */
+
+fun searchBST(root: TreeNode?, `val`: Int): TreeNode? {
+    if (root == null) return null
+
+    if (`val` == root.`val`) return root
+
+    return if (root.`val` > `val`) searchBST(root?.left, `val`) else searchBST(root?.right, `val`)
+}
+
+/**
+ * 701. Insert into a Binary Search Tree
+ */
+
+fun insertIntoBST(root: TreeNode?, `val`: Int): TreeNode? {
+    if (root == null) {
+        return TreeNode(`val`)
+    }
+
+    if (`val` < root.`val`) {
+        root.left = insertIntoBST(root.left, `val`)
+    } else {
+        root.right = insertIntoBST(root.right, `val`)
+    }
+
+    return root
+}
+
+/**
+ * 106. Construct Binary Tree from Inorder and Postorder Traversal
+ */
+
+fun buildTreeFromInorderAndPostOrder(inorder: IntArray, postorder: IntArray): TreeNode? {
+    return buildTreeRecursive(inorder, postorder, 0, inorder.size - 1, postorder.size - 1)
+}
+
+private fun buildTreeRecursive(
+    inorder: IntArray,
+    postorder: IntArray,
+    inorderStart: Int,
+    inorderEnd: Int,
+    postorderIndex: Int
+): TreeNode? {
+    if (inorderStart > inorderEnd) {
+        return null
+    }
+
+    val rootVal = postorder[postorderIndex]
+    val root = TreeNode(rootVal)
+
+
+    val inorderIndex = inorder.indexOf(rootVal)
+
+
+    root.right =
+        buildTreeRecursive(inorder, postorder, inorderIndex + 1, inorderEnd, postorderIndex - 1)
+
+    val nextPostorderIndex = postorderIndex - (inorderEnd - inorderIndex) - 1
+    root.left =
+        buildTreeRecursive(inorder, postorder, inorderStart, inorderIndex - 1, nextPostorderIndex)
+
+
+    return root
+}
+
+/**
+ * 623. Add One Row to Tree
+ */
+
+
+fun addOneRow(root: TreeNode?, `val`: Int, depth: Int): TreeNode? {
+    if (depth == 1) {
+        return TreeNode(`val`).apply { left = root }
+    }
+
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(root!!)
+
+    var currentDepth = 1
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+
+        if (currentDepth == depth - 1) {
+
+            for (i in 0 until levelSize) {
+                val node = queue.removeFirst()
+
+                val tempLeft = node.left
+                val tempRight = node.right
+
+                node.left = TreeNode(`val`).apply { left = tempLeft }
+                node.right = TreeNode(`val`).apply { right = tempRight }
+            }
+            break
+        } else {
+
+            for (i in 0 until levelSize) {
+                val node = queue.removeFirst()
+                node.left?.let { queue.add(it) }
+                node.right?.let { queue.add(it) }
+            }
+        }
+
+        currentDepth++
+    }
+
+    return root
+}
+
+/**
+ * 671. Second Minimum Node In a Binary Tree
+ */
+
+fun findSecondMinimumValue(root: TreeNode?): Int {
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    val res = mutableListOf<Int>()
+    while (q.isNotEmpty()) {
+        val size = q.size
+        for (i in 0 until size) {
+            val node = q.poll()
+            res.add(node.`val`)
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+    }
+    var first = Int.MAX_VALUE
+    var second = Long.MAX_VALUE
+    for (i in 0 until res.size) {
+        first = minOf(first, res[i])
+    }
+    for (i in 0 until res.size) {
+        if (res[i] != first) second = minOf(second, res[i].toLong())
+    }
+    return if (second == Long.MAX_VALUE) -1 else second.toInt()
+}
+
+/**
+ * 235. Lowest Common Ancestor of a Binary Search Tree
+ */
+
+fun lowestCommonAncestor(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
+    var current = root
+
+    while (current != null) {
+        when {
+            p == null || q == null -> return null
+            p.`val` < current.`val` && q.`val` < current.`val` -> current =
+                current.left
+
+            p.`val` > current.`val` && q.`val` > current.`val` -> current =
+                current.right
+
+            else -> return current
+        }
+    }
+
+    return null
+}
+
+/**
+ * 236. Lowest Common Ancestor of a Binary Tree
+ */
+
+fun lowestCommonAncestorBinaryTree(root: TreeNode?, p: TreeNode?, q: TreeNode?): TreeNode? {
+    if (root == null || root == p || root == q) {
+        return root // Base cases: root is null, p, or q
+    }
+
+    val left = lowestCommonAncestorBinaryTree(root.left, p, q) // Search in left subtree
+    val right = lowestCommonAncestorBinaryTree(root.right, p, q) // Search in right subtree
+
+    return if (left != null && right != null) root else left ?: right // Determine LCA
+}
+
+
+/**
+ * 155. Min Stack
+ */
+
+
+class MinStack() {
+
+    private val stack: MutableList<Int> = mutableListOf()
+    private val minStack: MutableList<Int> = mutableListOf()
+
+    fun push(`val`: Int) {
+        stack.add(`val`)
+        if (minStack.isEmpty() || `val` <= minStack.last()) {
+            minStack.add(`val`)
+        }
+    }
+
+    fun pop() {
+        if (stack.isNotEmpty()) {
+            val top = stack.removeLast()
+            if (minStack.isNotEmpty() && top == minStack.last()) {
+                minStack.removeLast()
+            }
+        }
+    }
+
+    fun top(): Int {
+        return stack.lastOrNull() ?: -1
+    }
+
+    fun getMin(): Int {
+        return minStack.lastOrNull() ?: -1
+    }
+}
+
+
+/**
+ * 71. Simplify Path
+ */
+
+
+fun simplifyPath(path: String): String {
+    val stack = ArrayDeque<String>()
+    val components = path.split("/")
+
+    for (component in components) {
+        when (component) {
+            "", "." -> continue // Ignore empty or "." components
+            ".." -> {
+                if (stack.isNotEmpty()) {
+                    stack.removeLast() // Go up one level
+                }
+            }
+
+            else -> stack.addLast(component) // Add valid component to stack
+        }
+    }
+
+    // Build the simplified path
+    val result = StringBuilder()
+    while (stack.isNotEmpty()) {
+        result.append("/").append(stack.removeFirst())
+    }
+
+    return if (result.isEmpty()) "/" else result.toString()
+}
+
+
+/**
+ * 863. All Nodes Distance K in Binary Tree
+ */
+
+fun distanceK(root: TreeNode?, target: TreeNode?, k: Int): List<Int> {
+    val result = mutableListOf<Int>()
+    val parentMap = HashMap<TreeNode, TreeNode?>()
+
+    // 1. Build parent map using DFS
+    fun dfs(node: TreeNode?, parent: TreeNode?) {
+        if (node == null) return
+        parentMap[node] = parent
+        dfs(node.left, node)
+        dfs(node.right, node)
+    }
+    dfs(root, null)
+
+    // 2. Perform BFS from target node
+    val queue = ArrayDeque<TreeNode>()
+    queue.add(target!!)
+    val visited = HashSet<TreeNode>()
+    visited.add(target)
+    var distance = 0
+
+    while (queue.isNotEmpty()) {
+        val levelSize = queue.size
+        for (i in 0 until levelSize) {
+            val currentNode = queue.removeFirst()
+
+            if (distance == k) {
+                result.add(currentNode.`val`)
+            }
+
+            // Explore neighbors (parent, left, right)
+            val neighbors = listOfNotNull(
+                parentMap[currentNode],
+                currentNode.left,
+                currentNode.right
+            )
+
+            for (neighbor in neighbors) {
+                if (neighbor != null && neighbor !in visited) {
+                    visited.add(neighbor)
+                    queue.add(neighbor)
+                }
+            }
+        }
+        distance++
+    }
+
+    return result
+}
+
+/**
+ * 1609. Even Odd Tree
+ */
+
+fun isEvenOddTree(root: TreeNode?): Boolean {
+    val q = LinkedList<TreeNode>()
+    q.offer(root)
+    var level = 0
+    while (q.isNotEmpty()) {
+        val size = q.size
+        var evenTemp: TreeNode? = null
+        var oddTemp: TreeNode? = null
+        for (i in 0 until size) {
+            val node = q.poll()
+
+            if (level % 2 == 0) {
+                if (node.`val` % 2 == 0) return false
+                evenTemp = if (evenTemp == null) {
+                    node
+                } else {
+                    if (evenTemp.`val` >= node.`val`) return false
+                    else node
+                }
+            } else {
+                if (node.`val` % 2 != 0) return false
+                oddTemp = if (oddTemp == null) {
+                    node
+                } else {
+                    if (oddTemp.`val` <= node.`val`) return false
+                    else node
+                }
+            }
+            node?.left?.let { q.offer(it) }
+            node?.right?.let { q.offer(it) }
+        }
+        level++
+    }
+    return true
+}
+
+/**
+ * 125. Valid Palindrome
+ */
+
+fun isPalindrome(s: String): Boolean {
+    var res = ""
+    var s = s.lowercase()
+    for (symbol in s) {
+        if (isWord(symbol) || isDigit(symbol)) res += symbol
+    }
+    var i = 0
+    var j = res.length - 1
+    while (i < j) {
+        if (res[i] != res[j]) return false
+        i++
+        j--
+    }
+    return true
+}
+
+fun isWord(s: Char): Boolean {
+    return s in "abcdefghijklmnopqrstuvwxyz"
+}
+
+fun isDigit(s: Char): Boolean {
+    return s in "0123456789"
+}
+
+/**
+ * 680. Valid Palindrome II
+ */
+
+
+fun validPalindrome(s: String): Boolean {
+    var left = 0
+    var right = s.length - 1
+
+    while (left < right) {
+        if (s[left] != s[right]) {
+            return isPalindromeValid(s, left + 1, right) || isPalindromeValid(s, left, right - 1)
+        }
+        left++
+        right--
+    }
+
+    return true
+}
+
+private fun isPalindromeValid(s: String, left: Int, right: Int): Boolean {
+    var l = left
+    var r = right
+    while (l < r) {
+        if (s[l] != s[r]) {
+            return false
+        }
+        l++
+        r--
+    }
+    return true
+}
+
+/**
+ * 150. Evaluate Reverse Polish Notation
+ */
+
+fun evalRPN(tokens: Array<String>): Int {
+    val stack = ArrayDeque<Int>()
+    for (token in tokens) {
+        when (token) {
+            "+", "-", "*", "/" -> {
+                val operand2 = stack.removeLast()
+                val operand1 = stack.removeLast()
+                val result = when (token) {
+                    "+" -> operand1 + operand2
+                    "-" -> operand1 - operand2
+                    "*" -> operand1 * operand2
+                    "/" -> operand1 / operand2
+                    else -> 0
+                }
+                stack.addLast(result)
+            }
+
+            else -> stack.addLast(token.toInt())
+        }
+    }
+    return stack.removeLast()
+}
+
+
+/**
+ * 783. Minimum Distance Between BST Nodes
+ */
+
+fun minDiffInBST(root: TreeNode?): Int {
+    if (root == null) return Int.MAX_VALUE
+
+    val values = mutableListOf<Int>()
+    inorderTraversal(root, values)
+
+    var minDiff = Int.MAX_VALUE
+    for (i in 1 until values.size) {
+        minDiff = minOf(minDiff, values[i] - values[i - 1])
+    }
+    return minDiff
+}
+
+private fun inorderTraversal(root: TreeNode?, values: MutableList<Int>): List<Int> {
+    if (root == null) return values
+
+    inorderTraversal(root?.left, values)
+    values.add(root.`val`)
+    inorderTraversal(root?.right, values)
+    return values
+}
+
+/**
+ * 290. Word Pattern
+ */
+
+
+fun wordPattern(pattern: String, s: String): Boolean {
+    val patternToWord = mutableMapOf<Char, String>()
+    val wordToPattern = mutableMapOf<String, Char>()
+
+    val words = s.split(" ")
+
+    if (pattern.length != words.size) {
+        return false
+    }
+
+    for (i in pattern.indices) {
+        val char = pattern[i]
+        val word = words[i]
+
+        if (patternToWord.containsKey(char)) {
+            if (patternToWord[char] != word) {
+                return false
+            }
+        } else if (wordToPattern.containsKey(word)) {
+            if (wordToPattern[word] != char) {
+                return false
+            }
+        } else {
+            patternToWord[char] = word
+            wordToPattern[word] = char
+        }
+    }
+
+    return true
+}
+
+/**
+ * 1022. Sum of Root To Leaf Binary Numbers
+ */
+
+fun sumRootToLeaf(root: TreeNode?): Int {
+    return dfsSumRootToLeaf(root, 0)
+}
+
+private fun dfsSumRootToLeaf(node: TreeNode?, currentSum: Int): Int {
+    if (node == null) {
+        return 0
+    }
+
+    val newSum = (currentSum shl 1) + node.`val`
+
+    if (node.left == null && node.right == null) {
+        return newSum
+    }
+
+    return dfsSumRootToLeaf(node.left, newSum) + dfsSumRootToLeaf(node.right, newSum)
+}
+
+
+/**
+ * 703. Kth Largest Element in a Stream
+ */
+
+
+class KthLargest(private val k: Int, nums: IntArray) {
+    private val minHeap: PriorityQueue<Int> = PriorityQueue() // Use min-heap
+
+    init {
+        nums.forEach { add(it) }
+        while (minHeap.size > k) {
+            minHeap.poll()
+        }
+    }
+
+    fun add(`val`: Int): Int {
+        minHeap.offer(`val`)
+        if (minHeap.size > k) {
+            minHeap.poll()
+        }
+        return minHeap.peek()
+    }
+}
+
+fun pruneTree(root: TreeNode?): TreeNode? {
+    if (root == null || root.`val` == 0) return null
+    dfs(root)
+    return root
+}
+
+private tailrec fun dfs(root: TreeNode?) {
+    if (root == null) return
+    if (root?.left?.`val` == 0 && root?.left?.left == null && root?.left?.right == null) {
+        root?.left = null
+    }
+    if (root?.right?.`val` == 0 && root?.right?.left == null && root?.right?.right == null) {
+        root?.right = null
+    }
+    if (root?.left?.`val` == 0 && root?.left?.left?.`val` == 0 && root?.left?.right?.`val` == 0) {
+        root?.left = null
+    }
+    dfs(root?.left)
+    dfs(root?.right)
+}
+
+
+/**
+ * 872. Leaf-Similar Trees
+ */
+
+
+fun leafSimilar(root1: TreeNode?, root2: TreeNode?): Boolean {
+    val list1 = mutableListOf<Int>()
+    val list2 = mutableListOf<Int>()
+    dfsleafSimillar(root1, list1)
+    dfsleafSimillar(root2, list2)
+    if (list1.size != list2.size) return false
+    for (i in 0 until list1.size) {
+        if (list1[i] != list2[i]) return false
+    }
+    return true
+}
+
+fun dfsleafSimillar(root: TreeNode?, list: MutableList<Int>) {
+    if (root == null) return
+    if (root?.left == null && root?.right == null) list.add(root.`val`)
+    dfs(root?.left, list)
+    dfs(root?.right, list)
+}
+
+
+/**
+ * 502. IPO
+ */
+
+fun findMaximizedCapital(k: Int, w: Int, profits: IntArray, capital: IntArray): Int {
+    val n = profits.size
+    val projects = Array(n) { i -> Pair(capital[i], profits[i]) }
+    projects.sortBy { it.first }
+
+    val pq = PriorityQueue<Int> { a, b -> b - a }
+
+    var i = 0
+    var currentCapital = w
+
+    for (j in 0 until k) {
+        while (i < n && projects[i].first <= currentCapital) {
+            pq.offer(projects[i].second)
+            i++
+        }
+
+        if (pq.isEmpty()) {
+            break
+        }
+        currentCapital += pq.poll()
+    }
+
+    return currentCapital
+}
+
+
+/**
+ * 225. Implement Stack using Queues
+ */
+
+class MyStack() {
+
+    private val stack = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        stack.add(x)
+    }
+
+    fun pop(): Int {
+        return stack.removeLast()
+    }
+
+    fun top(): Int {
+        return stack.last()
+    }
+
+    fun empty(): Boolean {
+        return stack.isEmpty()
+    }
+
+}
+
+/**
+ * 232. Implement Queue using Stacks
+ */
+
+class MyQueue() {
+
+    private val queue = mutableListOf<Int>()
+
+    fun push(x: Int) {
+        queue.add(x)
+    }
+
+    fun pop(): Int {
+        return queue.removeFirst()
+    }
+
+    fun peek(): Int {
+        return queue.first()
+    }
+
+    fun empty(): Boolean {
+        return queue.isEmpty()
+    }
+
+}
+
+
+/**
+ * 67. Add Binary
+ */
+
+
+fun addBinary(a: String, b: String): String {
+    var i = a.length - 1
+    var j = b.length - 1
+    var carry = 0
+    val result = StringBuilder()
+
+    while (i >= 0 || j >= 0 || carry > 0) {
+        val digitA = if (i >= 0) a[i] - '0' else 0
+        val digitB = if (j >= 0) b[j] - '0' else 0
+
+        val sum = digitA + digitB + carry
+        result.insert(0, sum % 2) // Insert at the beginning
+        carry = sum / 2
+
+        i--
+        j--
+    }
+
+    return result.toString()
+}
+
+
+/**
+ * 190. Reverse Bits
+ */
+
+fun reverseBits(n: Int): Int {
+    var result = 0
+    for (i in 0..31) {
+        result = (result shl 1) or (n ushr i and 1)
+    }
+    return result
+}
+
+/**
+ * 1922. Count Good Numbers
+ */
+
+
+fun countGoodNumbers(n: Long): Int {
+    val evenDigits = (n + 1) / 2 // Number of positions for even digits
+    val oddDigits = n / 2 // Number of positions for odd digits
+    val MOD = 1000000007
+    return (power(5, evenDigits, MOD) * power(4, oddDigits, MOD) % MOD).toInt()
+}
+
+private fun power(base: Long, exp: Long, MOD: Int): Long {
+    var res = 1L
+    var base = base
+    var exp = exp
+
+    while (exp > 0) {
+        if (exp % 2 == 1L) {
+            res = (res * base) % MOD
+        }
+        base = (base * base) % MOD
+        exp /= 2
+    }
+
+    return res
+}
+
+
+/**
+ * 231. Power of Two
+ */
+
+fun isPowerOfTwo(n: Int): Boolean = power(n, 2)
+
+private tailrec fun power(n: Int, k: Int): Boolean {
+    if (n == 1) return true
+    if (n % k != 0 || n == 0) return false
+    return power(n / k, k)
+}
+
+/**
+ * 60. Permutation Sequence
+ */
+
+fun getPermutation(n: Int, k: Int): String {
+    val subset = mutableListOf<Int>()
+    val res = mutableListOf<MutableList<Int>>()
+    val base = mutableListOf<Int>()
+    for (i in 0 until n) base.add(i + 1)
+    backtrack(base, subset, res)
+    var ans = ""
+    val arr = res[k - 1]
+    for (i in 0 until arr.size) ans += arr[i].toString()
+    return ans
+}
+
+fun backtrack(base: List<Int>, subset: MutableList<Int>, res: MutableList<MutableList<Int>>) {
+    if (subset.size == base.size) {
+        res.add(ArrayList(subset))
+        return
+    }
+    for (i in 0 until base.size) {
+        if (!subset.contains(base[i])) {
+            subset.add(base[i])
+            backtrack(base, subset, res)
+            subset.removeAt(subset.size - 1)
+        }
+    }
+}
+
+/**
+ * 44. Wildcard Matching
+ */
+
+
+fun isMatch(s: String, p: String): Boolean {
+    val n = s.length
+    val m = p.length
+    val dp = Array(n + 1) { BooleanArray(m + 1) }
+
+    dp[0][0] = true
+
+
+    for (j in 1 until m + 1) {
+        if (p[j - 1] == '*') {
+            dp[0][j] = dp[0][j - 1]
+        }
+    }
+
+
+    for (i in 1 until n + 1) {
+        for (j in 1 until m + 1) {
+            if (p[j - 1] == '*') {
+                dp[i][j] = dp[i][j - 1] || dp[i - 1][j]
+            } else if (p[j - 1] == '?' || s[i - 1] == p[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1]
+            }
+        }
+    }
+
+    return dp[n][m]
+}
+
+
+/**
+ * 273. Integer to English Words
+ */
+
+
+private val belowTwenty = arrayOf(
+    "",
+    "One",
+    "Two",
+    "Three",
+    "Four",
+    "Five",
+    "Six",
+    "Seven",
+    "Eight",
+    "Nine",
+    "Ten",
+    "Eleven",
+    "Twelve",
+    "Thirteen",
+    "Fourteen",
+    "Fifteen",
+    "Sixteen",
+    "Seventeen",
+    "Eighteen",
+    "Nineteen"
+)
+private val belowHundred =
+    arrayOf("", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety")
+private val thousands = arrayOf("", "Thousand", "Million", "Billion")
+
+
+fun numberToWords(num: Int): String {
+    if (num == 0) return "Zero"
+
+    var i = 0
+    var words = ""
+    var num = num
+
+    while (num > 0) {
+        if (num % 1000 != 0) {
+            words = helper(num % 1000) + " " + thousands[i] + " " + words
+        }
+        num /= 1000
+        i++
+    }
+
+    return words.trim()
+}
+
+private fun helper(num: Int): String {
+    if (num == 0) return ""
+    if (num < 20) return belowTwenty[num]
+    if (num < 100) return belowHundred[num / 10] + (if (num % 10 != 0) " " + belowTwenty[num % 10] else "")
+    return belowTwenty[num / 100] + " Hundred" + (if (num % 100 != 0) " " + helper(num % 100) else "")
+}
+
+
+/**
+ * 3304. Find the K-th Character in String Game I
+ */
+
+fun kthCharacter(k: Int): Char {
+    val res = rec(k, "a")
+    return res[k - 1]
+}
+
+private fun rec(k: Int, word: String): String {
+    if (word.length >= k) return word
+    var res = word
+    for (char in word) res += nextLetter(char)
+    val ans = rec(k, res)
+    return ans
+}
+
+fun nextLetter(s: Char): Char {
+    val alp = "abcdefghijklmnopqrstuvwxyz"
+    if (s != 'z') {
+        val i = alp.indexOf(s)
+        return alp[i + 1]
+    } else return 'a'
+}
+
+/**
+ * 3407. Substring Matching Pattern
+ */
+
+
+fun hasMatch(s: String, p: String): Boolean {
+    val starIndex = p.indexOf('*')
+    val prefix = p.substring(0, starIndex)
+    val suffix = p.substring(starIndex + 1)
+
+    if (prefix.isEmpty() && suffix.isEmpty()) {
+        return true
+    }
+
+    for (i in s.indices) {
+        for (j in i..s.length) {
+            val sub = s.substring(i, j)
+            if (checkMatch(sub, prefix, suffix)) {
+                return true
+            }
+        }
+    }
+
+    return false
+}
+
+
+private fun checkMatch(sub: String, prefix: String, suffix: String): Boolean {
+    if (sub.length < prefix.length + suffix.length) {
+        return false
+    }
+
+    if (!sub.startsWith(prefix)) {
+        return false
+    }
+
+    if (!sub.endsWith(suffix)) {
+        return false
+    }
+
+    return true
+}
+
+/**
+ * 1545. Find Kth Bit in Nth Binary String
+ */
+
+fun findKthBit(n: Int, k: Int): Char {
+    if (n == 1) {
+        return '0'
+    }
+
+    val length = (1 shl n) - 1 // 2^n - 1
+    val mid = length / 2 + 1
+
+    return if (k == mid) {
+        '1'
+    } else if (k < mid) {
+        findKthBit(n - 1, k)
+    } else {
+        invert(findKthBit(n - 1, length - k + 1))
+    }
+}
+
+private fun invert(bit: Char): Char {
+    return if (bit == '0') '1' else '0'
+}
+
+/**
+ * 28. Find the Index of the First Occurrence in a String
+ */
+
+
+fun strStr(haystack: String, needle: String): Int {
+    val k = needle.length
+    for (i in 0 until (haystack.length - k) + 1) {
+        val temp = haystack.substring(i, k + i)
+        if (temp == needle) return i
+    }
+    return -1
+}
+
+/**
+ * 1455. Check If a Word Occurs As a Prefix of Any Word in a Sentence
+ */
+
+fun isPrefixOfWord(sentence: String, searchWord: String): Int {
+    var counter = 1
+    var str = ""
+    var sentence = "$sentence "
+    for (s in sentence) {
+        if (s != ' ') str += s
+        else {
+            if (checkPrefix(str, searchWord)) return counter
+            counter++
+            str = ""
+        }
+    }
+    return -1
+}
+
+private fun checkPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
+/**
+ * 2255. Count Prefixes of a Given String
+ */
+
+
+fun countPrefixes(words: Array<String>, s: String): Int {
+    var count = 0
+    for (word in words) if (isPrefix(s, word)) count++
+    return count
+}
+
+private fun isPrefix(str: String, prefix: String): Boolean {
+    if (str.length < prefix.length) return false
+    var j = 0
+    for (s in prefix) {
+        if (s != str[j]) return false
+        else j++
+    }
+    return true
+}
+
+/**
+ * 1961. Check If String Is a Prefix of Array
+ */
+
+fun isPrefixString(s: String, words: Array<String>): Boolean {
+    var concatenated = ""
+    for (word in words) {
+        concatenated += word
+        if (concatenated == s) {
+            return true
+        }
+        if (concatenated.length > s.length) {
+            return false
+        }
+    }
+    return false
+}
+
+/**
+ * 459. Repeated Substring Pattern
+ */
+
+
+fun repeatedSubstringPattern(s: String): Boolean {
+    val n = s.length
+    for (len in 1..n / 2) {
+        if (n % len == 0) {
+            val sub = s.substring(0, len)
+            val repeated = buildString {
+                repeat(n / len) {
+                    append(sub)
+                }
+            }
+            if (repeated == s) {
+                return true
+            }
+        }
+    }
+    return false
+}
+
+
+/**
+ * 1408. String Matching in an Array
+ */
+
+
+fun stringMatching(words: Array<String>): List<String> {
+    var set = mutableSetOf<String>()
+    for (i in 0 until words.size) {
+        for (j in 0 until words.size) {
+            if (words[i] == words[j]) continue
+            else {
+                if (words[i].isSubString(words[j])) set.add(words[i])
+            }
+        }
+    }
+    return set.toList()
+}
+
+private fun String.isSubString(str: String): Boolean {
+    if (this.length > str.length) return false
+    var j = 0
+    for (i in 0 until (str.length - this.length) + 1) {
+        val temp = str.substring(i, this.length + i)
+        if (temp == this) return true
+    }
+    return false
+}
+
+/**
+ * 434. Number of Segments in a String
+ */
+
+fun countSegments(s: String): Int {
+    var counter = 0
+    var temp = ""
+    var s = s + " "
+    for (char in s) {
+        if (char != ' ') temp += char
+        else {
+            if (temp.isNotEmpty()) counter++
+            temp = ""
+        }
+    }
+    return counter
+}
+
+/**
+ * 1941. Check if All Characters Have Equal Number of Occurrences
+ */
+
+
+fun areOccurrencesEqual(s: String): Boolean {
+    val map = mutableMapOf<Char, Int>()
+    for (char in s) map[char] = map.getOrDefault(char, 0) + 1
+    var temp = 0
+    for (char in s) {
+        if (temp == 0) {
+            temp = map.getOrDefault(char, 0)
+        }
+        if (temp != map.getOrDefault(char, 0)) return false
+    }
+    return true
+}
+
+/**
+ * 6. Zigzag Conversion
+ */
+
+fun convert(s: String, numRows: Int): String {
+    if (numRows == 1 || numRows >= s.length) {
+        return s
+    }
+
+    val rows = List(numRows) { StringBuilder() }
+    var currentRow = 0
+    var goingDown = false
+
+    for (c in s) {
+        rows[currentRow].append(c)
+        if (currentRow == 0 || currentRow == numRows - 1) {
+            goingDown = !goingDown
+        }
+        currentRow += if (goingDown) 1 else -1
+    }
+
+    val result = StringBuilder()
+    for (row in rows) {
+        result.append(row)
+    }
+
+    return result.toString()
+}
+
+
+/**
+ * 1161. Maximum Level Sum of a Binary Tree
+ */
+
+fun maxLevelSum(root: TreeNode?): Int {
+    val queue = LinkedList<TreeNode>()
+    var maximum = Pair(Int.MIN_VALUE, 0)
+    var level = 1
+    queue.offer(root)
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        var levelSum = 0
+        for (i in 0 until size) {
+            val node = queue.poll()
+            levelSum += node.`val`
+            node?.left?.let { queue.offer(it) }
+            node?.right?.let { queue.offer(it) }
+        }
+        if (levelSum > maximum.first) {
+            maximum = Pair(levelSum, level)
+        }
+        level++
+    }
+    return maximum.second
+}
+
+
+/**
+ * 374. Guess Number Higher or Lower
+ */
+
+fun guess(num: Int): Int {
+    return 0
+}
+
+abstract class GuessGame {
+
+    open abstract fun guessNumber(n: Int): Int
+}
+
+class GuessNumber : GuessGame() {
+    override fun guessNumber(n: Int): Int {
+        if (n == 1) return n
+        var low = 0L
+        var high = (n - 1).toLong()
+        while (low <= high) {
+            val mid = (low + high) / 2L
+            val call = guess((mid + 1).toInt())
+            if (call == 0) return mid.toInt() + 1
+            if (call == 1) low = mid + 1L
+            else high = mid
+        }
+        return 0
+    }
+}
+
+/**
+ * 3151. Special Array I
+ */
+
+fun isArraySpecial(nums: IntArray): Boolean {
+    if (nums.size == 1) return true
+    var j = 1
+    for (i in 0 until nums.size - 1) {
+        if (nums[i] % 2 == 0 && nums[j] % 2 == 0) return false
+        if (nums[i] % 2 != 0 && nums[j] % 2 != 0) return false
+        j++
+    }
+    return true
+}
+
+/**
+ * 3105. Longest Strictly Increasing or Strictly Decreasing Subarray
+ */
+
+fun longestMonotonicSubArray(nums: IntArray): Int {
+    val longestIncreasing = lengthOfLongestIncreasing(nums)
+    val longestDecreasing = lengthOfLongestDecreasing(nums)
+    return maxOf(longestIncreasing, longestDecreasing)
+}
+
+private fun lengthOfLongestIncreasing(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+    var len = 0
+    var i = 0
+    var j = 1
+    var local = 1
+    while (j < nums.size) {
+        if (nums[i] < nums[j]) {
+            local++
+        } else {
+            len = maxOf(len, local)
+            local = 1
+        }
+        i++
+        j++
+    }
+    len = maxOf(len, local)
+    return len
+}
+
+private fun lengthOfLongestDecreasing(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+    var len = 0
+    var i = 0
+    var j = 1
+    var local = 1
+    while (j < nums.size) {
+        if (nums[i] > nums[j]) {
+            local++
+        } else {
+            len = maxOf(len, local)
+            local = 1
+        }
+        i++
+        j++
+    }
+    len = maxOf(len, local)
+    return len
+}
 
 
