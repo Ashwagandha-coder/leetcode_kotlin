@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.array.sortArrayByParityIIAlternativeSolution
+import com.github.contest.dp.longestArithSeqLength
 import java.util.TreeMap
 
 
@@ -11,8 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    sortArrayByParityIIAlternativeSolution(intArrayOf(4, 2, 5, 7)).also { it.printArray() }
-
+    longestArithSeqLength(intArrayOf(3, 6, 9, 12))
 }
 
 fun generateTesting() {

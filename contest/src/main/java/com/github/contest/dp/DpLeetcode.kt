@@ -351,3 +351,69 @@ fun maxAbsoluteSum(nums: IntArray): Int {
 
     return maxOf(maxSoFar, abs(minSoFar))
 }
+
+/**
+ * 1143. Longest Common Subsequence
+ */
+
+fun longestCommonSubsequence(text1: String, text2: String): Int {
+    val n = text1.length
+    val m = text2.length
+    val dp = Array(n + 1) { IntArray(m + 1) }
+
+    for (i in 1..n) {
+        for (j in 1..m) {
+            if (text1[i - 1] == text2[j - 1]) {
+                dp[i][j] = dp[i - 1][j - 1] + 1
+            } else {
+                dp[i][j] = maxOf(dp[i][j - 1], dp[i - 1][j])
+            }
+        }
+    }
+
+    return dp[n][m]
+}
+
+/**
+ * 1048. Longest String Chain
+ */
+
+fun longestStrChain(words: Array<String>): Int {
+    val sortedWords = words.sortedBy { it.length }
+    val dp = mutableMapOf<String, Int>()
+    var longestChain = 0
+
+    for (word in sortedWords) {
+        var currentChain = 1
+        for (i in word.indices) {
+            val predecessor = word.removeRange(i, i + 1)
+            currentChain = maxOf(currentChain, dp.getOrDefault(predecessor, 0) + 1)
+        }
+        dp[word] = currentChain
+        longestChain = maxOf(longestChain, currentChain)
+    }
+
+    return longestChain
+}
+
+/**
+ * 1027. Longest Arithmetic Subsequence
+ */
+
+fun longestArithSeqLength(nums: IntArray): Int {
+    val n = nums.size
+
+    val dp = Array(n) { mutableMapOf<Int, Int>() }
+    var longest = 2
+
+    for (i in 1 until n) {
+        for (j in 0 until i) {
+            val diff = nums[i] - nums[j]
+            val length = dp[j].getOrDefault(diff, 1) + 1
+            dp[i][diff] = length
+            longest = maxOf(longest, length)
+        }
+    }
+
+    return longest
+}
