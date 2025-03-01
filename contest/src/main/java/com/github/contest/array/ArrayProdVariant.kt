@@ -53,3 +53,23 @@ fun applyOperationsProdVariant(nums: IntArray): IntArray {
 
     return nums
 }
+
+
+fun applyOperationsProdVariantII(nums: IntArray): IntArray {
+    nums.indices.drop(1).forEach { i ->
+        if (nums[i - 1] == nums[i]) {
+            nums[i - 1] *= 2
+            nums[i] = 0
+        }
+    }
+
+    var insertPos = 0
+    nums.forEach { num ->
+        if (num != 0) {
+            nums[insertPos++] = num
+        }
+    }
+    nums.fill(0, insertPos)
+
+    return nums
+}
