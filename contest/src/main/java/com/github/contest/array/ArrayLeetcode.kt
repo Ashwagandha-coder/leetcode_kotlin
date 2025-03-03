@@ -95,4 +95,25 @@ private fun IntArray.swap(from: Int, to: Int) {
     this[to] = temp
 }
 
+/**
+ * 2161. Partition Array According to Given Pivot
+ */
+fun pivotArray(nums: IntArray, pivot: Int): IntArray {
+    if (nums.hasSingle()) return nums
+    val res = mutableListOf<Int>()
+    for (i in 0 until nums.size) {
+        if (nums[i] < pivot) res.add(nums[i])
+    }
+    for (i in 0 until nums.size) {
+        if (nums[i] == pivot) res.add(nums[i])
+    }
+    for (i in 0 until nums.size) {
+        if (nums[i] > pivot) res.add(nums[i])
+    }
+
+    return res.toIntArray()
+}
+
+
+
 
