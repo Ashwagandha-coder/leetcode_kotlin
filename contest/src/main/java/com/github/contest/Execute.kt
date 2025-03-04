@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.math.checkPowersOfThree
+import com.github.contest.dp.longestMountain
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    checkPowersOfThree(12)
+    longestMountain(intArrayOf(2, 1, 4, 7, 3, 2, 5))
 }
 
 fun generateTesting() {

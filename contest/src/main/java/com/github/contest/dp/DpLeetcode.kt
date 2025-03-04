@@ -418,4 +418,40 @@ fun longestArithSeqLength(nums: IntArray): Int {
     return longest
 }
 
+/**
+ * 845. Longest Mountain in Array
+ */
+
+fun longestMountain(arr: IntArray): Int {
+    val n = arr.size
+    if (n < 3) return 0
+
+    var longestMountain = 0
+    var i = 1
+
+    while (i < n - 1) {
+
+        if (arr[i - 1] < arr[i] && arr[i] > arr[i + 1]) {
+
+            var left = i - 1
+            while (left > 0 && arr[left - 1] < arr[left]) {
+                left--
+            }
+
+
+            var right = i + 1
+            while (right < n - 1 && arr[right] > arr[right + 1]) {
+                right++
+            }
+
+
+            longestMountain = maxOf(longestMountain, right - left + 1)
+            i = right
+        }
+        i++
+    }
+
+    return longestMountain
+}
+
 
