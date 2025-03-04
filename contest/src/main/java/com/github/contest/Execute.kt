@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.array.pivotArrayAlternativeSolution
+import com.github.contest.math.checkPowersOfThree
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    pivotArrayAlternativeSolution(intArrayOf(9, 12, 5, 10, 14, 3, 10), 10)
+    checkPowersOfThree(12)
 }
 
 fun generateTesting() {

@@ -151,7 +151,7 @@ fun pivotArrayAlternativeSolution(nums: IntArray, pivot: Int): IntArray {
         equalCount--
     }
 
-    //Reverse the greater part
+
     var start = lessIndex
     var end = n - 1
     while (start < end) {
