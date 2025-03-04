@@ -130,3 +130,22 @@ fun longestStrChainProdVariant(words: Array<String>): Int {
         currentChain
     }
 }
+
+/**
+ * 1027. Longest Arithmetic Subsequence
+ * Prod Variant
+ */
+
+fun longestArithSeqLengthProdVariant(nums: IntArray): Int {
+    val dp = Array(nums.size) { mutableMapOf<Int, Int>() }
+    var longest = 0
+
+    return (1 until nums.size).maxOf { i ->
+        (0 until i).maxOf { j ->
+            val diff = nums[i] - nums[j]
+            val len = dp[j].getOrDefault(diff, 1) + 1
+            dp[i][diff] = len
+            len
+        }
+    }
+}
