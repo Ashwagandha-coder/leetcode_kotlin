@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestArithSeqLength
+import com.github.contest.dp.longestMountain
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestArithSeqLength(intArrayOf(3, 6, 9, 12))
+    longestMountain(intArrayOf(2, 1, 4, 7, 3, 2, 5))
 }
 
 fun generateTesting() {
