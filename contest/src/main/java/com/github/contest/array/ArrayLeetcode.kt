@@ -98,20 +98,46 @@ private fun IntArray.swap(from: Int, to: Int) {
 /**
  * 2161. Partition Array According to Given Pivot
  */
+
 fun pivotArray(nums: IntArray, pivot: Int): IntArray {
     if (nums.hasSingle()) return nums
     val res = mutableListOf<Int>()
-    for (i in 0 until nums.size) {
+    for (i in nums.indices) {
         if (nums[i] < pivot) res.add(nums[i])
     }
-    for (i in 0 until nums.size) {
+    for (i in nums.indices) {
         if (nums[i] == pivot) res.add(nums[i])
     }
-    for (i in 0 until nums.size) {
+    for (i in nums.indices) {
         if (nums[i] > pivot) res.add(nums[i])
     }
 
     return res.toIntArray()
+}
+
+/**
+ * 2570. Merge Two 2D Arrays by Summing Values
+ */
+
+
+fun mergeArrays(nums1: Array<IntArray>, nums2: Array<IntArray>): Array<IntArray> {
+    val map = mutableMapOf<Int, Int>()
+
+    for (pair in nums1) {
+        val key = pair[0]
+        val value = pair[1]
+        map[key] = map.getOrDefault(key, 0) + value
+    }
+
+    for (pair in nums2) {
+        val key = pair[0]
+        val value = pair[1]
+        map[key] = map.getOrDefault(key, 0) + value
+    }
+
+    return map.toSortedMap().map { (key, value) ->
+        intArrayOf(key, value)
+    }.toTypedArray()
 }
 
 

@@ -70,3 +70,46 @@ fun applyOperationsAlternativeSolution(nums: IntArray): IntArray {
     return nums
 
 }
+
+/**
+ * 2570. Merge Two 2D Arrays by Summing Values
+ * AlternativeSolution
+ */
+
+fun mergeArraysAlternativeSolution(nums1: Array<IntArray>, nums2: Array<IntArray>): Array<IntArray> {
+    val result = mutableListOf<IntArray>()
+    var i = 0
+    var j = 0
+
+    while (i < nums1.size || j < nums2.size) {
+        when {
+            i == nums1.size -> {
+                result.add(nums2[j])
+                j++
+            }
+
+            j == nums2.size -> {
+                result.add(nums1[i])
+                i++
+            }
+
+            nums1[i][0] == nums2[j][0] -> {
+                result.add(intArrayOf(nums1[i][0], nums1[i][1] + nums2[j][1]))
+                i++
+                j++
+            }
+
+            nums1[i][0] < nums2[j][0] -> {
+                result.add(nums1[i])
+                i++
+            }
+
+            else -> {
+                result.add(nums2[j])
+                j++
+            }
+        }
+    }
+
+    return result.toTypedArray()
+}
