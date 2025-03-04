@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestArithSeqLength
+import com.github.contest.array.pivotArrayAlternativeSolution
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestArithSeqLength(intArrayOf(3, 6, 9, 12))
+    pivotArrayAlternativeSolution(intArrayOf(9, 12, 5, 10, 14, 3, 10), 10)
 }
 
 fun generateTesting() {

@@ -73,10 +73,12 @@ fun applyOperationsAlternativeSolution(nums: IntArray): IntArray {
 
 /**
  * 2570. Merge Two 2D Arrays by Summing Values
- * AlternativeSolution
+ * Alternative Solution
  */
 
-fun mergeArraysAlternativeSolution(nums1: Array<IntArray>, nums2: Array<IntArray>): Array<IntArray> {
+fun mergeArraysAlternativeSolution(
+    nums1: Array<IntArray>, nums2: Array<IntArray>
+): Array<IntArray> {
     val result = mutableListOf<IntArray>()
     var i = 0
     var j = 0
@@ -112,4 +114,53 @@ fun mergeArraysAlternativeSolution(nums1: Array<IntArray>, nums2: Array<IntArray
     }
 
     return result.toTypedArray()
+}
+
+/**
+ * 2161. Partition Array According to Given Pivot
+ * Alternative Solution
+ */
+
+
+fun pivotArrayAlternativeSolution(nums: IntArray, pivot: Int): IntArray {
+    val n = nums.size
+    val result = IntArray(n)
+    var lessIndex = 0
+    var greaterIndex = n - 1
+    var equalCount = 0
+
+    for (num in nums) {
+        when {
+            num < pivot -> {
+                result[lessIndex] = num
+                lessIndex++
+            }
+
+            num > pivot -> {
+                result[greaterIndex] = num
+                greaterIndex--
+            }
+
+            else -> equalCount++
+        }
+    }
+
+    while (equalCount > 0) {
+        result[lessIndex] = pivot
+        lessIndex++
+        equalCount--
+    }
+
+    //Reverse the greater part
+    var start = lessIndex
+    var end = n - 1
+    while (start < end) {
+        val temp = result[start]
+        result[start] = result[end]
+        result[end] = temp
+        start++
+        end--
+    }
+
+    return result
 }
