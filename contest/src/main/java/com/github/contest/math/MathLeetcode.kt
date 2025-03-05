@@ -20,3 +20,13 @@ fun checkPowersOfThree(n: Int): Boolean {
     }
     return true
 }
+
+/**
+ * 2579. Count Total Number of Colored Cells
+ */
+
+
+fun coloredCells(n: Int): Long = when {
+    n == 1 -> 1L
+    else -> coloredCells(n - 1) + 4L * (n - 1).toLong()
+}
