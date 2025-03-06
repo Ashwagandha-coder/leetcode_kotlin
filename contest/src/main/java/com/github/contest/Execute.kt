@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestMountain
+import com.github.contest.hashTable.findMissingAndRepeatedValuesProdVariant
 import java.util.TreeMap
 
 
@@ -11,7 +11,12 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestMountain(intArrayOf(2, 1, 4, 7, 3, 2, 5))
+    findMissingAndRepeatedValuesProdVariant(
+        arrayOf(
+            intArrayOf(1, 3),
+            intArrayOf(2, 2)
+        )
+    ).also { it.printArray() }
 }
 
 fun generateTesting() {
