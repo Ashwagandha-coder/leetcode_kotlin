@@ -228,3 +228,32 @@ private fun sumOfDigit(num: Int): Int {
 
     return res
 }
+
+/**
+ * 2965. Find Missing and Repeated Values
+ */
+
+fun findMissingAndRepeatedValues(grid: Array<IntArray>): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    val res = IntArray(2)
+    val n = grid.size
+    for (arr in grid) {
+        for (num in arr) {
+            map[num] = map.getOrDefault(num, 0) + 1
+        }
+    }
+    for (key in map.keys) {
+        if (map[key] == 2) {
+            res[0] = key
+            break
+        }
+    }
+    for (i in 1..(n * n)) {
+        if (!map.contains(i)) {
+            res[1] = i
+            break
+        }
+    }
+
+    return res
+}
