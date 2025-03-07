@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.maxNonDecreasingLength
+import com.github.contest.dp.longestSubsequence
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    maxNonDecreasingLength(intArrayOf(11, 7, 7, 9), intArrayOf(19, 19, 1, 7))
+    longestSubsequence(intArrayOf(2, -6, -3, -6, 2, 0), -2).also { println(it) }
 }
 
 fun generateTesting() {

@@ -522,6 +522,25 @@ fun maxNonDecreasingLength(nums1: IntArray, nums2: IntArray): Int {
     return maxLen
 }
 
+/**
+ * 1218. Longest Arithmetic Subsequence of Given Difference
+ */
+
+
+fun longestSubsequence(arr: IntArray, difference: Int): Int {
+    val dp = mutableMapOf<Int, Int>()
+    var maxLen = 0
+
+    for (num in arr) {
+        val prev = num - difference
+        val len = dp.getOrDefault(prev, 0) + 1
+        dp[num] = len
+        maxLen = maxOf(maxLen, len)
+    }
+
+    return maxLen
+}
+
 
 
 
