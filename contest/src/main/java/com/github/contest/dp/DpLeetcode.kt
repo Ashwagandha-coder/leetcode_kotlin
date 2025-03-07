@@ -455,7 +455,7 @@ fun longestMountain(arr: IntArray): Int {
 }
 
 /**
- *
+ * 1493. Longest Subarray of 1's After Deleting One Element
  */
 
 fun longestSubArray(nums: IntArray): Int {
