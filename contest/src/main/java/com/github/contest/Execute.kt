@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.findMissingAndRepeatedValuesProdVariant
+import com.github.contest.math.closestPrimes
 import java.util.TreeMap
 
 
@@ -11,12 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    findMissingAndRepeatedValuesProdVariant(
-        arrayOf(
-            intArrayOf(1, 3),
-            intArrayOf(2, 2)
-        )
-    ).also { it.printArray() }
+    closestPrimes(19, 31).also { it.printArray() }
 }
 
 fun generateTesting() {
