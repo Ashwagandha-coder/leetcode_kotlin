@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.math.closestPrimes
+import com.github.contest.dp.maxNonDecreasingLength
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    closestPrimes(19, 31).also { it.printArray() }
+    maxNonDecreasingLength(intArrayOf(11, 7, 7, 9), intArrayOf(19, 19, 1, 7))
 }
 
 fun generateTesting() {
