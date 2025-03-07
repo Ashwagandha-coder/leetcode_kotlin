@@ -74,7 +74,3 @@ fun closestPrimes(left: Int, right: Int): IntArray {
     return result
 }
 
-private fun isPrime(number: Int): Boolean {
-    for (i in number - 1 downTo 2) if (number % i == 0) return false
-    return true
-}
