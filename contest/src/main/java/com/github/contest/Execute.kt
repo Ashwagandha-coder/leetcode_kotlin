@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestMountain
+import com.github.contest.math.closestPrimes
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestMountain(intArrayOf(2, 1, 4, 7, 3, 2, 5))
+    closestPrimes(19, 31).also { it.printArray() }
 }
 
 fun generateTesting() {
