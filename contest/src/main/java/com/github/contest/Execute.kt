@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestSubsequence
+import com.github.contest.binarySearch.minCapability
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestSubsequence(intArrayOf(2, -6, -3, -6, 2, 0), -2).also { println(it) }
+    minCapability(intArrayOf(2, 7, 9, 3, 1), 2)
 }
 
 fun generateTesting() {
