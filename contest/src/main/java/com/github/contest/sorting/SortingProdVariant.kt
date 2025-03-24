@@ -12,7 +12,7 @@ fun countDaysProdVariant(days: Int, meetings: Array<IntArray>): Int =
         val actualStart = maxOf(1, start)
         val actualEnd = minOf(days, end)
 
-        val newFreeDays = freeDays + actualStart - lastBusyDays - 1
+        val newFreeDays = freeDays + maxOf(0, actualStart - lastBusyDays - 1)
         Pair(newFreeDays, maxOf(lastBusyDays, actualEnd))
     }.let { (freeEnd, lastDays) ->
         freeEnd + days - lastDays
