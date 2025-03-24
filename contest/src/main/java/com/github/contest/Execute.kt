@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.binarySearch.minCapability
+import com.github.contest.sorting.countDays
 import java.util.TreeMap
 
 
@@ -11,7 +11,9 @@ import java.util.TreeMap
 
 fun main() {
 
-    minCapability(intArrayOf(2, 7, 9, 3, 1), 2)
+
+    val meets = arrayOf(intArrayOf(5, 7), intArrayOf(1, 3), intArrayOf(9, 10))
+    countDays(10, meets).also { println(it) }
 }
 
 fun generateTesting() {
