@@ -2,6 +2,7 @@ package com.github.contest
 
 
 import com.github.contest.sorting.countDays
+import com.github.contest.sorting.countDaysProdVariant
 import java.util.TreeMap
 
 
@@ -13,7 +14,7 @@ fun main() {
 
 
     val meets = arrayOf(intArrayOf(5, 7), intArrayOf(1, 3), intArrayOf(9, 10))
-    countDays(10, meets).also { println(it) }
+    countDaysProdVariant(10, meets).also { println(it) }
 }
 
 fun generateTesting() {
