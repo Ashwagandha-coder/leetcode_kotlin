@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.findAllRecipes
+import com.github.contest.math.minOperationsProdVariant
 import java.util.TreeMap
 
 
@@ -11,22 +11,11 @@ import java.util.TreeMap
 
 fun main() {
 
-    val recipes = arrayOf("ju", "fzjnm", "x", "e", "zpmcz", "h", "q")
-    val ingredients =
-        listOf(
-            "d",
-            "hveml", "f", "cpivl",
-            "cpivl", "zpmcz", "h", "e", "fzjnm", "ju",
-            "cpivl", "hveml", "zpmcz", "ju", "h",
-            "h", "fzjnm", "e", "q", "x",
-            "d", "hveml", "cpivl", "q", "zpmcz", "ju", "e", "x",
-            "f", "hveml", "cpivl"
-        ).chunked(1)
+    val grid = arrayOf(intArrayOf(2, 4), intArrayOf(6, 8))
+    val x = 2
 
-    val supplies = arrayOf("f", "hveml", "cpivl", "d")
+    minOperationsProdVariant(grid, x).also { println(it) }
 
-
-    findAllRecipes(recipes, ingredients, supplies)
 
 }
 
