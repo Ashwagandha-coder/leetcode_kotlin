@@ -1,8 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.sorting.countDays
-import com.github.contest.sorting.countDaysProdVariant
+import com.github.contest.hashTable.findAllRecipes
 import java.util.TreeMap
 
 
@@ -12,9 +11,23 @@ import java.util.TreeMap
 
 fun main() {
 
+    val recipes = arrayOf("ju", "fzjnm", "x", "e", "zpmcz", "h", "q")
+    val ingredients =
+        listOf(
+            "d",
+            "hveml", "f", "cpivl",
+            "cpivl", "zpmcz", "h", "e", "fzjnm", "ju",
+            "cpivl", "hveml", "zpmcz", "ju", "h",
+            "h", "fzjnm", "e", "q", "x",
+            "d", "hveml", "cpivl", "q", "zpmcz", "ju", "e", "x",
+            "f", "hveml", "cpivl"
+        ).chunked(1)
 
-    val meets = arrayOf(intArrayOf(5, 7), intArrayOf(1, 3), intArrayOf(9, 10))
-    countDaysProdVariant(10, meets).also { println(it) }
+    val supplies = arrayOf("f", "hveml", "cpivl", "d")
+
+
+    findAllRecipes(recipes, ingredients, supplies)
+
 }
 
 fun generateTesting() {
