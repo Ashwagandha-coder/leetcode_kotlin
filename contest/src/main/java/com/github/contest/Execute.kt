@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.math.minOperationsProdVariant
+import com.github.contest.design.WordDictionary
 import java.util.TreeMap
 
 
@@ -11,12 +11,15 @@ import java.util.TreeMap
 
 fun main() {
 
-    val grid = arrayOf(intArrayOf(2, 4), intArrayOf(6, 8))
-    val x = 2
 
-    minOperationsProdVariant(grid, x).also { println(it) }
-
-
+    val wordDictionary = WordDictionary()
+    wordDictionary.addWord("bad")
+    wordDictionary.addWord("dad")
+    wordDictionary.addWord("mad")
+    wordDictionary.search("pad").also { println(it) } // return False
+    wordDictionary.search("bad").also { println(it) } // return True
+    wordDictionary.search(".ad").also { println(it) } // return True
+    wordDictionary.search("b..").also { println(it) }
 }
 
 fun generateTesting() {
