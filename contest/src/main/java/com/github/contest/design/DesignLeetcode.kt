@@ -76,3 +76,45 @@ class WordDictionary() {
     }
 
 }
+
+/**
+ * 208. Implement Trie (Prefix Tree)
+ */
+
+class Trie() {
+
+    class TrieNode {
+        val children = mutableMapOf<Char, TrieNode>()
+        var isEndOfWord = false
+    }
+
+    private val root = TrieNode()
+
+    fun insert(word: String) {
+        var curr = root
+        for (char in word) {
+            curr = curr.children.getOrPut(char) {TrieNode()}
+        }
+        curr.isEndOfWord = true
+    }
+
+    fun search(word: String): Boolean {
+        val res = find(word)
+        return when {
+            res != null && res.isEndOfWord -> true
+            else -> false
+        }
+    }
+
+    fun startsWith(prefix: String): Boolean = find(prefix) != null
+
+    private fun find(word: String): TrieNode? {
+        var curr = root
+        for (char in word) {
+            curr = curr.children[char] ?: return null
+        }
+
+        return curr
+    }
+
+}
