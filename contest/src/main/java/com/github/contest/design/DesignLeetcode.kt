@@ -93,7 +93,7 @@ class Trie() {
     fun insert(word: String) {
         var curr = root
         for (char in word) {
-            curr = curr.children.getOrPut(char) {TrieNode()}
+            curr = curr.children.getOrPut(char) { TrieNode() }
         }
         curr.isEndOfWord = true
     }
