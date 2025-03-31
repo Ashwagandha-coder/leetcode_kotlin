@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.longestArithSeqLength
+import com.github.contest.design.WordDictionary
 import java.util.TreeMap
 
 
@@ -11,7 +11,15 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestArithSeqLength(intArrayOf(3, 6, 9, 12))
+
+    val wordDictionary = WordDictionary()
+    wordDictionary.addWord("bad")
+    wordDictionary.addWord("dad")
+    wordDictionary.addWord("mad")
+    wordDictionary.search("pad").also { println(it) } // return False
+    wordDictionary.search("bad").also { println(it) } // return True
+    wordDictionary.search(".ad").also { println(it) } // return True
+    wordDictionary.search("b..").also { println(it) }
 }
 
 fun generateTesting() {

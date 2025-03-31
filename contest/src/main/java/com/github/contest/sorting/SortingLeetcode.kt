@@ -37,3 +37,34 @@ class BogoSort {
 }
 
 
+/**
+ * 3169. Count Days Without Meetings
+ */
+
+fun countDays(days: Int, meetings: Array<IntArray>): Int {
+    if (days <= 0) return 0
+
+    val sortedMeetings = meetings.sortedBy { it[0] }
+    var freeDays = 0
+    var lastBusyDay = 0
+
+    for (meeting in sortedMeetings) {
+        val start = meeting[0]
+        val end = meeting[1]
+
+        if (start > days) break
+
+        val actualStart = maxOf(1, start)
+        val actualEnd = minOf(days, end)
+
+        if (actualStart > lastBusyDay) {
+            freeDays += actualStart - lastBusyDay - 1
+        }
+        lastBusyDay = maxOf(lastBusyDay, actualEnd)
+    }
+    freeDays += days - lastBusyDay
+
+    return freeDays
+}
+
+

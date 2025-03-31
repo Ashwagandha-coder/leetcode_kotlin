@@ -30,3 +30,91 @@ class ProductOfNumbers() {
     }
 
 }
+
+/**
+ * 211. Design Add and Search Words Data Structure
+ */
+
+class WordDictionary() {
+
+    data class TrieNode(
+        val children: MutableMap<Char, TrieNode> = mutableMapOf(),
+        var isEndOfWord: Boolean = false
+    )
+
+    private val root = TrieNode()
+
+    fun addWord(word: String) {
+        var current = root
+        for (char in word) {
+            current = current.children.getOrPut(char) { TrieNode() }
+        }
+        current.isEndOfWord = true
+    }
+
+    fun search(word: String): Boolean {
+        return searchInNode(word, 0, root)
+    }
+
+    private fun searchInNode(word: String, index: Int, node: TrieNode): Boolean {
+        if (index == word.length) {
+            return node.isEndOfWord
+        }
+
+        val char = word[index]
+        if (char == '.') {
+            for (child in node.children.values) {
+                if (searchInNode(word, index + 1, child)) {
+                    return true
+                }
+            }
+            return false
+        } else {
+            val child = node.children[char]
+            return child?.let { searchInNode(word, index + 1, it) } ?: false
+        }
+    }
+
+}
+
+/**
+ * 208. Implement Trie (Prefix Tree)
+ */
+
+class Trie() {
+
+    class TrieNode {
+        val children = mutableMapOf<Char, TrieNode>()
+        var isEndOfWord = false
+    }
+
+    private val root = TrieNode()
+
+    fun insert(word: String) {
+        var curr = root
+        for (char in word) {
+            curr = curr.children.getOrPut(char) { TrieNode() }
+        }
+        curr.isEndOfWord = true
+    }
+
+    fun search(word: String): Boolean {
+        val res = find(word)
+        return when {
+            res != null && res.isEndOfWord -> true
+            else -> false
+        }
+    }
+
+    fun startsWith(prefix: String): Boolean = find(prefix) != null
+
+    private fun find(word: String): TrieNode? {
+        var curr = root
+        for (char in word) {
+            curr = curr.children[char] ?: return null
+        }
+
+        return curr
+    }
+
+}

@@ -109,3 +109,43 @@ fun longestCommonSubsequenceProdVariant(text1: String, text2: String): Int {
 }
 
 private fun Array<IntArray>.lastElement(): Int = this.last().last()
+
+
+/**
+ * 1048. Longest String Chain
+ * Prod Variant
+ */
+
+fun longestStrChainProdVariant(words: Array<String>): Int {
+    val sortedWords = words.sortedBy { it.length }
+    val dp = mutableMapOf<String, Int>()
+
+
+    return sortedWords.maxOf { word ->
+        var currentChain = word.indices.maxOf { index ->
+            val predecessor = word.removeRange(index, index + 1)
+            dp.getOrDefault(predecessor, 0) + 1
+        }
+        dp[word] = currentChain
+        currentChain
+    }
+}
+
+/**
+ * 1027. Longest Arithmetic Subsequence
+ * Prod Variant
+ */
+
+fun longestArithSeqLengthProdVariant(nums: IntArray): Int {
+    val dp = Array(nums.size) { mutableMapOf<Int, Int>() }
+    var longest = 0
+
+    return (1 until nums.size).maxOf { i ->
+        (0 until i).maxOf { j ->
+            val diff = nums[i] - nums[j]
+            val len = dp[j].getOrDefault(diff, 1) + 1
+            dp[i][diff] = len
+            len
+        }
+    }
+}

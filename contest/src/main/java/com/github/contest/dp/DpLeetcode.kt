@@ -417,3 +417,131 @@ fun longestArithSeqLength(nums: IntArray): Int {
 
     return longest
 }
+
+/**
+ * 845. Longest Mountain in Array
+ */
+
+fun longestMountain(arr: IntArray): Int {
+    val n = arr.size
+    if (n < 3) return 0
+
+    var longestMountain = 0
+    var i = 1
+
+    while (i < n - 1) {
+
+        if (arr[i - 1] < arr[i] && arr[i] > arr[i + 1]) {
+
+            var left = i - 1
+            while (left > 0 && arr[left - 1] < arr[left]) {
+                left--
+            }
+
+
+            var right = i + 1
+            while (right < n - 1 && arr[right] > arr[right + 1]) {
+                right++
+            }
+
+
+            longestMountain = maxOf(longestMountain, right - left + 1)
+            i = right
+        }
+        i++
+    }
+
+    return longestMountain
+}
+
+/**
+ * 1493. Longest Subarray of 1's After Deleting One Element
+ */
+
+fun longestSubArray(nums: IntArray): Int {
+    var left = 0
+    var zeroCount = 0
+    var maxLen = 0
+
+    for (right in nums.indices) {
+        if (nums[right] == 0) {
+            zeroCount++
+        }
+
+        while (zeroCount > 1) {
+            if (nums[left] == 0) {
+                zeroCount--
+            }
+            left++
+        }
+
+        maxLen = maxOf(maxLen, right - left)
+    }
+
+    return maxLen
+}
+
+/**
+ * 2771. Longest Non-decreasing Subarray From Two Arrays
+ */
+
+
+fun maxNonDecreasingLength(nums1: IntArray, nums2: IntArray): Int {
+    val n = nums1.size
+    // dp1[i]: Length of the longest non-decreasing subarray ending at index i, choosing nums1[i]
+    // dp2[i]: Length of the longest non-decreasing subarray ending at index i, choosing nums2[i]
+    val dp1 = IntArray(n) { 1 }
+    val dp2 = IntArray(n) { 1 }
+    var maxLen = 1
+
+    for (i in 1 until n) {
+        // Case 1: Extending from nums1[i-1] to nums1[i]
+        if (nums1[i] >= nums1[i - 1]) {
+            dp1[i] = dp1[i - 1] + 1
+        }
+
+        // Case 2: Extending from nums2[i-1] to nums1[i]
+        if (nums1[i] >= nums2[i - 1]) {
+            dp1[i] = maxOf(dp1[i], dp2[i - 1] + 1)
+        }
+
+        // Case 3: Extending from nums2[i-1] to nums2[i]
+        if (nums2[i] >= nums2[i - 1]) {
+            dp2[i] = dp2[i - 1] + 1
+        }
+
+        // Case 4: Extending from nums1[i-1] to nums2[i]
+        if (nums2[i] >= nums1[i - 1]) {
+            dp2[i] = maxOf(dp2[i], dp1[i - 1] + 1)
+        }
+
+        // Update the overall maximum length
+        maxLen = maxOf(maxLen, maxOf(dp1[i], dp2[i]))
+    }
+
+    return maxLen
+}
+
+/**
+ * 1218. Longest Arithmetic Subsequence of Given Difference
+ */
+
+
+fun longestSubsequence(arr: IntArray, difference: Int): Int {
+    val dp = mutableMapOf<Int, Int>()
+    var maxLen = 0
+
+    for (num in arr) {
+        val prev = num - difference
+        val len = dp.getOrDefault(prev, 0) + 1
+        dp[num] = len
+        maxLen = maxOf(maxLen, len)
+    }
+
+    return maxLen
+}
+
+
+
+
+
