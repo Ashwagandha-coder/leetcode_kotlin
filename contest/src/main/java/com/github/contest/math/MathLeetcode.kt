@@ -1,5 +1,7 @@
 package com.github.contest.math
 
+
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 /**
@@ -74,3 +76,27 @@ fun closestPrimes(left: Int, right: Int): IntArray {
     return result
 }
 
+/**
+ * 2033. Minimum Operations to Make a Uni-Value Grid
+ */
+
+fun minOperations(grid: Array<IntArray>, x: Int): Int {
+    val nums = mutableListOf<Int>()
+    for (row in grid) {
+        for (num in row) {
+            nums.add(num)
+        }
+    }
+    nums.sort()
+    val n = nums.size
+    val median = nums[n / 2]
+    var ans = 0
+    for (num in nums) {
+        val diff = abs(num - median)
+        if (diff % x != 0) {
+            return -1
+        }
+        ans += diff / x
+    }
+    return ans
+}
