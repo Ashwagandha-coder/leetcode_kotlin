@@ -564,6 +564,24 @@ private fun solve(questions: Array<IntArray>, index: Int): Long {
     return maxOf(take, skip)
 }
 
+fun mostPointsDp(questions: Array<IntArray>): Long {
+    val n = questions.size
+    val dp = LongArray(n + 1) { 0L }
+
+    for (i in n - 1 downTo 0) {
+        val points = questions[i][0]
+        val brainpower = questions[i][1]
+        val nextQuestion = i + brainpower + 1
+
+        val take = points.toLong() + (if (nextQuestion < n) dp[nextQuestion] else 0L)
+        val skip = dp[i + 1]
+
+        dp[i] = maxOf(take, skip)
+    }
+
+    return dp[0]
+}
+
 
 
 

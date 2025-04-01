@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.dp.mostPoints
+import com.github.contest.dp.mostPointsDp
 import java.util.TreeMap
 
 
@@ -13,7 +13,7 @@ fun main() {
 
     val questions = arrayOf(intArrayOf(3, 2), intArrayOf(4, 3), intArrayOf(4, 4), intArrayOf(2, 5))
 
-    mostPoints(questions).also { println(it) }
+    mostPointsDp(questions).also { println(it) }
 }
 
 fun generateTesting() {
