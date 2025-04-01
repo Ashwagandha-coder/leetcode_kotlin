@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.design.WordDictionary
+import com.github.contest.dp.mostPoints
 import java.util.TreeMap
 
 
@@ -11,15 +11,9 @@ import java.util.TreeMap
 
 fun main() {
 
+    val questions = arrayOf(intArrayOf(3, 2), intArrayOf(4, 3), intArrayOf(4, 4), intArrayOf(2, 5))
 
-    val wordDictionary = WordDictionary()
-    wordDictionary.addWord("bad")
-    wordDictionary.addWord("dad")
-    wordDictionary.addWord("mad")
-    wordDictionary.search("pad").also { println(it) } // return False
-    wordDictionary.search("bad").also { println(it) } // return True
-    wordDictionary.search(".ad").also { println(it) } // return True
-    wordDictionary.search("b..").also { println(it) }
+    mostPoints(questions).also { println(it) }
 }
 
 fun generateTesting() {

@@ -541,6 +541,29 @@ fun longestSubsequence(arr: IntArray, difference: Int): Int {
     return maxLen
 }
 
+/**
+ * 2140. Solving Questions With Brainpower
+ */
+
+fun mostPoints(questions: Array<IntArray>): Long {
+    return solve(questions, 0)
+}
+
+private fun solve(questions: Array<IntArray>, index: Int): Long {
+    if (index >= questions.size) {
+        return 0
+    }
+
+    val points = questions[index][0]
+    val brainpower = questions[index][1]
+    val take = points.toLong() + solve(questions, index + brainpower + 1)
+
+
+    val skip = solve(questions, index + 1)
+
+    return maxOf(take, skip)
+}
+
 
 
 
