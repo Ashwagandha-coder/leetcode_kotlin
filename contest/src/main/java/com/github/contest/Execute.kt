@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.design.WordDictionary
+import com.github.contest.graph.mostProfitablePath
 import java.util.TreeMap
 
 
@@ -11,15 +11,19 @@ import java.util.TreeMap
 
 fun main() {
 
+//    val edges = arrayOf(intArrayOf(0, 1), intArrayOf(1, 2), intArrayOf(1, 3), intArrayOf(3, 4))
+//    mostProfitablePath(edges, 3, intArrayOf(-2, 4, 2, -4, 6)).also { println(it) }
+//
+    testing()
 
-    val wordDictionary = WordDictionary()
-    wordDictionary.addWord("bad")
-    wordDictionary.addWord("dad")
-    wordDictionary.addWord("mad")
-    wordDictionary.search("pad").also { println(it) } // return False
-    wordDictionary.search("bad").also { println(it) } // return True
-    wordDictionary.search(".ad").also { println(it) } // return True
-    wordDictionary.search("b..").also { println(it) }
+}
+
+fun testing() {
+    val list = listOf(1, 2, 3)
+    list.reduceRight { i, acc ->
+        println("$i, $acc")
+        acc - i
+    }.also { println(it) }
 }
 
 fun generateTesting() {

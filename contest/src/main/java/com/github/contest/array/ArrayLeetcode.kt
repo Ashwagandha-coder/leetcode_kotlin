@@ -140,6 +140,23 @@ fun mergeArrays(nums1: Array<IntArray>, nums2: Array<IntArray>): Array<IntArray>
     }.toTypedArray()
 }
 
+/**
+ * 2873. Maximum Value of an Ordered Triplet I
+ */
+
+fun maximumTripletValue(nums: IntArray): Long {
+    var max = 0L
+    for (i in nums.indices) {
+        for (j in i + 1 until nums.size) {
+            for (k in j + 1 until nums.size) {
+                max = maxOf(max, ((nums[i] - nums[j]).toLong() * nums[k].toLong()))
+            }
+        }
+    }
+
+    return max
+}
+
 
 
 

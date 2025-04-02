@@ -1,6 +1,9 @@
 package com.github.contest.graph
 
+import java.util.Arrays
 import java.util.LinkedList
+import kotlin.math.max
+
 
 /**
  * 997. Find the Town Judge
@@ -65,3 +68,84 @@ fun findCenter(edges: Array<IntArray>): Int {
         else -> b
     }
 }
+
+/**
+ * 2467. Most Profitable Path in a Tree
+ */
+
+
+fun mostProfitablePath(edges: Array<IntArray>, bob: Int, amount: IntArray): Int {
+    val graph = Array(amount.size) { mutableListOf<Int>() }
+    for (edge in edges) {
+        graph[edge[0]].add(edge[1])
+        graph[edge[1]].add(edge[0])
+    }
+
+    val bobPath = IntArray(amount.size)
+    Arrays.fill(bobPath, -1)
+    val path = ArrayList<Int>()
+    fillBobPath(bob, -1, path, graph)
+
+    for (i in path.indices) {
+        bobPath[path[i]] = i
+    }
+
+    return getAliceMaxScore(0, -1, 0, bobPath, graph, 0, amount)
+}
+
+private fun fillBobPath(
+    node: Int,
+    parentNode: Int,
+    path: ArrayList<Int>,
+    graph: Array<MutableList<Int>>
+): Boolean {
+    if (node == 0) return true
+    for (neighborNode in graph[node]) {
+        if (neighborNode != parentNode) {
+            path.add(node)
+            if (fillBobPath(neighborNode, node, path, graph)) return true
+            path.removeAt(path.size - 1)
+        }
+    }
+    return false
+}
+
+private fun getAliceMaxScore(
+    node: Int,
+    parentNode: Int,
+    currScore: Int,
+    bobPath: IntArray,
+    graph: Array<MutableList<Int>>,
+    timestamp: Int,
+    amount: IntArray
+): Int {
+    var currScore = currScore
+    if (bobPath[node] == -1 || bobPath[node] > timestamp) {
+        currScore += amount[node]
+    } else if (bobPath[node] == timestamp) {
+        currScore += amount[node] / 2
+    }
+    if (graph[node].size == 1 && node != 0) return currScore
+    var maxScore = Int.MIN_VALUE
+    for (neighborNode in graph[node]) {
+        if (neighborNode != parentNode) {
+            maxScore = max(
+                maxScore.toDouble(),
+                getAliceMaxScore(
+                    neighborNode,
+                    node,
+                    currScore,
+                    bobPath,
+                    graph,
+                    timestamp + 1,
+                    amount
+                ).toDouble()
+            )
+                .toInt()
+        }
+    }
+    return maxScore
+}
+
+
+
