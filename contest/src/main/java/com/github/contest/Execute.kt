@@ -11,10 +11,20 @@ import java.util.TreeMap
 
 fun main() {
 
-    val edges = arrayOf(intArrayOf(0, 1), intArrayOf(1, 2), intArrayOf(1, 3), intArrayOf(3, 4))
-    mostProfitablePath(edges, 3, intArrayOf(-2, 4, 2, -4, 6)).also { println(it) }
+//    val edges = arrayOf(intArrayOf(0, 1), intArrayOf(1, 2), intArrayOf(1, 3), intArrayOf(3, 4))
+//    mostProfitablePath(edges, 3, intArrayOf(-2, 4, 2, -4, 6)).also { println(it) }
+//
+    testing()
+
 }
 
+fun testing() {
+    val list = listOf(1, 2, 3)
+    list.reduceRight { i, acc ->
+        println("$i, $acc")
+        acc - i
+    }.also { println(it) }
+}
 
 fun generateTesting() {
     val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
