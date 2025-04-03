@@ -1,7 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.graph.mostProfitablePath
+import com.github.contest.array.maximumTripletValue
+import com.github.contest.array.maximumTripletValue
+
 import java.util.TreeMap
 
 
@@ -11,10 +13,11 @@ import java.util.TreeMap
 
 fun main() {
 
-//    val edges = arrayOf(intArrayOf(0, 1), intArrayOf(1, 2), intArrayOf(1, 3), intArrayOf(3, 4))
-//    mostProfitablePath(edges, 3, intArrayOf(-2, 4, 2, -4, 6)).also { println(it) }
-//
-    testing()
+    maximumTripletValue(
+        intArrayOf(
+            15, 3, 3, 18, 19, 13, 7, 5, 18, 1, 8, 5
+        )
+    ).also { println(it) }
 
 }
 
@@ -28,10 +31,7 @@ fun testing() {
 
 fun generateTesting() {
     val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
-    sequence.map { it * 2 }
-        .filter { it > 3 }
-        .filter { it > 2 }
-        .constrainOnce()
+    sequence.map { it * 2 }.filter { it > 3 }.filter { it > 2 }.constrainOnce()
 
 
 }
