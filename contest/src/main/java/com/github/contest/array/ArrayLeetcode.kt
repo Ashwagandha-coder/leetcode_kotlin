@@ -1,5 +1,6 @@
 package com.github.contest.array
 
+
 /**
  * 1800. Maximum Ascending Subarray Sum
  */
@@ -144,7 +145,7 @@ fun mergeArrays(nums1: Array<IntArray>, nums2: Array<IntArray>): Array<IntArray>
  * 2873. Maximum Value of an Ordered Triplet I
  */
 
-fun maximumTripletValue(nums: IntArray): Long {
+fun maximumTripletValueI(nums: IntArray): Long {
     var max = 0L
     for (i in nums.indices) {
         for (j in i + 1 until nums.size) {
@@ -157,6 +158,25 @@ fun maximumTripletValue(nums: IntArray): Long {
     return max
 }
 
+
+/**
+ * 2874. Maximum Value of an Ordered Triplet II
+ */
+
+
+fun maximumTripletValue(nums: IntArray): Long {
+    var maxi = Int.MIN_VALUE
+    var diff = 0
+    var res = 0L
+
+    for (i in nums.indices) {
+        maxi = maxOf(maxi, nums[i])
+        if (i >= 2) res = maxOf(res, (diff.toLong() * nums[i]))
+        if (i >= 1) diff = maxOf(diff, (maxi - nums[i]))
+    }
+
+    return res
+}
 
 
 
