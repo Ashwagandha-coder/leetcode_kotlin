@@ -1,8 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.array.maximumTripletValue
-import com.github.contest.array.maximumTripletValue
+import com.github.contest.strings.shiftingLetters
 
 import java.util.TreeMap
 
@@ -13,12 +12,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    maximumTripletValue(
-        intArrayOf(
-            15, 3, 3, 18, 19, 13, 7, 5, 18, 1, 8, 5
-        )
-    ).also { println(it) }
-
+    shiftingLetters("abc", intArrayOf(3, 5, 9)).also { println(it) }
 }
 
 fun testing() {
