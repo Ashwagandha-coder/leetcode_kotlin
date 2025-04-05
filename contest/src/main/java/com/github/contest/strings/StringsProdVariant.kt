@@ -2,6 +2,7 @@ package com.github.contest.strings
 
 /**
  * 848. Shifting Letters
+ * Prod Variant
  */
 
 fun shiftingLetterProdVariant(str: String, shifts: IntArray): String {
