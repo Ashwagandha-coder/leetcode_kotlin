@@ -78,5 +78,15 @@ fun String.hasSingle(): Boolean = when {
     else -> false
 }
 
+/**
+ * 2278. Percentage of Letter in String
+ */
+
+fun percentageLetter(s: String, letter: Char): Int {
+    var count = 0
+    for (char in s) if (char == letter) count++
+    return if (count == 0) 0 else (count * 100) / s.length
+}
+
 
 
