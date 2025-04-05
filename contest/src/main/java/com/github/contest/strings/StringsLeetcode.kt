@@ -39,5 +39,44 @@ private fun shiftLetter(char: Char, shift: Long): Char = when {
     else -> char
 }
 
+/**
+ * 2734. Lexicographically Smallest String After Substring Operation
+ */
+
+fun smallestString(s: String): String {
+    if (s.hasSingle()) return when {
+        s[0] == 'a' -> 'z'.toString()
+        else -> Char(s[0].code - 1).toString()
+    }
+    val chars = s.toCharArray()
+    val n = chars.size
+    var start = -1
+
+    for (i in 0 until n) {
+        if (chars[i] != 'a') {
+            start = i
+            break
+        }
+    }
+
+    if (start == -1) {
+        chars[n - 1] = 'z'
+        return String(chars)
+    }
+
+    for (i in start until n) {
+        if (chars[i] != 'a') chars[i]--
+        else break
+    }
+
+    return String(chars)
+
+}
+
+fun String.hasSingle(): Boolean = when {
+    this.length == 1 -> true
+    else -> false
+}
+
 
 
