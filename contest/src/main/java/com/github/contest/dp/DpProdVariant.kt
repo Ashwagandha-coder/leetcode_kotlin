@@ -158,7 +158,7 @@ fun longestArithSeqLengthProdVariant(nums: IntArray): Int {
 
 fun mostPointsProdVariant(questions: Array<IntArray>): Long {
     val n = questions.size
-    val dp = LongArray(n)
+    val dp = LongArray(n + 1)
     questions.forEachReversedIndexed { index, arr ->
         val points = arr[0]
         val brainpower = arr[1]
@@ -173,5 +173,5 @@ fun mostPointsProdVariant(questions: Array<IntArray>): Long {
 }
 
 fun <T> Array<T>.forEachReversedIndexed(action: (Int, T) -> Unit) {
-    for (i in indices) action(i, this[i])
+    for (i in this.size - 1 downTo 0) action(i, this[i])
 }
