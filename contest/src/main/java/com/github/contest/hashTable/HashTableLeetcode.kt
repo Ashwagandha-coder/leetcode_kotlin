@@ -257,3 +257,18 @@ fun findMissingAndRepeatedValues(grid: Array<IntArray>): IntArray {
 
     return res
 }
+
+/**
+ * 2351. First Letter to Appear Twice
+ */
+
+fun repeatedCharacter(s: String): Char {
+    val alphabet = IntArray(26)
+    for (char in s) {
+        val index = char - 'a'
+        if (alphabet[index] == 0) alphabet[index] += 1
+        else return char
+    }
+
+    return 'a'
+}

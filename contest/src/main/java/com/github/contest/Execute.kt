@@ -1,7 +1,9 @@
 package com.github.contest
 
 
+import com.github.contest.bitManipulation.subsetXORSum
 import com.github.contest.strings.shiftingLetters
+import com.github.contest.strings.smallestStringProdVariant
 
 import java.util.TreeMap
 
@@ -12,7 +14,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    shiftingLetters("abc", intArrayOf(3, 5, 9)).also { println(it) }
+    subsetXORSum(intArrayOf(5, 1, 6))
 }
 
 fun testing() {
