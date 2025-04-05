@@ -1,6 +1,7 @@
 package com.github.contest
 
 
+import com.github.contest.bitManipulation.subsetXORSum
 import com.github.contest.strings.shiftingLetters
 import com.github.contest.strings.smallestStringProdVariant
 
@@ -13,7 +14,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    smallestStringProdVariant("acbcbabc").also { println(it) }
+    subsetXORSum(intArrayOf(5, 1, 6))
 }
 
 fun testing() {
