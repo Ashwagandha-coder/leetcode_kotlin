@@ -35,3 +35,27 @@ private fun Char.shiftLetter(shift: Long): Char = when {
 
     else -> this
 }
+
+/**
+ * 2734. Lexicographically Smallest String After Substring Operation
+ * Prod Variant
+ */
+
+fun smallestStringProdVariant(s: String): String {
+    val firstNonAIndex = s.indexOfFirst { it != 'a' }
+
+    return if (firstNonAIndex == -1) {
+        s.dropLast(1) + 'z'
+    } else {
+        val modifiedChars = s.toCharArray().also { chars ->
+            for (i in firstNonAIndex until chars.size) {
+                if (chars[i] != 'a') {
+                    chars[i]--
+                } else {
+                    break
+                }
+            }
+        }
+        String(modifiedChars)
+    }
+}
