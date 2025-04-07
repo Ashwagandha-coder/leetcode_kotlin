@@ -149,3 +149,29 @@ fun longestArithSeqLengthProdVariant(nums: IntArray): Int {
         }
     }
 }
+
+/**
+ * 2140. Solving Questions With Brainpower
+ * Prod Variant
+ */
+
+
+fun mostPointsProdVariant(questions: Array<IntArray>): Long {
+    val n = questions.size
+    val dp = LongArray(n + 1)
+    questions.forEachReversedIndexed { index, arr ->
+        val points = arr[0]
+        val brainpower = arr[1]
+        dp[index] = points + when {
+            brainpower + index + 1 < n -> dp[brainpower + index + 1]
+            else -> 0L
+        }
+        dp[index] = maxOf(dp[index], dp[index + 1])
+    }
+
+    return dp.first()
+}
+
+fun <T> Array<T>.forEachReversedIndexed(action: (Int, T) -> Unit) {
+    for (i in this.size - 1 downTo 0) action(i, this[i])
+}

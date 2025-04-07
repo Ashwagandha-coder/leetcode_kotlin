@@ -118,3 +118,38 @@ class Trie() {
     }
 
 }
+
+/**
+ * 981. Time Based Key-Value Store
+ */
+
+class TimeMap() {
+
+    private val store = mutableMapOf<String, MutableList<Pair<Int, String>>>()
+
+    fun set(key: String, value: String, timestamp: Int) {
+        store.getOrPut(key) { mutableListOf(Pair(timestamp, value)) }.add(Pair(timestamp, value))
+    }
+
+    fun get(key: String, timestamp: Int): String {
+        val list = store[key] ?: return emptyString()
+        var left = 0
+        var right = list.size - 1
+        var res = emptyString()
+
+        while (left <= right) {
+            val mid = (left + right) / 2
+            val (currentTimeStamp, currentValue) = list[mid]
+            if (currentTimeStamp == timestamp) return currentValue
+            if (currentTimeStamp < timestamp) {
+                left = mid + 1
+                res = currentValue
+            } else right = mid
+        }
+
+        return res
+    }
+
+    private fun emptyString() = ""
+
+}

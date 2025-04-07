@@ -1,10 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.bitManipulation.subsetXORSum
-import com.github.contest.strings.shiftingLetters
-import com.github.contest.strings.smallestStringProdVariant
-
+import com.github.contest.strings.isNumber
 import java.util.TreeMap
 
 
@@ -14,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    subsetXORSum(intArrayOf(5, 1, 6))
+    isNumber("6+1").also { println(it) }
 }
 
 fun testing() {
