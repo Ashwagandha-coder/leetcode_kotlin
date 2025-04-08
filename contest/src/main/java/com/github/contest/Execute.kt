@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.strings.isNumber
+import com.github.contest.strings.freqAlphabets
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    isNumber("6+1").also { println(it) }
+    freqAlphabets("12345678910#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#").also { println(it) }
 }
 
 fun testing() {
