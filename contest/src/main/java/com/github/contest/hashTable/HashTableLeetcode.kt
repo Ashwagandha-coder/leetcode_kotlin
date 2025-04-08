@@ -305,11 +305,30 @@ fun minimumOperations(nums: IntArray): Int {
         }
     }
 
-    return if (map.size > 0) operations + 1 else operations
+    return if (map.isNotEmpty()) operations + 1 else operations
 
 }
 
 private fun MutableMap<Int, Int>.reduceOrRemove(key: Int) {
     this[key] = this.getOrDefault(key, 0) - 1
     if (this.getOrDefault(key, 0) == 0) this.remove(key)
+}
+
+/**
+ * 242. Valid Anagram
+ */
+
+fun isAnagram(s: String, t: String): Boolean {
+    if (s.length != t.length) return false
+    val first = IntArray(26)
+    val second = IntArray(26)
+
+    for (char in s) first[char - 'a']++
+    for (char in t) second[char - 'a']++
+
+    for (char in t) {
+        if (first[char - 'a'] == 0 || first[char - 'a'] != second[char - 'a']) return false
+    }
+
+    return true
 }
