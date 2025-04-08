@@ -272,3 +272,44 @@ fun repeatedCharacter(s: String): Char {
 
     return 'a'
 }
+
+/**
+ * 3396. Minimum Number of Operations to Make Elements in Array Distinct
+ */
+
+fun minimumOperations(nums: IntArray): Int {
+    val map = mutableMapOf<Int, Int>()
+    var operations = 0
+
+    for (num in nums) map[num] = map.getOrDefault(num, 0) + 1
+
+    if (map.size == nums.size) return 0
+
+    for (i in nums.indices step 3) {
+        if (i + 2 < nums.size) {
+            val one = nums[i]
+            val two = nums[i + 1]
+            val three = nums[i + 2]
+            map.reduceOrRemove(one)
+            map.reduceOrRemove(two)
+            map.reduceOrRemove(three)
+            var isUnique = true
+            for (value in map.values) {
+                if (value > 1) {
+                    isUnique = false
+                    break
+                }
+            }
+            if (isUnique) return operations + 1
+            operations++
+        }
+    }
+
+    return if (map.size > 0) operations + 1 else operations
+
+}
+
+private fun MutableMap<Int, Int>.reduceOrRemove(key: Int) {
+    this[key] = this.getOrDefault(key, 0) - 1
+    if (this.getOrDefault(key, 0) == 0) this.remove(key)
+}

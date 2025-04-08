@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.strings.freqAlphabets
+import com.github.contest.hashTable.minimumOperations
 import java.util.TreeMap
 
 
@@ -11,7 +11,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    freqAlphabets("12345678910#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#").also { println(it) }
+    minimumOperations(intArrayOf(1, 2, 3, 4, 2, 3, 3, 5, 7)).also { println(it) }
 }
 
 fun testing() {
