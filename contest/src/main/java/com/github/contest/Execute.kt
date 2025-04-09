@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.minimumOperations
+import com.github.contest.slidingWindow.minWindow
 import java.util.TreeMap
 
 
@@ -11,7 +11,9 @@ import java.util.TreeMap
 
 fun main() {
 
-    minimumOperations(intArrayOf(1, 2, 3, 4, 2, 3, 3, 5, 7)).also { println(it) }
+    val s = "a"
+    val t = "a"
+    minWindow(s, t).also { println(it) }
 }
 
 fun testing() {
