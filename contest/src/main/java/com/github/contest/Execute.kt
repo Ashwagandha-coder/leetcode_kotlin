@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.slidingWindow.minWindow
+import com.github.contest.slidingWindow.minWindowOptimumSolution
 import java.util.TreeMap
 
 
@@ -11,9 +11,9 @@ import java.util.TreeMap
 
 fun main() {
 
-    val s = "a"
-    val t = "a"
-    minWindow(s, t).also { println(it) }
+    val s = "ADOBECODEBANC"
+    val t = "ABC"
+    minWindowOptimumSolution(s, t).also { println(it) }
 }
 
 fun testing() {
