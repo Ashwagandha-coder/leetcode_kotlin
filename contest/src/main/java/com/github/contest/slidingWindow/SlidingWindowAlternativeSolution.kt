@@ -2,7 +2,8 @@ package com.github.contest.slidingWindow
 
 
 /**
- *
+ * 76. Minimum Window Substring
+ * Optimum Solution O(n + m)
  */
 
 fun minWindowOptimumSolution(s: String, t: String): String {
@@ -20,6 +21,7 @@ fun minWindowOptimumSolution(s: String, t: String): String {
     val required = targetMap.size
     var formed = 0
     val windowCounts = mutableMapOf<Char, Int>()
+
 
     while (right < s.length) {
         val char = s[right]
