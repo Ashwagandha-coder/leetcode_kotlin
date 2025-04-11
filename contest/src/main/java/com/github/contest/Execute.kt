@@ -1,7 +1,8 @@
 package com.github.contest
 
 
-import com.github.contest.slidingWindow.minWindowOptimumSolution
+import com.github.contest.math.countSymmetricIntegers
+import com.github.contest.math.numberOfPowerfulInt
 import java.util.TreeMap
 
 
@@ -11,18 +12,19 @@ import java.util.TreeMap
 
 fun main() {
 
-    val s = "ADOBECODEBANC"
-    val t = "ABC"
-    minWindowOptimumSolution(s, t).also { println(it) }
+    countSymmetricIntegers(1, 10000).also { println(it) }
+
 }
 
-fun testing() {
-    val list = listOf(1, 2, 3)
-    list.reduceRight { i, acc ->
-        println("$i, $acc")
-        acc - i
-    }.also { println(it) }
+fun numberOfPowerfulIntData() {
+    val start = 141L
+    val finish = 148L
+    val limit = 9
+    val s = "9"
+
+    numberOfPowerfulInt(start, finish, limit, s).also { println(it) }
 }
+
 
 fun generateTesting() {
     val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
