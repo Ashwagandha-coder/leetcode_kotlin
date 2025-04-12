@@ -1,7 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.design.WordDictionary
+import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.strings.fullJustify
+import com.github.contest.strings.subStrHash
 import java.util.TreeMap
 
 
@@ -11,23 +13,52 @@ import java.util.TreeMap
 
 fun main() {
 
+    fullJustify(
+        arrayOf(
+            "Science",
+            "is",
+            "what",
+            "we",
+            "understand",
+            "well",
+            "enough",
+            "to",
+            "explain",
+            "to",
+            "a",
+            "computer.",
+            "Art",
+            "is",
+            "everything",
+            "else",
+            "we",
+            "do"
+        ), 20
+    ).also {
+        println(
+            it
+        )
+    }
 
-    val wordDictionary = WordDictionary()
-    wordDictionary.addWord("bad")
-    wordDictionary.addWord("dad")
-    wordDictionary.addWord("mad")
-    wordDictionary.search("pad").also { println(it) } // return False
-    wordDictionary.search("bad").also { println(it) } // return True
-    wordDictionary.search(".ad").also { println(it) } // return True
-    wordDictionary.search("b..").also { println(it) }
 }
+
+fun subStrHashData() {
+    subStrHash("xxterzixjqrghqyeketqeynekvqhc", 15, 94, 4, 16).also { println(it) }
+}
+
+fun numberOfPowerfulIntData() {
+    val start = 141L
+    val finish = 148L
+    val limit = 9
+    val s = "9"
+
+    numberOfPowerfulInt(start, finish, limit, s).also { println(it) }
+}
+
 
 fun generateTesting() {
     val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
-    sequence.map { it * 2 }
-        .filter { it > 3 }
-        .filter { it > 2 }
-        .constrainOnce()
+    sequence.map { it * 2 }.filter { it > 3 }.filter { it > 2 }.constrainOnce()
 
 
 }
