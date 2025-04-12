@@ -100,3 +100,69 @@ fun minOperations(grid: Array<IntArray>, x: Int): Int {
     }
     return ans
 }
+
+/**
+ * 2843. Count Symmetric Integers
+ */
+
+fun countSymmetricIntegers(low: Int, high: Int): Int {
+    var count = 0
+
+    for (num in low..high) {
+        val digits = num.toString().length
+        when (digits) {
+            2 -> {
+                val first = num / 10
+                val second = num % 10
+                if (first == second) count++
+            }
+
+            4 -> {
+                val onePart = num / 100
+                val twoPart = num % 100
+                val first = onePart / 10 + onePart % 10
+                val second = twoPart / 10 + twoPart % 10
+                if (first == second) count++
+            }
+
+            else -> continue
+        }
+    }
+
+    return count
+}
+
+/**
+ *
+ */
+
+fun numberOfPowerfulInt(start: Long, finish: Long, limit: Int, s: String): Long {
+    var num = s.toLong()
+    var counter = 0L
+    var powerful = num
+    var factor = 10
+
+    if (num > finish || "$limit$num".toLong() < start) return 0L
+    if (start == finish || num == finish) return 1L
+
+    while (num < finish) {
+        var count = limit
+        powerful = "$count$powerful".toLong()
+        while (powerful > finish && count != 0) {
+            count--
+            powerful = "$count$num".toLong()
+        }
+        if (count == 0) {
+
+        }
+        if (counter == 0L) counter += count
+        else {
+            val temp = count * factor
+            counter += temp
+            factor *= 10
+        }
+        num = powerful
+    }
+
+    return if (s.toLong() in start..finish) counter + 1L else counter
+}

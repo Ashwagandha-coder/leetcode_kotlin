@@ -1,7 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.slidingWindow.minWindowOptimumSolution
+import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.strings.fullJustify
+import com.github.contest.strings.subStrHash
 import java.util.TreeMap
 
 
@@ -11,18 +13,48 @@ import java.util.TreeMap
 
 fun main() {
 
-    val s = "ADOBECODEBANC"
-    val t = "ABC"
-    minWindowOptimumSolution(s, t).also { println(it) }
+    fullJustify(
+        arrayOf(
+            "Science",
+            "is",
+            "what",
+            "we",
+            "understand",
+            "well",
+            "enough",
+            "to",
+            "explain",
+            "to",
+            "a",
+            "computer.",
+            "Art",
+            "is",
+            "everything",
+            "else",
+            "we",
+            "do"
+        ), 20
+    ).also {
+        println(
+            it
+        )
+    }
+
 }
 
-fun testing() {
-    val list = listOf(1, 2, 3)
-    list.reduceRight { i, acc ->
-        println("$i, $acc")
-        acc - i
-    }.also { println(it) }
+fun subStrHashData() {
+    subStrHash("xxterzixjqrghqyeketqeynekvqhc", 15, 94, 4, 16).also { println(it) }
 }
+
+fun numberOfPowerfulIntData() {
+    val start = 141L
+    val finish = 148L
+    val limit = 9
+    val s = "9"
+
+    numberOfPowerfulInt(start, finish, limit, s).also { println(it) }
+}
+
 
 fun generateTesting() {
     val sequence = sequenceOf(3, 5, 6, 7, 7, 8, 8, 8, 9, 3)
