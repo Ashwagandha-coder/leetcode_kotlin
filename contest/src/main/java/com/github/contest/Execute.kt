@@ -1,8 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.math.countSymmetricIntegers
 import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.strings.fullJustify
+import com.github.contest.strings.subStrHash
 import java.util.TreeMap
 
 
@@ -12,8 +13,37 @@ import java.util.TreeMap
 
 fun main() {
 
-    countSymmetricIntegers(1, 10000).also { println(it) }
+    fullJustify(
+        arrayOf(
+            "Science",
+            "is",
+            "what",
+            "we",
+            "understand",
+            "well",
+            "enough",
+            "to",
+            "explain",
+            "to",
+            "a",
+            "computer.",
+            "Art",
+            "is",
+            "everything",
+            "else",
+            "we",
+            "do"
+        ), 20
+    ).also {
+        println(
+            it
+        )
+    }
 
+}
+
+fun subStrHashData() {
+    subStrHash("xxterzixjqrghqyeketqeynekvqhc", 15, 94, 4, 16).also { println(it) }
 }
 
 fun numberOfPowerfulIntData() {

@@ -1,5 +1,7 @@
 package com.github.contest.strings
 
+import java.math.BigInteger
+
 /**
  * 848. Shifting Letters
  */
@@ -233,5 +235,142 @@ fun isSign(char: Char): Boolean {
     }
 }
 
+/**
+ * 68. Text Justification
+ */
 
+fun fullJustify(words: Array<String>, maxWidth: Int): List<String> {
+    val res = mutableListOf<String>()
+    var i = 0
+    while (i < words.size) {
+        val cache = mutableListOf<String>()
+        var len = 0
+        while (i < words.size && len + words[i].length < maxWidth) {
+            len += words[i].length + 1
+            cache.add(words[i])
+            i++
+        }
+        val str = when {
+            words.lastIteration(i) -> lastString(cache, maxWidth)
+            len + words[i].length == maxWidth -> {
+                cache.add(words[i])
+                i++
+                wordsFullOfMaxWidth(cache)
+            }
+
+            else -> wordsNotFullOfMaxWidth(cache, maxWidth)
+        }
+        res.add(str)
+    }
+
+    return res
+}
+
+private fun <T> Array<T>.lastIteration(index: Int): Boolean = when {
+    index == this.size -> true
+    else -> false
+}
+
+private fun wordsFullOfMaxWidth(store: List<String>): String {
+    var res = ""
+    for (i in 0 until store.size - 1) {
+        res += store[i]
+        res += " "
+    }
+    res += store[store.size - 1]
+    return res
+}
+
+private fun wordsNotFullOfMaxWidth(store: List<String>, maxWidth: Int): String {
+    var res = ""
+    val len = sumOfLength(store)
+    val spaces = store.size - 1
+    val partOfSpaces = maxWidth - len
+
+    return when {
+        spaces == 0 -> {
+            for (word in store) res += word
+            repeat(partOfSpaces) { res += " " }
+            res
+        }
+
+        partOfSpaces % spaces == 0 -> {
+            val distance = partOfSpaces / spaces
+            for (i in 0 until store.size - 1) {
+                res += store[i]
+                repeat(distance) { res += " " }
+            }
+            res += store[store.size - 1]
+            res
+        }
+
+        else -> {
+            var rest = partOfSpaces % spaces
+            val distance = partOfSpaces / spaces
+            for (i in 0 until store.size - 1) {
+                res += store[i]
+                if (rest != 0) {
+                    repeat(distance + 1) { res += " " }
+                    rest--
+                } else repeat(distance) { res += " " }
+            }
+            res += store[store.size - 1]
+            res
+        }
+    }
+
+}
+
+
+private fun lastString(store: List<String>, maxWidth: Int): String {
+    var res = ""
+    for (i in 0 until store.size - 1) {
+        res += store[i]
+        res += " "
+    }
+    res += store[store.size - 1]
+    val diff = maxWidth - res.length
+    return if (diff == 0) res else {
+        repeat(diff) { res += " " }
+        res
+    }
+}
+
+private fun sumOfLength(store: List<String>): Int = store.sumOf { it.length }
+
+/**
+ *
+ */
+
+fun subStrHash(s: String, power: Int, modulo: Int, k: Int, hashValue: Int): String {
+    var left = 0
+    var temp = ""
+
+    for (right in s.indices) {
+        temp += s[right]
+        if (right - left == k - 1) {
+            val hash = hash(temp, power, modulo)
+            if (hash.intValueExact() == hashValue.toBigInteger().intValueExact()) return temp
+            temp = temp.substring(1, temp.length)
+            left++
+        }
+    }
+
+    return ""
+}
+
+private fun hash(str: String, power: Int, modulo: Int): BigInteger {
+    var res = 0.toBigInteger()
+    var pow = 0
+    val power = power.toBigInteger()
+    for (element in str) {
+        val index = (element - 'a' + 1).toBigInteger()
+        val base = (power.pow(pow))
+        val calc = index * base
+        res += calc
+        pow++
+    }
+
+    return res % modulo.toBigInteger()
+}
 
