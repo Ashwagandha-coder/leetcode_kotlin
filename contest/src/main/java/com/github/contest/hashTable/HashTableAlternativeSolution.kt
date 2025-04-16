@@ -60,17 +60,17 @@ fun countGoodAlternativeSolution(nums: IntArray, k: Int): Long {
     val freq = mutableMapOf<Int, Int>()
 
     for (right in nums.indices) {
-        // Update the frequency of the current element
+
         val num = nums[right]
         val currentFreq = freq.getOrDefault(num, 0)
-        // Each existing occurrence creates new pairs
+
         totalPairs += currentFreq
         freq[num] = currentFreq + 1
 
-        // While the window has enough pairs, try to shrink from the left
+
         while (totalPairs >= k) {
             val leftNum = nums[left]
-            // Before removing, reduce the pairs count
+
             totalPairs -= freq[leftNum]!! - 1
             freq[leftNum] = freq[leftNum]!! - 1
             if (freq[leftNum] == 0) {
@@ -79,7 +79,7 @@ fun countGoodAlternativeSolution(nums: IntArray, k: Int): Long {
             left++
         }
 
-        // All subarrays ending at right with start <= left-1 are good
+
         count += left
     }
 
