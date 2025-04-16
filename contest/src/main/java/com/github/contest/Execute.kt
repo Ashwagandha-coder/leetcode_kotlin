@@ -1,6 +1,7 @@
 package com.github.contest
 
 
+import com.github.contest.hashTable.countGoodAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -13,6 +14,11 @@ import java.util.TreeMap
 
 fun main() {
 
+    countGoodAlternativeSolution(intArrayOf(3, 1, 4, 3, 2, 2, 4), 2).also { println(it) }
+
+}
+
+fun fullJustifyData() {
     fullJustify(
         arrayOf(
             "Science",
@@ -39,7 +45,6 @@ fun main() {
             it
         )
     }
-
 }
 
 fun subStrHashData() {
