@@ -332,3 +332,37 @@ fun isAnagram(s: String, t: String): Boolean {
 
     return true
 }
+
+/**
+ * 2537. Count the Number of Good Subarrays
+ * TLE Approach
+ */
+
+fun countGood(nums: IntArray, k: Int): Long {
+    if (nums.hasSingle()) return 0L
+
+    var count = 0L
+    var left = 0
+
+    while (left < nums.size) {
+        var right = left + 1
+        while (right < nums.size) {
+            var localCounter = 0
+            for (i in left..right) {
+                for (j in i + 1..right) {
+                    if (nums[i] == nums[j]) localCounter++
+                }
+            }
+            if (localCounter >= k) count++
+            right++
+        }
+        left++
+    }
+
+    return count
+}
+
+private fun IntArray.hasSingle() = when {
+    this.size == 1 -> true
+    else -> false
+}
