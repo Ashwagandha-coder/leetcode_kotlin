@@ -46,3 +46,42 @@ fun countBadPairsAltSolution(nums: IntArray): Long {
 class Counter {
     var count: Int = 0
 }
+
+/**
+ * 2537. Count the Number of Good Subarrays
+ * Alternative Solution Optimal
+ * Hash Map Approach
+ */
+
+fun countGoodAlternativeSolution(nums: IntArray, k: Int): Long {
+    var left = 0
+    var count = 0L
+    var totalPairs = 0L
+    val freq = mutableMapOf<Int, Int>()
+
+    for (right in nums.indices) {
+        // Update the frequency of the current element
+        val num = nums[right]
+        val currentFreq = freq.getOrDefault(num, 0)
+        // Each existing occurrence creates new pairs
+        totalPairs += currentFreq
+        freq[num] = currentFreq + 1
+
+        // While the window has enough pairs, try to shrink from the left
+        while (totalPairs >= k) {
+            val leftNum = nums[left]
+            // Before removing, reduce the pairs count
+            totalPairs -= freq[leftNum]!! - 1
+            freq[leftNum] = freq[leftNum]!! - 1
+            if (freq[leftNum] == 0) {
+                freq.remove(leftNum)
+            }
+            left++
+        }
+
+        // All subarrays ending at right with start <= left-1 are good
+        count += left
+    }
+
+    return count
+}
