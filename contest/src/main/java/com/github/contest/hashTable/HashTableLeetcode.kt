@@ -366,3 +366,24 @@ private fun IntArray.hasSingle() = when {
     this.size == 1 -> true
     else -> false
 }
+
+
+/**
+ * 169. Majority Element
+ */
+
+fun majorityElement(nums: IntArray): Int {
+    var majority = 0
+    var res = 0
+    val target = nums.size / 2
+
+    nums.forEach {
+        if (majority == 0) res = it
+        majority += when {
+            it == res -> 1
+            else -> -1
+        }
+    }
+
+    return res
+}
