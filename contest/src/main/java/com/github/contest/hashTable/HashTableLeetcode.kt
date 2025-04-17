@@ -387,3 +387,28 @@ fun majorityElement(nums: IntArray): Int {
 
     return res
 }
+
+/**
+ * 2176. Count Equal and Divisible Pairs in an Array
+ */
+
+fun countPairs(nums: IntArray, k: Int): Int {
+    if (nums.size < 2) return 0
+
+    val store = mutableMapOf<Int, MutableList<Int>>()
+    var count = 0
+
+    for (i in nums.indices) {
+        val num = nums[i]
+        if (store.contains(num)) {
+            val indexed = store.getOrDefault(num, mutableListOf())
+            for (index in indexed) {
+                if ((index * i) % k == 0) count++
+            }
+            indexed.add(i)
+            store[num] = indexed
+        } else store[num] = mutableListOf(i)
+    }
+
+    return count
+}
