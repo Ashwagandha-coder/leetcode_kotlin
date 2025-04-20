@@ -37,3 +37,33 @@ fun minCapability(nums: IntArray, k: Int): Int {
 
     return ans
 }
+
+/**
+ *
+ */
+
+fun twoSum(numbers: IntArray, target: Int): IntArray {
+    var boundIndex = numbers.size - 1
+    var nullIndex = 0
+    for (i in numbers.indices) {
+        if (numbers[i] > target) {
+            boundIndex = i - 1
+        }
+        if (numbers[i] == 0) nullIndex = i
+    }
+
+    for (i in boundIndex downTo 0) {
+        var left = 0
+        var right = i
+        val tar = target - numbers[i]
+        if (tar == 0) return intArrayOf(i + 1, nullIndex + 1)
+        while (left <= right) {
+            var mid = (left + right) / 2
+            if (numbers[mid] == tar) return intArrayOf(mid + 1, i + 1)
+            if (numbers[mid] < tar) mid = left + 1
+            else right = mid - 1
+        }
+    }
+
+    return intArrayOf()
+}
