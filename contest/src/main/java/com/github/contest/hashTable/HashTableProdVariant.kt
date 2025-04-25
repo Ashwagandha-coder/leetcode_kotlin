@@ -48,3 +48,65 @@ fun findMissingAndRepeatedValuesProdVariant(grid: Array<IntArray>): IntArray {
 }
 
 
+/**
+ * 2799. Count Complete Subarrays in an Array
+ * Prod Variant
+ */
+
+fun countCompleteSubArrayProdVariant(nums: IntArray): Int {
+    val unique = nums.distinct().size
+    var count = 0
+    val freq = mutableMapOf<Int, Int>()
+    var left = 0
+    val n = nums.size
+
+    nums.forEachIndexed { right, num ->
+        freq[num] = freq.getOrDefault(num, 0) + 1
+
+        while (freq.size == unique) {
+            count += n - right
+            val delete = nums[left]
+            freq[delete] = freq.getOrDefault(delete, 0) - 1
+            if (freq[delete] == 0) freq.remove(delete)
+            left++
+        }
+    }
+
+    return count
+}
+
+/**
+ * 12. Integer to Roman
+ * Prod Variant
+ */
+
+fun intToRomanProdVariant(num: Int): String {
+    val values = mapOf(
+        1000 to "M",
+        900 to "CM",
+        500 to "D",
+        400 to "CD",
+        100 to "C",
+        90 to "XC",
+        50 to "L",
+        40 to "XL",
+        10 to "X",
+        9 to "IX",
+        5 to "V",
+        4 to "IV",
+        1 to "I"
+    )
+    var n = num
+    return when {
+        values.contains(num) -> values.getOrDefault(num, "")
+        else -> buildString {
+            values.forEach { (value, symbol) ->
+                while (n >= value) {
+                    append(symbol)
+                    n -= value
+                }
+            }
+        }
+    }
+}
+

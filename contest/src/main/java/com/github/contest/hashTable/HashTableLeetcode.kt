@@ -412,3 +412,69 @@ fun countPairs(nums: IntArray, k: Int): Int {
 
     return count
 }
+
+/**
+ * 2799. Count Complete SubArrays in an Array
+ */
+
+fun countCompleteSubArrays(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+
+    var count = 0
+    val distinct = distinctElementsOfArray(nums)
+    var lastIndex = nums.size - 1
+
+    for (i in nums.indices) {
+        var j = i
+        val set = mutableSetOf<Int>()
+
+        while (j < nums.size && set.size != distinct) {
+            set.add(nums[j])
+            j++
+        }
+        j--
+        if (set.size == distinct) count += (lastIndex - j) + 1
+    }
+
+    return count
+
+}
+
+private fun distinctElementsOfArray(nums: IntArray): Int {
+    val set = mutableSetOf<Int>()
+    for (num in nums) set.add(num)
+    return set.size
+}
+
+/**
+ * 12. Integer to Roman
+ */
+
+fun intToRoman(num: Int): String {
+    val values = listOf(
+        1000 to "M",
+        900 to "CM",
+        500 to "D",
+        400 to "CD",
+        100 to "C",
+        90 to "XC",
+        50 to "L",
+        40 to "XL",
+        10 to "X",
+        9 to "IX",
+        5 to "V",
+        4 to "IV",
+        1 to "I"
+    )
+    var n = num
+    val result = StringBuilder()
+    for ((value, symbol) in values) {
+        while (n >= value) {
+            result.append(symbol)
+            n -= value
+        }
+    }
+    return result.toString()
+}
+
+

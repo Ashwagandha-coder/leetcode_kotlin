@@ -370,6 +370,26 @@ private fun compress(input: String): String {
 }
 
 /**
+ * 58. Length of Last Word
+ */
+
+
+fun lengthOfLastWord(s: String): Int {
+    var i = s.length - 1
+    var size = 0
+
+    while (i >= 0 && s[i] == ' ') i--
+
+    while (i >= 0 && s[i] != ' ') {
+        size++
+        i--
+    }
+
+    return size
+}
+
+
+/**
  *
  */
 

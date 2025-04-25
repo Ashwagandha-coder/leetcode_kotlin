@@ -133,6 +133,31 @@ fun countSymmetricIntegers(low: Int, high: Int): Int {
 }
 
 /**
+ * 1399. Count Largest Group
+ */
+
+fun countLargestGroup(n: Int): Int {
+    val freq = IntArray(40)
+    var maxCount = 0
+
+    for (i in 1..n) {
+        var sum = 0
+        var x = i
+        while (x > 0) {
+            sum += x % 10
+            x /= 10
+        }
+        freq[sum]++
+        maxCount = maxOf(maxCount, freq[sum])
+    }
+
+    var groupCount = 0
+    for (count in freq) if (count == maxCount) groupCount++
+
+    return groupCount
+}
+
+/**
  *
  */
 
