@@ -96,16 +96,14 @@ fun intToRomanProdVariant(num: Int): String {
         4 to "IV",
         1 to "I"
     )
+    var n = num
     return when {
         values.contains(num) -> values.getOrDefault(num, "")
-        else -> {
-            var n = num
-            buildString {
-                values.forEach { (value, symbol) ->
-                    while (n >= value) {
-                        append(symbol)
-                        n -= value
-                    }
+        else -> buildString {
+            values.forEach { (value, symbol) ->
+                while (n >= value) {
+                    append(symbol)
+                    n -= value
                 }
             }
         }
