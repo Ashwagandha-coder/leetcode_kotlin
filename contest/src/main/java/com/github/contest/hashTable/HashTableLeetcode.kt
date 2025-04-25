@@ -445,3 +445,34 @@ private fun distinctElementsOfArray(nums: IntArray): Int {
     for (num in nums) set.add(num)
     return set.size
 }
+
+/**
+ * 12. Integer to Roman
+ */
+
+fun intToRoman(num: Int): String {
+    val values = listOf(
+        1000 to "M",
+        900 to "CM",
+        500 to "D",
+        400 to "CD",
+        100 to "C",
+        90 to "XC",
+        50 to "L",
+        40 to "XL",
+        10 to "X",
+        9 to "IX",
+        5 to "V",
+        4 to "IV",
+        1 to "I"
+    )
+    var n = num
+    val result = StringBuilder()
+    for ((value, symbol) in values) {
+        while (n >= value) {
+            result.append(symbol)
+            n -= value
+        }
+    }
+    return result.toString()
+}

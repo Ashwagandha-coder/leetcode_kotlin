@@ -1,8 +1,8 @@
 package com.github.contest
 
 
-import com.github.contest.binarySearch.twoSum
 import com.github.contest.hashTable.countGoodAlternativeSolution
+import com.github.contest.hashTable.intToRoman
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -15,7 +15,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    twoSum(intArrayOf(-1, 0), -1).printArray()
+    intToRoman(3799).also { println(it) }
 
 
 }
