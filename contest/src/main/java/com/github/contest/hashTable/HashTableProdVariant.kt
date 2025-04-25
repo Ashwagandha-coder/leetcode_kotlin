@@ -48,3 +48,30 @@ fun findMissingAndRepeatedValuesProdVariant(grid: Array<IntArray>): IntArray {
 }
 
 
+/**
+ * 2799. Count Complete Subarrays in an Array
+ * Prod Variant
+ */
+
+fun countCompleteSubArrayProdVariant(nums: IntArray): Int {
+    val unique = nums.distinct().size
+    var count = 0
+    val freq = mutableMapOf<Int, Int>()
+    var left = 0
+    val n = nums.size
+
+    nums.forEachIndexed { right, num ->
+        freq[num] = freq.getOrDefault(num, 0) + 1
+
+        while (freq.size == unique) {
+            count += n - right
+            val delete = nums[left]
+            freq[delete] = freq.getOrDefault(delete, 0) - 1
+            if (freq[delete] == 0) freq.remove(delete)
+            left++
+        }
+    }
+
+    return count
+}
+

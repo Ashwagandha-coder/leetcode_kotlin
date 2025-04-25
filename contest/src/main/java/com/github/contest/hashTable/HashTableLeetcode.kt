@@ -424,7 +424,7 @@ fun countCompleteSubArrays(nums: IntArray): Int {
     val distinct = distinctElementsOfArray(nums)
     var lastIndex = nums.size - 1
 
-    for (i in 0 until nums.size) {
+    for (i in nums.indices) {
         var j = i
         val set = mutableSetOf<Int>()
 
