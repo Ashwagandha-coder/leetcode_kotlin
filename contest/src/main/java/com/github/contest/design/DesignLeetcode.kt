@@ -153,3 +153,31 @@ class TimeMap() {
     private fun emptyString() = ""
 
 }
+
+/**
+ * 380. Insert Delete GetRandom O(1)
+ */
+
+class RandomizedSet() {
+
+    private val store = mutableMapOf<Int, Int>()
+
+    fun insert(`val`: Int): Boolean = when {
+        store.contains(`val`) -> false
+        else -> {
+            store[`val`] = store.getOrDefault(`val`, 0) + 1
+            true
+        }
+    }
+
+    fun remove(`val`: Int): Boolean = when {
+        !store.contains(`val`) -> false
+        else -> {
+            store.remove(`val`)
+            true
+        }
+    }
+
+    fun getRandom(): Int = store.keys.random()
+
+}
