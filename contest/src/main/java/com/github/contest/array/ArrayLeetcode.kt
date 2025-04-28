@@ -182,7 +182,7 @@ fun maximumTripletValue(nums: IntArray): Long {
  * 189. Rotate Array
  */
 
-fun rotate(nums: IntArray, k: Int): Unit {
+fun rotate(nums: IntArray, k: Int) {
     if (k % nums.size != 0) {
         val cache = mutableListOf<Int>()
         val bound = when {
