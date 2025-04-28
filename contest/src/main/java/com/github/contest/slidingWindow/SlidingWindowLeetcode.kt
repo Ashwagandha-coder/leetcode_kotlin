@@ -54,3 +54,24 @@ private fun checkUniqueAnswer(store: MutableMap<Char, Int>, cache: MutableMap<Ch
 
     return isUnique
 }
+
+/**
+ * 3392. Count Subarrays of Length Three With a Condition
+ */
+
+fun countSubArrays(nums: IntArray): Int {
+    var count = 0
+    val k = 3
+    var left = 0
+
+    for (right in 0 until nums.size) {
+        if (right - left == k - 1) {
+            val sum = (nums[left] + nums[right]).toDouble()
+            val middle = nums[left + 1].toDouble() / 2.0
+            if (sum == middle) count++
+            left++
+        }
+    }
+
+    return count
+}
