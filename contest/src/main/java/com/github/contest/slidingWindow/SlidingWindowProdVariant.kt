@@ -75,3 +75,14 @@ fun findSubstringProdVariantII(s: String, words: Array<String>): List<Int> {
         }
     }
 }
+
+/**
+ * 3392. Count Subarrays of Length Three With a Condition
+ * Prod Variant
+ */
+
+fun countSubArraysProdVariant(nums: IntArray): Int =
+    nums.toList().windowed(3).count {
+        (it.first() + it.last()).toDouble() == it[1].toDouble() / 2.0
+    }
+
