@@ -3,9 +3,10 @@ package com.github.contest
 
 import com.github.contest.hashTable.countGoodAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.slidingWindow.countSubArrayWithMaxElement
+import com.github.contest.slidingWindow.countSubArrays
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
-import com.github.contest.twoPointer.trap
 import java.util.TreeMap
 
 
@@ -15,7 +16,9 @@ import java.util.TreeMap
 
 fun main() {
 
-    trap(intArrayOf(5, 1, 6, 2, 1, 2, 1, 3)).also { println(it) }
+    countSubArrayWithMaxElement(
+        intArrayOf(1, 3, 2, 3, 3), 2
+    ).also { println(it) }
 
 
 }

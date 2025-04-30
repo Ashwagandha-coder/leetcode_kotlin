@@ -133,3 +133,31 @@ private fun equalsMap(comparable: Map<String, Int>, base: Map<String, Int>): Boo
 
     return true
 }
+
+/**
+ * 2962. Count Subarrays Where Max Element Appears at Least K Times
+ */
+
+fun countSubArrayWithMaxElement(nums: IntArray, k: Int): Long {
+    val maxNum = nums.maxOrNull() ?: return 0
+    var count = 0L
+    var left = 0
+    var maxCount = 0
+
+    for (right in nums.indices) {
+        if (nums[right] == maxNum) {
+            maxCount++
+        }
+
+        // When we have at least k occurrences, we count all subarrays ending at right
+        while (maxCount >= k) {
+            count += nums.size - right
+            if (nums[left] == maxNum) {
+                maxCount--
+            }
+            left++
+        }
+    }
+
+    return count
+}
