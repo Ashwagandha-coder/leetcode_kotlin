@@ -64,7 +64,7 @@ fun countSubArrays(nums: IntArray): Int {
     val k = 3
     var left = 0
 
-    for (right in 0 until nums.size) {
+    for (right in nums.indices) {
         if (right - left == k - 1) {
             val sum = (nums[left] + nums[right]).toDouble()
             val middle = nums[left + 1].toDouble() / 2.0
@@ -74,4 +74,62 @@ fun countSubArrays(nums: IntArray): Int {
     }
 
     return count
+}
+
+/**
+ * 30. Substring with Concatenation of All Words
+ */
+
+fun findSubstring(s: String, words: Array<String>): List<Int> {
+    val res = mutableListOf<Int>()
+    val totalLen = words[0].length * words.size
+    val wordLen = words[0].length
+    val store = mutableMapOf<String, Int>()
+
+    if (totalLen > s.length) return res
+
+    for (word in words) store[word] = store.getOrDefault(word, 0) + 1
+
+    var left = 0
+
+    for (right in s.indices) {
+        if (right - left == totalLen - 1) {
+            val str = s.substring(left, right + 1)
+            if (isValidWord(str, store, wordLen)) res.add(left)
+            left++
+        }
+    }
+
+    return res
+}
+
+private fun isValidWord(s: String, map: Map<String, Int>, window: Int): Boolean {
+    val seen = mutableMapOf<String, Int>()
+    var left = 0
+
+    for (right in s.indices) {
+        if (right - left == window - 1) {
+            val str = s.substring(left, right + 1)
+            seen[str] = seen.getOrDefault(str, 0) + 1
+            left = right + 1
+        }
+    }
+
+    return when {
+        equalsMap(seen, map) -> true
+        else -> false
+    }
+}
+
+private fun equalsMap(comparable: Map<String, Int>, base: Map<String, Int>): Boolean {
+
+    for ((str, count) in comparable) {
+        if (!base.contains(str)) return false
+        else {
+            val amount = base[str]
+            if (amount != count) return false
+        }
+    }
+
+    return true
 }
