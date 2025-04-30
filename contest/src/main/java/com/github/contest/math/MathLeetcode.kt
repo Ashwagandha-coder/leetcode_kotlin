@@ -191,3 +191,26 @@ fun numberOfPowerfulInt(start: Long, finish: Long, limit: Int, s: String): Long 
 
     return if (s.toLong() in start..finish) counter + 1L else counter
 }
+
+/**
+ * 1295. Find Numbers with Even Number of Digits
+ */
+
+val POW = intArrayOf(100_000, 10_000, 1_000, 100, 10, 1)
+
+fun findNumbers(nums: IntArray): Int = nums.filter {
+    isEven(it)
+}.count()
+
+private fun isEven(num: Int): Boolean {
+    var even = true
+
+    for (p in POW) {
+        if (num >= p) break
+        even = !even
+    }
+
+    return even
+}
+
+
