@@ -149,7 +149,7 @@ fun countSubArrayWithMaxElement(nums: IntArray, k: Int): Long {
             maxCount++
         }
 
-        // When we have at least k occurrences, we count all subarrays ending at right
+
         while (maxCount >= k) {
             count += nums.size - right
             if (nums[left] == maxNum) {
