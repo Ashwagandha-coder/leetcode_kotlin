@@ -207,5 +207,39 @@ fun rotate(nums: IntArray, k: Int) {
     }
 }
 
+/**
+ * 228. Summary Ranges
+ */
+
+fun summaryRanges(nums: IntArray): List<String> {
+    val result = mutableListOf<String>()
+    if (nums.isEmpty()) return result
+
+    var start = nums[0]
+    var prev = nums[0]
+
+    for (i in 1 until nums.size) {
+        if (nums[i] == prev + 1) {
+            prev = nums[i]
+        } else {
+            if (start == prev) {
+                result.add("$start")
+            } else {
+                result.add("$start->$prev")
+            }
+            start = nums[i]
+            prev = nums[i]
+        }
+    }
+
+    // Add the last range
+    if (start == prev) {
+        result.add("$start")
+    } else {
+        result.add("$start->$prev")
+    }
+
+    return result
+}
 
 
