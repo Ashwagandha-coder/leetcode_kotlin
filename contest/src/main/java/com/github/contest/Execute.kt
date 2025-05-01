@@ -3,8 +3,6 @@ package com.github.contest
 
 import com.github.contest.hashTable.countGoodAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
-import com.github.contest.slidingWindow.countSubArrayWithMaxElement
-import com.github.contest.slidingWindow.countSubArrays
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -15,10 +13,6 @@ import java.util.TreeMap
  */
 
 fun main() {
-
-    countSubArrayWithMaxElement(
-        intArrayOf(1, 3, 2, 3, 3), 2
-    ).also { println(it) }
 
 
 }
