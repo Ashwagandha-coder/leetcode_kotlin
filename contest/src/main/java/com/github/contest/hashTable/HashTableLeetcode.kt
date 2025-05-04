@@ -477,4 +477,35 @@ fun intToRoman(num: Int): String {
     return result.toString()
 }
 
+/**
+ * 1128. Number of Equivalent Domino Pairs
+ */
+
+fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
+    var count = 0
+    val pairs = mutableMapOf<Pair<Int, Int>, Int>()
+
+    for (domino in dominoes) {
+        val base = Pair(domino[0], domino[1])
+        val reversed = Pair(domino[1], domino[0])
+
+        when {
+            !pairs.contains(base) && !pairs.contains(reversed) -> pairs[base] =
+                pairs.getOrDefault(base, 0) + 1
+
+            pairs.contains(base) -> {
+                count += pairs.getOrDefault(base, 0)
+                pairs[base] = pairs.getOrDefault(base, 0) + 1
+            }
+
+            else -> {
+                count += pairs.getOrDefault(reversed, 0)
+                pairs[reversed] = pairs.getOrDefault(reversed, 0) + 1
+            }
+        }
+    }
+
+    return count
+}
+
 
