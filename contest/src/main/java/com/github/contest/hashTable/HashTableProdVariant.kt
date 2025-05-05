@@ -110,3 +110,16 @@ fun intToRomanProdVariant(num: Int): String {
     }
 }
 
+/**
+ * 1128. Number of Equivalent Domino Pairs
+ */
+
+fun numEquivDominoPairsProdVariant(dominoes: Array<IntArray>): Int = dominoes
+    .map { (a, b) -> if (a <= b) a to b else b to a }
+    .groupingBy { it }
+    .eachCount()
+    .values
+    .sumOf { count -> count * (count - 1) / 2 }
+
+
+
