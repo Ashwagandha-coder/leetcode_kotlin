@@ -242,4 +242,18 @@ fun summaryRanges(nums: IntArray): List<String> {
     return result
 }
 
+/**
+ * 1920. Build Array from Permutation
+ */
+
+
+fun buildArray(nums: IntArray): IntArray {
+    val new = IntArray(nums.size)
+
+    nums.forEachIndexed { index, _ ->
+        new[index] = nums[nums[index]]
+    }
+
+    return new
+}
 
