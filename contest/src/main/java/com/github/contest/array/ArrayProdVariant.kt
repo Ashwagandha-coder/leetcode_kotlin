@@ -75,6 +75,23 @@ fun applyOperationsProdVariantII(nums: IntArray): IntArray {
 }
 
 /**
+ * 1920. Build Array from Permutation
+ */
+
+fun buildArrayProdVariant(nums: IntArray): IntArray {
+    nums.forEachIndexed { index, _ ->
+        val new = nums[nums[index]] % nums.size
+        val prev = nums[index]
+        nums[index] = (new * nums.size) + prev
+    }
+    nums.forEachIndexed { index, _ ->
+        nums[index] /= nums.size
+    }
+
+    return nums
+}
+
+/**
  * 56. Merge Intervals
  * Prod Variant
  */
