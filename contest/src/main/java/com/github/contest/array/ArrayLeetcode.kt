@@ -1,5 +1,7 @@
 package com.github.contest.array
 
+import java.util.PriorityQueue
+
 
 /**
  * 1800. Maximum Ascending Subarray Sum
@@ -255,5 +257,41 @@ fun buildArray(nums: IntArray): IntArray {
     }
 
     return new
+}
+
+/**
+ * 56. Merge Intervals
+ */
+
+fun merge(intervals: Array<IntArray>): Array<IntArray> {
+    if (intervals.size == 1) return intervals
+
+    val pq = PriorityQueue { a: IntArray, b: IntArray -> a[0] - b[0] }
+    val k = 2
+    var temp = IntArray(k)
+    val res = mutableListOf<IntArray>()
+
+    for (interval in intervals) {
+        pq.offer(interval)
+    }
+
+    val (start, end) = pq.poll()
+    temp[0] = start
+    temp[1] = end
+
+    while (pq.isNotEmpty()) {
+        val (start, end) = pq.poll()
+        if (temp[1] in start..end) temp[1] = end
+        else if (temp[1] < start) {
+            res.add(temp)
+            temp = IntArray(k)
+            temp[0] = start
+            temp[1] = end
+        }
+    }
+
+    res.add(temp)
+
+    return res.toTypedArray()
 }
 

@@ -161,3 +161,47 @@ fun countSubArrayWithMaxElement(nums: IntArray, k: Int): Long {
 
     return count
 }
+
+/**
+ * 209. Minimum Size Subarray Sum
+ */
+
+fun minSubArrayLen(target: Int, nums: IntArray): Int {
+    var minLen = Int.MAX_VALUE
+    var sum = 0
+    var left = 0
+    var currentLen = 0
+
+    for (element in nums) {
+        sum += element
+        currentLen++
+        if (sum >= target) {
+            minLen = minOf(minLen, currentLen)
+            var localLen = minLen
+            while (sum >= target) {
+                if (sum == target) break
+                if (localLen == 1) return 1
+                if (sum - nums[left] < target) break
+                else {
+                    sum -= nums[left]
+                    localLen--
+                    left++
+                }
+            }
+            minLen = minOf(minLen, localLen)
+            currentLen = minOf(currentLen, localLen)
+        }
+
+
+        if (currentLen == minLen) {
+            sum -= nums[left]
+            left++
+            currentLen--
+        }
+    }
+
+    return when {
+        minLen == Int.MAX_VALUE -> 0
+        else -> minLen
+    }
+}
