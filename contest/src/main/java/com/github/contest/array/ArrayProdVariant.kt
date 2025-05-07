@@ -96,3 +96,11 @@ fun mergeProdVariantStage(intervals: Array<IntArray>): Array<IntArray> {
 
     return merged.toTypedArray()
 }
+
+fun mergeProdVariantII(intervals: Array<IntArray>): Array<IntArray> =
+    intervals.sortedBy { it[0] }.fold(mutableListOf<IntArray>()) { merged, interval ->
+        merged.lastOrNull()?.takeIf { it[1] >= interval[0] }?.let {
+            it[1] = maxOf(it[1], interval[1])
+        } ?: merged.add(interval)
+        merged
+    }.toTypedArray()
