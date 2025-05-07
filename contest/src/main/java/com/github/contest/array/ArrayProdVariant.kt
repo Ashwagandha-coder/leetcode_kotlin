@@ -73,3 +73,26 @@ fun applyOperationsProdVariantII(nums: IntArray): IntArray {
 
     return nums
 }
+
+/**
+ * 56. Merge Intervals
+ * Prod Variant
+ */
+
+fun mergeProdVariantStage(intervals: Array<IntArray>): Array<IntArray> {
+    if (intervals.size == 1) return intervals
+
+    intervals.sortBy { it[0] }
+    val merged = mutableListOf<IntArray>()
+    var current = intervals[0]
+
+    intervals.drop(1).forEach {
+        if (current[1] in it[0]..it[1]) current[1] = maxOf(current[1], it[1])
+        else {
+            merged.add(current)
+            current = it
+        }
+    }
+
+    return merged.toTypedArray()
+}
