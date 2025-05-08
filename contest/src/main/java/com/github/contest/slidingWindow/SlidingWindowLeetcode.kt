@@ -205,3 +205,35 @@ fun minSubArrayLen(target: Int, nums: IntArray): Int {
         else -> minLen
     }
 }
+
+/**
+ * 992. Subarrays with K Different Integers
+ */
+
+fun subArraysWithKDistinct(nums: IntArray, k: Int): Int {
+    return atMostK(nums, k) - atMostK(nums, k - 1)
+}
+
+private fun atMostK(nums: IntArray, k: Int): Int {
+    var count = 0
+    val freq = mutableMapOf<Int, Int>()
+    var left = 0
+
+    for (right in nums.indices) {
+        val num = nums[right]
+        freq[num] = freq.getOrDefault(num, 0) + 1
+
+        while (freq.size > k) {
+            val leftNum = nums[left]
+            freq[leftNum] = freq[leftNum]!! - 1
+            if (freq[leftNum] == 0) {
+                freq.remove(leftNum)
+            }
+            left++
+        }
+
+        count += right - left + 1
+    }
+
+    return count
+}
