@@ -121,5 +121,17 @@ fun numEquivDominoPairsProdVariant(dominoes: Array<IntArray>): Int = dominoes
     .values
     .sumOf { count -> count * (count - 1) / 2 }
 
+/**
+ * 2062. Count Vowel Substrings of a String
+ * Prod Variant
+ */
+
+fun countVowelSubstringProdVariant(word: String): Int = word.indices.sumOf { i ->
+    val seen = mutableSetOf<Char>()
+    word.substring(i).takeWhile { it in "aeiou" }.count {
+        seen.add(it)
+        seen.size == 5
+    }
+}
 
 
