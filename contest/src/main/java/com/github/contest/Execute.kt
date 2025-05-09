@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.countGoodAlternativeSolution
+import com.github.contest.hashTable.countVowelSubstringProdVariantIV
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -18,7 +18,7 @@ fun main() {
 }
 
 fun countGoodData() {
-    countGoodAlternativeSolution(intArrayOf(3, 1, 4, 3, 2, 2, 4), 2).also { println(it) }
+    countVowelSubstringProdVariantIV("aeiouu").also { println(it) }
 }
 
 fun fullJustifyData() {
