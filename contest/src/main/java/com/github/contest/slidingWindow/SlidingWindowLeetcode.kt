@@ -295,9 +295,9 @@ private fun isVowel(char: Char) = when {
  * 3364. Minimum Positive Sum Subarray
  */
 
-fun minimumSumSubarray(nums: List<Int>, l: Int, r: Int): Int = buildList {
-    (l..r).forEach { window ->
-        nums.windowed(window).map { it.sum() }.filter { it > 0 }.forEach { add(it) }
-    }
-}.min()
+fun minimumSumSubarray(nums: List<Int>, l: Int, r: Int): Int {
+    val minSums = mutableListOf<Int>()
+    return TODO("Make this method")
+}
+
 

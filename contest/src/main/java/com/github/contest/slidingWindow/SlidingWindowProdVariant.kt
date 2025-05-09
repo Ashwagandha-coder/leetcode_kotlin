@@ -86,3 +86,13 @@ fun countSubArraysProdVariant(nums: IntArray): Int =
         (it.first() + it.last()).toDouble() == it[1].toDouble() / 2.0
     }
 
+/**
+ * 3364. Minimum Positive Sum Subarray
+ * Prod Variant
+ */
+
+fun minimumSumSubarrayProdVariant(nums: List<Int>, l: Int, r: Int): Int = buildList {
+    (l..r).forEach { window ->
+        nums.windowed(window).map { it.sum() }.filter { it > 0 }.forEach { add(it) }
+    }
+}.min()
