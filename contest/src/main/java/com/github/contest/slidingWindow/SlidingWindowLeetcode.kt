@@ -1,5 +1,6 @@
 package com.github.contest.slidingWindow
 
+
 /**
  * 76. Minimum Window Substring
  */
@@ -236,4 +237,56 @@ private fun atMostK(nums: IntArray, k: Int): Int {
     }
 
     return count
+}
+
+/**
+ * 2062. Count Vowel Substrings of a String
+ */
+
+fun countVowelSubstrings(word: String): Int {
+    if (word.length < 5) return 0
+
+    var count = 0
+    val k = 5
+    val vowels = "aeiou"
+
+    for (window in k..word.length) {
+        var left = 0
+        val freq = mutableMapOf<Char, Int>()
+
+        for (right in 0 until word.length) {
+            freq[word[right]] = freq.getOrDefault(word[right], 0) + 1
+
+            if (right - left == window - 1) {
+                var isValid = true
+
+                for ((key, _) in freq) {
+                    if (!isVowel(key)) {
+                        isValid = false
+                        break
+                    }
+                }
+
+                for (vowel in vowels) {
+                    if (!freq.contains(vowel)) {
+                        isValid = false
+                        break
+                    }
+                }
+
+                if (isValid) count++
+
+                freq[word[left]] = freq.getOrDefault(word[left], 0) - 1
+                if (freq[word[left]] == 0) freq.remove(word[left])
+                left++
+            }
+        }
+    }
+
+    return count
+}
+
+private fun isVowel(char: Char) = when {
+    char in "aeiou" -> true
+    else -> false
 }
