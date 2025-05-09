@@ -2,8 +2,6 @@ package com.github.contest
 
 
 import com.github.contest.hashTable.countGoodAlternativeSolution
-import com.github.contest.hashTable.numEquivDominoPairsProdVariant
-import com.github.contest.hashTable.testing
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -16,11 +14,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    numEquivDominoPairsProdVariant(
-        arrayOf(
-            intArrayOf(1, 2), intArrayOf(2, 1), intArrayOf(3, 4), intArrayOf(5, 6)
-        )
-    ).also { println(it) }
+
 }
 
 fun countGoodData() {
