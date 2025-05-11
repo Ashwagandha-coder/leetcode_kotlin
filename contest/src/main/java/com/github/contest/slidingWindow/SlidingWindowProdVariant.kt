@@ -95,4 +95,4 @@ fun minimumSumSubarrayProdVariant(nums: List<Int>, l: Int, r: Int): Int = buildL
     (l..r).forEach { window ->
         nums.windowed(window).map { it.sum() }.filter { it > 0 }.forEach { add(it) }
     }
-}.min()
+}.minOrNull() ?: -1
