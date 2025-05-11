@@ -343,7 +343,7 @@ fun threeConsecutiveOdds(arr: IntArray): Boolean {
     return false
 }
 
-private fun isOdd(number: Int) = when {
+fun isOdd(number: Int) = when {
     number % 2 != 0 -> true
     else -> false
 }
