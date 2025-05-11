@@ -325,3 +325,25 @@ private fun IntArray.sumLong(): Long {
     for (element in this) sum += element
     return sum
 }
+
+/**
+ * 1550. Three Consecutive Odds
+ */
+
+fun threeConsecutiveOdds(arr: IntArray): Boolean {
+    var consecutive = 3
+
+    for (num in arr) {
+        if (isOdd(num)) consecutive--
+        else consecutive = 3
+
+        if (consecutive == 0) return true
+    }
+
+    return false
+}
+
+private fun isOdd(number: Int) = when {
+    number % 2 != 0 -> true
+    else -> false
+}
