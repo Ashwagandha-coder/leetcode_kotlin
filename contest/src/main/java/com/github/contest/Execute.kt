@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.countVowelSubstringProdVariantIV
+import com.github.contest.array.minSum
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -14,11 +14,15 @@ import java.util.TreeMap
 
 fun main() {
 
-
+    minSum(
+        intArrayOf(0, 0, 10, 10, 12, 0, 13, 6, 0, 2, 10),
+        intArrayOf(24, 5, 12, 22)
+    ).also { println(it) }
 }
 
 fun countGoodData() {
-    countVowelSubstringProdVariantIV("aeiouu").also { println(it) }
+
+
 }
 
 fun fullJustifyData() {
