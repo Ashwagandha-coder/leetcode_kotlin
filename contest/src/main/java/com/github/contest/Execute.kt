@@ -1,9 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.countGoodAlternativeSolution
-import com.github.contest.hashTable.numEquivDominoPairsProdVariant
-import com.github.contest.hashTable.testing
+import com.github.contest.array.minSum
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
@@ -16,15 +14,15 @@ import java.util.TreeMap
 
 fun main() {
 
-    numEquivDominoPairsProdVariant(
-        arrayOf(
-            intArrayOf(1, 2), intArrayOf(2, 1), intArrayOf(3, 4), intArrayOf(5, 6)
-        )
+    minSum(
+        intArrayOf(0, 0, 10, 10, 12, 0, 13, 6, 0, 2, 10),
+        intArrayOf(24, 5, 12, 22)
     ).also { println(it) }
 }
 
 fun countGoodData() {
-    countGoodAlternativeSolution(intArrayOf(3, 1, 4, 3, 2, 2, 4), 2).also { println(it) }
+
+
 }
 
 fun fullJustifyData() {

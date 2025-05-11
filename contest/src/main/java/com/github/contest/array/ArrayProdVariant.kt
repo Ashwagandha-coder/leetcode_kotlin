@@ -121,3 +121,31 @@ fun mergeProdVariantII(intervals: Array<IntArray>): Array<IntArray> =
         } ?: merged.add(interval)
         merged
     }.toTypedArray()
+
+/**
+ * 1550. Three Consecutive Odds
+ * Prod Variants
+ */
+
+fun threeConsecutiveOddsProdVariantI(arr: IntArray): Boolean =
+    arr.toList()
+        .windowed(3)
+        .filter {
+            val one = it[0]
+            val two = it[1]
+            val three = it[2]
+            isOdd(one) && isOdd(two) && isOdd(three)
+        }.isNotEmpty()
+
+fun threeConsecutiveOddsProdVariantII(arr: IntArray): Boolean =
+    arr.toList()
+        .windowed(3)
+        .any { isOdd(it.first()) && isOdd(it.middle()) && isOdd(it.last()) }
+
+private fun List<Int>.middle(): Int = this[this.size / 2]
+
+fun threeConsecutiveOddsProdVariantIII(arr: IntArray): Boolean =
+    arr.toList()
+        .windowed(3)
+        .any { window -> window.all { it % 2 != 0 } }
+

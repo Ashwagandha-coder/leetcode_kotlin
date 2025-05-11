@@ -508,4 +508,24 @@ fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
     return count
 }
 
+/**
+ * 2062. Count Vowel Substrings of a String
+ */
+
+fun countVowelSubstrings(word: String): Int {
+    var count = 0
+    val vowels = setOf('a', 'e', 'i', 'o', 'u')
+
+    for (i in word.indices) {
+        val seen = mutableSetOf<Char>()
+        for (j in i until word.length) {
+            val char = word[j]
+            if (char !in vowels) break
+            seen.add(char)
+            if (seen.size == 5) count++
+        }
+    }
+
+    return count
+}
 

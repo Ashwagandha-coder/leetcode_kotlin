@@ -7,15 +7,14 @@ package com.github.contest.hashTable
  */
 
 
-fun areAlmostEqualProdVariant(s1: String, s2: String): Boolean =
-    when {
-        s1 == s2 -> true
-        s1.length != s2.length -> false
-        else -> s1.zip(s2).withIndex().filter { it.value.first != it.value.second }.map { it.index }
-            .let { diff ->
-                diff.size == 2 && s1[diff[0]] == s2[diff[1]] && s1[diff[1]] == s2[diff[0]]
-            }
-    }
+fun areAlmostEqualProdVariant(s1: String, s2: String): Boolean = when {
+    s1 == s2 -> true
+    s1.length != s2.length -> false
+    else -> s1.zip(s2).withIndex().filter { it.value.first != it.value.second }.map { it.index }
+        .let { diff ->
+            diff.size == 2 && s1[diff[0]] == s2[diff[1]] && s1[diff[1]] == s2[diff[0]]
+        }
+}
 
 /**
  * 2965. Find Missing and Repeated Values
@@ -114,12 +113,44 @@ fun intToRomanProdVariant(num: Int): String {
  * 1128. Number of Equivalent Domino Pairs
  */
 
-fun numEquivDominoPairsProdVariant(dominoes: Array<IntArray>): Int = dominoes
-    .map { (a, b) -> if (a <= b) a to b else b to a }
-    .groupingBy { it }
-    .eachCount()
-    .values
-    .sumOf { count -> count * (count - 1) / 2 }
+fun numEquivDominoPairsProdVariant(dominoes: Array<IntArray>): Int =
+    dominoes.map { (a, b) -> if (a <= b) a to b else b to a }
+        .groupingBy { it }
+        .eachCount()
+        .values
+        .sumOf { count -> count * (count - 1) / 2 }
+
+/**
+ * 2062. Count Vowel Substrings of a String
+ * Prod Variant
+ */
+
+fun countVowelSubstringProdVariant(word: String): Int = word.indices.sumOf { i ->
+    val seen = mutableSetOf<Char>()
+    word.substring(i).takeWhile { it in "aeiou" }.count {
+        seen.add(it)
+        seen.size == 5
+    }
+}
+
+
+/**
+ * 2062. Count Vowel Substrings of a String
+ * Prod Variant III
+ */
+
+fun countVowelSubstringsProdVariantIII(word: String) = sequence {
+    word.forEachIndexed { i, _ ->
+        val seen = mutableSetOf<Char>()
+        word.asSequence().drop(i)
+            .takeWhile { it in "aeiou" }
+            .forEach { c ->
+                seen += c
+                if (seen.size == 5) yield(1)
+            }
+    }
+}.sum()
+
 
 
 

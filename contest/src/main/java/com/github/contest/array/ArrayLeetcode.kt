@@ -295,3 +295,55 @@ fun merge(intervals: Array<IntArray>): Array<IntArray> {
     return res.toTypedArray()
 }
 
+/**
+ * 2918. Minimum Equal Sum of Two Arrays After Replacing Zeros
+ */
+
+fun minSum(nums1: IntArray, nums2: IntArray): Long {
+    val zerosOne = nums1.countLong { it == 0 }
+    val zerosTwo = nums2.countLong { it == 0 }
+    val sumOne = nums1.sumLong() + zerosOne
+    val sumTwo = nums2.sumLong() + zerosTwo
+
+    return when {
+        sumOne == sumTwo -> sumOne
+        sumOne < sumTwo -> if (zerosOne > 0) sumTwo else -1L
+        else -> if (zerosTwo > 0) sumOne else -1L
+    }
+}
+
+private fun IntArray.countLong(predicate: (Int) -> Boolean): Long {
+    var count = 0L
+    for (element in this) {
+        if (predicate(element)) count++
+    }
+    return count
+}
+
+private fun IntArray.sumLong(): Long {
+    var sum = 0L
+    for (element in this) sum += element
+    return sum
+}
+
+/**
+ * 1550. Three Consecutive Odds
+ */
+
+fun threeConsecutiveOdds(arr: IntArray): Boolean {
+    var consecutive = 3
+
+    for (num in arr) {
+        if (isOdd(num)) consecutive--
+        else consecutive = 3
+
+        if (consecutive == 0) return true
+    }
+
+    return false
+}
+
+fun isOdd(number: Int) = when {
+    number % 2 != 0 -> true
+    else -> false
+}
