@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.array.findEvenNumbers
+import com.github.contest.hashTable.findEvenNumbersAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.longestDupSubstring
 import com.github.contest.strings.fullJustify
@@ -15,7 +15,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    findEvenNumbers(intArrayOf(2, 2, 8, 8, 2)).also { it.printArray() }
+    findEvenNumbersAlternativeSolution(intArrayOf(1, 2, 3)).also { it.printArray() }
 }
 
 fun longestDupSubStringTest() {

@@ -85,3 +85,33 @@ fun countGoodAlternativeSolution(nums: IntArray, k: Int): Long {
 
     return count
 }
+
+/**
+ * 2094. Finding 3-Digit Even Numbers
+ */
+
+fun findEvenNumbersAlternativeSolution(digits: IntArray): IntArray {
+    val freq = IntArray(10)
+    digits.forEach { freq[it]++ }
+
+    val result = mutableListOf<Int>()
+
+    for (h in 1..9) {
+        if (freq[h] == 0) continue
+
+        for (t in 0..9) {
+            if (freq[t] == 0 || (t == h && freq[t] < 2)) continue
+
+            for (u in 0..8 step 2) {
+                if (freq[u] == 0) continue
+                if (u == h && u == t && freq[u] < 3) continue
+                if (u == h && freq[u] < 2) continue
+                if (u == t && freq[u] < 2) continue
+
+                result.add(h * 100 + t * 10 + u)
+            }
+        }
+    }
+
+    return result.sorted().toIntArray()
+}
