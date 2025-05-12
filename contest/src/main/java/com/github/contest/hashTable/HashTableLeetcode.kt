@@ -529,3 +529,30 @@ fun countVowelSubstrings(word: String): Int {
     return count
 }
 
+/**
+ * 2094. Finding 3-Digit Even Numbers
+ */
+
+
+fun findEvenNumbers(digits: IntArray): IntArray {
+    val result = mutableSetOf<Int>()
+    val n = digits.size
+
+    for (i in 0 until n) {
+        if (digits[i] == 0) continue
+
+        for (j in 0 until n) {
+            if (j == i) continue
+
+            for (k in 0 until n) {
+
+                if (k == i || k == j || digits[k] % 2 != 0) continue
+
+                val num = digits[i] * 100 + digits[j] * 10 + digits[k]
+                result.add(num)
+            }
+        }
+    }
+
+    return result.sorted().toIntArray()
+}
