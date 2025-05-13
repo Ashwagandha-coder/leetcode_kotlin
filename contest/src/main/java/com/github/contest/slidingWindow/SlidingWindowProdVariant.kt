@@ -96,3 +96,17 @@ fun minimumSumSubarrayProdVariant(nums: List<Int>, l: Int, r: Int): Int = buildL
         nums.windowed(window).map { it.sum() }.filter { it > 0 }.forEach { add(it) }
     }
 }.minOrNull() ?: -1
+
+/**
+ * 187. Repeated DNA Sequences
+ * Prod Variant
+ */
+
+fun findRepeatedDnaSequencesProdVariant(s: String): List<String> = when {
+    s.length < 10 -> listOf()
+    else -> buildList {
+        s.windowed(10).map { it }.groupingBy { it }.eachCount().forEach { (key, value) ->
+            if (value > 1) add(key)
+        }
+    }
+}

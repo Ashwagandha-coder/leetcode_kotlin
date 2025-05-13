@@ -300,4 +300,23 @@ fun minimumSumSubarray(nums: List<Int>, l: Int, r: Int): Int {
     return TODO("Make this method")
 }
 
+/**
+ * 187. Repeated DNA Sequences
+ */
+
+fun findRepeatedDnaSequences(s: String): List<String> {
+    if (s.length < 10) return listOf()
+
+    val dnas = s.windowed(10).map { it }.groupingBy { it }.eachCount()
+    val res = mutableListOf<String>()
+
+    for ((key, value) in dnas) {
+        if (value > 1) res.add(key)
+    }
+
+
+    return res
+}
+
+
 
