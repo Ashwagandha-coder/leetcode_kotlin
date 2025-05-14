@@ -4,6 +4,7 @@ package com.github.contest
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
+import com.github.contest.strings.camelMatch
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -22,6 +23,7 @@ fun main() {
 fun launchPerformance() {
 
     val text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit".repeat(10)
+    val new = "banana".repeat(5000)
     val patterns = listOf(
         "Lorem", "ipsum", "dolor", "sit", "amet",
         "consectetur", "adipiscing", "elit", "xyz", "abc"

@@ -318,5 +318,78 @@ fun findRepeatedDnaSequences(s: String): List<String> {
     return res
 }
 
+/**
+ * 1044. Longest Duplicate Substring
+ */
+
+fun longestDupSubstring(s: String): String {
+    if (s.length == 2 && s[0] == s[1]) return "${s[0]}"
+
+    var left = 1
+    var right = s.length
+    var maxLen = 0
+    var res = ""
+
+    while (left < right) {
+
+        val window = (left + right) / 2
+
+        if (window == maxLen) return res
+
+        val check = findDuplicate(s, window)
+
+        if (check != null) {
+            left = window
+            maxLen = window
+            res = check
+        } else right = window
+    }
+
+    return res
+}
+
+
+private fun findDuplicate(s: String, length: Int): String? {
+    val base = 26
+    val mod = 1_000_000_007
+    var hash = 0L
+    var power = 1L
+    val seen = HashMap<Long, MutableList<Int>>()
+
+
+    for (i in 0 until length - 1) {
+        power = (power * base) % mod
+    }
+
+
+    for (i in 0 until length) {
+        hash = (hash * base + (s[i] - 'a')) % mod
+    }
+    seen.getOrPut(hash) { mutableListOf() }.add(0)
+
+
+    for (i in 1..s.length - length) {
+
+        hash = (hash - (s[i - 1] - 'a') * power % mod + mod) % mod
+
+        hash = (hash * base + (s[i + length - 1] - 'a')) % mod
+
+
+        if (seen.containsKey(hash)) {
+            val currentSub = s.substring(i, i + length)
+            for (start in seen[hash]!!) {
+                if (s.substring(start, start + length) == currentSub) {
+                    return currentSub
+                }
+            }
+            seen[hash]!!.add(i)
+        } else {
+            seen[hash] = mutableListOf(i)
+        }
+    }
+
+    return null
+}
+
 
 
