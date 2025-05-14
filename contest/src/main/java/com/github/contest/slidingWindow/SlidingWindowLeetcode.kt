@@ -391,5 +391,50 @@ private fun findDuplicate(s: String, length: Int): String? {
     return null
 }
 
+/**
+ * 1763. Longest Nice Substring
+ */
+
+fun longestNiceSubstring(s: String): String {
+    if (s.hasSingle()) return ""
+
+
+    (s.length downTo 2).forEach { window ->
+        s.windowed(window).forEach {
+            if (it.isNice()) return it
+        }
+
+    }
+
+    return emptyString()
+}
+
+private fun String.isNice(): Boolean {
+    val set = mutableSetOf<Char>()
+
+    for (char in this) {
+        set.add(char)
+    }
+
+    for (char in this) {
+        if (char !in 'A'..'Z') {
+            if (!set.contains(char.uppercaseChar())) return false
+        } else {
+            if (!set.contains(char.lowercaseChar())) return false
+        }
+    }
+
+    return true
+}
+
+private fun emptyString() = ""
+
+private fun String.hasSingle() = when {
+    length == 1 -> true
+    else -> false
+}
+
+
+
 
 
