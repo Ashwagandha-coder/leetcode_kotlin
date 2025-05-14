@@ -59,11 +59,11 @@ fun rabinKarpMultiPattern(text: String, patterns: List<String>): Map<String, Lis
 
     // Предварительно вычисляем хеши всех образцов
     for (pattern in patterns.distinct()) {
-        val m = pattern.length
-        if (m == 0 || m > text.length) continue
+        val patternLen = pattern.length
+        if (patternLen == 0 || patternLen > text.length) continue
 
         var hash = 0
-        for (i in 0 until m) {
+        for (i in 0 until patternLen) {
             hash = (d * hash + pattern[i].code) % q
         }
 
