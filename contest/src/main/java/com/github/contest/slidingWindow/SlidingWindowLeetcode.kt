@@ -475,6 +475,49 @@ fun getSubArrayBeauty(nums: IntArray, k: Int, x: Int): IntArray {
     return res
 }
 
+/**
+ * 2760. Longest Even Odd Subarray With Threshold
+ */
+
+fun longestAlternatingSubarray(nums: IntArray, threshold: Int): Int {
+    var longest = 0
+
+    (nums.size downTo 1).forEach { window ->
+        nums.toList().windowed(window) {
+            if (isValid(it, threshold)) {
+                longest = window
+                return@windowed
+            }
+        }
+        if (longest > 0) return longest
+    }
+
+    return longest
+}
+
+private fun isValid(window: List<Int>, threshold: Int): Boolean {
+    return when {
+        window.isEmpty() -> false
+        window.first() % 2 != 0 -> false
+        else -> {
+
+            for (i in 0..window.size - 2) {
+                if (window[i] % 2 == window[i + 1] % 2) {
+                    return false
+                }
+            }
+
+            for (element in window) {
+                if (element > threshold) {
+                    return false
+                }
+            }
+
+            return true
+        }
+    }
+}
+
 
 
 
