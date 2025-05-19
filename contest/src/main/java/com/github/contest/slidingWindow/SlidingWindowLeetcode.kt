@@ -1,5 +1,7 @@
 package com.github.contest.slidingWindow
 
+import java.util.TreeSet
+
 
 /**
  * 76. Minimum Window Substring
@@ -433,6 +435,46 @@ private fun String.hasSingle() = when {
     length == 1 -> true
     else -> false
 }
+
+/**
+ * 2653. Sliding SubArray Beauty
+ */
+
+fun getSubArrayBeauty(nums: IntArray, k: Int, x: Int): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    val res = IntArray(nums.size - k + 1)
+    var left = 0
+    var window = TreeSet<Int>()
+
+    for (right in nums.indices) {
+        map[nums[right]] = map.getOrDefault(nums[right], 0) + 1
+        window.add(nums[right])
+
+        if (right - left == k - 1) {
+            var cnt = 0
+            var beauty = 0
+
+            for (num in window) {
+                cnt += map[num]!!
+                if (cnt >= x) {
+                    beauty = if (num < 0) num else 0
+                    break
+                }
+            }
+
+            res[left] = beauty
+            map[nums[left]] = map.getOrDefault(nums[left], 0) - 1
+            if (map[nums[left]] == 0) {
+                map.remove(nums[left])
+                window.remove(nums[left])
+            }
+            left++
+        }
+    }
+
+    return res
+}
+
 
 
 
