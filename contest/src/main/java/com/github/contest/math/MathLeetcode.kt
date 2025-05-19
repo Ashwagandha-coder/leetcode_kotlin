@@ -213,4 +213,21 @@ private fun isEven(num: Int): Boolean {
     return even
 }
 
+/**
+ * 3024. Type of Triangle
+ */
+
+fun triangleType(nums: IntArray): String {
+    nums.sort()
+    val first = nums.first()
+    val mid = nums[nums.size / 2]
+    val last = nums.last()
+
+    return when {
+        first + mid <= last -> "none"
+        first == mid && mid == last -> "equilateral"
+        first == mid || mid == last -> "isosceles"
+        else -> "scalene"
+    }
+}
 
