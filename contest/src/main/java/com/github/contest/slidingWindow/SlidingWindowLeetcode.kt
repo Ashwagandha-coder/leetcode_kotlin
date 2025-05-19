@@ -1,5 +1,7 @@
 package com.github.contest.slidingWindow
 
+import java.util.TreeSet
+
 
 /**
  * 76. Minimum Window Substring
@@ -390,6 +392,91 @@ private fun findDuplicate(s: String, length: Int): String? {
 
     return null
 }
+
+/**
+ * 1763. Longest Nice Substring
+ */
+
+fun longestNiceSubstring(s: String): String {
+    if (s.hasSingle()) return ""
+
+
+    (s.length downTo 2).forEach { window ->
+        s.windowed(window).forEach {
+            if (it.isNice()) return it
+        }
+
+    }
+
+    return emptyString()
+}
+
+private fun String.isNice(): Boolean {
+    val set = mutableSetOf<Char>()
+
+    for (char in this) {
+        set.add(char)
+    }
+
+    for (char in this) {
+        if (char !in 'A'..'Z') {
+            if (!set.contains(char.uppercaseChar())) return false
+        } else {
+            if (!set.contains(char.lowercaseChar())) return false
+        }
+    }
+
+    return true
+}
+
+private fun emptyString() = ""
+
+private fun String.hasSingle() = when {
+    length == 1 -> true
+    else -> false
+}
+
+/**
+ * 2653. Sliding SubArray Beauty
+ */
+
+fun getSubArrayBeauty(nums: IntArray, k: Int, x: Int): IntArray {
+    val map = mutableMapOf<Int, Int>()
+    val res = IntArray(nums.size - k + 1)
+    var left = 0
+    var window = TreeSet<Int>()
+
+    for (right in nums.indices) {
+        map[nums[right]] = map.getOrDefault(nums[right], 0) + 1
+        window.add(nums[right])
+
+        if (right - left == k - 1) {
+            var cnt = 0
+            var beauty = 0
+
+            for (num in window) {
+                cnt += map[num]!!
+                if (cnt >= x) {
+                    beauty = if (num < 0) num else 0
+                    break
+                }
+            }
+
+            res[left] = beauty
+            map[nums[left]] = map.getOrDefault(nums[left], 0) - 1
+            if (map[nums[left]] == 0) {
+                map.remove(nums[left])
+                window.remove(nums[left])
+            }
+            left++
+        }
+    }
+
+    return res
+}
+
+
+
 
 
 
