@@ -78,3 +78,35 @@ private fun isEven(number: Int) = when {
     number % 2 == 0 -> true
     else -> false
 }
+
+/**
+ * 2653. Sliding Subarray Beauty
+ * Alternative Solution (TLE) must be classic sliding window
+ */
+
+fun getSubArrayBeautyAlternativeSolution(nums: IntArray, k: Int, x: Int): IntArray {
+    var numbers = IntArray(101)
+    val res = mutableListOf<Int>()
+
+    nums.toList().windowed(k) {
+        it.forEach { elem ->
+            val value = elem + 50
+            numbers[value]++
+        }
+        var cnt = 0
+
+        for (i in numbers.indices) {
+            if (numbers[i] > 0) cnt += numbers[i]
+            if (cnt >= x) {
+                if (i >= 50) res.add(0) else res.add(-(50 - i))
+                break
+            }
+        }
+
+        numbers = IntArray(101)
+    }
+
+    return res.toIntArray()
+}
+
+

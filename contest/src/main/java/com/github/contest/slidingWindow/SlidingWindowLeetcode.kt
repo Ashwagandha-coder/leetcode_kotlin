@@ -444,7 +444,7 @@ fun getSubArrayBeauty(nums: IntArray, k: Int, x: Int): IntArray {
     val map = mutableMapOf<Int, Int>()
     val res = IntArray(nums.size - k + 1)
     var left = 0
-    var window = TreeSet<Int>()
+    val window = TreeSet<Int>()
 
     for (right in nums.indices) {
         map[nums[right]] = map.getOrDefault(nums[right], 0) + 1
