@@ -50,3 +50,31 @@ fun minWindowOptimumSolution(s: String, t: String): String {
 
     return if (minLength == Int.MAX_VALUE) "" else s.substring(minStart, minStart + minLength)
 }
+
+/**
+ * 2760. Longest Even Odd Subarray With Threshold
+ * Alternative Solution with O(n) Time Complexity
+ */
+
+fun longestAlternatingSubArrayAlternativeSolution(nums: IntArray, threshold: Int): Int {
+    var maxLength = 0
+    var currentLength = 0
+
+    for (i in nums.indices) {
+
+        if (nums[i] <= threshold &&
+            (currentLength == 0 && isEven(nums[i]) || currentLength > 0 && nums[i] % 2 != nums[i - 1] % 2)
+        ) {
+            currentLength++
+            maxLength = maxOf(maxLength, currentLength)
+        } else currentLength = if (nums[i] % 2 == 0 && nums[i] <= threshold) 1 else 0
+
+    }
+
+    return maxLength
+}
+
+private fun isEven(number: Int) = when {
+    number % 2 == 0 -> true
+    else -> false
+}
