@@ -578,36 +578,6 @@ fun findDuplicates(nums: IntArray): List<Int> {
     return ans
 }
 
-/**
- * 73. Set Matrix Zeroes
- */
-
-
-fun setZeroes(matrix: Array<IntArray>) {
-    val m = matrix.size
-    val n = matrix[0].size
-
-    val forRows = BooleanArray(m)
-    val forCols = BooleanArray(n)
-
-    for (i in 0 until m) {
-        for (j in 0 until n) {
-            if (matrix[i][j] == 0) {
-                forRows[i] = true
-                forCols[j] = true
-            }
-        }
-    }
-
-
-    for (i in 0 until m) {
-        for (j in 0 until n) {
-            if (forRows[i] || forCols[j]) {
-                matrix[i][j] = 0
-            }
-        }
-    }
-}
 
 /**
  * 48. Rotate Image

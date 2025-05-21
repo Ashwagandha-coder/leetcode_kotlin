@@ -927,51 +927,6 @@ fun canBreak(start: Int, s: String, trie: TrieWordBreak): Boolean {
 }
 
 /**
- * 73. Set Matrix Zeroes
- * Alternative Solution
- */
-
-fun setZeroesAltSolution(matrix: Array<IntArray>) {
-    val m = matrix.size
-    val n = matrix[0].size
-    var firstRowZero = false
-    var firstColZero = false
-
-
-    for (i in 0 until m) {
-        for (j in 0 until n) {
-            if (matrix[i][j] == 0) {
-                if (i == 0) firstRowZero = true
-                if (j == 0) firstColZero = true
-                matrix[i][0] = 0
-                matrix[0][j] = 0
-            }
-        }
-    }
-
-
-    for (i in 1 until m) {
-        for (j in 1 until n) {
-            if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                matrix[i][j] = 0
-            }
-        }
-    }
-
-
-    if (firstRowZero) {
-        for (j in 0 until n) {
-            matrix[0][j] = 0
-        }
-    }
-    if (firstColZero) {
-        for (i in 0 until m) {
-            matrix[i][0] = 0
-        }
-    }
-}
-
-/**
  * 230. Kth Smallest Element in a BST
  * Alt Solution
  */
