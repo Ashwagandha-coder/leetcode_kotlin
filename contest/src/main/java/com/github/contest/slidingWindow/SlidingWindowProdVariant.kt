@@ -110,3 +110,29 @@ fun findRepeatedDnaSequencesProdVariant(s: String): List<String> = when {
         }
     }
 }
+
+/**
+ * 1052. Grumpy Bookstore Owner
+ * Prod Variant
+ */
+
+fun maxSatisfiedProdVariant(customers: IntArray, grumpy: IntArray, minutes: Int): Int {
+    var notGrumpy = 0
+    var maxCustomers = 0
+
+    customers.forEachIndexed { index, elem ->
+        if (grumpy[index] == 0) notGrumpy += elem
+    }
+
+
+    customers.withIndex().windowed(minutes) { window ->
+        val sum = window.sumOf {
+            if (grumpy[it.index] == 1) it.value
+            else 0
+        }
+
+        maxCustomers = maxOf(maxCustomers, notGrumpy + sum)
+    }
+
+    return maxCustomers
+}
