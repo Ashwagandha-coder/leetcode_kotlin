@@ -379,3 +379,28 @@ fun setZeroes(matrix: Array<IntArray>) {
     }
 }
 
+/**
+ * 3355. Zero Array Transformation I
+ */
+
+
+fun isZeroArray(nums: IntArray, queries: Array<IntArray>): Boolean {
+    val diff = IntArray(nums.size)
+    var pref = 0
+
+    for (query in queries) {
+        val (l, r) = query
+        diff[l]++
+        if (r + 1 < nums.size) diff[r + 1]--
+    }
+
+
+    for (i in nums.indices) {
+        pref += diff[i]
+        if (nums[i] > pref) return false
+    }
+
+    return true
+}
+
+

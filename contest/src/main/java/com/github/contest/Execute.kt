@@ -1,10 +1,10 @@
 package com.github.contest
 
 
+import com.github.contest.array.isZeroArray
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
-import com.github.contest.slidingWindow.getSubArrayBeautyAlternativeSolution
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -16,11 +16,10 @@ import java.util.TreeMap
 
 fun main() {
 
-    getSubArrayBeautyAlternativeSolution(
-        intArrayOf(1, -1, -3, -2, 3),
-        3,
-        2
-    ).also { it.printArray() }
+    val nums = intArrayOf(3, 3, 2, 1)
+    val queries = arrayOf(intArrayOf(1, 3), intArrayOf(0, 2), intArrayOf(0, 0), intArrayOf(0, 0))
+
+    isZeroArray(nums, queries).also { println(it) }
 }
 
 
