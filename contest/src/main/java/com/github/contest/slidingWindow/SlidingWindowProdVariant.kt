@@ -136,3 +136,23 @@ fun maxSatisfiedProdVariant(customers: IntArray, grumpy: IntArray, minutes: Int)
 
     return maxCustomers
 }
+
+/**
+ * 1052. Grumpy Bookstore Owner
+ * Prod Variant
+ * Memory Limit Exceeded
+ */
+
+fun maxSatisfiedProdVariantII(customers: IntArray, grumpy: IntArray, minutes: Int): Int =
+    customers.foldIndexed(0) { index, acc, value ->
+        if (grumpy[index] == 0) acc + value
+        else acc
+    } + customers.withIndex().windowed(minutes).map { window ->
+        window.sumOf {
+            if (grumpy[it.index] == 1) it.value
+            else 0
+        }
+
+    }.max()
+
+
