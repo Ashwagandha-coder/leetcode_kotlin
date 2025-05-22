@@ -518,6 +518,34 @@ private fun isValid(window: List<Int>, threshold: Int): Boolean {
     }
 }
 
+/**
+ * 1052. Grumpy Bookstore Owner
+ */
+
+fun maxSatisfied(customers: IntArray, grumpy: IntArray, minutes: Int): Int {
+    var notGrumpy = 0
+    var maxCustomers = 0
+    var left = 0
+    var sum = 0
+
+    for (i in customers.indices) {
+        if (grumpy[i] == 0) notGrumpy += customers[i]
+    }
+
+
+    for (right in customers.indices) {
+        if (grumpy[right] == 1) sum += customers[right]
+
+        if (right - left == minutes - 1) {
+            maxCustomers = maxOf(maxCustomers, notGrumpy + sum)
+            if (grumpy[left] == 1) sum -= customers[left]
+            left++
+        }
+    }
+
+    return maxCustomers
+}
+
 
 
 
