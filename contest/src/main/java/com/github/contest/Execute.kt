@@ -1,7 +1,6 @@
 package com.github.contest
 
 
-import com.github.contest.array.isZeroArray
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -16,10 +15,6 @@ import java.util.TreeMap
 
 fun main() {
 
-    val nums = intArrayOf(3, 3, 2, 1)
-    val queries = arrayOf(intArrayOf(1, 3), intArrayOf(0, 2), intArrayOf(0, 0), intArrayOf(0, 0))
-
-    isZeroArray(nums, queries).also { println(it) }
 }
 
 
