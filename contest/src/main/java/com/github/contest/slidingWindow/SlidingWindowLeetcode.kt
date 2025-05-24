@@ -546,6 +546,43 @@ fun maxSatisfied(customers: IntArray, grumpy: IntArray, minutes: Int): Int {
     return maxCustomers
 }
 
+/**
+ * 3090. Maximum Length Substring With Two Occurrences
+ */
+
+fun maximumLengthSubstring(s: String): Int {
+    if (s.length == 2) return 2
+
+    var maxLen = 0
+    var left = 0
+    val freq = mutableMapOf<Char, Int>()
+
+    for (right in s.indices) {
+
+        val char = s[right]
+        freq[char] = freq.getOrDefault(char, 0) + 1
+
+        if (!isValidSubString(freq)) {
+            freq[s[left]] = freq.getOrDefault(s[left], 0) - 1
+            if (freq[s[left]] == 0) freq.remove(s[left])
+            left++
+        }
+
+        maxLen = maxOf(maxLen, right - left + 1)
+    }
+
+    return maxLen
+}
+
+private fun isValidSubString(map: Map<Char, Int>): Boolean {
+
+    for ((_, value) in map) {
+        if (value > 2) return false
+    }
+
+    return true
+}
+
 
 
 
