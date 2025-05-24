@@ -546,6 +546,105 @@ fun maxSatisfied(customers: IntArray, grumpy: IntArray, minutes: Int): Int {
     return maxCustomers
 }
 
+/**
+ * 3090. Maximum Length Substring With Two Occurrences
+ */
+
+fun maximumLengthSubstring(s: String): Int {
+    if (s.length == 2) return 2
+
+    var maxLen = 0
+    var left = 0
+    val freq = mutableMapOf<Char, Int>()
+
+    for (right in s.indices) {
+
+        val char = s[right]
+        freq[char] = freq.getOrDefault(char, 0) + 1
+
+        if (!isValidSubString(freq)) {
+            freq[s[left]] = freq.getOrDefault(s[left], 0) - 1
+            if (freq[s[left]] == 0) freq.remove(s[left])
+            left++
+        }
+
+        maxLen = maxOf(maxLen, right - left + 1)
+    }
+
+    return maxLen
+}
+
+private fun isValidSubString(map: Map<Char, Int>): Boolean {
+
+    for ((_, value) in map) {
+        if (value > 2) return false
+    }
+
+    return true
+}
+
+/**
+ * 2398. Maximum Number of Robots Within Budget
+ */
+
+fun maximumRobots(chargeTimes: IntArray, runningCosts: IntArray, budget: Long): Int {
+    var maxRobots = 0
+    var left = 0
+    var sum = 0L
+    val window = mutableListOf<Long>()
+
+    for (right in chargeTimes.indices) {
+        window.add(chargeTimes[right].toLong())
+        sum += runningCosts[right].toLong()
+        var max = window.maxOrNull() ?: 0L
+        var k = (right - left + 1).toLong()
+        var cost = max + (k * sum)
+
+        while (cost > budget) {
+            sum -= runningCosts[left]
+            window.removeFirst()
+            left++
+            max = window.maxOrNull() ?: 0L
+            k = (right - left + 1).toLong()
+            cost = max + (k * sum)
+        }
+
+        maxRobots = maxOf(maxRobots, right - left + 1)
+    }
+
+    return maxRobots
+}
+
+/**
+ * 413. Arithmetic Slices
+ */
+
+fun numberOfArithmeticSlices(nums: IntArray): Int {
+    if (nums.size < 3) return 0
+
+    var count = 0
+
+    (3..nums.size).forEach { window ->
+        nums.toList().windowed(window) {
+            var isValid = true
+            val diff = it[1] - it[0]
+
+            for (i in 2 until it.size) {
+                if (it[i] - it[i - 1] != diff) {
+                    isValid = false
+                    break
+                }
+            }
+
+            if (isValid) count++
+        }
+    }
+
+    return count
+}
+
+
+
 
 
 

@@ -109,4 +109,33 @@ fun getSubArrayBeautyAlternativeSolution(nums: IntArray, k: Int, x: Int): IntArr
     return res.toIntArray()
 }
 
+/**
+ * 413. Arithmetic Slices
+ * Alternative Solution with O(n)
+ */
+
+fun numberOfArithmeticSlicesAlternativeSolution(nums: IntArray): Int {
+    if (nums.size < 3) return 0
+
+    var left = 0
+    var count = 0
+    val k = 3
+    var diff = nums[1] - nums[0]
+
+    for (right in 2 until nums.size) {
+
+        if (nums[right] - nums[right - 1] != diff) {
+            diff = nums[right] - nums[right - 1]
+            left = right - 1
+        }
+
+        if (right - left >= k - 1) {
+            count++
+            count += ((right - left) - (k - 1))
+        }
+    }
+
+    return count
+}
+
 

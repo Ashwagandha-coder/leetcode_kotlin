@@ -1,6 +1,7 @@
 package com.github.contest.array
 
 import java.util.PriorityQueue
+import kotlin.math.abs
 
 
 /**
@@ -401,6 +402,25 @@ fun isZeroArray(nums: IntArray, queries: Array<IntArray>): Boolean {
     }
 
     return true
+}
+
+/**
+ * 2932. Maximum Strong Pair XOR I
+ */
+
+fun maximumStrongPairXor(nums: IntArray): Int {
+    val pairs = mutableListOf<Pair<Int, Int>>()
+
+    for (i in nums.indices) {
+        pairs.add(Pair(nums[i], nums[i]))
+        for (j in i + 1 until nums.size) {
+            pairs.add(Pair(nums[i], nums[j]))
+        }
+    }
+
+    return pairs
+        .filter { abs(it.first - it.second) <= minOf(it.first, it.second) }
+        .maxOf { it.first xor it.second }
 }
 
 
