@@ -615,6 +615,36 @@ fun maximumRobots(chargeTimes: IntArray, runningCosts: IntArray, budget: Long): 
     return maxRobots
 }
 
+/**
+ * 413. Arithmetic Slices
+ */
+
+fun numberOfArithmeticSlices(nums: IntArray): Int {
+    if (nums.size < 3) return 0
+
+    var count = 0
+
+    (3..nums.size).forEach { window ->
+        nums.toList().windowed(window) {
+            var isValid = true
+            val diff = it[1] - it[0]
+
+            for (i in 2 until it.size) {
+                if (it[i] - it[i - 1] != diff) {
+                    isValid = false
+                    break
+                }
+            }
+
+            if (isValid) count++
+        }
+    }
+
+    return count
+}
+
+
+
 
 
 
