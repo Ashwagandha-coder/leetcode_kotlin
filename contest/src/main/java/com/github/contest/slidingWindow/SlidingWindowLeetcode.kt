@@ -583,6 +583,38 @@ private fun isValidSubString(map: Map<Char, Int>): Boolean {
     return true
 }
 
+/**
+ * 2398. Maximum Number of Robots Within Budget
+ */
+
+fun maximumRobots(chargeTimes: IntArray, runningCosts: IntArray, budget: Long): Int {
+    var maxRobots = 0
+    var left = 0
+    var sum = 0L
+    val window = mutableListOf<Long>()
+
+    for (right in chargeTimes.indices) {
+        window.add(chargeTimes[right].toLong())
+        sum += runningCosts[right].toLong()
+        var max = window.maxOrNull() ?: 0L
+        var k = (right - left + 1).toLong()
+        var cost = max + (k * sum)
+
+        while (cost > budget) {
+            sum -= runningCosts[left]
+            window.removeFirst()
+            left++
+            max = window.maxOrNull() ?: 0L
+            k = (right - left + 1).toLong()
+            cost = max + (k * sum)
+        }
+
+        maxRobots = maxOf(maxRobots, right - left + 1)
+    }
+
+    return maxRobots
+}
+
 
 
 
