@@ -556,3 +556,42 @@ fun findEvenNumbers(digits: IntArray): IntArray {
 
     return result.sorted().toIntArray()
 }
+
+/**
+ * 2131. Longest Palindrome by Concatenating Two Letter Words
+ */
+
+fun longestPalindrome(words: Array<String>): Int {
+    var len = 0
+    val freq = mutableMapOf<String, Int>()
+
+    for (origin in words) {
+        val reverse = "${origin[1]}${origin[0]}"
+
+        when {
+            origin == reverse -> {
+                if (freq.contains(origin)) {
+                    len += 4
+                    freq.remove(origin)
+                } else freq[origin] = freq.getOrDefault(origin, 0) + 1
+            }
+
+            freq.contains(reverse) -> {
+                freq[reverse] = freq.getOrDefault(reverse, 0) - 1
+                len += 4
+                if (freq[reverse] == 0) freq.remove(reverse)
+            }
+
+            else -> freq[origin] = freq.getOrDefault(origin, 0) + 1
+        }
+    }
+
+    for ((key, value) in freq) {
+        if ((key[0] == key[1]) && value == 1) {
+            len += 2
+            break
+        }
+    }
+
+    return len
+}

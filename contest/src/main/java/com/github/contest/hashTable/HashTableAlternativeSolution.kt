@@ -115,3 +115,31 @@ fun findEvenNumbersAlternativeSolution(digits: IntArray): IntArray {
 
     return result.sorted().toIntArray()
 }
+
+/**
+ * 2131. Longest Palindrome by Concatenating Two Letter Words
+ */
+
+fun longestPalindromeAlternativeSolution(words: Array<String>): Int {
+    val freq = words.groupingBy { it }.eachCount().toMutableMap()
+    var len = 0
+    var centralPair = 0
+
+    for ((word, count) in freq) {
+        if (word[0] == word[1]) {
+            if (count % 2 == 0) {
+                len += (count * 2)
+            } else {
+                len += (count - 1) * 2
+                centralPair = 2
+            }
+        } else {
+            val mirror = "${word[1]}${word[0]}"
+            val minPairs = minOf(count, freq.getOrDefault(mirror, 0))
+            len += (minPairs * 4)
+            freq[word] = 0
+        }
+    }
+
+    return len + centralPair
+}

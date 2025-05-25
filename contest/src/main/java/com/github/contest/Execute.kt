@@ -1,10 +1,10 @@
 package com.github.contest
 
 
+import com.github.contest.hashTable.longestPalindromeAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
-import com.github.contest.slidingWindow.maximumRobots
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -15,7 +15,11 @@ import java.util.TreeMap
  */
 
 fun main() {
-    maximumRobots(intArrayOf(3, 6, 1, 3, 4), intArrayOf(2, 1, 3, 4, 5), 25).also { println(it) }
+
+    val arr = arrayOf("em", "pe", "mp", "ee", "pp", "me", "ep", "em", "em", "me")
+    longestPalindromeAlternativeSolution(
+        arr
+    ).also { println(it) }
 }
 
 
