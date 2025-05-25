@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.longestPalindrome
+import com.github.contest.hashTable.longestPalindromeAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -17,7 +17,7 @@ import java.util.TreeMap
 fun main() {
 
     val arr = arrayOf("em", "pe", "mp", "ee", "pp", "me", "ep", "em", "em", "me")
-    longestPalindrome(
+    longestPalindromeAlternativeSolution(
         arr
     ).also { println(it) }
 }
