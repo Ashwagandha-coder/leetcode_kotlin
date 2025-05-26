@@ -643,6 +643,87 @@ fun numberOfArithmeticSlices(nums: IntArray): Int {
     return count
 }
 
+/**
+ * 3206. Alternating Groups I
+ */
+
+fun numberOfAlternatingGroups(colors: IntArray): Int {
+    var groups = 0
+    var left = 0
+    val k = 3
+    var prevColor = colors[0]
+
+
+    for (right in 1 until colors.size + 2) {
+        val curr = when {
+            right >= colors.size -> colors[right - colors.size]
+            else -> colors[right]
+        }
+
+        if (prevColor == curr) {
+            left = right
+        }
+
+        prevColor = curr
+
+        if (right - left == k - 1) {
+            groups++
+            left++
+        }
+    }
+
+    return groups
+}
+
+/**
+ * 1652. Defuse the Bomb
+ */
+
+fun decrypt(code: IntArray, k: Int): IntArray = when {
+    k == 0 -> IntArray(code.size)
+    k > 0 -> {
+        val res = IntArray(code.size)
+        for (i in code.indices) {
+            var sum = 0
+            var right = i + 1
+            var k = k
+
+            while (k != 0) {
+                sum += when {
+                    right >= code.size -> code[right - code.size]
+                    else -> code[right]
+                }
+                right++
+                k--
+            }
+
+            res[i] = sum
+        }
+        res
+    }
+
+    else -> {
+        val res = IntArray(code.size)
+        for (i in code.indices) {
+            var sum = 0
+            var right = i - 1
+            var k = k
+
+            while (k < 0) {
+                sum += when {
+                    right < 0 -> code[code.size + right]
+                    else -> code[right]
+                }
+                right--
+                k++
+            }
+
+            res[i] = sum
+        }
+        res
+    }
+}
+
 
 
 
