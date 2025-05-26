@@ -1,10 +1,10 @@
 package com.github.contest
 
 
-import com.github.contest.hashTable.longestPalindromeAlternativeSolution
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
+import com.github.contest.slidingWindow.numberOfAlternatingGroups
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -16,10 +16,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    val arr = arrayOf("em", "pe", "mp", "ee", "pp", "me", "ep", "em", "em", "me")
-    longestPalindromeAlternativeSolution(
-        arr
-    ).also { println(it) }
+    numberOfAlternatingGroups(intArrayOf(0, 1, 0)).also { println(it) }
 }
 
 

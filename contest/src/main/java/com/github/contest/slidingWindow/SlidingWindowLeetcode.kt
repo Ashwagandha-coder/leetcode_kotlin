@@ -643,6 +643,38 @@ fun numberOfArithmeticSlices(nums: IntArray): Int {
     return count
 }
 
+/**
+ * 3206. Alternating Groups I
+ */
+
+fun numberOfAlternatingGroups(colors: IntArray): Int {
+    var groups = 0
+    var left = 0
+    val k = 3
+    var prevColor = colors[0]
+
+
+    for (right in 1 until colors.size + 2) {
+        val curr = when {
+            right >= colors.size -> colors[right - colors.size]
+            else -> colors[right]
+        }
+
+        if (prevColor == curr) {
+            left = right
+        }
+
+        prevColor = curr
+
+        if (right - left == k - 1) {
+            groups++
+            left++
+        }
+    }
+
+    return groups
+}
+
 
 
 
