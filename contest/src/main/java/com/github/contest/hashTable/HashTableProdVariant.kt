@@ -151,6 +151,19 @@ fun countVowelSubstringsProdVariantIII(word: String) = sequence {
     }
 }.sum()
 
+/**
+ * 594. Longest Harmonious Subsequence
+ * Prod Variant
+ */
 
+fun findLHSProdVariant(nums: IntArray): Int =
+    nums.toList().groupingBy { it }.eachCount().let { map ->
+        map.maxOf { (num, value) ->
+            val more = num + 1
+            if (map.contains(more)) {
+                map.getOrDefault(num, 0) + value
+            } else 0
+        }
+    }
 
 
