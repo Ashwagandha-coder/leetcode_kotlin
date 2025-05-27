@@ -595,3 +595,21 @@ fun longestPalindrome(words: Array<String>): Int {
 
     return len
 }
+
+/**
+ * 594. Longest Harmonious Subsequence
+ */
+
+fun findLHS(nums: IntArray): Int {
+    val freq = nums.toList().groupingBy { it }.eachCount()
+    var longest = 0
+
+    for ((key, value) in freq) {
+        val more = key + 1
+        if (freq.contains(more)) {
+            longest = maxOf(longest, freq.getOrDefault(more, 0) + value)
+        }
+    }
+
+    return longest
+}
