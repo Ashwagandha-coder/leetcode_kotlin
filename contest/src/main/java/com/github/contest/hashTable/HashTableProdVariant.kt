@@ -166,4 +166,19 @@ fun findLHSProdVariant(nums: IntArray): Int =
         }
     }
 
+fun findLHSProdVariantII(nums: IntArray): Int {
+    val freq = nums.groupBy { it }.mapValues { it.value.size }
+
+    return freq.asSequence()
+        .flatMap { (key, _) ->
+            sequenceOf(
+                key to (key + 1),  // Check next number
+                key to (key - 1)   // Also check previous number (optional)
+            )
+        }
+        .filter { (_, adjacent) -> freq.containsKey(adjacent) }
+        .maxOfOrNull { (key, adjacent) -> freq[key]!! + freq[adjacent]!! }
+        ?: 0
+}
+
 
