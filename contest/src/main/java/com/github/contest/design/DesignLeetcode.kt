@@ -203,6 +203,6 @@ class PeekingIterator(iterator: Iterator<Int>) : Iterator<Int> {
     }
 
     override fun hasNext(): Boolean {
-        return if (store.isNotEmpty()) true else false
+        return store.isNotEmpty()
     }
 }
