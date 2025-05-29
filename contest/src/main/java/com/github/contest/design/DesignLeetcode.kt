@@ -181,3 +181,28 @@ class RandomizedSet() {
     fun getRandom(): Int = store.keys.random()
 
 }
+
+/**
+ * 284. Peeking Iterator
+ */
+
+class PeekingIterator(iterator: Iterator<Int>) : Iterator<Int> {
+
+    private val store = mutableListOf<Int>()
+
+    init {
+        while (iterator.hasNext()) store.add(iterator.next())
+    }
+
+    fun peek(): Int {
+        return store.first()
+    }
+
+    override fun next(): Int {
+        return store.removeFirst()
+    }
+
+    override fun hasNext(): Boolean {
+        return if (store.isNotEmpty()) true else false
+    }
+}
