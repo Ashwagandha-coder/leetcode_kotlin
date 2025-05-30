@@ -1,10 +1,10 @@
 package com.github.contest
 
 
+import com.github.contest.design.wrapper
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
-import com.github.contest.slidingWindow.longestSubarray
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -16,7 +16,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    longestSubarray(intArrayOf(8, 2, 4, 7), 4).also { println(it) }
+    wrapper()
 }
 
 

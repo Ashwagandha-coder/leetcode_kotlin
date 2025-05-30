@@ -206,3 +206,43 @@ class PeekingIterator(iterator: Iterator<Int>) : Iterator<Int> {
         return store.isNotEmpty()
     }
 }
+
+/**
+ * 1286. Iterator for Combination
+ */
+
+class CombinationIterator(characters: String, combinationLength: Int) {
+
+    private val store = mutableListOf<String>()
+
+    init {
+        combine(0, characters, StringBuilder(), store, combinationLength)
+    }
+
+    fun next(): String = store.removeFirst()
+
+    fun hasNext(): Boolean = store.isNotEmpty()
+
+    private fun combine(
+        index: Int,
+        str: String,
+        subset: StringBuilder,
+        store: MutableList<String>,
+        limit: Int
+    ) {
+
+        if (subset.length == limit) {
+            store.add(subset.toString())
+            return
+        }
+
+        if (index == str.length) return
+
+        subset.append(str[index])
+        combine(index + 1, str, subset, store, limit)
+
+        subset.deleteAt(subset.length - 1)
+        combine(index + 1, str, subset, store, limit)
+    }
+
+}
