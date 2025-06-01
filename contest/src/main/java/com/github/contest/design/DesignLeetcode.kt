@@ -252,6 +252,9 @@ class CombinationIterator(characters: String, combinationLength: Int) {
  */
 
 class NestedInteger {
+
+    fun isInteger() = true
+
     fun getInteger(): Int? {
         return null
     }
