@@ -246,3 +246,48 @@ class CombinationIterator(characters: String, combinationLength: Int) {
     }
 
 }
+
+/**
+ * 341. Flatten Nested List Iterator
+ */
+
+class NestedInteger {
+
+    fun isInteger() = true
+
+    fun getInteger(): Int? {
+        return null
+    }
+
+    fun getList(): List<NestedInteger>? {
+        return null
+    }
+}
+
+class NestedIterator(nestedList: List<NestedInteger>) {
+
+    private val store = mutableListOf<Int>()
+
+    init {
+        nestedList.forEach {
+            dfs(it)
+        }
+    }
+
+    private fun dfs(obj: NestedInteger) {
+        val action = obj.getInteger()
+        if (action != null) {
+            store.add(action)
+            return
+        }
+
+        obj.getList()?.forEach {
+            dfs(it)
+        }
+    }
+
+
+    fun next(): Int = store.removeFirst()
+
+    fun hasNext(): Boolean = store.isNotEmpty()
+}
