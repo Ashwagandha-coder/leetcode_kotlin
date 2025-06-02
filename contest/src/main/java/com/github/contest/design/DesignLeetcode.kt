@@ -291,3 +291,44 @@ class NestedIterator(nestedList: List<NestedInteger>) {
 
     fun hasNext(): Boolean = store.isNotEmpty()
 }
+
+/**
+ * 900. RLE Iterator
+ */
+
+class RLEIterator(private val encoding: IntArray) {
+
+    private var count = 0L
+
+    init {
+        for (i in encoding.indices step 2) count += encoding[i].toLong()
+    }
+
+    fun next(n: Int): Int {
+        if (n > count) {
+            count = -1
+            return -1
+        }
+
+        var n = n
+        for (i in encoding.indices step 2) {
+
+            when {
+                n <= encoding[i] -> {
+                    encoding[i] -= n
+                    count -= n
+                    return encoding[i + 1]
+                }
+
+                else -> {
+                    n -= encoding[i]
+                    count -= encoding[i]
+                    encoding[i] = 0
+                }
+            }
+        }
+
+        return 0
+    }
+
+}
