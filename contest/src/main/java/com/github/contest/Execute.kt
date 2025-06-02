@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.design.wrapper
+import com.github.contest.design.RLEIterator
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -16,7 +16,14 @@ import java.util.TreeMap
 
 fun main() {
 
-    wrapper()
+    val rleIterator = RLEIterator(intArrayOf(5, 2, 1, 22))
+    rleIterator.next(5).also { println(it) }
+    rleIterator.next(2).also { println(it) }
+    rleIterator.next(1).also { println(it) }
+}
+
+infix fun Int.myRange(to: Int): IntRange {
+    return this..to
 }
 
 
