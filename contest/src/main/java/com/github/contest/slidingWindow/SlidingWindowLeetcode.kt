@@ -724,6 +724,49 @@ fun decrypt(code: IntArray, k: Int): IntArray = when {
     }
 }
 
+/**
+ * 438. Find All Anagrams in a String
+ */
+
+fun findAnagrams(s: String, p: String): List<Int> {
+    if (p.length > s.length) return listOf()
+
+    val pattern = p.eachCount()
+    val store = mutableMapOf<Char, Int>()
+    var left = 0
+    val k = p.length
+    val ind = mutableListOf<Int>()
+
+    for (right in s.indices) {
+        val char = s[right]
+        store[char] = store.getOrDefault(char, 0) + 1
+
+        if (right - left == k - 1) {
+            if (equalMaps(store, pattern)) ind.add(left)
+            store[s[left]] = store.getOrDefault(s[left], 0) - 1
+            if (store[s[left]] == 0) store.remove(s[left])
+            left++
+        }
+
+    }
+
+    return ind
+}
+
+private fun <K, V : Int> equalMaps(first: Map<K, V>, second: Map<K, V>): Boolean {
+
+    for ((char, count) in first) {
+        if (!second.contains(char) || second[char] != count) return false
+    }
+
+    return true
+}
+
+private fun String.eachCount(): MutableMap<Char, Int> {
+    val count = mutableMapOf<Char, Int>()
+    for (char in this) count[char] = count.getOrDefault(char, 0) + 1
+    return count
+}
 
 
 
