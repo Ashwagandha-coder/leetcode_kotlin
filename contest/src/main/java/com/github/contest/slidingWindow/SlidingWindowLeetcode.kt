@@ -753,7 +753,7 @@ fun findAnagrams(s: String, p: String): List<Int> {
     return ind
 }
 
-private fun <K, V : Int> equalMaps(first: Map<K, V>, second: Map<K, V>): Boolean {
+private fun <K, V : Comparable<V>> equalMaps(first: Map<K, V>, second: Map<K, V>): Boolean {
 
     for ((char, count) in first) {
         if (!second.contains(char) || second[char] != count) return false

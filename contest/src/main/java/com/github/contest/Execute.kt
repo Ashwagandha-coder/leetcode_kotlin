@@ -1,10 +1,10 @@
 package com.github.contest
 
 
-import com.github.contest.design.RLEIterator
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
+import com.github.contest.slidingWindow.findAnagrams
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -16,10 +16,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    val rleIterator = RLEIterator(intArrayOf(5, 2, 1, 22))
-    rleIterator.next(5).also { println(it) }
-    rleIterator.next(2).also { println(it) }
-    rleIterator.next(1).also { println(it) }
+    findAnagrams("abnkjhgidhr", "abn").also { println(it) }
 }
 
 infix fun Int.myRange(to: Int): IntRange {
