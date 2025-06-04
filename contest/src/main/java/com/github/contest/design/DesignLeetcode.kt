@@ -352,3 +352,22 @@ class RecentCounter() {
     }
 
 }
+
+/**
+ * 901. Online Stock Span
+ */
+
+class StockSpanner() {
+
+    private val stocks = ArrayDeque<Pair<Int, Int>>()
+
+    fun next(price: Int): Int {
+        var span = 1
+
+        while (stocks.isNotEmpty() && stocks.last().first <= price) span += stocks.removeLast().second
+
+        stocks.addLast(price to span)
+        return span
+    }
+
+}
