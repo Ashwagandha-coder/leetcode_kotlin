@@ -1,5 +1,7 @@
 package com.github.contest.design
 
+import java.util.LinkedList
+
 /**
  * 1352. Product of the Last K Numbers
  */
@@ -329,6 +331,43 @@ class RLEIterator(private val encoding: IntArray) {
         }
 
         return 0
+    }
+
+}
+
+/**
+ * 933. Number of Recent Calls
+ */
+
+class RecentCounter() {
+
+    private val queue = LinkedList<Int>()
+
+    fun ping(t: Int): Int {
+        queue.offer(t)
+
+        while (queue.peek() < t - 3000) queue.poll()
+
+        return queue.size
+    }
+
+}
+
+/**
+ * 901. Online Stock Span
+ */
+
+class StockSpanner() {
+
+    private val stocks = ArrayDeque<Pair<Int, Int>>()
+
+    fun next(price: Int): Int {
+        var span = 1
+
+        while (stocks.isNotEmpty() && stocks.last().first <= price) span += stocks.removeLast().second
+
+        stocks.addLast(price to span)
+        return span
     }
 
 }
