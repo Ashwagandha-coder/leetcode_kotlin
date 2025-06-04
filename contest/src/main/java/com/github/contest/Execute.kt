@@ -17,6 +17,7 @@ import java.util.TreeMap
 fun main() {
 
     findAnagrams("abnkjhgidhr", "abn").also { println(it) }
+
 }
 
 infix fun Int.myRange(to: Int): IntRange {
