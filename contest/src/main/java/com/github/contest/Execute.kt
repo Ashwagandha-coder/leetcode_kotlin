@@ -4,7 +4,6 @@ package com.github.contest
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
-import com.github.contest.slidingWindow.findAnagrams
 import com.github.contest.strings.fullJustify
 import com.github.contest.strings.subStrHash
 import java.util.TreeMap
@@ -16,8 +15,8 @@ import java.util.TreeMap
 
 fun main() {
 
-    findAnagrams("abnkjhgidhr", "abn").also { println(it) }
-
+    val list = mutableListOf<Int>(-1)
+    println(list)
 }
 
 infix fun Int.myRange(to: Int): IntRange {
