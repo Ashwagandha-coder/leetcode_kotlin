@@ -175,3 +175,22 @@ fun setZeroesProdVariant(matrix: Array<IntArray>): Unit {
     }
 
 }
+
+/**
+ * 2016. Maximum Difference Between Increasing Elements
+ * Prod Variant
+ */
+
+fun maximumDifferenceProdVariant(nums: IntArray): Int {
+    var minVal = Int.MAX_VALUE
+    return nums.maxOf {
+        when {
+            it < minVal -> {
+                minVal = minOf(minVal, it)
+                0
+            }
+
+            else -> if (it > minVal) it - minVal else 0
+        }
+    }
+}
