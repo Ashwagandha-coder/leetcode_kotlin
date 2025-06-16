@@ -423,4 +423,20 @@ fun maximumStrongPairXor(nums: IntArray): Int {
         .maxOf { it.first xor it.second }
 }
 
+/**
+ * 2016. Maximum Difference Between Increasing Elements
+ */
+
+fun maximumDifference(nums: IntArray): Int {
+    var diff = -1
+
+    for (i in nums.indices) {
+        for (j in i + 1 until nums.size) {
+            if (nums[i] < nums[j]) diff = maxOf(diff, nums[j] - nums[i])
+        }
+    }
+
+    return diff
+}
+
 
