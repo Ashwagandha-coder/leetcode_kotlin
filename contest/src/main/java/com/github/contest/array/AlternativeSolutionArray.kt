@@ -210,3 +210,24 @@ fun setZeroesAltSolution(matrix: Array<IntArray>) {
         }
     }
 }
+
+/**
+ * 2016. Maximum Difference Between Increasing Elements
+ * Alternative Solution
+ */
+
+fun maximumDifferenceAlternativeSolution(nums: IntArray): Int {
+    var diff = -1
+    var minVal = Int.MAX_VALUE
+
+    for (i in nums.indices) {
+        when {
+            nums[i] < minVal -> minVal = minOf(minVal, nums[i])
+            else -> if (nums[i] > minVal) diff = maxOf(diff, nums[i] - minVal) else continue
+        }
+    }
+
+    return diff
+}
+
+
