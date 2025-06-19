@@ -59,3 +59,10 @@ fun smallestStringProdVariant(s: String): String {
         String(modifiedChars)
     }
 }
+
+/**
+ * 58. Length of Last Word
+ * Prod Variant
+ */
+
+fun lengthOfLastWordProdVariant(s: String): Int = s.trim().split(" ").lastOrNull()?.length ?: 0

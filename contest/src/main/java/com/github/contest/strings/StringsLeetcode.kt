@@ -338,6 +338,57 @@ private fun lastString(store: List<String>, maxWidth: Int): String {
 
 private fun sumOfLength(store: List<String>): Int = store.sumOf { it.length }
 
+
+/**
+ * 38. Count and Say
+ */
+
+fun countAndSay(n: Int): String = when {
+    n == 1 -> "1"
+    else -> compress(countAndSay(n - 1))
+}
+
+private fun compress(input: String): String {
+    if (input.length == 1) return "11"
+    var res = ""
+    var pattern = input[0]
+    var count = 1
+
+    for (i in 1 until input.length) {
+        if (input[i] == pattern) {
+            count++
+        } else {
+            res += "$count$pattern"
+            count = 1
+            pattern = input[i]
+        }
+    }
+
+    res += "$count$pattern"
+
+    return res
+}
+
+/**
+ * 58. Length of Last Word
+ */
+
+
+fun lengthOfLastWord(s: String): Int {
+    var i = s.length - 1
+    var size = 0
+
+    while (i >= 0 && s[i] == ' ') i--
+
+    while (i >= 0 && s[i] != ' ') {
+        size++
+        i--
+    }
+
+    return size
+}
+
+
 /**
  *
  */

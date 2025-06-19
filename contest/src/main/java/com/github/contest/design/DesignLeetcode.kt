@@ -1,5 +1,7 @@
 package com.github.contest.design
 
+import java.util.LinkedList
+
 /**
  * 1352. Product of the Last K Numbers
  */
@@ -151,5 +153,221 @@ class TimeMap() {
     }
 
     private fun emptyString() = ""
+
+}
+
+/**
+ * 380. Insert Delete GetRandom O(1)
+ */
+
+class RandomizedSet() {
+
+    private val store = mutableMapOf<Int, Int>()
+
+    fun insert(`val`: Int): Boolean = when {
+        store.contains(`val`) -> false
+        else -> {
+            store[`val`] = store.getOrDefault(`val`, 0) + 1
+            true
+        }
+    }
+
+    fun remove(`val`: Int): Boolean = when {
+        !store.contains(`val`) -> false
+        else -> {
+            store.remove(`val`)
+            true
+        }
+    }
+
+    fun getRandom(): Int = store.keys.random()
+
+}
+
+/**
+ * 284. Peeking Iterator
+ */
+
+class PeekingIterator(iterator: Iterator<Int>) : Iterator<Int> {
+
+    private val store = mutableListOf<Int>()
+
+    init {
+        while (iterator.hasNext()) store.add(iterator.next())
+    }
+
+    fun peek(): Int {
+        return store.first()
+    }
+
+    override fun next(): Int {
+        return store.removeFirst()
+    }
+
+    override fun hasNext(): Boolean {
+        return store.isNotEmpty()
+    }
+}
+
+/**
+ * 1286. Iterator for Combination
+ */
+
+class CombinationIterator(characters: String, combinationLength: Int) {
+
+    private val store = mutableListOf<String>()
+
+    init {
+        combine(0, characters, StringBuilder(), store, combinationLength)
+    }
+
+    fun next(): String = store.removeFirst()
+
+    fun hasNext(): Boolean = store.isNotEmpty()
+
+    private fun combine(
+        index: Int,
+        str: String,
+        subset: StringBuilder,
+        store: MutableList<String>,
+        limit: Int
+    ) {
+
+        if (subset.length == limit) {
+            store.add(subset.toString())
+            return
+        }
+
+        if (index == str.length) return
+
+        subset.append(str[index])
+        combine(index + 1, str, subset, store, limit)
+
+        subset.deleteAt(subset.length - 1)
+        combine(index + 1, str, subset, store, limit)
+    }
+
+}
+
+/**
+ * 341. Flatten Nested List Iterator
+ */
+
+class NestedInteger {
+
+    fun isInteger() = true
+
+    fun getInteger(): Int? {
+        return null
+    }
+
+    fun getList(): List<NestedInteger>? {
+        return null
+    }
+}
+
+class NestedIterator(nestedList: List<NestedInteger>) {
+
+    private val store = mutableListOf<Int>()
+
+    init {
+        nestedList.forEach {
+            dfs(it)
+        }
+    }
+
+    private fun dfs(obj: NestedInteger) {
+        val action = obj.getInteger()
+        if (action != null) {
+            store.add(action)
+            return
+        }
+
+        obj.getList()?.forEach {
+            dfs(it)
+        }
+    }
+
+
+    fun next(): Int = store.removeFirst()
+
+    fun hasNext(): Boolean = store.isNotEmpty()
+}
+
+/**
+ * 900. RLE Iterator
+ */
+
+class RLEIterator(private val encoding: IntArray) {
+
+    private var count = 0L
+
+    init {
+        for (i in encoding.indices step 2) count += encoding[i].toLong()
+    }
+
+    fun next(n: Int): Int {
+        if (n > count) {
+            count = -1
+            return -1
+        }
+
+        var n = n
+        for (i in encoding.indices step 2) {
+
+            when {
+                n <= encoding[i] -> {
+                    encoding[i] -= n
+                    count -= n
+                    return encoding[i + 1]
+                }
+
+                else -> {
+                    n -= encoding[i]
+                    count -= encoding[i]
+                    encoding[i] = 0
+                }
+            }
+        }
+
+        return 0
+    }
+
+}
+
+/**
+ * 933. Number of Recent Calls
+ */
+
+class RecentCounter() {
+
+    private val queue = LinkedList<Int>()
+
+    fun ping(t: Int): Int {
+        queue.offer(t)
+
+        while (queue.peek() < t - 3000) queue.poll()
+
+        return queue.size
+    }
+
+}
+
+/**
+ * 901. Online Stock Span
+ */
+
+class StockSpanner() {
+
+    private val stocks = ArrayDeque<Pair<Int, Int>>()
+
+    fun next(price: Int): Int {
+        var span = 1
+
+        while (stocks.isNotEmpty() && stocks.last().first <= price) span += stocks.removeLast().second
+
+        stocks.addLast(price to span)
+        return span
+    }
 
 }

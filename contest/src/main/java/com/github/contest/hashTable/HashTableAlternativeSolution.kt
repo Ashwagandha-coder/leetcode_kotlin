@@ -46,3 +46,100 @@ fun countBadPairsAltSolution(nums: IntArray): Long {
 class Counter {
     var count: Int = 0
 }
+
+/**
+ * 2537. Count the Number of Good Subarrays
+ * Alternative Solution Optimal
+ * Hash Map Approach
+ */
+
+fun countGoodAlternativeSolution(nums: IntArray, k: Int): Long {
+    var left = 0
+    var count = 0L
+    var totalPairs = 0L
+    val freq = mutableMapOf<Int, Int>()
+
+    for (right in nums.indices) {
+
+        val num = nums[right]
+        val currentFreq = freq.getOrDefault(num, 0)
+
+        totalPairs += currentFreq
+        freq[num] = currentFreq + 1
+
+
+        while (totalPairs >= k) {
+            val leftNum = nums[left]
+
+            totalPairs -= freq[leftNum]!! - 1
+            freq[leftNum] = freq[leftNum]!! - 1
+            if (freq[leftNum] == 0) {
+                freq.remove(leftNum)
+            }
+            left++
+        }
+
+
+        count += left
+    }
+
+    return count
+}
+
+/**
+ * 2094. Finding 3-Digit Even Numbers
+ */
+
+fun findEvenNumbersAlternativeSolution(digits: IntArray): IntArray {
+    val freq = IntArray(10)
+    digits.forEach { freq[it]++ }
+
+    val result = mutableListOf<Int>()
+
+    for (h in 1..9) {
+        if (freq[h] == 0) continue
+
+        for (t in 0..9) {
+            if (freq[t] == 0 || (t == h && freq[t] < 2)) continue
+
+            for (u in 0..8 step 2) {
+                if (freq[u] == 0) continue
+                if (u == h && u == t && freq[u] < 3) continue
+                if (u == h && freq[u] < 2) continue
+                if (u == t && freq[u] < 2) continue
+
+                result.add(h * 100 + t * 10 + u)
+            }
+        }
+    }
+
+    return result.sorted().toIntArray()
+}
+
+/**
+ * 2131. Longest Palindrome by Concatenating Two Letter Words
+ */
+
+fun longestPalindromeAlternativeSolution(words: Array<String>): Int {
+    val freq = words.groupingBy { it }.eachCount().toMutableMap()
+    var len = 0
+    var centralPair = 0
+
+    for ((word, count) in freq) {
+        if (word[0] == word[1]) {
+            if (count % 2 == 0) {
+                len += (count * 2)
+            } else {
+                len += (count - 1) * 2
+                centralPair = 2
+            }
+        } else {
+            val mirror = "${word[1]}${word[0]}"
+            val minPairs = minOf(count, freq.getOrDefault(mirror, 0))
+            len += (minPairs * 4)
+            freq[word] = 0
+        }
+    }
+
+    return len + centralPair
+}

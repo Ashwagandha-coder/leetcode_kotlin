@@ -582,6 +582,46 @@ fun mostPointsDp(questions: Array<IntArray>): Long {
     return dp[0]
 }
 
+/**
+ * 55. Jump Game
+ */
+
+fun canJump(nums: IntArray): Boolean {
+    var prev = nums[0]
+
+    for (i in 1 until nums.size) {
+        if (prev - 1 < 0) return false
+        prev = maxOf(prev - 1, nums[i])
+    }
+
+    return true
+}
+
+/**
+ * 45. Jump Game II
+ */
+
+fun jump(nums: IntArray): Int {
+    var jumps = 0
+    var currentEnd = 0
+    var farthest = 0
+
+    for (i in 0 until nums.size - 1) {
+        farthest = maxOf(farthest, i + nums[i])
+
+        if (i == currentEnd) {
+            jumps++
+            currentEnd = farthest
+
+            if (currentEnd >= nums.size - 1) {
+                break
+            }
+        }
+    }
+
+    return jumps
+}
+
 
 
 

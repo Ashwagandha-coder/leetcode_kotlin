@@ -332,3 +332,305 @@ fun isAnagram(s: String, t: String): Boolean {
 
     return true
 }
+
+/**
+ * 2537. Count the Number of Good Subarrays
+ * TLE Approach
+ */
+
+fun countGood(nums: IntArray, k: Int): Long {
+    if (nums.hasSingle()) return 0L
+
+    var count = 0L
+    var left = 0
+
+    while (left < nums.size) {
+        var right = left + 1
+        while (right < nums.size) {
+            var localCounter = 0
+            for (i in left..right) {
+                for (j in i + 1..right) {
+                    if (nums[i] == nums[j]) localCounter++
+                }
+            }
+            if (localCounter >= k) count++
+            right++
+        }
+        left++
+    }
+
+    return count
+}
+
+private fun IntArray.hasSingle() = when {
+    this.size == 1 -> true
+    else -> false
+}
+
+
+/**
+ * 169. Majority Element
+ */
+
+fun majorityElement(nums: IntArray): Int {
+    var majority = 0
+    var res = 0
+    val target = nums.size / 2
+
+    nums.forEach {
+        if (majority == 0) res = it
+        majority += when {
+            it == res -> 1
+            else -> -1
+        }
+    }
+
+    return res
+}
+
+/**
+ * 2176. Count Equal and Divisible Pairs in an Array
+ */
+
+fun countPairs(nums: IntArray, k: Int): Int {
+    if (nums.size < 2) return 0
+
+    val store = mutableMapOf<Int, MutableList<Int>>()
+    var count = 0
+
+    for (i in nums.indices) {
+        val num = nums[i]
+        if (store.contains(num)) {
+            val indexed = store.getOrDefault(num, mutableListOf())
+            for (index in indexed) {
+                if ((index * i) % k == 0) count++
+            }
+            indexed.add(i)
+            store[num] = indexed
+        } else store[num] = mutableListOf(i)
+    }
+
+    return count
+}
+
+/**
+ * 2799. Count Complete SubArrays in an Array
+ */
+
+fun countCompleteSubArrays(nums: IntArray): Int {
+    if (nums.size == 1) return 1
+
+    var count = 0
+    val distinct = distinctElementsOfArray(nums)
+    var lastIndex = nums.size - 1
+
+    for (i in nums.indices) {
+        var j = i
+        val set = mutableSetOf<Int>()
+
+        while (j < nums.size && set.size != distinct) {
+            set.add(nums[j])
+            j++
+        }
+        j--
+        if (set.size == distinct) count += (lastIndex - j) + 1
+    }
+
+    return count
+
+}
+
+private fun distinctElementsOfArray(nums: IntArray): Int {
+    val set = mutableSetOf<Int>()
+    for (num in nums) set.add(num)
+    return set.size
+}
+
+/**
+ * 12. Integer to Roman
+ */
+
+fun intToRoman(num: Int): String {
+    val values = listOf(
+        1000 to "M",
+        900 to "CM",
+        500 to "D",
+        400 to "CD",
+        100 to "C",
+        90 to "XC",
+        50 to "L",
+        40 to "XL",
+        10 to "X",
+        9 to "IX",
+        5 to "V",
+        4 to "IV",
+        1 to "I"
+    )
+    var n = num
+    val result = StringBuilder()
+    for ((value, symbol) in values) {
+        while (n >= value) {
+            result.append(symbol)
+            n -= value
+        }
+    }
+    return result.toString()
+}
+
+/**
+ * 1128. Number of Equivalent Domino Pairs
+ */
+
+fun numEquivDominoPairs(dominoes: Array<IntArray>): Int {
+    var count = 0
+    val pairs = mutableMapOf<Pair<Int, Int>, Int>()
+
+    for (domino in dominoes) {
+        val base = Pair(domino[0], domino[1])
+        val reversed = Pair(domino[1], domino[0])
+
+        when {
+            !pairs.contains(base) && !pairs.contains(reversed) -> pairs[base] =
+                pairs.getOrDefault(base, 0) + 1
+
+            pairs.contains(base) -> {
+                count += pairs.getOrDefault(base, 0)
+                pairs[base] = pairs.getOrDefault(base, 0) + 1
+            }
+
+            else -> {
+                count += pairs.getOrDefault(reversed, 0)
+                pairs[reversed] = pairs.getOrDefault(reversed, 0) + 1
+            }
+        }
+    }
+
+    return count
+}
+
+/**
+ * 2062. Count Vowel Substrings of a String
+ */
+
+fun countVowelSubstrings(word: String): Int {
+    var count = 0
+    val vowels = setOf('a', 'e', 'i', 'o', 'u')
+
+    for (i in word.indices) {
+        val seen = mutableSetOf<Char>()
+        for (j in i until word.length) {
+            val char = word[j]
+            if (char !in vowels) break
+            seen.add(char)
+            if (seen.size == 5) count++
+        }
+    }
+
+    return count
+}
+
+/**
+ * 2094. Finding 3-Digit Even Numbers
+ */
+
+
+fun findEvenNumbers(digits: IntArray): IntArray {
+    val result = mutableSetOf<Int>()
+    val n = digits.size
+
+    for (i in 0 until n) {
+        if (digits[i] == 0) continue
+
+        for (j in 0 until n) {
+            if (j == i) continue
+
+            for (k in 0 until n) {
+
+                if (k == i || k == j || digits[k] % 2 != 0) continue
+
+                val num = digits[i] * 100 + digits[j] * 10 + digits[k]
+                result.add(num)
+            }
+        }
+    }
+
+    return result.sorted().toIntArray()
+}
+
+/**
+ * 2131. Longest Palindrome by Concatenating Two Letter Words
+ */
+
+fun longestPalindrome(words: Array<String>): Int {
+    var len = 0
+    val freq = mutableMapOf<String, Int>()
+
+    for (origin in words) {
+        val reverse = "${origin[1]}${origin[0]}"
+
+        when {
+            origin == reverse -> {
+                if (freq.contains(origin)) {
+                    len += 4
+                    freq.remove(origin)
+                } else freq[origin] = freq.getOrDefault(origin, 0) + 1
+            }
+
+            freq.contains(reverse) -> {
+                freq[reverse] = freq.getOrDefault(reverse, 0) - 1
+                len += 4
+                if (freq[reverse] == 0) freq.remove(reverse)
+            }
+
+            else -> freq[origin] = freq.getOrDefault(origin, 0) + 1
+        }
+    }
+
+    for ((key, value) in freq) {
+        if ((key[0] == key[1]) && value == 1) {
+            len += 2
+            break
+        }
+    }
+
+    return len
+}
+
+/**
+ * 594. Longest Harmonious Subsequence
+ */
+
+fun findLHS(nums: IntArray): Int {
+    val freq = nums.toList().groupingBy { it }.eachCount()
+    var longest = 0
+
+    for ((key, value) in freq) {
+        val more = key + 1
+        if (freq.contains(more)) {
+            longest = maxOf(longest, freq.getOrDefault(more, 0) + value)
+        }
+    }
+
+    return longest
+}
+
+/**
+ * 3442. Maximum Difference Between Even and Odd Frequency I
+ */
+
+fun maxDifference(s: String): Int {
+    var odd = 0
+    var even = Int.MAX_VALUE
+    val alpha = IntArray(26)
+
+    for (char in s) {
+        alpha[char - 'a']++
+    }
+
+    for (i in 0 until 26) {
+        if (alpha[i] % 2 != 0) odd = maxOf(odd, alpha[i])
+        else if (alpha[i] != 0) even = minOf(even, alpha[i])
+    }
+
+    return odd - even
+}

@@ -581,43 +581,6 @@ fun heightProdVariant(root: TreeNode?): Int = when {
 }
 
 /**
- * 73. Set Matrix Zeroes
- * Prod Variant
- */
-
-fun setZeroesProdVariant(matrix: Array<IntArray>) {
-    val m = matrix.size
-    val n = matrix[0].size
-    var firstRowZero = false
-    var firstColZero = false
-
-
-    matrix.forEachIndexed { i, row ->
-        row.forEachIndexed { j, value ->
-            if (value == 0) {
-                if (i == 0) firstRowZero = true
-                if (j == 0) firstColZero = true
-                matrix[i][0] = 0
-                matrix[0][j] = 0
-            }
-        }
-    }
-
-
-    for (i in 1 until m) {
-        for (j in 1 until n) {
-            if (matrix[i][0] == 0 || matrix[0][j] == 0) {
-                matrix[i][j] = 0
-            }
-        }
-    }
-
-
-    if (firstRowZero) matrix[0].fill(0)
-    if (firstColZero) for (i in 0 until m) matrix[i][0] = 0
-}
-
-/**
  * 287. Find the Duplicate Number
  * Prod Variant
  */
