@@ -389,41 +389,6 @@ fun lengthOfLastWord(s: String): Int {
 }
 
 
-/**
- *
- */
-
-fun subStrHash(s: String, power: Int, modulo: Int, k: Int, hashValue: Int): String {
-    var left = 0
-    var temp = ""
-
-    for (right in s.indices) {
-        temp += s[right]
-        if (right - left == k - 1) {
-            val hash = hash(temp, power, modulo)
-            if (hash.intValueExact() == hashValue.toBigInteger().intValueExact()) return temp
-            temp = temp.substring(1, temp.length)
-            left++
-        }
-    }
-
-    return ""
-}
-
-private fun hash(str: String, power: Int, modulo: Int): BigInteger {
-    var res = 0.toBigInteger()
-    var pow = 0
-    val power = power.toBigInteger()
-    for (element in str) {
-        val index = (element - 'a' + 1).toBigInteger()
-        val base = (power.pow(pow))
-        val calc = index * base
-        res += calc
-        pow++
-    }
-
-    return res % modulo.toBigInteger()
-}
 
 /**
  * 2138. Divide a String Into Groups of Size k
