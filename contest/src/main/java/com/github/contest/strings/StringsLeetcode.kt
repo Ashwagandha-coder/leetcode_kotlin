@@ -389,39 +389,53 @@ fun lengthOfLastWord(s: String): Int {
 }
 
 
+
 /**
- *
+ * 2138. Divide a String Into Groups of Size k
  */
 
-fun subStrHash(s: String, power: Int, modulo: Int, k: Int, hashValue: Int): String {
-    var left = 0
-    var temp = ""
+fun divideString(s: String, k: Int, fill: Char): Array<String> {
+    val res = s.split(k, fill)
+    return res
+}
 
-    for (right in s.indices) {
-        temp += s[right]
-        if (right - left == k - 1) {
-            val hash = hash(temp, power, modulo)
-            if (hash.intValueExact() == hashValue.toBigInteger().intValueExact()) return temp
-            temp = temp.substring(1, temp.length)
-            left++
+private fun String.split(delimeterSize: Int, fill: Char): Array<String> {
+    val res = mutableListOf<String>()
+    var temp = ""
+    var count = delimeterSize
+
+    for (char in this) {
+        if (count != 0) {
+            temp += char
+            count--
+        } else {
+            res.add(temp)
+            temp = ""
+            temp += char
+            count = delimeterSize - 1
         }
     }
 
-    return ""
+    res.add(temp)
+    val arr = res.toTypedArray()
+    remainingFill(arr, fill, delimeterSize)
+
+    return arr
 }
 
-private fun hash(str: String, power: Int, modulo: Int): BigInteger {
-    var res = 0.toBigInteger()
-    var pow = 0
-    val power = power.toBigInteger()
-    for (element in str) {
-        val index = (element - 'a' + 1).toBigInteger()
-        val base = (power.pow(pow))
-        val calc = index * base
-        res += calc
-        pow++
+private fun remainingFill(strs: Array<String>, pattern: Char, k: Int) {
+    var last = strs[strs.size - 1]
+    var count = 0
+
+    if (last.length == k) return
+    else {
+        count = last.length
+        while (count != k) {
+            last += pattern
+            count++
+        }
+        strs[strs.size - 1] = last
     }
-
-    return res % modulo.toBigInteger()
 }
+
 

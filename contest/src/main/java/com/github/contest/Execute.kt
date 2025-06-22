@@ -5,7 +5,7 @@ import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
-import com.github.contest.strings.subStrHash
+
 import java.util.TreeMap
 
 
@@ -15,9 +15,12 @@ import java.util.TreeMap
 
 fun main() {
 
-    val list = mutableListOf<Int>(-1)
-    println(list)
+    val str = "abcdefrt"
+
+    str.chunked(3).also { println(it) }
+
 }
+
 
 infix fun Int.myRange(to: Int): IntRange {
     return this..to
@@ -96,9 +99,6 @@ fun fullJustifyData() {
     }
 }
 
-fun subStrHashData() {
-    subStrHash("xxterzixjqrghqyeketqeynekvqhc", 15, 94, 4, 16).also { println(it) }
-}
 
 fun numberOfPowerfulIntData() {
     val start = 141L
