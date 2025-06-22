@@ -425,3 +425,52 @@ private fun hash(str: String, power: Int, modulo: Int): BigInteger {
     return res % modulo.toBigInteger()
 }
 
+/**
+ * 2138. Divide a String Into Groups of Size k
+ */
+
+fun divideString(s: String, k: Int, fill: Char): Array<String> {
+    val res = s.split(k, fill)
+    return res
+}
+
+private fun String.split(delimeterSize: Int, fill: Char): Array<String> {
+    val res = mutableListOf<String>()
+    var temp = ""
+    var count = delimeterSize
+
+    for (char in this) {
+        if (count != 0) {
+            temp += char
+            count--
+        } else {
+            res.add(temp)
+            temp = ""
+            temp += char
+            count = delimeterSize - 1
+        }
+    }
+
+    res.add(temp)
+    val arr = res.toTypedArray()
+    remainingFill(arr, fill, delimeterSize)
+
+    return arr
+}
+
+private fun remainingFill(strs: Array<String>, pattern: Char, k: Int) {
+    var last = strs[strs.size - 1]
+    var count = 0
+
+    if (last.length == k) return
+    else {
+        count = last.length
+        while (count != k) {
+            last += pattern
+            count++
+        }
+        strs[strs.size - 1] = last
+    }
+}
+
+

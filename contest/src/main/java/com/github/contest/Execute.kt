@@ -15,8 +15,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    val list = mutableListOf<Int>(-1)
-    println(list)
+
 }
 
 infix fun Int.myRange(to: Int): IntRange {
