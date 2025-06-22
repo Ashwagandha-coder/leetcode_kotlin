@@ -768,7 +768,30 @@ private fun String.eachCount(): MutableMap<Char, Int> {
     return count
 }
 
+/**
+ * 713. Subarray Product Less Than K
+ */
 
+fun numSubarrayProductLessThanK(nums: IntArray, k: Int): Int = atMostKProduct(nums, k - 1)
+
+private fun atMostKProduct(nums: IntArray, k: Int): Int {
+    var left = 0
+    var product = 1
+    var count = 0
+
+    for (right in 0 until nums.size) {
+        product *= nums[right]
+
+        while (left <= right && product > k) {
+            product /= nums[left]
+            left++
+        }
+
+        count += (right - left + 1)
+    }
+
+    return count
+}
 
 
 
