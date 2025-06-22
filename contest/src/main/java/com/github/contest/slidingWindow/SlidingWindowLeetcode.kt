@@ -779,7 +779,7 @@ private fun atMostKProduct(nums: IntArray, k: Int): Int {
     var product = 1
     var count = 0
 
-    for (right in 0 until nums.size) {
+    for (right in nums.indices) {
         product *= nums[right]
 
         while (left <= right && product > k) {
