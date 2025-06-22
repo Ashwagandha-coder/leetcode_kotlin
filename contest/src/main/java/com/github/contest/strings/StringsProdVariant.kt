@@ -66,3 +66,15 @@ fun smallestStringProdVariant(s: String): String {
  */
 
 fun lengthOfLastWordProdVariant(s: String): Int = s.trim().split(" ").lastOrNull()?.length ?: 0
+
+/**
+ * 2138. Divide a String Into Groups of Size k
+ * Prod Variant
+ */
+
+fun divideStringProdVariant(s: String, k: Int, fill: Char): Array<String> = when {
+    s.length % k == 0 -> s.chunked(k).toTypedArray()
+    else -> s.chunked(k).toMutableList().apply {
+        this[this.lastIndex] = this.last().padEnd(k, fill)
+    }.toTypedArray()
+}

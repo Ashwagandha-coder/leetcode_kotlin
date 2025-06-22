@@ -15,8 +15,12 @@ import java.util.TreeMap
 
 fun main() {
 
+    val str = "abcdefrt"
+
+    str.chunked(3).also { println(it) }
 
 }
+
 
 infix fun Int.myRange(to: Int): IntRange {
     return this..to
@@ -94,7 +98,6 @@ fun fullJustifyData() {
         )
     }
 }
-
 
 
 fun numberOfPowerfulIntData() {
