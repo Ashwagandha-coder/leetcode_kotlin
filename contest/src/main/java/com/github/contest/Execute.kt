@@ -1,6 +1,7 @@
 package com.github.contest
 
 
+import com.github.contest.bitManipulation.hammingWeight
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -15,9 +16,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    val str = "abcdefrt"
-
-    str.chunked(3).also { println(it) }
+    hammingWeight(11).also { println(it) }
 
 }
 
