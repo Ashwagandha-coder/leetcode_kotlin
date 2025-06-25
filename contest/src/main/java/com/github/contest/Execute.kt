@@ -16,7 +16,7 @@ import java.util.TreeMap
 
 fun main() {
 
-    hammingWeight(11).also { println(it) }
+    val str: String? = "ghdirfghdi"
 
 }
 
