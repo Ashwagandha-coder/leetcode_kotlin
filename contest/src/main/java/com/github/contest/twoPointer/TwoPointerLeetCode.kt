@@ -49,3 +49,21 @@ fun trap(height: IntArray): Int {
 
     return water
 }
+
+/**
+ * 2200. Find All K-Distant Indices in an Array
+ */
+
+fun findKDistantIndices(nums: IntArray, key: Int, k: Int): List<Int> {
+    val result = mutableSetOf<Int>()
+    for (j in nums.indices) {
+        if (nums[j] == key) {
+            val start = maxOf(0, j - k)
+            val end = minOf(nums.size - 1, j + k)
+            for (i in start..end) {
+                result.add(i)
+            }
+        }
+    }
+    return result.sorted()
+}
