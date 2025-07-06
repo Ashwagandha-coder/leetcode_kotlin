@@ -40,8 +40,7 @@ class ProductOfNumbers() {
 class WordDictionary() {
 
     data class TrieNode(
-        val children: MutableMap<Char, TrieNode> = mutableMapOf(),
-        var isEndOfWord: Boolean = false
+        val children: MutableMap<Char, TrieNode> = mutableMapOf(), var isEndOfWord: Boolean = false
     )
 
     private val root = TrieNode()
@@ -226,11 +225,7 @@ class CombinationIterator(characters: String, combinationLength: Int) {
     fun hasNext(): Boolean = store.isNotEmpty()
 
     private fun combine(
-        index: Int,
-        str: String,
-        subset: StringBuilder,
-        store: MutableList<String>,
-        limit: Int
+        index: Int, str: String, subset: StringBuilder, store: MutableList<String>, limit: Int
     ) {
 
         if (subset.length == limit) {
@@ -368,6 +363,44 @@ class StockSpanner() {
 
         stocks.addLast(price to span)
         return span
+    }
+
+}
+
+/**
+ * 1865. Finding Pairs With a Certain Sum
+ */
+
+class FindSumPairs(private val nums1: IntArray, private val nums2: IntArray) {
+
+    private val second = mutableListOf<Long>()
+    private val freq = mutableMapOf<Long, Int>()
+
+    init {
+        for (elem in nums2) {
+            val e = elem.toLong()
+            second.add(e)
+            freq[e] = freq.getOrDefault(e, 0) + 1
+        }
+    }
+
+    fun add(index: Int, `val`: Int) {
+        val old = second[index]
+        second[index] = second[index] + `val`
+        val new = second[index]
+        freq[old] = freq.getOrDefault(old, 0) - 1
+        if (freq[old] == 0) freq.remove(old)
+        freq[new] = freq.getOrDefault(new, 0) + 1
+    }
+
+    fun count(tot: Int): Int {
+        var c = 0
+        for (elem in nums1) {
+            val target = tot - elem
+            if (freq.contains(target.toLong())) c += freq.getOrDefault(target.toLong(), 0)
+        }
+
+        return c
     }
 
 }
