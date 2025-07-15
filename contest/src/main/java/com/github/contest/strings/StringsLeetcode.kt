@@ -1,7 +1,5 @@
 package com.github.contest.strings
 
-import java.math.BigInteger
-
 /**
  * 848. Shifting Letters
  */
@@ -390,38 +388,87 @@ fun lengthOfLastWord(s: String): Int {
 
 
 /**
- *
+ * 2138. Divide a String Into Groups of Size k
  */
 
-fun subStrHash(s: String, power: Int, modulo: Int, k: Int, hashValue: Int): String {
-    var left = 0
-    var temp = ""
+fun divideString(s: String, k: Int, fill: Char): Array<String> {
+    val res = s.split(k, fill)
+    return res
+}
 
-    for (right in s.indices) {
-        temp += s[right]
-        if (right - left == k - 1) {
-            val hash = hash(temp, power, modulo)
-            if (hash.intValueExact() == hashValue.toBigInteger().intValueExact()) return temp
-            temp = temp.substring(1, temp.length)
-            left++
+private fun String.split(delimeterSize: Int, fill: Char): Array<String> {
+    val res = mutableListOf<String>()
+    var temp = ""
+    var count = delimeterSize
+
+    for (char in this) {
+        if (count != 0) {
+            temp += char
+            count--
+        } else {
+            res.add(temp)
+            temp = ""
+            temp += char
+            count = delimeterSize - 1
         }
     }
 
-    return ""
+    res.add(temp)
+    val arr = res.toTypedArray()
+    remainingFill(arr, fill, delimeterSize)
+
+    return arr
 }
 
-private fun hash(str: String, power: Int, modulo: Int): BigInteger {
-    var res = 0.toBigInteger()
-    var pow = 0
-    val power = power.toBigInteger()
-    for (element in str) {
-        val index = (element - 'a' + 1).toBigInteger()
-        val base = (power.pow(pow))
-        val calc = index * base
-        res += calc
-        pow++
+private fun remainingFill(strs: Array<String>, pattern: Char, k: Int) {
+    var last = strs[strs.size - 1]
+    var count = 0
+
+    if (last.length == k) return
+    else {
+        count = last.length
+        while (count != k) {
+            last += pattern
+            count++
+        }
+        strs[strs.size - 1] = last
+    }
+}
+
+/**
+ * 3136. Valid Word
+ */
+
+fun isValid(word: String): Boolean {
+    if (word.length < 3) return false
+
+    var vowels = 0
+    var consonants = 0
+
+    for (char in word) {
+        if (isNotDigit(char) && isNotLetter(char)) return false
+        if (isLetter(char)) {
+            if (isVowel(char)) vowels++
+            else consonants++
+        }
     }
 
-    return res % modulo.toBigInteger()
+    return !(vowels == 0 || consonants == 0)
 }
+
+private fun isNotDigit(char: Char) = when {
+    char in '0'..'9' -> false
+    else -> true
+}
+
+private fun isNotLetter(char: Char) = when {
+    char in 'a'..'z' || char in 'A'..'Z' -> false
+    else -> true
+}
+
+private fun isVowel(char: Char) = when {
+    char in "aeiou" || char in "AEIOU" -> true
+    else -> false
+}
+
 
