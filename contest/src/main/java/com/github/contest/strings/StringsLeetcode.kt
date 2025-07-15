@@ -1,7 +1,5 @@
 package com.github.contest.strings
 
-import java.math.BigInteger
-
 /**
  * 848. Shifting Letters
  */
@@ -389,7 +387,6 @@ fun lengthOfLastWord(s: String): Int {
 }
 
 
-
 /**
  * 2138. Divide a String Into Groups of Size k
  */
@@ -436,6 +433,42 @@ private fun remainingFill(strs: Array<String>, pattern: Char, k: Int) {
         }
         strs[strs.size - 1] = last
     }
+}
+
+/**
+ * 3136. Valid Word
+ */
+
+fun isValid(word: String): Boolean {
+    if (word.length < 3) return false
+
+    var vowels = 0
+    var consonants = 0
+
+    for (char in word) {
+        if (isNotDigit(char) && isNotLetter(char)) return false
+        if (isLetter(char)) {
+            if (isVowel(char)) vowels++
+            else consonants++
+        }
+    }
+
+    return !(vowels == 0 || consonants == 0)
+}
+
+private fun isNotDigit(char: Char) = when {
+    char in '0'..'9' -> false
+    else -> true
+}
+
+private fun isNotLetter(char: Char) = when {
+    char in 'a'..'z' || char in 'A'..'Z' -> false
+    else -> true
+}
+
+private fun isVowel(char: Char) = when {
+    char in "aeiou" || char in "AEIOU" -> true
+    else -> false
 }
 
 
