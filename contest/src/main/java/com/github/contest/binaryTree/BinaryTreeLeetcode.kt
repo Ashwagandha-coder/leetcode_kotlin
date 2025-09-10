@@ -1,6 +1,7 @@
 package com.github.contest.binaryTree
 
 import java.util.LinkedList
+import kotlin.math.abs
 
 /**
  * 1261. Find Elements in a Contaminated Binary Tree
@@ -67,4 +68,23 @@ fun recoverPreorderTraversal(traversal: String): TreeNode? {
         path.add(node)
     }
     return path.firstOrNull()
+}
+
+/**
+ * 563. Binary Tree Tilt
+ */
+
+fun findTilt(root: TreeNode?): Int {
+    root ?: return 0
+    return dfs(root).second
+}
+
+private fun dfs(root: TreeNode?): Pair<Int, Int> {
+    if (root == null) return Pair(0, 0)
+
+    val left = dfs(root?.left)
+    var right = dfs(root?.right)
+    val newTilt = abs(left.first - right.first)
+
+    return Pair(root.`val` + left.first + right.first, newTilt + left.second + right.second)
 }
