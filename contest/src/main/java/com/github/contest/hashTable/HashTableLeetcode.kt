@@ -634,3 +634,31 @@ fun maxDifference(s: String): Int {
 
     return odd - even
 }
+
+/**
+ * 3541. Find Most Frequent Vowel and Consonant
+ */
+
+fun maxFreqSum(s: String): Int {
+    val freq = IntArray(26)
+    var maxVowel = 0
+    var maxConsonant = 0
+
+    for (char in s) {
+        val index = char - 'a'
+        freq[index]++
+    }
+
+    for (i in 0 until 26) {
+        val letter = (i + 'a'.code).toChar()
+        if (isVowel(letter)) maxVowel = maxOf(maxVowel, freq[i])
+        else maxConsonant = maxOf(maxConsonant, freq[i])
+    }
+
+    return maxVowel + maxConsonant
+}
+
+fun isVowel(char: Char) = when {
+    char in "aeiou" -> true
+    else -> false
+}

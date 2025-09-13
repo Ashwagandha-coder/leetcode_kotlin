@@ -155,7 +155,7 @@ fun workWithTreeMap() {
 
 
 fun IntArray.printArray() {
-    var s = when (this.size) {
+    val s = when (this.size) {
         0 -> "[]"
         1 -> "[${this[0]}]"
         2 -> "[${this[0]}, ${this[1]}]"
