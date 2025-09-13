@@ -181,4 +181,22 @@ fun findLHSProdVariantII(nums: IntArray): Int {
         ?: 0
 }
 
+/**
+ * 3541. Find Most Frequent Vowel and Consonant
+ * Prod Variant I
+ */
+
+fun maxFreqSumProdVariant(s: String): Int {
+    val freq = s.groupingBy { it }.eachCount()
+    var maxVowel = 0
+    var maxConsonant = 0
+
+    freq.forEach {
+        if (isVowel(it.key)) maxVowel = maxOf(maxVowel, it.value)
+        else maxConsonant = maxOf(maxConsonant, it.value)
+    }
+
+    return maxConsonant + maxVowel
+}
+
 
