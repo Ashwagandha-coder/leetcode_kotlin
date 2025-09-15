@@ -78,3 +78,20 @@ fun divideStringProdVariant(s: String, k: Int, fill: Char): Array<String> = when
         this[this.lastIndex] = this.last().padEnd(k, fill)
     }.toTypedArray()
 }
+
+/**
+ * 1935. Maximum Number of Words You Can Type
+ * Prod Variant
+ */
+
+fun canBeTypedWords(text: String, brokenLetters: String): Int {
+    val words = text.split(" ")
+    return if (brokenLetters.isEmpty()) words.size else {
+        val set = brokenLetters.toSet()
+        words.count {
+            it.all { letter ->
+                !set.contains(letter)
+            }
+        }
+    }
+}
