@@ -1,12 +1,12 @@
 package com.github.contest
 
 
-import com.github.contest.bitManipulation.hammingWeight
+import com.github.contest.binaryTree.TreeNode
+import com.github.contest.binaryTree.findTilt
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
-
 import java.util.TreeMap
 
 
@@ -16,7 +16,11 @@ import java.util.TreeMap
 
 fun main() {
 
-    val str: String? = "ghdirfghdi"
+    val root = TreeNode(1)
+    root.left = TreeNode(2)
+    root.right = TreeNode(3)
+
+    findTilt(root).also { println(it) }
 
 }
 
@@ -151,7 +155,7 @@ fun workWithTreeMap() {
 
 
 fun IntArray.printArray() {
-    var s = when (this.size) {
+    val s = when (this.size) {
         0 -> "[]"
         1 -> "[${this[0]}]"
         2 -> "[${this[0]}, ${this[1]}]"
