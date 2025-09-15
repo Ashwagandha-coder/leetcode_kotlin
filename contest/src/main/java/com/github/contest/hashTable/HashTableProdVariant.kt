@@ -114,11 +114,8 @@ fun intToRomanProdVariant(num: Int): String {
  */
 
 fun numEquivDominoPairsProdVariant(dominoes: Array<IntArray>): Int =
-    dominoes.map { (a, b) -> if (a <= b) a to b else b to a }
-        .groupingBy { it }
-        .eachCount()
-        .values
-        .sumOf { count -> count * (count - 1) / 2 }
+    dominoes.map { (a, b) -> if (a <= b) a to b else b to a }.groupingBy { it }
+        .eachCount().values.sumOf { count -> count * (count - 1) / 2 }
 
 /**
  * 2062. Count Vowel Substrings of a String
@@ -142,12 +139,10 @@ fun countVowelSubstringProdVariant(word: String): Int = word.indices.sumOf { i -
 fun countVowelSubstringsProdVariantIII(word: String) = sequence {
     word.forEachIndexed { i, _ ->
         val seen = mutableSetOf<Char>()
-        word.asSequence().drop(i)
-            .takeWhile { it in "aeiou" }
-            .forEach { c ->
-                seen += c
-                if (seen.size == 5) yield(1)
-            }
+        word.asSequence().drop(i).takeWhile { it in "aeiou" }.forEach { c ->
+            seen += c
+            if (seen.size == 5) yield(1)
+        }
     }
 }.sum()
 
@@ -169,16 +164,13 @@ fun findLHSProdVariant(nums: IntArray): Int =
 fun findLHSProdVariantII(nums: IntArray): Int {
     val freq = nums.groupBy { it }.mapValues { it.value.size }
 
-    return freq.asSequence()
-        .flatMap { (key, _) ->
-            sequenceOf(
-                key to (key + 1),  // Check next number
-                key to (key - 1)   // Also check previous number (optional)
-            )
-        }
-        .filter { (_, adjacent) -> freq.containsKey(adjacent) }
-        .maxOfOrNull { (key, adjacent) -> freq[key]!! + freq[adjacent]!! }
-        ?: 0
+    return freq.asSequence().flatMap { (key, _) ->
+        sequenceOf(
+            key to (key + 1),  // Check next number
+            key to (key - 1)   // Also check previous number (optional)
+        )
+    }.filter { (_, adjacent) -> freq.containsKey(adjacent) }
+        .maxOfOrNull { (key, adjacent) -> freq[key]!! + freq[adjacent]!! } ?: 0
 }
 
 /**
@@ -186,7 +178,7 @@ fun findLHSProdVariantII(nums: IntArray): Int {
  * Prod Variant I
  */
 
-fun maxFreqSumProdVariant(s: String): Int {
+fun maxFreqSumProdVariantI(s: String): Int {
     val freq = s.groupingBy { it }.eachCount()
     var maxVowel = 0
     var maxConsonant = 0
@@ -198,5 +190,22 @@ fun maxFreqSumProdVariant(s: String): Int {
 
     return maxConsonant + maxVowel
 }
+
+/**
+ * Prod Variant II
+ */
+
+fun maxFreqSumProdVariantII(s: String): Int =
+    s.groupingBy { it }
+        .eachCount()
+        .entries
+        .partition { (char, _) -> char.isVowel() }
+        .let { (vowelEntries, consonantEntries) ->
+            (vowelEntries.maxOfOrNull { it.value }
+                ?: 0) + (consonantEntries.maxOfOrNull { it.value } ?: 0)
+        }
+
+
+fun Char.isVowel() = this in "aeiou"
 
 
