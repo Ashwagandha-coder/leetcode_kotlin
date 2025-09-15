@@ -84,7 +84,7 @@ fun divideStringProdVariant(s: String, k: Int, fill: Char): Array<String> = when
  * Prod Variant
  */
 
-fun canBeTypedWords(text: String, brokenLetters: String): Int {
+fun canBeTypedWordsProdVariant(text: String, brokenLetters: String): Int {
     val words = text.split(" ")
     return if (brokenLetters.isEmpty()) words.size else {
         val set = brokenLetters.toSet()

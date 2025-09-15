@@ -471,4 +471,41 @@ private fun isVowel(char: Char) = when {
     else -> false
 }
 
+/**
+ * 1935. Maximum Number of Words You Can Type
+ */
+
+fun canBeTypedWords(text: String, brokenLetters: String): Int {
+    val brokenMask = createBitMask(brokenLetters)
+    var count = 0
+    var isValidWord = true
+
+    for (char in "$text ") {
+        if (char == ' ') {
+            if (isValidWord) count++
+            isValidWord = true
+        } else {
+            if (isBroken(char, brokenMask)) isValidWord = false
+        }
+    }
+
+    return count
+}
+
+fun createBitMask(text: String): Int {
+    var bitMask = 0
+
+    for (char in text) {
+        val charBit = 1 shl char.code
+        bitMask = bitMask or charBit
+    }
+
+    return bitMask
+}
+
+fun isBroken(char: Char, brokenBitMask: Int): Boolean {
+    val charBitMask = 1 shl char.code
+    return (brokenBitMask and charBitMask) != 0
+}
+
 
