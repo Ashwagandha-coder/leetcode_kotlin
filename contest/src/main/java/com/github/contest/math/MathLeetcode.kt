@@ -235,7 +235,7 @@ fun triangleType(nums: IntArray): String {
  * 2197. Replace Non-Coprime Numbers in Array
  */
 
-fun replaceNonCoprimes(nums: IntArray): List<Int> {
+fun replaceNonCoPrimes(nums: IntArray): List<Int> {
     if (nums.hasSingle()) return listOf(nums[0])
 
     val res = mutableListOf<Int>()

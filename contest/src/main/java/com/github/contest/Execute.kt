@@ -2,7 +2,7 @@ package com.github.contest
 
 
 import com.github.contest.math.numberOfPowerfulInt
-import com.github.contest.math.replaceNonCoprimes
+import com.github.contest.math.replaceNonCoPrimes
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -17,7 +17,7 @@ fun main() {
 
     val data = listOf(287, 41, 49, 287, 899, 23, 23, 20677, 5, 825).toIntArray()
 
-    replaceNonCoprimes(data).also { println(it) }
+    replaceNonCoPrimes(data).also { println(it) }
 }
 
 
