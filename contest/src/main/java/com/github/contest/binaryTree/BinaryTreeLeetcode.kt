@@ -135,3 +135,24 @@ fun isCousins(root: TreeNode?, x: Int, y: Int): Boolean {
 
     return false
 }
+
+/**
+ * 2331. Evaluate Boolean Binary Tree
+ */
+
+fun evaluateTree(root: TreeNode?): Boolean {
+    if (root?.left == null && root?.right == null) {
+        return when (root?.`val`) {
+            1 -> true
+            else -> false
+        }
+    }
+
+    val left = evaluateTree(root?.left)
+    val right = evaluateTree(root?.right)
+
+    return when (root.`val`) {
+        2 -> left || right
+        else -> left && right
+    }
+}
