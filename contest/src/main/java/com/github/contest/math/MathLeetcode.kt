@@ -276,3 +276,18 @@ fun lcm(first: Int, second: Int): Int {
     val product = (first.toLong() / gcd(first, second)) * second
     return abs(product).toInt()
 }
+
+/**
+ * 3516. Find Closest Person
+ */
+
+fun findClosest(x: Int, y: Int, z: Int): Int {
+    val diff1 = abs(x - z)
+    val diff2 = abs(y - z)
+
+    return when {
+        diff1 < diff2 -> 1
+        diff1 > diff2 -> 2
+        else -> 0
+    }
+}
