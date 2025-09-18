@@ -2,7 +2,6 @@ package com.github.contest
 
 
 import com.github.contest.math.numberOfPowerfulInt
-import com.github.contest.math.replaceNonCoPrimes
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -15,9 +14,19 @@ import java.util.TreeMap
 
 fun main() {
 
-    val data = listOf(287, 41, 49, 287, 899, 23, 23, 20677, 5, 825).toIntArray()
+    Example("Param")
+}
 
-    replaceNonCoPrimes(data).also { println(it) }
+class Example(val param: String) { // Primary constructor parameter
+    init {
+        println("init block: $param") // Can access param!
+    }
+
+    val property = "Property: $param".also { println(it) } // Property initializer
+
+    constructor(secondary: Int) : this("Secondary:$secondary") { // Secondary constructor
+        println("Secondary constructor")
+    }
 }
 
 
