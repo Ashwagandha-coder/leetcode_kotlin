@@ -156,3 +156,91 @@ fun evaluateTree(root: TreeNode?): Boolean {
         else -> left && right
     }
 }
+
+/**
+ * 2641. Cousins in Binary Tree II
+ */
+
+fun replaceValueInTree(root: TreeNode?): TreeNode? {
+    root ?: return null
+
+    val queue = LinkedList<TreeNode>().apply { offer(root) }
+    val (nodeToParent, sumLevels, parentToChildrenSum) = bfsRelative(root)
+    var level = 0
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        val levelSum = sumLevels[level]
+
+        for (i in 0 until size) {
+            val node = queue.poll()
+
+            if (level == 0) {
+                node.`val` = 0
+            } else {
+                val parent = nodeToParent[node]!!
+                val siblingsSum = parentToChildrenSum[parent]!!
+                node.`val` = levelSum - siblingsSum
+            }
+
+            node?.left?.let {
+                queue.offer(it)
+            }
+
+            node?.right?.let {
+                queue.offer(it)
+            }
+        }
+
+        level++
+    }
+
+    return root
+}
+
+private fun bfsRelative(root: TreeNode): TreeNodeRelative {
+
+    val queue = LinkedList<TreeNode>().apply { offer(root) }
+    val nodeToParent = mutableMapOf<TreeNode, TreeNode?>().apply { this[root] = null }
+    val parentToChildrenSum = mutableMapOf<TreeNode, Int>()
+    val sumLevels = mutableListOf<Int>()
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+        var levelSum = 0
+
+        for (i in 0 until size) {
+            val node = queue.poll()
+            var childsSum = 0
+            levelSum += node.`val`
+
+            node?.left?.let {
+                nodeToParent[it] = node
+                childsSum += it.`val`
+                queue.offer(it)
+            }
+
+            node?.right?.let {
+                nodeToParent[it] = node
+                childsSum += it.`val`
+                queue.offer(it)
+            }
+
+            parentToChildrenSum[node] = childsSum
+        }
+
+        sumLevels.add(levelSum)
+    }
+
+    return TreeNodeRelative(
+        nodeToParent = nodeToParent,
+        sumLevels = sumLevels,
+        parentToChildrenSum = parentToChildrenSum
+    )
+}
+
+private data class TreeNodeRelative(
+    val nodeToParent: Map<TreeNode, TreeNode?>,
+    val sumLevels: List<Int>,
+    val parentToChildrenSum: Map<TreeNode, Int>
+)

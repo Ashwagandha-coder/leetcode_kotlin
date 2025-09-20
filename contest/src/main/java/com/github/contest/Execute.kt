@@ -1,6 +1,8 @@
 package com.github.contest
 
 
+import com.github.contest.binaryTree.TreeNode
+import com.github.contest.binaryTree.replaceValueInTree
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -14,7 +16,15 @@ import java.util.TreeMap
 
 fun main() {
 
-    Example("Param")
+    // 5,4,9,1,10,null,7
+    val root = TreeNode(5)
+    root?.left = TreeNode(4)
+    root?.right = TreeNode(9)
+    root.left?.left = TreeNode(1)
+    root?.left?.right = TreeNode(10)
+    root?.right?.right = TreeNode(7)
+
+    replaceValueInTree(root).also { println(it) }
 }
 
 class Example(val param: String) { // Primary constructor parameter
