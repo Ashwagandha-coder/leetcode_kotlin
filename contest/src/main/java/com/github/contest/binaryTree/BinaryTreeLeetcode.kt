@@ -244,3 +244,19 @@ private data class TreeNodeRelative(
     val sumLevels: List<Int>,
     val parentToChildrenSum: Map<TreeNode, Int>
 )
+
+/**
+ * 617. Merge Two Binary Trees
+ */
+
+fun mergeTrees(root1: TreeNode?, root2: TreeNode?): TreeNode? {
+    if (root1 == null && root2 == null) return null
+    root1 ?: return root2
+    root2 ?: return root1
+
+    val newRoot = TreeNode(root1.`val` + root2.`val`)
+    newRoot.left = mergeTrees(root1?.left, root2?.left)
+    newRoot?.right = mergeTrees(root1?.right, root2?.right)
+
+    return newRoot
+}
