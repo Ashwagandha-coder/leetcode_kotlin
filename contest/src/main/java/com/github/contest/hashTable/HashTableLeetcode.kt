@@ -662,3 +662,26 @@ fun isVowel(char: Char) = when {
     char in "aeiou" -> true
     else -> false
 }
+
+/**
+ *  3005. Count Elements With Maximum Frequency
+ */
+
+fun maxFrequencyElements(nums: IntArray): Int {
+    if (nums.hasSingle()) return 1
+
+    val freq = nums.toList().groupingBy { it }.eachCount()
+    var max = 0
+    var res = 0
+
+    for ((_, value) in freq) max = maxOf(max, value)
+
+    for ((_, value) in freq) {
+        if (value == max) res += value
+    }
+
+    return res
+
+}
+
+

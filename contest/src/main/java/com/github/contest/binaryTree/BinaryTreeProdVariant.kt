@@ -62,3 +62,19 @@ fun isCousinsProdVariant(root: TreeNode?, x: Int, y: Int): Boolean {
 
     return false
 }
+
+/**
+ * 617. Merge Two Binary Trees
+ */
+
+fun mergeTreesProdVariant(root1: TreeNode?, root2: TreeNode?): TreeNode? = when {
+    root1 == null && root2 == null -> null
+    root1 == null -> root2
+    root2 == null -> root1
+    else -> {
+        val newRoot = TreeNode(root1.`val` + root2.`val`)
+        newRoot.left = mergeTreesProdVariant(root1?.left, root2.left)
+        newRoot.right = mergeTreesProdVariant(root1?.right, root2?.right)
+        newRoot
+    }
+}
