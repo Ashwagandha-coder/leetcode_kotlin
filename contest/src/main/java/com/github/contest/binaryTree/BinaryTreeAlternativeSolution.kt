@@ -29,3 +29,25 @@ class FindElementsAlternativeSolution(root: TreeNode?) {
         return values.contains(target)
     }
 }
+
+/**
+ * 572. Subtree of Another Tree
+ * Alternative Solution
+ * Serialization
+ */
+
+fun isSubtreeSerialization(root: TreeNode?, subRoot: TreeNode?): Boolean {
+
+    val stringRoot = serialize(root)
+    val stringSubRoot = serialize(subRoot)
+
+    return stringRoot.contains(stringSubRoot)
+}
+
+
+fun serialize(root: TreeNode?): String {
+    if (root == null) return "null"
+
+    // Use preorder traversal with markers
+    return "#${root.`val`} ${serialize(root.left)} ${serialize(root.right)}"
+}
