@@ -260,3 +260,48 @@ fun mergeTrees(root1: TreeNode?, root2: TreeNode?): TreeNode? {
 
     return newRoot
 }
+
+/**
+ * 572. Subtree of Another Tree
+ */
+
+fun isSubtree(root: TreeNode?, subRoot: TreeNode?): Boolean {
+
+    val queue = LinkedList<TreeNode>().apply {
+        offer(root)
+    }
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+
+        for (i in 0 until size) {
+            val node = queue.poll()
+            val nodeVal = node?.`val` ?: 0
+            val subRootVal = subRoot?.`val` ?: 0
+
+            if (nodeVal == subRootVal) {
+                if (isSameTree(node, subRoot)) return true
+            }
+
+            node?.left?.let {
+                queue.offer(it)
+            }
+
+            node?.right?.let {
+                queue.offer(it)
+            }
+        }
+    }
+
+    return false
+
+}
+
+private fun isSameTree(root: TreeNode?, subRoot: TreeNode?): Boolean {
+    if (root == null && subRoot == null) return true
+    if (root?.`val` != subRoot?.`val`) return false
+    root ?: return false
+    subRoot ?: return false
+
+    return isSameTree(root?.left, subRoot?.left) && isSameTree(root?.right, subRoot?.right)
+}
