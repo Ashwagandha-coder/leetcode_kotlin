@@ -305,3 +305,51 @@ private fun isSameTree(root: TreeNode?, subRoot: TreeNode?): Boolean {
 
     return isSameTree(root?.left, subRoot?.left) && isSameTree(root?.right, subRoot?.right)
 }
+
+
+/**
+ * 655. Print Binary Tree
+ */
+
+fun printTree(root: TreeNode?): List<List<String>> {
+    root ?: return listOf()
+
+    val rows = height(root)
+    val col = (1 shl rows) - 1
+    val res = MutableList(rows) { _ ->
+        MutableList(col) { "" }
+    }
+    val rootPos = (col - 1) / 2
+    val queue = LinkedList<Triple<TreeNode, Int, Int>>().apply {
+        val triple = Triple(root, 0, rootPos)
+        offer(triple)
+    }
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+
+        for (i in 0 until size) {
+            val (node, level, col) = queue.poll()
+            val offset = 1 shl (rows - level - 2)
+
+            res[level][col] = node.`val`.toString()
+
+            node.left?.let {
+                val triple = Triple(it, level + 1, col - offset)
+                queue.offer(triple)
+            }
+
+            node.right?.let {
+                val triple = Triple(it, level + 1, col + offset)
+                queue.offer(triple)
+            }
+        }
+    }
+
+    return res
+}
+
+private fun height(root: TreeNode?): Int = when {
+    root == null -> 0
+    else -> 1 + maxOf(height(root.left), height(root.right))
+}
