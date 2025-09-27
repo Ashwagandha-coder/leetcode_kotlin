@@ -7,10 +7,6 @@ import kotlin.math.abs
  * 1261. Find Elements in a Contaminated Binary Tree
  */
 
-class TreeNode(var `val`: Int) {
-    var left: TreeNode? = null
-    var right: TreeNode? = null
-}
 
 class FindElements(private val root: TreeNode?) {
 
@@ -317,7 +313,7 @@ fun printTree(root: TreeNode?): List<List<String>> {
     val rows = height(root)
     val col = (1 shl rows) - 1
     val res = MutableList(rows) { _ ->
-        MutableList(col) { "" }
+        MutableList(col) { " " }
     }
     val rootPos = (col - 1) / 2
     val queue = LinkedList<Triple<TreeNode, Int, Int>>().apply {
@@ -353,3 +349,59 @@ private fun height(root: TreeNode?): Int = when {
     root == null -> 0
     else -> 1 + maxOf(height(root.left), height(root.right))
 }
+
+/**
+ * 652. Find Duplicate Subtrees
+ */
+
+fun findDuplicateSubtrees(root: TreeNode?): List<TreeNode?> {
+    root ?: return listOf()
+
+    if (root.left == null && root.right == null) return listOf()
+
+    val paths = mutableMapOf<String, Pair<TreeNode, Int>>()
+    val res = mutableListOf<TreeNode?>()
+    val queue = LinkedList<TreeNode>().apply {
+        offer(root)
+    }
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+
+        for (i in 0 until size) {
+            val node = queue.poll()
+            val path = serializeDuplicateSubTree(node)
+            if (paths.contains(path)) {
+                val stub = TreeNode(0) to 0
+                paths[path] = paths.getOrDefault(path, stub).let {
+                    it.copy(second = it.second + 1)
+                }
+            } else {
+                paths[path] = Pair(node, 1)
+            }
+
+            node.left?.let {
+                queue.offer(it)
+            }
+
+            node.right?.let {
+                queue.offer(it)
+            }
+        }
+    }
+
+    for ((_, value) in paths) {
+        if (value.second > 1) {
+            res.add(value.first)
+        }
+    }
+
+    return res
+
+}
+
+private fun serializeDuplicateSubTree(root: TreeNode?): String = when {
+    root == null -> "null"
+    else -> "#${root.`val`} , ${serialize(root?.left)} , ${serialize(root?.right)}"
+}
+

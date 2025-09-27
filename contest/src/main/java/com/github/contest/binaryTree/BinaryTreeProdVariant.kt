@@ -78,3 +78,43 @@ fun mergeTreesProdVariant(root1: TreeNode?, root2: TreeNode?): TreeNode? = when 
         newRoot
     }
 }
+
+/**
+ * 652. Find Duplicate Subtrees
+ * Prod Variant
+ * Using DFS
+ */
+
+fun findDuplicateSubtreesProdVariant(root: TreeNode?): List<TreeNode?> {
+    val hashToTreeNode = mutableMapOf<String, TreeNode>()
+    return buildList {
+        fun dfs(root: TreeNode?): String {
+            if (root == null) return "#"
+
+            val hash = buildString {
+                append(root.`val`)
+                append(",")
+                append("${dfs(root.left)}")
+                append(",")
+                append("${dfs(root.right)}")
+            }
+
+            add(hash to root)
+            hashToTreeNode[hash] = root
+
+            return hash
+        }
+        dfs(root)
+    }.groupingBy { it.first }
+        .eachCount()
+        .toList()
+        .filter { it.second > 1 }
+        .let { freq ->
+            buildList {
+                freq.forEach {
+                    add(hashToTreeNode[it.first])
+                }
+            }
+        }
+
+}
