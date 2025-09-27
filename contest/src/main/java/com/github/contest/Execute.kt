@@ -1,7 +1,7 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.findDuplicateSubtrees
+import com.github.contest.binaryTree.findDuplicateSubtreesProdVariant
 import com.github.contest.binaryTree.printTree
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.math.numberOfPowerfulInt
@@ -17,9 +17,9 @@ import java.util.TreeMap
 
 fun main() {
     val tree = listOf(1, 2, 3, 4, null, 2, 4, null, null, 4).toTreeNode()
-    tree.printTree()
+    //tree.printTree()
 
-    findDuplicateSubtrees(tree).apply {
+    findDuplicateSubtreesProdVariant(tree).apply {
         this.forEach {
             it.printTree()
         }
