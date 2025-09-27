@@ -1,8 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.TreeNode
-import com.github.contest.binaryTree.replaceValueInTree
+import com.github.contest.binaryTree.findDuplicateSubtrees
+import com.github.contest.binaryTree.printTree
+import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -15,17 +16,17 @@ import java.util.TreeMap
  */
 
 fun main() {
+    val tree = listOf(1, 2, 3, 4, null, 2, 4, null, null, 4).toTreeNode()
+    tree.printTree()
 
-    // 5,4,9,1,10,null,7
-    val root = TreeNode(5)
-    root?.left = TreeNode(4)
-    root?.right = TreeNode(9)
-    root.left?.left = TreeNode(1)
-    root?.left?.right = TreeNode(10)
-    root?.right?.right = TreeNode(7)
+    findDuplicateSubtrees(tree).apply {
+        this.forEach {
+            it.printTree()
+        }
+    }
 
-    replaceValueInTree(root).also { println(it) }
 }
+
 
 class Example(val param: String) { // Primary constructor parameter
     init {
