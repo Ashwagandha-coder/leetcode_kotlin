@@ -402,6 +402,44 @@ fun findDuplicateSubtrees(root: TreeNode?): List<TreeNode?> {
 
 private fun serializeDuplicateSubTree(root: TreeNode?): String = when {
     root == null -> "null"
-    else -> "#${root.`val`} , ${serialize(root?.left)} , ${serialize(root?.right)}"
+    else -> "#${root.`val`} , ${serializeDuplicateSubTree(root?.left)} , ${
+        serializeDuplicateSubTree(
+            root?.right
+        )
+    }"
+}
+
+/**
+ * 606. Construct String from Binary Tree
+ */
+
+fun tree2str(root: TreeNode?): String {
+    root ?: return "()"
+
+    val leftCall = tree2str(root.left)
+    val rightCall = tree2str(root.right)
+    val pattern = "()"
+
+    return buildString {
+        when {
+            leftCall == pattern && rightCall == pattern -> append(root.`val`)
+            rightCall == pattern -> {
+                append(root.`val`)
+                append("(")
+                append(leftCall)
+                append(")")
+            }
+
+            else -> {
+                append(root.`val`)
+                append("(")
+                append(if (leftCall == pattern) "" else leftCall)
+                append(")")
+                append("(")
+                append(rightCall)
+                append(")")
+            }
+        }
+    }
 }
 
