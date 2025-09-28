@@ -1,9 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.findDuplicateSubtreesProdVariant
-import com.github.contest.binaryTree.printTree
+import com.github.contest.array.isTriangle
 import com.github.contest.binaryTree.toTreeNode
+import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -16,15 +16,20 @@ import java.util.TreeMap
  */
 
 fun main() {
-    val tree = listOf(1, 2, 3, 4, null, 2, 4, null, null, 4).toTreeNode()
-    //tree.printTree()
+    //largestPerimeter(intArrayOf(3, 2, 3, 10, 2, 1, 4, 4)).also { println(it) }
 
-    findDuplicateSubtreesProdVariant(tree).apply {
-        this.forEach {
-            it.printTree()
-        }
+    isTriangle(3, 4, 4).also { println(it) }
+}
+
+fun treeLaunch() {
+    val tree1 = listOf(1, 2, 3, 4).toTreeNode()
+    val tree2 = listOf(1).toTreeNode()
+    val tree3 = listOf(1, 2, 3, null, 4).toTreeNode()
+    //tree1.printTree()
+
+    tree2str(tree3).also {
+        println(it)
     }
-
 }
 
 

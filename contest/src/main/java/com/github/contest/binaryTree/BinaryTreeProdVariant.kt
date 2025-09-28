@@ -118,3 +118,26 @@ fun findDuplicateSubtreesProdVariant(root: TreeNode?): List<TreeNode?> {
         }
 
 }
+
+/**
+ * 606. Construct String from Binary Tree
+ * Prod Variant
+ */
+
+fun tree2strProdVariant(root: TreeNode?): String = when {
+    root == null -> "()"
+    else -> buildString {
+        append(root.`val`)
+        root.left?.let {
+            append("(")
+            append(tree2strProdVariant(it))
+            append(")")
+        }
+        root.right?.let {
+            if (root.left == null) append("()")
+            append("(")
+            append(tree2strProdVariant(it))
+            append(")")
+        }
+    }
+}
