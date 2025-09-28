@@ -443,3 +443,18 @@ fun tree2str(root: TreeNode?): String {
     }
 }
 
+
+/**
+ * 669. Trim a Binary Search Tree
+ */
+
+fun trimBST(root: TreeNode?, low: Int, high: Int): TreeNode? = when {
+    root == null -> null
+    root.`val` < low -> trimBST(root.right, low, high)
+    root.`val` > high -> trimBST(root.left, low, high)
+    else -> root.also {
+        it.left = trimBST(it.left, low, high)
+        it.right = trimBST(it.right, low, high)
+    }
+}
+
