@@ -27,3 +27,34 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray? {
 
     return res
 }
+
+/**
+ * 692. Top K Frequent Words
+ */
+
+private val comparator: Comparator<FrequentWords> = Comparator { a, b ->
+    if (a.freq != b.freq) b.freq - a.freq
+    else a.word.compareTo(b.word)
+}
+
+fun topKFrequent(words: Array<String>, k: Int): List<String> {
+    val freq = words.groupingBy { it }.eachCount()
+    val pq = PriorityQueue(comparator)
+    val res = mutableListOf<String>()
+    var k = k
+
+    for ((word, count) in freq) {
+        val obj = FrequentWords(word, count)
+        pq.offer(obj)
+    }
+
+    while (pq.isNotEmpty() && k != 0) {
+        val (word, _) = pq.poll()
+        res.add(word)
+        k--
+    }
+
+    return res
+}
+
+private data class FrequentWords(val word: String, val freq: Int)
