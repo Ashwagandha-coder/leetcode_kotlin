@@ -29,3 +29,65 @@ class FindElementsAlternativeSolution(root: TreeNode?) {
         return values.contains(target)
     }
 }
+
+/**
+ * 572. Subtree of Another Tree
+ * Alternative Solution
+ * Serialization
+ */
+
+fun isSubtreeSerialization(root: TreeNode?, subRoot: TreeNode?): Boolean {
+
+    val stringRoot = serialize(root)
+    val stringSubRoot = serialize(subRoot)
+
+    return stringRoot.contains(stringSubRoot)
+}
+
+
+fun serialize(root: TreeNode?): String {
+    if (root == null) return "null"
+
+    return "#${root.`val`} ${serialize(root.left)} ${serialize(root.right)}"
+}
+
+/**
+ * 652. Find Duplicate Subtrees
+ * Alternative Solution
+ * Using Serialize + Traverse
+ */
+
+fun findDuplicateSubtreesOtherSolution(root: TreeNode?): List<TreeNode?> {
+    val result = mutableListOf<TreeNode?>()
+    val subtreeMap = mutableMapOf<String, Int>() // serialization -> count
+    serialize(root, subtreeMap, result)
+    return result
+}
+
+private fun serialize(
+    node: TreeNode?,
+    subtreeMap: MutableMap<String, Int>,
+    result: MutableList<TreeNode?>
+): String {
+    if (node == null) return "#"
+
+    // Postorder serialization: left + right + root
+    val serial = buildString {
+        append(serialize(node.left, subtreeMap, result))
+        append(",")
+        append(serialize(node.right, subtreeMap, result))
+        append(",")
+        append(node.`val`)
+    }
+
+
+    val count = subtreeMap.getOrDefault(serial, 0)
+    subtreeMap[serial] = count + 1
+
+
+    if (count == 1) {
+        result.add(node)
+    }
+
+    return serial
+}

@@ -231,3 +231,63 @@ fun triangleType(nums: IntArray): String {
     }
 }
 
+/**
+ * 2197. Replace Non-Coprime Numbers in Array
+ */
+
+fun replaceNonCoPrimes(nums: IntArray): List<Int> {
+    if (nums.hasSingle()) return listOf(nums[0])
+
+    val res = mutableListOf<Int>()
+
+    for (num in nums) {
+        var currentNum = num
+        while (res.isNotEmpty() && isNonCoprime(res.last(), currentNum)) {
+            val last = res.removeLast()
+            currentNum = lcm(last, currentNum)
+        }
+        res.add(currentNum)
+    }
+
+    return res
+}
+
+fun isNonCoprime(first: Int, second: Int) = gcd(first, second) > 1
+
+fun IntArray.hasSingle() = when {
+    this.size == 1 -> true
+    else -> false
+}
+
+fun gcd(first: Int, second: Int): Int {
+    if (first == 1 || second == 1) return 1
+    if (first == second) return first
+
+    val maxValue = maxOf(first, second)
+    val minValue = minOf(first, second)
+
+    if (maxValue % minValue == 0) return minValue
+
+    return gcd(minValue, maxValue % minValue)
+}
+
+fun lcm(first: Int, second: Int): Int {
+    if (first == second) return first
+    val product = (first.toLong() / gcd(first, second)) * second
+    return abs(product).toInt()
+}
+
+/**
+ * 3516. Find Closest Person
+ */
+
+fun findClosest(x: Int, y: Int, z: Int): Int {
+    val diff1 = abs(x - z)
+    val diff2 = abs(y - z)
+
+    return when {
+        diff1 < diff2 -> 1
+        diff1 > diff2 -> 2
+        else -> 0
+    }
+}

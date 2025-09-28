@@ -1,6 +1,7 @@
 package com.github.contest.design
 
 import java.util.LinkedList
+import java.util.PriorityQueue
 
 /**
  * 1352. Product of the Last K Numbers
@@ -401,6 +402,73 @@ class FindSumPairs(private val nums1: IntArray, private val nums2: IntArray) {
         }
 
         return c
+    }
+
+}
+
+/**
+ * 2353. Design a Food Rating System
+ */
+
+class FoodRatings(foods: Array<String>, cuisines: Array<String>, ratings: IntArray) {
+
+    private val foodData = mutableMapOf<String, FoodData>()
+    private val cuisinesFoods = mutableMapOf<String, PriorityQueue<CuisineFoodInfo>>()
+    private val versionFood = mutableMapOf<String, Int>()
+
+    init {
+        for (i in 0 until foods.size) {
+            val dataFood = FoodData(cuisines[i], ratings[i])
+            val info = CuisineFoodInfo(foods[i], ratings[i], 1)
+
+            versionFood[foods[i]] = 1
+            foodData[foods[i]] = dataFood
+            cuisinesFoods.getOrPut(cuisines[i]) {
+                PriorityQueue(comparatorFood).apply {
+                    add(info)
+                }
+            }.add(info)
+        }
+    }
+
+
+    fun changeRating(food: String, rating: Int) {
+        val dataFood = foodData[food]
+        val oldVersion = versionFood[food]!!
+        versionFood[food] = versionFood.getOrDefault(food, 0) + 1
+        val cuisineFoodInfo = CuisineFoodInfo(food, rating, oldVersion + 1)
+        cuisinesFoods[dataFood?.cuisine]?.add(cuisineFoodInfo)
+    }
+
+
+    fun highestRated(cuisine: String): String {
+        val queue = cuisinesFoods[cuisine]!!
+
+        while (queue.isNotEmpty()) {
+            val top = queue.peek()
+
+            if (top.version != versionFood[top.food]) {
+                queue.poll()
+                continue
+            }
+
+            if (top.version == versionFood[top.food]) {
+                return top.food
+            }
+        }
+
+        return ""
+
+    }
+
+    private data class FoodData(val cuisine: String, val rating: Int)
+    private data class CuisineFoodInfo(val food: String, val rating: Int, val version: Int)
+
+    companion object {
+        private val comparatorFood = Comparator<CuisineFoodInfo> { a, b ->
+            if (a.rating != b.rating) b.rating - a.rating
+            else a.food.compareTo(b.food)
+        }
     }
 
 }

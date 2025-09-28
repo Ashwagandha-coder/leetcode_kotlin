@@ -1,12 +1,13 @@
 package com.github.contest
 
 
-import com.github.contest.bitManipulation.hammingWeight
+import com.github.contest.array.isTriangle
+import com.github.contest.binaryTree.toTreeNode
+import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
-
 import java.util.TreeMap
 
 
@@ -15,9 +16,33 @@ import java.util.TreeMap
  */
 
 fun main() {
+    //largestPerimeter(intArrayOf(3, 2, 3, 10, 2, 1, 4, 4)).also { println(it) }
 
-    val str: String? = "ghdirfghdi"
+    isTriangle(3, 4, 4).also { println(it) }
+}
 
+fun treeLaunch() {
+    val tree1 = listOf(1, 2, 3, 4).toTreeNode()
+    val tree2 = listOf(1).toTreeNode()
+    val tree3 = listOf(1, 2, 3, null, 4).toTreeNode()
+    //tree1.printTree()
+
+    tree2str(tree3).also {
+        println(it)
+    }
+}
+
+
+class Example(val param: String) { // Primary constructor parameter
+    init {
+        println("init block: $param") // Can access param!
+    }
+
+    val property = "Property: $param".also { println(it) } // Property initializer
+
+    constructor(secondary: Int) : this("Secondary:$secondary") { // Secondary constructor
+        println("Secondary constructor")
+    }
 }
 
 
@@ -151,7 +176,7 @@ fun workWithTreeMap() {
 
 
 fun IntArray.printArray() {
-    var s = when (this.size) {
+    val s = when (this.size) {
         0 -> "[]"
         1 -> "[${this[0]}]"
         2 -> "[${this[0]}, ${this[1]}]"
