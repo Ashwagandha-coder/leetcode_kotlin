@@ -16,3 +16,20 @@ fun topKFrequentProdVariant(nums: IntArray, k: Int): IntArray {
 
     return repeated.flatMap { it }.takeLast(k).toIntArray()
 }
+
+/**
+ * 692. Top K Frequent Words
+ * Prod Variant
+ */
+
+private val comparatorProdVariant = Comparator<FreqTopKProd> { a, b ->
+    if (a.freq != b.freq) b.freq - a.freq
+    else a.word.compareTo(b.word)
+}
+
+fun topKFrequentProdVariant(words: Array<String>, k: Int): List<String> =
+    words.groupingBy { it }.eachCount().toList().map { FreqTopKProd(it.first, it.second) }
+        .sortedWith(comparatorProdVariant).take(k).map { it.word }
+
+
+private data class FreqTopKProd(val word: String, val freq: Int)
