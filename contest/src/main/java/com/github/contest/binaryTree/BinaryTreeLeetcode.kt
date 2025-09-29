@@ -458,3 +458,32 @@ fun trimBST(root: TreeNode?, low: Int, high: Int): TreeNode? = when {
     }
 }
 
+/**
+ * 1123. Lowest Common Ancestor of Deepest Leaves
+ */
+
+fun lcaDeepestLeaves(root: TreeNode?): TreeNode? {
+
+    fun depth(root: TreeNode?): Int = when {
+        root == null -> 0
+        else -> 1 + maxOf(depth(root.left), depth(root.right))
+    }
+
+    fun dfs(root: TreeNode?, curr: Int, depth: Int): TreeNode? {
+        if (root == null) return null
+        if (curr == depth) return root
+
+        val left = dfs(root.left, curr + 1, depth)
+        val right = dfs(root.right, curr + 1, depth)
+
+        return when {
+            left != null && right != null -> root
+            left != null -> left
+            else -> right
+        }
+    }
+
+
+    return dfs(root, 1, depth(root))
+}
+
