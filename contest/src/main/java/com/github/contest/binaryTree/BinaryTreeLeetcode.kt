@@ -487,3 +487,31 @@ fun lcaDeepestLeaves(root: TreeNode?): TreeNode? {
     return dfs(root, 1, depth(root))
 }
 
+/**
+ * 865. Smallest Subtree with all the Deepest Nodes
+ */
+
+fun subtreeWithAllDeepest(root: TreeNode?): TreeNode? {
+    val maxDepth = maxDepth(root)
+    return dfs(root, 1, maxDepth)
+}
+
+private fun dfs(root: TreeNode?, currentDepth: Int, maxDepth: Int): TreeNode? {
+    if (root == null) return null
+    if (currentDepth == maxDepth) return root
+
+    val left = dfs(root.left, currentDepth + 1, maxDepth)
+    val right = dfs(root.right, currentDepth + 1, maxDepth)
+
+    return when {
+        left != null && right != null -> root
+        left != null -> left
+        else -> right
+    }
+}
+
+fun maxDepth(root: TreeNode?): Int = when {
+    root == null -> 0
+    else -> 1 + maxOf(maxDepth(root.left), maxDepth(root.right))
+}
+
