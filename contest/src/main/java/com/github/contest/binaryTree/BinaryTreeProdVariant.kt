@@ -141,3 +141,40 @@ fun tree2strProdVariant(root: TreeNode?): String = when {
         }
     }
 }
+
+/**
+ * 655. Print Binary Tree
+ * Prod Variant
+ */
+
+fun printTreeProdVariant(root: TreeNode?): List<List<String>> = root?.run {
+    val height = calculateHeight()
+    buildMatrix(height) { matrix ->
+        populateMatrix(matrix, 0 to matrix[0].lastIndex)
+    }
+} ?: emptyList()
+
+
+private fun TreeNode.calculateHeight(): Int =
+    (left?.calculateHeight() ?: 0).coerceAtLeast(right?.calculateHeight() ?: 0) + 1
+
+private inline fun buildMatrix(
+    height: Int,
+    block: (List<MutableList<String>>) -> Unit
+): List<MutableList<String>> = List(height) { MutableList((1 shl height) - 1) { "" } }.also {
+    block(it)
+}
+
+private fun TreeNode.populateMatrix(
+    matrix: List<MutableList<String>>,
+    range: Pair<Int, Int>,
+    level: Int = 0
+) {
+    val (left, right) = range
+    val mid = (left + right) / 2
+
+    matrix[level][mid] = `val`.toString()
+
+    populateMatrix(matrix, left to (mid - 1), level + 1)
+    populateMatrix(matrix, (mid + 1) to right, level + 1)
+}
