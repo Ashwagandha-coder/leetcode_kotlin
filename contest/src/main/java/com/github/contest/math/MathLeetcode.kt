@@ -291,3 +291,28 @@ fun findClosest(x: Int, y: Int, z: Int): Int {
         else -> 0
     }
 }
+
+/**
+ * 1518. Water Bottles
+ */
+
+fun numWaterBottles(numBottles: Int, numExchange: Int): Int {
+    var exchanger = numBottles
+    var reminder = 0
+    var res = numBottles
+
+    while (exchanger != 0) {
+        if (exchanger < numExchange) break
+        if (exchanger % numExchange == 0) {
+            exchanger /= numExchange
+            res += exchanger
+            exchanger += reminder
+            reminder = 0
+        } else {
+            exchanger--
+            reminder++
+        }
+    }
+
+    return res
+}
