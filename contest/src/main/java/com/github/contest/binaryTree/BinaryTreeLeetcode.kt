@@ -515,3 +515,44 @@ fun maxDepth(root: TreeNode?): Int = when {
     else -> 1 + maxOf(maxDepth(root.left), maxDepth(root.right))
 }
 
+/**
+ * 1302. Deepest Leaves Sum
+ */
+
+fun deepestLeavesSum(root: TreeNode?): Int {
+    root ?: return 0
+
+    if (root.left == null && root.right == null) return root.`val`
+
+    val depth = maxDepth(root)
+    var level = 1
+    var sum = 0
+    val queue = LinkedList<TreeNode>().apply {
+        offer(root)
+    }
+
+    while (queue.isNotEmpty()) {
+        val size = queue.size
+
+        for (i in 0 until size) {
+            val node = queue.poll()
+
+            if (level == depth) {
+                sum += node.`val`
+            }
+
+            node.left?.let {
+                queue.offer(it)
+            }
+
+            node.right?.let {
+                queue.offer(it)
+            }
+        }
+
+        level++
+    }
+
+    return sum
+}
+
