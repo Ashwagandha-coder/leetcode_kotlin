@@ -316,3 +316,32 @@ fun numWaterBottles(numBottles: Int, numExchange: Int): Int {
 
     return res
 }
+
+/**
+ * 3100. Water Bottles II
+ */
+
+fun maxBottlesDrunk(numBottles: Int, numExchange: Int): Int {
+    if (numBottles == numExchange) return numBottles + 1
+    if (numBottles < numExchange) return numBottles
+
+    var full = 0
+    var empty = numBottles
+    var exchange = numExchange
+    var drunk = numBottles
+
+    while (empty >= exchange || (empty + full) >= exchange) {
+        if (empty >= exchange) {
+            empty -= exchange
+            exchange++
+            full++
+        } else {
+            drunk += full
+            empty += full
+            full = 0
+        }
+    }
+
+    return if (full != 0) drunk + full else drunk
+
+}
