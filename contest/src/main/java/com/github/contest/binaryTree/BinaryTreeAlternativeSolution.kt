@@ -91,3 +91,23 @@ private fun serialize(
 
     return serial
 }
+
+/**
+ * 1302. Deepest Leaves Sum
+ * Alternative Solution
+ */
+
+fun deepestLeavesSumAlternativeSolution(root: TreeNode?): Int {
+    val depth = maxDepth(root)
+    return dfsDeepestLeaves(root, 1, depth)
+}
+
+fun dfsDeepestLeaves(root: TreeNode?, level: Int, depth: Int): Int = when {
+    root == null -> 0
+    level == depth -> root.`val`
+    else -> dfsDeepestLeaves(root.left, level + 1, depth) + dfsDeepestLeaves(
+        root.right,
+        level + 1,
+        depth
+    )
+}
