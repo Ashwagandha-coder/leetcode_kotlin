@@ -21,3 +21,19 @@ fun minOperationsProdVariant(grid: Array<IntArray>, x: Int): Int {
         diff / x
     }
 }
+
+/**
+ * 1518. Water Bottles
+ * Prod Variant
+ * Recursion Approach
+ */
+
+fun numWaterBottles(numBottles: Int, numExchange: Int, reminder: Int = 0): Int = when {
+    numBottles < numExchange -> numBottles
+    numBottles % numExchange == 0 -> numBottles + numWaterBottles(
+        (numBottles / numExchange) + reminder,
+        numExchange
+    )
+
+    else -> numWaterBottles(numBottles - 1, numExchange, reminder + 1)
+}
