@@ -1,10 +1,10 @@
 package com.github.contest
 
 
-import com.github.contest.array.isTriangle
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.priorityqueue.repeatLimitedStringAltSolution
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -16,9 +16,10 @@ import java.util.TreeMap
  */
 
 fun main() {
-    //largestPerimeter(intArrayOf(3, 2, 3, 10, 2, 1, 4, 4)).also { println(it) }
 
-    isTriangle(3, 4, 4).also { println(it) }
+    val str = "aababab"
+    val repeatLimit = 2
+    repeatLimitedStringAltSolution(str, repeatLimit).also { println(it) }
 }
 
 fun treeLaunch() {
