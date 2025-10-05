@@ -58,3 +58,57 @@ fun topKFrequent(words: Array<String>, k: Int): List<String> {
 }
 
 private data class FrequentWords(val word: String, val freq: Int)
+
+/**
+ * 2182. Construct String With Repeat Limit
+ */
+
+fun repeatLimitedString(s: String, repeatLimit: Int): String {
+    val freq = s.eachLetter()
+    val pq = PriorityQueue<Char> { a, b -> b.compareTo(a) }.apply {
+        populateLetter(freq)
+    }
+    val res = StringBuilder()
+
+    while (pq.isNotEmpty()) {
+        val curr = pq.poll()
+        val index = curr - 'a'
+        val count = minOf(freq[index], repeatLimit)
+
+        repeat(count) {
+            res.append(curr)
+        }
+
+        freq[index] -= count
+
+        if (freq[index] > 0) {
+            if (pq.isEmpty()) break
+            val next = pq.poll()
+            res.append(next)
+            val nextIndex = next - 'a'
+            freq[nextIndex]--
+
+            if (freq[nextIndex] > 0) pq.offer(next)
+            pq.offer(curr)
+        }
+    }
+
+    return res.toString()
+}
+
+private fun String.eachLetter(): IntArray {
+    if (isEmpty()) return intArrayOf()
+
+    val freq = IntArray(26)
+    for (char in this) {
+        freq[char - 'a']++
+    }
+
+    return freq
+}
+
+private fun PriorityQueue<Char>.populateLetter(lettersFreq: IntArray) {
+    for (i in 0 until lettersFreq.size) {
+        if (lettersFreq[i] > 0) this.offer(Char(i + 'a'.code))
+    }
+}
