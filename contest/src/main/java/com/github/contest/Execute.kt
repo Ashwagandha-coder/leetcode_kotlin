@@ -1,10 +1,10 @@
 package com.github.contest
 
 
+import com.github.contest.binaryTree.averageOfSubtree
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
-import com.github.contest.priorityqueue.repeatLimitedStringAltSolution
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -17,9 +17,9 @@ import java.util.TreeMap
 
 fun main() {
 
-    val str = "aababab"
-    val repeatLimit = 2
-    repeatLimitedStringAltSolution(str, repeatLimit).also { println(it) }
+    val root = listOf(4, 8, 5, 0, 1, null, 6).toTreeNode()
+
+    averageOfSubtree(root).also { println(it) }
 }
 
 fun treeLaunch() {

@@ -556,3 +556,34 @@ fun deepestLeavesSum(root: TreeNode?): Int {
     return sum
 }
 
+/**
+ * 2265. Count Nodes Equal to Average of Subtree
+ */
+
+
+fun averageOfSubtree(root: TreeNode?): Int {
+    var ans = 0
+
+    fun dfs(root: TreeNode?, equalNodeModel: EqualNodeModel): EqualNodeModel {
+        root ?: return defaultValue()
+
+        val currentValue = root.`val`
+        val left = dfs(root.left, equalNodeModel)
+        val right = dfs(root.right, equalNodeModel)
+        val sum = currentValue + left.sum + right.sum
+        val count = 1 + left.count + right.count
+        if ((sum / count) == currentValue) ans++
+        val new = EqualNodeModel(sum, count)
+
+        return new
+    }
+
+    dfs(root, defaultValue())
+
+    return ans
+}
+
+
+private fun defaultValue() = EqualNodeModel(0, 0)
+
+private data class EqualNodeModel(val sum: Int, val count: Int)
