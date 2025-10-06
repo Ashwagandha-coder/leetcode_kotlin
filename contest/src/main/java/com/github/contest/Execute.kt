@@ -1,9 +1,9 @@
 package com.github.contest
 
 
-import com.github.contest.binaryTree.averageOfSubtree
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.binaryTree.tree2str
+import com.github.contest.math.convertToTitle
 import com.github.contest.math.numberOfPowerfulInt
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
@@ -17,14 +17,12 @@ import java.util.TreeMap
 
 fun main() {
 
-    val root = listOf(4, 8, 5, 0, 1, null, 6).toTreeNode()
-
-    averageOfSubtree(root).also { println(it) }
+    convertToTitle(26).also { println(it) }
 }
 
 fun treeLaunch() {
-    val tree1 = listOf(1, 2, 3, 4).toTreeNode()
-    val tree2 = listOf(1).toTreeNode()
+    listOf(1, 2, 3, 4).toTreeNode()
+    listOf(1).toTreeNode()
     val tree3 = listOf(1, 2, 3, null, 4).toTreeNode()
     //tree1.printTree()
 
@@ -55,7 +53,7 @@ infix fun Int.myRange(to: Int): IntRange {
 fun launchPerformance() {
 
     val text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit".repeat(10)
-    val new = "banana".repeat(5000)
+    "banana".repeat(5000)
     val patterns = listOf(
         "Lorem", "ipsum", "dolor", "sit", "amet",
         "consectetur", "adipiscing", "elit", "xyz", "abc"
@@ -156,7 +154,7 @@ fun generateSequence() {
 
 fun doing() {
     val collection = mutableListOf(listOf(5), listOf(2), listOf(4))
-    val other = mutableListOf(3, 5, 10)
+    mutableListOf(3, 5, 10)
     val res = collection.flatMap {
         it.asReversed()
     }

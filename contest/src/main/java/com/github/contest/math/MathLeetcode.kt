@@ -345,3 +345,33 @@ fun maxBottlesDrunk(numBottles: Int, numExchange: Int): Int {
     return if (full != 0) drunk + full else drunk
 
 }
+
+/**
+ * 168. Excel Sheet Column Title
+ */
+
+fun convertToTitle(columnNumber: Int): String = buildString {
+    var n = columnNumber
+
+    while (n > 0) {
+        n--
+        val reminder = n and 26 + 1
+        append(Char('A'.code + reminder))
+        n /= 26
+    }
+}.toCharArray().reverse()
+
+fun CharArray.reverse(): String {
+    var i = 0
+    var j = this.size - 1
+
+    while (i < j) {
+        val temp = this[i]
+        this[i] = this[j]
+        this[j] = temp
+        i++
+        j--
+    }
+
+    return String(this)
+}
