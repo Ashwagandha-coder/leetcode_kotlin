@@ -478,4 +478,35 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> = when (matrix.size) {
     }
 }
 
+/**
+ *
+ */
+
+fun largestPerimeter(nums: IntArray): Int {
+    var perimeter = 0
+
+    for (i in 0 until nums.size) {
+        for (j in i + 1 until nums.size) {
+            for (k in j + 1 until nums.size) {
+                if (isTriangle(nums[i], nums[j], nums[k])) {
+                    val new = nums[i] + nums[j] + nums[k]
+                    perimeter = maxOf(perimeter, new)
+                }
+            }
+        }
+    }
+
+    return perimeter
+}
+
+
+fun isTriangle(a: Int, b: Int, c: Int): Boolean = when {
+    setOf(a, b, c).size > 2 -> false
+    else -> when (a) {
+        b -> c < a
+        c -> b < a
+        else -> a < b
+    }
+}
+
 
