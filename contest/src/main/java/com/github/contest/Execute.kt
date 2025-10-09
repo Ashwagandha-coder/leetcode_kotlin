@@ -4,6 +4,7 @@ package com.github.contest
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
+import com.github.contest.math.titleToNumber
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -16,6 +17,15 @@ import java.util.TreeMap
 
 fun main() {
 
+    // why "ZAC" should be 17605
+    // 26 * 26 * 26 + 3 isn't
+
+    titleToNumber("ZAC").also { println(it) } // wrong answer
+
+}
+
+
+fun testLongestDecrease() {
     val case1 = TestData(emptyList(), 2, 2) // -> null
     val case2 = TestData(listOf(10, 20, 30), 4, 3) // -> null
     val case3 = TestData(listOf(10, 9, 8, 7, 6, 5), 2, 1) // -> (0,5)
@@ -27,8 +37,6 @@ fun main() {
             println(it)
         }
     }
-
-
 }
 
 private data class TestData(val degrees: List<Int>, val k: Int, val delta: Int)

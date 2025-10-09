@@ -375,3 +375,23 @@ fun CharArray.reverse(): String {
 
     return String(this)
 }
+
+/**
+ * 171. Excel Sheet Column Number
+ */
+
+fun titleToNumber(columnTitle: String): Int {
+    var sum = 0
+    var base = 0
+
+    for (i in columnTitle.length - 1 downTo 0) {
+        var value = (columnTitle[i] - 'A' + 1)
+        repeat(base) {
+            value *= 26
+        }
+        sum += value
+        base++
+    }
+
+    return sum
+}
