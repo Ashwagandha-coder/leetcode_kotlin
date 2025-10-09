@@ -4,7 +4,7 @@ package com.github.contest
 import com.github.contest.binaryTree.toTreeNode
 import com.github.contest.binaryTree.tree2str
 import com.github.contest.math.numberOfPowerfulInt
-import com.github.contest.math.titleToNumber
+import com.github.contest.math.titleToNumberAltSol
 import com.github.contest.slidingWindow.customStructure.rabinKarpMultiPattern
 import com.github.contest.slidingWindow.customStructure.slidingWindowClassic
 import com.github.contest.strings.fullJustify
@@ -20,7 +20,7 @@ fun main() {
     // why "ZAC" should be 17605
     // 26 * 26 * 26 + 3 isn't
 
-    titleToNumber("ZAC").also { println(it) } // wrong answer
+    titleToNumberAltSol("ZAC").also { println(it) } // wrong answer
 
 }
 
