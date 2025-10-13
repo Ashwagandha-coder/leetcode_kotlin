@@ -1,7 +1,5 @@
 package com.github.contest.hashTable
 
-import com.github.contest.removeIfEmptyBucket
-
 /**
  * 2540. Minimum Common Value
  */
@@ -683,5 +681,45 @@ fun maxFrequencyElements(nums: IntArray): Int {
     return res
 
 }
+
+/**
+ * 2273. Find Resultant Array After Removing Anagrams
+ */
+
+fun removeAnagrams(words: Array<String>): List<String> {
+    if (words.hasSingle()) return listOf(words[0])
+
+    val res = mutableListOf<String>().apply {
+        add(words[0])
+    }
+
+    for (i in 1 until words.size) {
+        val last = res.last()
+        if (isNotAnagram(last, words[i])) res.add(words[i])
+    }
+
+    return res
+}
+
+fun isNotAnagram(word1: String, word2: String): Boolean {
+    if (word1.length != word2.length) return true
+    if (word1 === word2) return false
+
+    val freq = IntArray(26)
+
+    for (char in word1) freq[char - 'a']++
+    for (char in word2) {
+        freq[char - 'a']--
+    }
+
+    for (i in 0 until 26) {
+        if (freq[i] != 0) return true
+    }
+
+    return false
+
+}
+
+fun <T> Array<T>.hasSingle() = size == 1
 
 
