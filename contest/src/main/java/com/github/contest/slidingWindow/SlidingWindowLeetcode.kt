@@ -793,6 +793,39 @@ private fun atMostKProduct(nums: IntArray, k: Int): Int {
     return count
 }
 
+/**
+ * 3349. Adjacent Increasing Subarrays Detection I
+ */
+
+private fun essenceRange(nums: List<Int>, k: Int) = 0..nums.size - k * 2
+
+fun hasIncreasingSubarrays(nums: List<Int>, k: Int): Boolean {
+
+    for (i in essenceRange(nums, k)) {
+        var firstSubArray = true
+        var secondSubArray = true
+
+        for (j in i + 1 until i + k) {
+            if (nums[j - 1] >= nums[j]) {
+                firstSubArray = false
+                break
+            }
+        }
+
+        for (j in i + k + 1 until i + k * 2) {
+            if (nums[j - 1] >= nums[j]) {
+                secondSubArray = false
+                break
+            }
+        }
+
+        if (firstSubArray && secondSubArray) return true
+    }
+
+    return false
+
+}
+
 
 
 
