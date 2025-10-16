@@ -1,6 +1,7 @@
 package com.github.contest.heap
 
-import com.github.contest.abs
+
+import com.github.contest.math.abs
 import java.util.PriorityQueue
 import kotlin.math.floor
 import kotlin.math.sqrt
