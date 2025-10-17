@@ -622,6 +622,25 @@ fun jump(nums: IntArray): Int {
     return jumps
 }
 
+/**
+ * 279. Perfect Squares
+ */
+
+fun numSquares(n: Int): Int {
+    val dp = IntArray(n + 1) { Int.MAX_VALUE }.apply {
+        this[0] = 0
+    }
+
+    for (num in 1..n) {
+        var square = 1
+        while (square * square <= num) {
+            dp[num] = minOf(dp[num], dp[num - square * square] + 1)
+            square++
+        }
+    }
+
+    return dp[n]
+}
 
 
 
