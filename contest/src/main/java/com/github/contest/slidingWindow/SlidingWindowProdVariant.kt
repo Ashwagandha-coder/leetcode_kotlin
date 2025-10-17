@@ -156,3 +156,25 @@ fun maxSatisfiedProdVariantII(customers: IntArray, grumpy: IntArray, minutes: In
     }.max()
 
 
+/**
+ * 3349. Adjacent Increasing Subarrays Detection I
+ * Prod Variant
+ * Kotlin Sugar
+ */
+
+fun hasIncreasingSubarraysProdVariant(nums: List<Int>, k: Int): Boolean =
+    nums
+        .windowed(k)
+        .map { it.areStrictlyIncreasing }
+        .hasAdjacentPair(k)
+
+private val List<Int>.areStrictlyIncreasing: Boolean
+    get() = zipWithNext().all { (prev, next) -> prev < next }
+
+private fun List<Boolean>.hasAdjacentPair(k: Int) = indices.any { i ->
+    getOrNull(i) == true && getOrNull(i + k) == true
+}
+
+
+
+

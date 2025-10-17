@@ -1,6 +1,6 @@
 package com.github.contest.dp
 
-import com.github.contest.abs
+import com.github.contest.math.abs
 
 
 /**

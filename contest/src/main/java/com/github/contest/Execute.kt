@@ -1,5 +1,7 @@
 package com.github.contest
 
+import com.github.contest.math.numSquaresAlternativeSolution
+
 
 /**
  * Stand
@@ -7,9 +9,9 @@ package com.github.contest
 
 fun main() {
 
-    testLongestDecrease()
-
+    numSquaresAlternativeSolution(12).also { println(it) }
 }
+
 
 
 

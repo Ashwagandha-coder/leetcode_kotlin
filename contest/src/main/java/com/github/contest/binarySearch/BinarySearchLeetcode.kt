@@ -38,32 +38,48 @@ fun minCapability(nums: IntArray, k: Int): Int {
     return ans
 }
 
+
 /**
- *
+ * 3350. Adjacent Increasing Subarrays Detection II
  */
 
-fun twoSum(numbers: IntArray, target: Int): IntArray {
-    var boundIndex = numbers.size - 1
-    var nullIndex = 0
-    for (i in numbers.indices) {
-        if (numbers[i] > target) {
-            boundIndex = i - 1
-        }
-        if (numbers[i] == 0) nullIndex = i
+fun maxIncreasingSubarrays(nums: List<Int>): Int {
+
+    var left = 1
+    var right = nums.size / 2
+    var ans = 1
+
+    while (left <= right) {
+        val k = (left + right) shr 1
+
+        if (canFindAdjacentSubArray(nums, k)) {
+            ans = k
+            left = k + 1
+        } else right = k - 1
     }
 
-    for (i in boundIndex downTo 0) {
-        var left = 0
-        var right = i
-        val tar = target - numbers[i]
-        if (tar == 0) return intArrayOf(i + 1, nullIndex + 1)
-        while (left <= right) {
-            var mid = (left + right) / 2
-            if (numbers[mid] == tar) return intArrayOf(mid + 1, i + 1)
-            if (numbers[mid] < tar) mid = left + 1
-            else right = mid - 1
+    return ans
+}
+
+private fun canFindAdjacentSubArray(nums: List<Int>, k: Int): Boolean {
+    val n = nums.size
+    val incLen = IntArray(n).apply {
+        this[0] = 1
+    }
+
+    for (i in 1 until n) {
+        incLen[i] = when {
+            nums[i - 1] < nums[i] -> incLen[i - 1] + 1
+            else -> 1
         }
     }
 
-    return intArrayOf()
+    for (i in 0 until n - (k * 2) + 1) {
+        val endIndexFirst = i + k - 1
+        val endIndexSecond = i + (k * 2) - 1
+
+        if (incLen[endIndexFirst] >= k && incLen[endIndexSecond] >= k) return true
+    }
+
+    return false
 }

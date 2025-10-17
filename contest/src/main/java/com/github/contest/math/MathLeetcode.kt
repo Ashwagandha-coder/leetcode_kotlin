@@ -395,3 +395,33 @@ fun titleToNumber(columnTitle: String): Int {
 
     return sum
 }
+
+/**
+ * 43. Multiply Strings
+ */
+
+
+fun multiply(num1: String, num2: String): String {
+    if (num1 == "0" || num2 == "0") return "0"
+
+    val n = num1.length
+    val m = num2.length
+    val res = IntArray(n + m)
+
+    for (i in n - 1 downTo 0) {
+        for (j in m - 1 downTo 0) {
+            val product = (num1[i] - '0') * (num2[j] - '0')
+            val sum = product + res[i + j + 1]
+
+            res[i + j + 1] = sum % 10
+            res[i + j] += sum / 10
+        }
+    }
+
+    return buildString {
+        for (digit in res) {
+            if (isNotEmpty() || digit != 0) append(digit)
+        }
+    }
+}
+
