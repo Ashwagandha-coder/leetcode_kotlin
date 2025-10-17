@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.dp.numSquares
+import com.github.contest.math.numSquaresAlternativeSolution
 
 
 /**
@@ -9,7 +9,7 @@ import com.github.contest.dp.numSquares
 
 fun main() {
 
-    numSquares(12).also { println(it) }
+    numSquaresAlternativeSolution(12).also { println(it) }
 }
 
 
