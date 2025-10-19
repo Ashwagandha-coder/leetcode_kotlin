@@ -37,3 +37,18 @@ fun numWaterBottles(numBottles: Int, numExchange: Int, reminder: Int = 0): Int =
 
     else -> numWaterBottles(numBottles - 1, numExchange, reminder + 1)
 }
+
+/**
+ * 62. Unique Paths
+ * Prod Variant
+ */
+
+fun uniquePaths(m: Int, n: Int): Int = List(m) {
+    MutableList(n) { _ -> 1 }
+}.apply {
+    (1 until m).forEach { row ->
+        (1 until n).forEach { col ->
+            this[row][col] = this[row - 1][col] + this[row][col - 1]
+        }
+    }
+}.last().last()
