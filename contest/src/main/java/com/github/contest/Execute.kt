@@ -1,6 +1,6 @@
 package com.github.contest
 
-import com.github.contest.math.numSquaresAlternativeSolution
+import com.github.contest.fromInterview.isOneEditDistance
 
 
 /**
@@ -9,8 +9,12 @@ import com.github.contest.math.numSquaresAlternativeSolution
 
 fun main() {
 
-    numSquaresAlternativeSolution(12).also { println(it) }
+    isOneEditDistance("cat", "dog").also {
+        println(it)
+    }
 }
+
+
 
 
 

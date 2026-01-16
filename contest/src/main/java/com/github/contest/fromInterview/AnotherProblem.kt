@@ -1,4 +1,4 @@
-package com.github.contest
+package com.github.contest.fromInterview
 
 fun testLongestDecrease() {
     val case1 = TestData(emptyList(), 2, 2) // -> null
