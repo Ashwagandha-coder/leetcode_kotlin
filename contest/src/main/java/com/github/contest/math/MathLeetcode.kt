@@ -484,5 +484,29 @@ fun convertToBase7(num: Int): String = when {
     else -> convertToBase7(num / 7) + convertToBase7(num % 7)
 }
 
+/**
+ * 3783. Mirror Distance of an Integer
+ */
+
+fun mirrorDistance(n: Int): Int = absMirrorDistance(n - reverse(n))
+
+private fun reverse(number: Int): Int {
+    var num = number.toLong()
+    var res = 0L
+
+    while (num != 0L) {
+        res += num % 10
+        res *= 10
+        num /= 10
+    }
+
+    return (res / 10).toInt()
+}
+
+private fun absMirrorDistance(number: Int) = when {
+    number < 0 -> number * -1
+    else -> number
+}
+
 
 
