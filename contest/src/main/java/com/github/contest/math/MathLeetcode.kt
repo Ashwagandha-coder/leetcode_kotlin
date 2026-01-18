@@ -474,4 +474,15 @@ fun isSelfDividing(number: Int): Boolean {
     return true
 }
 
+/**
+ * 504. Base 7
+ */
+
+fun convertToBase7(num: Int): String = when {
+    num < 0 -> "-" + convertToBase7(abs(num))
+    num < 7 -> num.toString()
+    else -> convertToBase7(num / 7) + convertToBase7(num % 7)
+}
+
+
 
