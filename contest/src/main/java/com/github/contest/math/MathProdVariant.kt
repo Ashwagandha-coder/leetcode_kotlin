@@ -64,3 +64,7 @@ fun selfDividingNumbersProdVariant(left: Int, right: Int): List<Int> = buildList
         if (isSelfDividing(it)) add(it)
     }
 }
+
+fun selfDividingNumbersProdVariantII(left: Int, right: Int): List<Int> = (left..right).filter {
+    isSelfDividing(it)
+}
