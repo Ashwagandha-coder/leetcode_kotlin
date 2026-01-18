@@ -448,8 +448,19 @@ fun checkPerfectNumber(num: Int): Boolean {
 }
 
 /**
- *
+ * 728. Self Dividing Numbers
  */
+
+
+fun selfDividingNumbers(left: Int, right: Int): List<Int> {
+    val res = mutableListOf<Int>()
+
+    for (num in left..right) {
+        if (isSelfDividing(num)) res.add(num)
+    }
+
+    return res
+}
 
 fun isSelfDividing(number: Int): Boolean {
     var num = number
