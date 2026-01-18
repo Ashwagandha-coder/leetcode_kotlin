@@ -425,3 +425,25 @@ fun multiply(num1: String, num2: String): String {
     }
 }
 
+/**
+ * 507. Perfect Number
+ */
+
+fun checkPerfectNumber(num: Int): Boolean {
+    if (num == 1) return false
+
+    var sum = 1
+    var i = 2
+
+    while (i * i <= num) {
+        if (num % i == 0) {
+            sum += i
+
+            if (i != num / i) sum += (num / i)
+        }
+        i++
+    }
+
+    return sum == num
+}
+
