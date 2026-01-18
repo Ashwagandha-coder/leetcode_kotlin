@@ -59,3 +59,22 @@ private fun generateSquares(n: Int): List<Int> = buildList {
         square++
     }
 }
+
+/**
+ * 507. Perfect Number
+ * Recursive Solution
+ */
+
+fun checkPerfectNumber(num: Int, sum: Int = 1, index: Int = 2): Boolean = when {
+    num == 1 -> false
+    index * index <= num -> {
+        var newSum = sum
+        if (num % index == 0) {
+            newSum += index
+            if (index != (num / index)) newSum += (num / index)
+        }
+        checkPerfectNumber(num, newSum, index + 1)
+    }
+
+    else -> sum == num
+}
