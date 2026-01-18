@@ -447,3 +447,19 @@ fun checkPerfectNumber(num: Int): Boolean {
     return sum == num
 }
 
+/**
+ *
+ */
+
+fun isSelfDividing(number: Int): Boolean {
+    var num = number
+
+    while (num != 0) {
+        val possible = num % 10
+        if (possible == 0 || number % possible != 0) return false
+        num /= 10
+    }
+
+    return true
+}
+

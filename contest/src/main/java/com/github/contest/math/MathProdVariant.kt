@@ -52,3 +52,15 @@ fun uniquePaths(m: Int, n: Int): Int = List(m) {
         }
     }
 }.last().last()
+
+
+/**
+ * 728. Self Dividing Numbers
+ * Prod Variant
+ */
+
+fun selfDividingNumbersProdVariant(left: Int, right: Int): List<Int> = buildList {
+    (left..right).forEach {
+        if (isSelfDividing(it)) add(it)
+    }
+}
