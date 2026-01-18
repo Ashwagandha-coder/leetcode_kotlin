@@ -474,3 +474,23 @@ fun isSelfDividing(number: Int): Boolean {
     return true
 }
 
+/**
+ * 2283. Check if Number Has Equal Digit Count and Digit Value
+ */
+
+fun digitCount(num: String): Boolean {
+    val freq = IntArray(10)
+
+    for (char in num) {
+        val index = char - '0'
+        freq[index]++
+    }
+
+    for (i in 0 until num.length) {
+        val number = num[i] - '0'
+        if (freq[i] != number) return false
+    }
+
+    return true
+}
+
