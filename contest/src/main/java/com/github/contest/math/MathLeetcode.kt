@@ -525,5 +525,16 @@ fun getSum(a: Int, b: Int): Int {
     return x
 }
 
+/**
+ * 89. Gray Code
+ */
+
+fun grayCode(n: Int): List<Int> = buildList {
+    val size = 1 shl n
+    for (num in 0 until size) {
+        add(num xor (num shr 1))
+    }
+}
+
 
 
