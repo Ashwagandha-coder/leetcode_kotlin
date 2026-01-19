@@ -508,5 +508,22 @@ private fun absMirrorDistance(number: Int) = when {
     else -> number
 }
 
+/**
+ * 371. Sum of Two Integers
+ */
+
+fun getSum(a: Int, b: Int): Int {
+    var x = a
+    var y = b
+
+    while (y != 0) {
+        val carry = x and y
+        x = x xor y
+        y = carry shl 1
+    }
+
+    return x
+}
+
 
 
