@@ -536,5 +536,23 @@ fun grayCode(n: Int): List<Int> = buildList {
     }
 }
 
+/**
+ * 717. 1-bit and 2-bit Characters
+ */
+
+fun isOneBitCharacter(bits: IntArray): Boolean {
+    var i = 0
+
+    while (i < bits.size) {
+        if (i == bits.size - 1) return true
+        when {
+            bits[i] == 1 -> i += 2
+            else -> i++
+        }
+    }
+
+    return false
+}
+
 
 
