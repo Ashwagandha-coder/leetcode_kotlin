@@ -554,5 +554,27 @@ fun isOneBitCharacter(bits: IntArray): Boolean {
     return false
 }
 
+/**
+ * 908. Smallest Range I
+ */
+
+fun smallestRangeI(nums: IntArray, k: Int): Int {
+    if (nums.size == 1) return 0
+
+    var max = Int.MIN_VALUE
+    var min = Int.MAX_VALUE
+
+    for (num in nums) {
+        max = maxOf(max, num)
+        min = minOf(min, num)
+    }
+
+    min += k
+    max -= k
+    if (max < min) max = min
+
+    return max - min
+}
+
 
 
