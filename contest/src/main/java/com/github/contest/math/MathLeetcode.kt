@@ -576,5 +576,47 @@ fun smallestRangeI(nums: IntArray, k: Int): Int {
     return max - min
 }
 
+/**
+ * 762. Prime Number of Set Bits in Binary Representation
+ */
+
+
+fun countPrimeSetBits(left: Int, right: Int): Int {
+    var count = 0
+
+    for (num in left..right) {
+        val countOfBits = countOfBits(num)
+        if (isPrime(countOfBits)) count++
+    }
+
+    return count
+}
+
+
+private fun isPrime(number: Int): Boolean {
+    if (number < 2) return false
+
+    for (num in 2 until number) {
+        if (number % num == 0) return false
+    }
+
+    return true
+}
+
+private fun countOfBits(number: Int): Int {
+    var count = 0
+    var num = number
+
+    while (num != 0) {
+        if (num and 1 == 1) count++
+        num = num shr 1
+    }
+
+    return count
+}
+
+
+
+
 
 
