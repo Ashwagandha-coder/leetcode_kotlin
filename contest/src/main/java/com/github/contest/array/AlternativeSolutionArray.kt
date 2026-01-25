@@ -230,4 +230,27 @@ fun maximumDifferenceAlternativeSolution(nums: IntArray): Int {
     return diff
 }
 
+/**
+ * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ * Optimize Solution
+ * Time - O(n)
+ * Space - O(1)
+ */
+
+fun minimumPrefixLengthOptimizeSolution(nums: IntArray): Int {
+    if (nums.size == 1) return 0
+
+    var minLen = nums.size - 1
+    var i = nums.size - 1
+
+    while (i >= 1) {
+        if (nums[i] > nums[i - 1]) minLen--
+        else break
+        i--
+    }
+
+    return minLen
+
+}
+
 

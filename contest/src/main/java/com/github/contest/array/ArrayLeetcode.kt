@@ -481,6 +481,7 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> = when (matrix.size) {
 
 /**
  * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ * Brute Force Solution
  */
 
 
