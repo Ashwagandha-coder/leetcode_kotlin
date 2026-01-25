@@ -207,3 +207,31 @@ fun minimumPrefixLengthProdVariant(nums: IntArray): Int = when {
         .zipWithNext()
         .takeWhile { (a, b) -> a > b }.size - 1
 }
+
+/**
+ * 3819. Rotate Non Negative Elements
+ * Prod Variant
+ */
+
+
+fun rotateElementsProdVariant(nums: IntArray, k: Int): IntArray = buildList {
+    val positives = nums.filter { it >= 0 }
+    if (positives.size <= 1) return nums.copyOf()
+
+    val effectiveK = k % positives.size
+    val rotatedPositives = positives.drop(effectiveK) + positives.take(effectiveK)
+    var posIndex = 0
+
+    (0 until nums.size).iterate { i ->
+        when {
+            nums[i] >= 0 -> add(rotatedPositives[posIndex++])
+            else -> add(nums[i])
+        }
+    }
+}.toIntArray()
+
+fun IntRange.iterate(lambda: (Int) -> Unit) {
+    this.forEach {
+        lambda(it)
+    }
+}
