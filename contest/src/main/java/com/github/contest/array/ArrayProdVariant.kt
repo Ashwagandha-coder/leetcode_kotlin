@@ -194,3 +194,16 @@ fun maximumDifferenceProdVariant(nums: IntArray): Int {
         }
     }
 }
+
+/**
+ * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ * Prod Variant
+ */
+
+fun minimumPrefixLengthProdVariant(nums: IntArray): Int = when {
+    nums.size == 1 -> 0
+    else -> nums.size - nums.toList()
+        .reversed()
+        .zipWithNext()
+        .takeWhile { (a, b) -> a > b }.size - 1
+}
