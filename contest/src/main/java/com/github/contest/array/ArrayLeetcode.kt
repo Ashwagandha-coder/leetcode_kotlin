@@ -512,6 +512,50 @@ private fun IntArray.isNonStrictlyIncreasing(startIndex: Int): Boolean {
 
 
 /**
+ * 3819. Rotate Non Negative Elements
+ * Brute Force + optimized k reminder calculation
+ */
+
+fun rotateElements(nums: IntArray, k: Int): IntArray {
+    // nothing to do
+    if (k == 0 || nums.size == 1) return nums
+
+    val positiveNumbers = mutableListOf<Int>()
+    val stub = Int.MAX_VALUE
+    var j = 0
+    var reminder = 0
+
+
+    for (i in 0 until nums.size) {
+        if (nums[i] >= 0) {
+            positiveNumbers.add(nums[i])
+            nums[i] = stub
+        }
+    }
+
+    reminder = k % positiveNumbers.size
+
+
+    while (reminder != 0 && positiveNumbers.isNotEmpty()) {
+        val num = positiveNumbers.first()
+        positiveNumbers.removeAt(0)
+        positiveNumbers.add(num)
+        reminder--
+    }
+
+
+    for (i in 0 until nums.size) {
+        if (nums[i] == stub) {
+            nums[i] = positiveNumbers[j]
+            j++
+        }
+    }
+
+    return nums
+}
+
+
+/**
  *
  */
 
