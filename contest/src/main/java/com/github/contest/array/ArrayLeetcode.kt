@@ -478,6 +478,38 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> = when (matrix.size) {
     }
 }
 
+
+/**
+ * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ */
+
+
+fun minimumPrefixLength(nums: IntArray): Int {
+    if (nums.size == 1) return 0
+
+    var minLen = 0
+    var startIndex = 0
+
+    while (nums.isNonStrictlyIncreasing(startIndex)) {
+        minLen++
+        startIndex++
+    }
+
+    return minLen
+}
+
+private fun IntArray.isNonStrictlyIncreasing(startIndex: Int): Boolean {
+    if (startIndex >= this.size) return false
+    if (startIndex == this.size - 1) return false
+
+    for (i in startIndex until this.size - 1) {
+        if (this[i] >= this[i + 1]) return true
+    }
+
+    return false
+}
+
+
 /**
  *
  */
