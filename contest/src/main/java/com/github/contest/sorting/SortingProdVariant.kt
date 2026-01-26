@@ -29,6 +29,5 @@ fun minimumAbsDifferenceProdVariant(arr: IntArray): List<List<Int>> {
     return (0 until arr.size - 1)
         .filter { arr[it + 1] - arr[it] == minDiff }
         .map { listOf(arr[it], arr[it + 1]) }
-        .toList()
 }
 
