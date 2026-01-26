@@ -14,3 +14,17 @@ fun IntArray.printArray() {
     }
     println(s)
 }
+
+fun IntArray.maxAndMin(): Pair<Int, Int> {
+    if (this.isEmpty()) return Pair(0, 0)
+
+    var max = Int.MIN_VALUE
+    var min = Int.MAX_VALUE
+
+    for (elem in this) {
+        max = maxOf(max, elem)
+        min = minOf(min, elem)
+    }
+
+    return Pair(max, min)
+}

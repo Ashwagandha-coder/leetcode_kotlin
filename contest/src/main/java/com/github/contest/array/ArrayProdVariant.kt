@@ -222,10 +222,10 @@ fun rotateElementsProdVariant(nums: IntArray, k: Int): IntArray = buildList {
     val rotatedPositives = positives.drop(effectiveK) + positives.take(effectiveK)
     var posIndex = 0
 
-    (0 until nums.size).iterate { i ->
+    (0 until nums.size).iterate { index ->
         when {
-            nums[i] >= 0 -> add(rotatedPositives[posIndex++])
-            else -> add(nums[i])
+            nums[index] >= 0 -> add(rotatedPositives[posIndex++])
+            else -> add(nums[index])
         }
     }
 }.toIntArray()
@@ -233,5 +233,21 @@ fun rotateElementsProdVariant(nums: IntArray, k: Int): IntArray = buildList {
 fun IntRange.iterate(lambda: (Int) -> Unit) {
     this.forEach {
         lambda(it)
+    }
+}
+
+/**
+ * 1984. Minimum Difference Between Highest and Lowest of K Scores
+ * Prod Variant
+ */
+
+fun minimumDifference(nums: IntArray, k: Int): Int = when (k) {
+    0 -> 0
+    nums.size -> nums.maxAndMin().let {
+        it.first - it.second
+    }
+
+    else -> nums.toList().sorted().windowed(k).minOf { list ->
+        list.max() - list.min()
     }
 }
