@@ -241,7 +241,7 @@ fun IntRange.iterate(lambda: (Int) -> Unit) {
  * Prod Variant
  */
 
-fun minimumDifference(nums: IntArray, k: Int): Int = when (k) {
+fun minimumDifferenceProdVariant(nums: IntArray, k: Int): Int = when (k) {
     0 -> 0
     nums.size -> nums.maxAndMin().let {
         it.first - it.second

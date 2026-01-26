@@ -554,36 +554,26 @@ fun rotateElements(nums: IntArray, k: Int): IntArray {
     return nums
 }
 
-
 /**
- *
+ * 1984. Minimum Difference Between Highest and Lowest of K Scores
+ * Soring + Sliding Window
  */
 
-fun largestPerimeter(nums: IntArray): Int {
-    var perimeter = 0
+fun minimumDifference(nums: IntArray, k: Int): Int {
+    if (k == 1) return 0
 
-    for (i in 0 until nums.size) {
-        for (j in i + 1 until nums.size) {
-            for (k in j + 1 until nums.size) {
-                if (isTriangle(nums[i], nums[j], nums[k])) {
-                    val new = nums[i] + nums[j] + nums[k]
-                    perimeter = maxOf(perimeter, new)
-                }
-            }
+    nums.sort()
+    if (nums.size == k) return nums.last() - nums.first()
+
+    var ans = Int.MAX_VALUE
+    var left = 0
+
+    for (right in 0 until nums.size) {
+        if (right - left == k - 1) {
+            ans = minOf(ans, nums[right] - nums[left])
+            left++
         }
     }
 
-    return perimeter
+    return ans
 }
-
-
-fun isTriangle(a: Int, b: Int, c: Int): Boolean = when {
-    setOf(a, b, c).size > 2 -> false
-    else -> when (a) {
-        b -> c < a
-        c -> b < a
-        else -> a < b
-    }
-}
-
-
