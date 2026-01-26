@@ -1,5 +1,7 @@
 package com.github.contest.sorting
 
+import java.util.PriorityQueue
+import kotlin.math.abs
 import kotlin.random.Random
 
 /**
@@ -65,6 +67,38 @@ fun countDays(days: Int, meetings: Array<IntArray>): Int {
     freeDays += days - lastBusyDay
 
     return freeDays
+}
+
+/**
+ * 1200. Minimum Absolute Difference
+ * Priority Queue + Sorting
+ */
+
+fun minimumAbsDifference(arr: IntArray): List<List<Int>> {
+    if (arr.size == 2) return listOf(listOf(arr.min(), arr.max()))
+
+    arr.sort()
+    val pq = PriorityQueue { a: Pair<Int, Pair<Int, Int>>, b: Pair<Int, Pair<Int, Int>> ->
+        if (a.first != b.first) a.first - b.first
+        else a.second.first - b.second.first
+    }
+    val result = mutableListOf<List<Int>>()
+
+    for (i in 1 until arr.size) {
+        val diff = abs(arr[i] - arr[i - 1])
+        pq.offer(Pair(diff, Pair(arr[i - 1], arr[i])))
+    }
+
+    val minDiff = pq.first().first
+
+    while (pq.isNotEmpty()) {
+        val (diff, pair) = pq.poll()
+        if (diff != minDiff) break
+        result.add(listOf(pair.first, pair.second))
+    }
+
+    return result
+
 }
 
 
