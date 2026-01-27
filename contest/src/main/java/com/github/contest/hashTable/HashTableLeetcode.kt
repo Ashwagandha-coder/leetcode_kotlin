@@ -744,3 +744,32 @@ fun digitCount(num: String): Boolean {
 }
 
 
+/**
+ * 1365. How Many Numbers Are Smaller Than the Current Number
+ */
+
+fun smallerNumbersThanCurrent(nums: IntArray): IntArray {
+    val freq = mutableMapOf<Int, Int>()
+    var minVal = Int.MAX_VALUE
+    val result = IntArray(nums.size)
+
+    for (num in nums) {
+        minVal = minOf(minVal, num)
+        freq[num] = freq.getOrDefault(num, 0) + 1
+    }
+
+    for (i in 0 until nums.size) {
+        var count = 0
+        for (possibleNum in minVal until nums[i]) {
+            if (freq.contains(possibleNum)) {
+                val c = freq.getOrDefault(possibleNum, 0)
+                count += c
+            }
+        }
+        result[i] = count
+    }
+
+    return result
+}
+
+
