@@ -478,35 +478,102 @@ fun spiralOrder(matrix: Array<IntArray>): List<Int> = when (matrix.size) {
     }
 }
 
+
 /**
- *
+ * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ * Brute Force Solution
  */
 
-fun largestPerimeter(nums: IntArray): Int {
-    var perimeter = 0
+
+fun minimumPrefixLength(nums: IntArray): Int {
+    if (nums.size == 1) return 0
+
+    var minLen = 0
+    var startIndex = 0
+
+    while (nums.isNonStrictlyIncreasing(startIndex)) {
+        minLen++
+        startIndex++
+    }
+
+    return minLen
+}
+
+private fun IntArray.isNonStrictlyIncreasing(startIndex: Int): Boolean {
+    if (startIndex >= this.size) return false
+    if (startIndex == this.size - 1) return false
+
+    for (i in startIndex until this.size - 1) {
+        if (this[i] >= this[i + 1]) return true
+    }
+
+    return false
+}
+
+
+/**
+ * 3819. Rotate Non Negative Elements
+ * Brute Force + optimized k reminder calculation
+ */
+
+fun rotateElements(nums: IntArray, k: Int): IntArray {
+    // nothing to do
+    if (k == 0 || nums.size == 1) return nums
+
+    val positiveNumbers = mutableListOf<Int>()
+    val stub = Int.MAX_VALUE
+    var j = 0
+    var reminder = 0
+
 
     for (i in 0 until nums.size) {
-        for (j in i + 1 until nums.size) {
-            for (k in j + 1 until nums.size) {
-                if (isTriangle(nums[i], nums[j], nums[k])) {
-                    val new = nums[i] + nums[j] + nums[k]
-                    perimeter = maxOf(perimeter, new)
-                }
-            }
+        if (nums[i] >= 0) {
+            positiveNumbers.add(nums[i])
+            nums[i] = stub
         }
     }
 
-    return perimeter
-}
+    reminder = k % positiveNumbers.size
 
 
-fun isTriangle(a: Int, b: Int, c: Int): Boolean = when {
-    setOf(a, b, c).size > 2 -> false
-    else -> when (a) {
-        b -> c < a
-        c -> b < a
-        else -> a < b
+    while (reminder != 0 && positiveNumbers.isNotEmpty()) {
+        val num = positiveNumbers.first()
+        positiveNumbers.removeAt(0)
+        positiveNumbers.add(num)
+        reminder--
     }
+
+
+    for (i in 0 until nums.size) {
+        if (nums[i] == stub) {
+            nums[i] = positiveNumbers[j]
+            j++
+        }
+    }
+
+    return nums
 }
 
+/**
+ * 1984. Minimum Difference Between Highest and Lowest of K Scores
+ * Soring + Sliding Window
+ */
 
+fun minimumDifference(nums: IntArray, k: Int): Int {
+    if (k == 1) return 0
+
+    nums.sort()
+    if (nums.size == k) return nums.last() - nums.first()
+
+    var ans = Int.MAX_VALUE
+    var left = 0
+
+    for (right in 0 until nums.size) {
+        if (right - left == k - 1) {
+            ans = minOf(ans, nums[right] - nums[left])
+            left++
+        }
+    }
+
+    return ans
+}

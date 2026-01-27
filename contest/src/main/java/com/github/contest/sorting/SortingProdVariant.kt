@@ -18,5 +18,16 @@ fun countDaysProdVariant(days: Int, meetings: Array<IntArray>): Int =
         freeEnd + days - lastDays
     }
 
+/**
+ * 1200. Minimum Absolute Difference
+ * Prod Variant
+ */
 
+fun minimumAbsDifferenceProdVariant(arr: IntArray): List<List<Int>> {
+    arr.sort()
+    val minDiff = (0 until arr.size - 1).minOfOrNull { arr[it + 1] - arr[it] } ?: 0
+    return (0 until arr.size - 1)
+        .filter { arr[it + 1] - arr[it] == minDiff }
+        .map { listOf(arr[it], arr[it + 1]) }
+}
 

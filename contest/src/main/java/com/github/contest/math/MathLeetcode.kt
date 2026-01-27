@@ -425,3 +425,198 @@ fun multiply(num1: String, num2: String): String {
     }
 }
 
+/**
+ * 507. Perfect Number
+ */
+
+fun checkPerfectNumber(num: Int): Boolean {
+    if (num == 1) return false
+
+    var sum = 1
+    var i = 2
+
+    while (i * i <= num) {
+        if (num % i == 0) {
+            sum += i
+
+            if (i != num / i) sum += (num / i)
+        }
+        i++
+    }
+
+    return sum == num
+}
+
+/**
+ * 728. Self Dividing Numbers
+ */
+
+
+fun selfDividingNumbers(left: Int, right: Int): List<Int> {
+    val res = mutableListOf<Int>()
+
+    for (num in left..right) {
+        if (isSelfDividing(num)) res.add(num)
+    }
+
+    return res
+}
+
+fun isSelfDividing(number: Int): Boolean {
+    var num = number
+
+    while (num != 0) {
+        val possible = num % 10
+        if (possible == 0 || number % possible != 0) return false
+        num /= 10
+    }
+
+    return true
+}
+
+/**
+ * 504. Base 7
+ */
+
+fun convertToBase7(num: Int): String = when {
+    num < 0 -> "-" + convertToBase7(abs(num))
+    num < 7 -> num.toString()
+    else -> convertToBase7(num / 7) + convertToBase7(num % 7)
+}
+
+/**
+ * 3783. Mirror Distance of an Integer
+ */
+
+fun mirrorDistance(n: Int): Int = absMirrorDistance(n - reverse(n))
+
+private fun reverse(number: Int): Int {
+    var num = number.toLong()
+    var res = 0L
+
+    while (num != 0L) {
+        res += num % 10
+        res *= 10
+        num /= 10
+    }
+
+    return (res / 10).toInt()
+}
+
+private fun absMirrorDistance(number: Int) = when {
+    number < 0 -> number * -1
+    else -> number
+}
+
+/**
+ * 371. Sum of Two Integers
+ */
+
+fun getSum(a: Int, b: Int): Int {
+    var x = a
+    var y = b
+
+    while (y != 0) {
+        val carry = x and y
+        x = x xor y
+        y = carry shl 1
+    }
+
+    return x
+}
+
+/**
+ * 89. Gray Code
+ */
+
+fun grayCode(n: Int): List<Int> = buildList {
+    val size = 1 shl n
+    for (num in 0 until size) {
+        add(num xor (num shr 1))
+    }
+}
+
+/**
+ * 717. 1-bit and 2-bit Characters
+ */
+
+fun isOneBitCharacter(bits: IntArray): Boolean {
+    var i = 0
+
+    while (i < bits.size) {
+        if (i == bits.size - 1) return true
+        when {
+            bits[i] == 1 -> i += 2
+            else -> i++
+        }
+    }
+
+    return false
+}
+
+/**
+ * 908. Smallest Range I
+ */
+
+fun smallestRangeI(nums: IntArray, k: Int): Int {
+    if (nums.size == 1) return 0
+
+    var max = Int.MIN_VALUE
+    var min = Int.MAX_VALUE
+
+    for (num in nums) {
+        max = maxOf(max, num)
+        min = minOf(min, num)
+    }
+
+    min += k
+    max -= k
+    if (max < min) max = min
+
+    return max - min
+}
+
+/**
+ * 762. Prime Number of Set Bits in Binary Representation
+ */
+
+
+fun countPrimeSetBits(left: Int, right: Int): Int {
+    var count = 0
+
+    for (num in left..right) {
+        val countOfBits = countOfBits(num)
+        if (isPrime(countOfBits)) count++
+    }
+
+    return count
+}
+
+
+private fun isPrime(number: Int): Boolean {
+    if (number < 2) return false
+
+    for (num in 2 until number) {
+        if (number % num == 0) return false
+    }
+
+    return true
+}
+
+private fun countOfBits(number: Int): Int {
+    var count = 0
+    var num = number
+
+    while (num != 0) {
+        if (num and 1 == 1) count++
+        num = num shr 1
+    }
+
+    return count
+}
+
+
+
+
+
+

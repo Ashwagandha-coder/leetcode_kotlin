@@ -194,3 +194,60 @@ fun maximumDifferenceProdVariant(nums: IntArray): Int {
         }
     }
 }
+
+/**
+ * 3818. Minimum Prefix Removal to Make Array Strictly Increasing
+ * Prod Variant
+ */
+
+fun minimumPrefixLengthProdVariant(nums: IntArray): Int = when {
+    nums.size == 1 -> 0
+    else -> nums.size - nums.toList()
+        .reversed()
+        .zipWithNext()
+        .takeWhile { (a, b) -> a > b }.size - 1
+}
+
+/**
+ * 3819. Rotate Non Negative Elements
+ * Prod Variant
+ */
+
+
+fun rotateElementsProdVariant(nums: IntArray, k: Int): IntArray = buildList {
+    val positives = nums.filter { it >= 0 }
+    if (positives.size <= 1) return nums.copyOf()
+
+    val effectiveK = k % positives.size
+    val rotatedPositives = positives.drop(effectiveK) + positives.take(effectiveK)
+    var posIndex = 0
+
+    (0 until nums.size).iterate { index ->
+        when {
+            nums[index] >= 0 -> add(rotatedPositives[posIndex++])
+            else -> add(nums[index])
+        }
+    }
+}.toIntArray()
+
+fun IntRange.iterate(lambda: (Int) -> Unit) {
+    this.forEach {
+        lambda(it)
+    }
+}
+
+/**
+ * 1984. Minimum Difference Between Highest and Lowest of K Scores
+ * Prod Variant
+ */
+
+fun minimumDifferenceProdVariant(nums: IntArray, k: Int): Int = when (k) {
+    0 -> 0
+    nums.size -> nums.maxAndMin().let {
+        it.first - it.second
+    }
+
+    else -> nums.toList().sorted().windowed(k).minOf { list ->
+        list.max() - list.min()
+    }
+}

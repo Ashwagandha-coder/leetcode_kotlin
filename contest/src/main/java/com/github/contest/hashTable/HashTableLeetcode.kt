@@ -723,3 +723,53 @@ fun isNotAnagram(word1: String, word2: String): Boolean {
 fun <T> Array<T>.hasSingle() = size == 1
 
 
+/**
+ * 2283. Check if Number Has Equal Digit Count and Digit Value
+ */
+
+fun digitCount(num: String): Boolean {
+    val freq = IntArray(10)
+
+    for (char in num) {
+        val index = char - '0'
+        freq[index]++
+    }
+
+    for (i in 0 until num.length) {
+        val number = num[i] - '0'
+        if (freq[i] != number) return false
+    }
+
+    return true
+}
+
+
+/**
+ * 1365. How Many Numbers Are Smaller Than the Current Number
+ */
+
+fun smallerNumbersThanCurrent(nums: IntArray): IntArray {
+    val freq = mutableMapOf<Int, Int>()
+    var minVal = Int.MAX_VALUE
+    val result = IntArray(nums.size)
+
+    for (num in nums) {
+        minVal = minOf(minVal, num)
+        freq[num] = freq.getOrDefault(num, 0) + 1
+    }
+
+    for (i in 0 until nums.size) {
+        var count = 0
+        for (possibleNum in minVal until nums[i]) {
+            if (freq.contains(possibleNum)) {
+                val c = freq.getOrDefault(possibleNum, 0)
+                count += c
+            }
+        }
+        result[i] = count
+    }
+
+    return result
+}
+
+
