@@ -112,3 +112,48 @@ private fun PriorityQueue<Char>.populateLetter(lettersFreq: IntArray) {
         if (lettersFreq[i] > 0) this.offer(Char(i + 'a'.code))
     }
 }
+
+/**
+ * 2343. Query Kth Smallest Trimmed Number
+ * Priority Queue Approach
+ */
+
+fun smallestTrimmedNumbers(nums: Array<String>, queries: Array<IntArray>): IntArray {
+    val answer = IntArray(queries.size)
+    val pq = PriorityQueue { a: Pair<String, Int>, b: Pair<String, Int> ->
+        if (a.first != b.first) a.first.compareTo(b.first)
+        else a.second - b.second
+    }
+
+    for (j in 0 until queries.size) {
+        val trimmed = mutableListOf<String>()
+        val kth = queries[j][0]
+        val trim = queries[j][1]
+        var k = 0
+        var ans = 0
+
+        for (num in nums) {
+            val len = num.length
+            var str = ""
+            for (i in len - trim until len) {
+                str += num[i]
+            }
+            trimmed.add(str)
+        }
+
+        trimmed.forEachIndexed { index, elem ->
+            pq.offer(Pair(elem, index))
+        }
+
+        while (pq.isNotEmpty() && k != kth) {
+            ans = pq.poll().second
+            k++
+        }
+        pq.clear()
+
+        answer[j] = ans
+    }
+
+    return answer
+}
+

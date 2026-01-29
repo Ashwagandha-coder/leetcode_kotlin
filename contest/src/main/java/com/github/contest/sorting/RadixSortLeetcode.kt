@@ -2,6 +2,7 @@ package com.github.contest.sorting
 
 /**
  * 2343. Query Kth Smallest Trimmed Number
+ * Radix Sort Approach
  */
 
 fun smallestTrimmedNumbers(nums: Array<String>, queries: Array<IntArray>): IntArray {
